@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ChessBoard.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="ChessPiece.cs" />
     <Compile Include="Pieces.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Position.cs" />

@@ -3,6 +3,7 @@
     public enum Players
     {
         Black,
-        White
+        White,
+        None
     }
 }
