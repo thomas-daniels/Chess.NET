@@ -55,5 +55,10 @@ namespace ChessDotNet
         {
             return !c1.Equals(c2);
         }
+
+        public override string ToString()
+        {
+            return String.Format("ChessPiece: {0}, {1}", Piece, Player);
+        }
     }
 }
