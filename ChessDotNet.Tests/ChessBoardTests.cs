@@ -352,6 +352,129 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveBlackPawn()
+        {
+            ChessBoard cb = new ChessBoard();
+
+            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Six), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKnight()
+        {
+            ChessBoard cb = new ChessBoard();
+
+            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackBishopC()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Five), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackBishopF()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.F, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Five), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackQueenDiagonal()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Four), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        public void TestValidMoveBlackQueenVertical()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackQueenHorizontal()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+
+            Assert.True(cb.IsValidMove(m4), "m4 is considered invalid");
+            Assert.True(cb.IsValidMove(m5), "m5 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKingDiagonal()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.F, Position.Ranks.Seven), new Position(Position.Files.F, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Seven), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKingHorizontal()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.True(cb.IsValidMove(m3), "m3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKingVertical()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
         public void TestApplyMoveWhitePawn()
         {
             ChessBoard cb = new ChessBoard();
