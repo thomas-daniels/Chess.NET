@@ -84,6 +84,7 @@ namespace ChessDotNet
                     if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
                         return false;
                     // TODO: take capturing in account
+                    // TODO: take en passant in account
                     break;
                 case Pieces.Queen:
                     if (posDelta.DeltaX != posDelta.DeltaY && posDelta.DeltaX != 0 && posDelta.DeltaY != 0)
