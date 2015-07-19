@@ -23,6 +23,13 @@ namespace ChessDotNet
             InitBoard();
         }
 
+        public ChessBoard(ChessPiece[,] board, List<Move> moves)
+        {
+            Board = (ChessPiece[,])board.Clone();
+            Moves = new List<Move>(moves);
+
+        }
+
         public void InitBoard()
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
