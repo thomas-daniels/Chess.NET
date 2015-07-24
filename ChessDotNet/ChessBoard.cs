@@ -113,15 +113,22 @@ namespace ChessDotNet
                     }
                     break;
                 case Pieces.Pawn:
-                    if (posDelta.DeltaX != 0 || posDelta.DeltaY != 1)
+                    if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1))
                         return false;
                     if (piece.Player == Players.White && (int)m.OriginalPosition.Rank < (int)m.NewPosition.Rank)
                         return false;
                     if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
                         return false;
-                    if (GetPieceAt(m.NewPosition).Player != Players.None)
-                        return false;
-                    // TODO: take capturing in account
+                    if (posDelta.DeltaX == 0 && posDelta.DeltaY == 1)
+                    {
+                        if (GetPieceAt(m.NewPosition).Player != Players.None)
+                            return false;
+                    }
+                    else
+                    {
+                        if (GetPieceAt(m.NewPosition).Player != (m.Player == Players.White ? Players.Black : Players.White))
+                            return false;
+                    }
                     // TODO: take en passant in account
                     break;
                 case Pieces.Queen:

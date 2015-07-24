@@ -324,6 +324,34 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveWhitePawn_Capture()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.True(cb.IsValidMove(m3));
+        }
+
+        [Test]
+        public void TestInvalidMoveWhitePawn_NoCapture()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3));
+        }
+
+        [Test]
         public void TestValidMoveWhiteKnight()
         {
             ChessBoard cb = new ChessBoard();
