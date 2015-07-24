@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChessDotNet
 {
-    public struct Position
+    public class Position
     {
         public enum Files
         {
@@ -124,6 +124,27 @@ namespace ChessDotNet
                 default:
                     throw new ArgumentException("Second char of `pos` not in range 1-8.");
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Position pos2 = (Position)obj;
+            return File == pos2.File && Rank == pos2.Rank;
+        }
+
+        public override int GetHashCode()
+        {
+            return new { File, Rank }.GetHashCode();
+        }
+
+        public static bool operator ==(Position p1, Position p2)
+        {
+            return p1.Equals(p2);
+        }
+
+        public static bool operator !=(Position p1, Position p2)
+        {
+            return !p1.Equals(p2);
         }
     }
 }
