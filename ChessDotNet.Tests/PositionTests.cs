@@ -36,5 +36,18 @@ namespace ChessDotNet.Tests
             Assert.False(p5.Equals(p6), "p5.Equals(p6) is True");
             Assert.False(p6.Equals(p5), "p6.Equals(p5) is True");
         }
+
+        [Test]
+        public void TestConstructors()
+        {
+            Assert.AreEqual(new Position("A1"), new Position(Position.Files.A, Position.Ranks.One));
+            Assert.AreEqual(new Position("B2"), new Position(Position.Files.B, Position.Ranks.Two));
+            Assert.AreEqual(new Position("C3"), new Position(Position.Files.C, Position.Ranks.Three));
+            Assert.AreEqual(new Position("D4"), new Position(Position.Files.D, Position.Ranks.Four));
+            Assert.AreEqual(new Position("E5"), new Position(Position.Files.E, Position.Ranks.Five));
+            Assert.AreEqual(new Position("F6"), new Position(Position.Files.F, Position.Ranks.Six));
+            Assert.AreEqual(new Position("G7"), new Position(Position.Files.G, Position.Ranks.Seven));
+            Assert.AreEqual(new Position("H8"), new Position(Position.Files.H, Position.Ranks.Eight));
+        }
     }
 }

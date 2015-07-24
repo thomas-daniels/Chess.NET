@@ -1,4 +1,7 @@
-﻿namespace ChessDotNet
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChessDotNet
 {
     public struct Position
     {
@@ -50,6 +53,77 @@
         {
             _file = file;
             _rank = rank;
+        }
+
+        public Position(string pos)
+        {
+            if (pos.Length != 2)
+            {
+                throw new ArgumentException("Length of `pos` is not 2.");
+            }
+
+            pos = pos.ToUpperInvariant();
+            char file = pos[0];
+            char rank = pos[1];
+            switch (file)
+            {
+                case 'A':
+                    _file = Files.A;
+                    break;
+                case 'B':
+                    _file = Files.B;
+                    break;
+                case 'C':
+                    _file = Files.C;
+                    break;
+                case 'D':
+                    _file = Files.D;
+                    break;
+                case 'E':
+                    _file = Files.E;
+                    break;
+                case 'F':
+                    _file = Files.F;
+                    break;
+                case 'G':
+                    _file = Files.G;
+                    break;
+                case 'H':
+                    _file = Files.H;
+                    break;
+                default:
+                    throw new ArgumentException("First char of `pos` not in range A-F.");
+            }
+
+            switch (rank)
+            {
+                case '1':
+                    _rank = Ranks.One;
+                    break;
+                case '2':
+                    _rank = Ranks.Two;
+                    break;
+                case '3':
+                    _rank = Ranks.Three;
+                    break;
+                case '4':
+                    _rank = Ranks.Four;
+                    break;
+                case '5':
+                    _rank = Ranks.Five;
+                    break;
+                case '6':
+                    _rank = Ranks.Six;
+                    break;
+                case '7':
+                    _rank = Ranks.Seven;
+                    break;
+                case '8':
+                    _rank = Ranks.Eight;
+                    break;
+                default:
+                    throw new ArgumentException("Second char of `pos` not in range 1-8.");
+            }
         }
     }
 }
