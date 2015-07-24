@@ -644,6 +644,33 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestInvalidMoveBlackKing_NoAdjacentKings()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kb, o, kw, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
         public void TestApplyMoveWhitePawn()
         {
             ChessBoard cb = new ChessBoard();

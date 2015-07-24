@@ -96,6 +96,21 @@ namespace ChessDotNet
                         && (posDelta.DeltaX != 0 || posDelta.DeltaY != 1)
                         && (posDelta.DeltaX != 1 || posDelta.DeltaY != 0))
                         return false; // TODO: take castling in account
+                    foreach (int[] p in new int[][] { new int[] { 1, 0 }, new int[] { 0, 1 }, new int[] { -1, 0 }, new int[] { 0, -1 },
+                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } })
+                    {
+                        int r = (int)m.NewPosition.Rank + p[0];
+                        int f = (int)m.NewPosition.File + p[1];
+                        if (r < 0 || r >= Board.GetLength(0) || f < 0 || f >= Board.GetLength(1))
+                        {
+                            continue;
+                        }
+                        ChessPiece cp = Board[r, f];
+                        if (cp.Piece == Pieces.King && cp.Player != m.Player)
+                        {
+                            return false;
+                        }
+                    }
                     break;
                 case Pieces.Pawn:
                     if (posDelta.DeltaX != 0 || posDelta.DeltaY != 1)
