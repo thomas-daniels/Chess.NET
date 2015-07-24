@@ -112,7 +112,10 @@ namespace ChessDotNet
                 default:
                     return false;
             }
-            // TODO: Validate that you are not going to put yourself in check
+            if (WouldBeInCheckAfter(m, m.Player))
+            {
+                return false;
+            }
             // TODO: Validate that other pieces are not in the way to do your move
             return true;
         }
@@ -157,6 +160,13 @@ namespace ChessDotNet
             }
 
             return false;
+        }
+
+        protected bool WouldBeInCheckAfter(Move m, Players player)
+        {
+            ChessBoard copy = new ChessBoard(Board, Moves);
+            copy.ApplyMove(m, true);
+            return copy.IsInCheck(player); 
         }
     }
 }

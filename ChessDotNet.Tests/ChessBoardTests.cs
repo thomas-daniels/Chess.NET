@@ -585,6 +585,39 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestInvalidMoveWhite_WouldBeInCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
+            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
+            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
+            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { kw, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, qb },
+                { pw, o, o, pb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            Move m = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
+
+            Assert.False(cb.IsValidMove(m));
+        }
+
+        [Test]
         public void TestApplyMoveWhitePawn()
         {
             ChessBoard cb = new ChessBoard();
