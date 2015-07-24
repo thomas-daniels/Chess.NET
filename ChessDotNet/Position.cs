@@ -145,5 +145,10 @@ namespace ChessDotNet
         {
             return !p1.Equals(p2);
         }
+
+        public override string ToString()
+        {
+            return File.ToString() + (8 - (int)Rank).ToString();
+        }
     }
 }

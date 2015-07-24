@@ -49,5 +49,12 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(new Position("G7"), new Position(Position.Files.G, Position.Ranks.Seven));
             Assert.AreEqual(new Position("H8"), new Position(Position.Files.H, Position.Ranks.Eight));
         }
+
+        [Test]
+        public void TestToString()
+        {
+            Assert.AreEqual("H5", new Position(Position.Files.H, Position.Ranks.Five).ToString());
+            Assert.AreEqual("H5", new Position("H5").ToString());
+        }
     }
 }
