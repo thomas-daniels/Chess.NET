@@ -58,6 +58,11 @@ namespace ChessDotNet
             };
         }
 
+        public ChessPiece GetPieceAt(Position p)
+        {
+            return GetPieceAt(p.File, p.Rank);
+        }
+
         public ChessPiece GetPieceAt(Position.Files file, Position.Ranks rank)
         {
             return Board[(int)rank, (int)file];
@@ -70,10 +75,19 @@ namespace ChessDotNet
 
         public bool IsValidMove(Move m)
         {
+            return IsValidMove(m, true);
+        }
+
+        public bool IsValidMove(Move m, bool validateCheck)
+        {
             if (m.OriginalPosition.Equals(m.NewPosition))
                 return false;
             ChessPiece piece = GetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank);
             if (piece.Player != m.Player) return false;
+            if (GetPieceAt(m.NewPosition).Player == m.Player)
+            {
+                return false;
+            }
             PositionDelta posDelta = new PositionDelta(m.OriginalPosition, m.NewPosition);
             switch (piece.Piece)
             {
@@ -90,20 +104,101 @@ namespace ChessDotNet
                         return false;
                     if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
                         return false;
+                    if (GetPieceAt(m.NewPosition).Player != Players.None)
+                        return false;
                     // TODO: take capturing in account
                     // TODO: take en passant in account
                     break;
                 case Pieces.Queen:
                     if (posDelta.DeltaX != posDelta.DeltaY && posDelta.DeltaX != 0 && posDelta.DeltaY != 0)
                         return false;
+                    bool increasingRank = (int)m.NewPosition.Rank > (int)m.OriginalPosition.Rank;
+                    bool increasingFile = (int)m.NewPosition.File > (int)m.OriginalPosition.File;
+                    if (posDelta.DeltaX == posDelta.DeltaY)
+                    {
+                        for (int f = (int)m.OriginalPosition.File + (increasingFile ? 1 : -1), r = (int)m.OriginalPosition.Rank + (increasingRank ? 1 : -1);
+                            increasingFile ? f < (int)m.NewPosition.File : f > (int)m.NewPosition.File;
+                            f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
+                        {
+                            if (Board[r, f].Player != Players.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else if (posDelta.DeltaX == 0)
+                    {
+                        int f = (int)m.OriginalPosition.File;
+                        for (int r = (int)m.OriginalPosition.Rank + (increasingRank ? 1 : -1);
+                            increasingRank ? r < (int)m.NewPosition.Rank : r > (int)m.NewPosition.Rank;
+                            r += increasingRank ? 1 : -1)
+                        {
+                            if (Board[r, f].Player != Players.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else // (posDelta.DeltaY == 0)
+                    {
+                        int r = (int)m.OriginalPosition.Rank;
+                        for (int f = (int)m.OriginalPosition.File + (increasingFile ? 1 : -1);
+                            increasingFile ? f < (int)m.NewPosition.File : f > (int)m.NewPosition.File;
+                            f += increasingFile ? 1 : -1)
+                        {
+                            if (Board[r, f].Player != Players.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
                     break;
                 case Pieces.Rook:
                     if (posDelta.DeltaX != 0 && posDelta.DeltaY != 0)
                         return false;
+                    increasingRank = (int)m.NewPosition.Rank > (int)m.OriginalPosition.Rank;
+                    increasingFile = (int)m.NewPosition.File > (int)m.OriginalPosition.File;
+                    if (posDelta.DeltaX == 0)
+                    {
+                        int f = (int)m.OriginalPosition.File;
+                        for (int r = (int)m.OriginalPosition.Rank + (increasingRank ? 1 : -1);
+                            increasingRank ? r < (int)m.NewPosition.Rank : r > (int)m.NewPosition.Rank;
+                            r += increasingRank ? 1 : -1)
+                        {
+                            if (Board[r, f].Player != Players.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else // (posDelta.DeltaY == 0)
+                    {
+                        int r = (int)m.OriginalPosition.Rank;
+                        for (int f = (int)m.OriginalPosition.File + (increasingFile ? 1 : -1);
+                            increasingFile ? f < (int)m.NewPosition.File : f > (int)m.NewPosition.File;
+                            f += increasingFile ? 1 : -1)
+                        {
+                            if (Board[r, f].Player != Players.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
                     break;
                 case Pieces.Bishop:
                     if (posDelta.DeltaX != posDelta.DeltaY)
                         return false;
+                    increasingRank = (int)m.NewPosition.Rank > (int)m.OriginalPosition.Rank;
+                    increasingFile = (int)m.NewPosition.File > (int)m.OriginalPosition.File;
+                    for (int f = (int)m.OriginalPosition.File + (increasingFile ? 1 : -1), r = (int)m.OriginalPosition.Rank + (increasingRank ? 1 : -1);
+                         increasingFile ? f < (int)m.NewPosition.File : f > (int)m.NewPosition.File;
+                         f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
+                    {
+                        if (Board[r, f].Player != Players.None)
+                        {
+                            return false;
+                        }
+                    }
                     break;
                 case Pieces.Knight:
                     if ((posDelta.DeltaX != 2 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 2))
@@ -112,11 +207,11 @@ namespace ChessDotNet
                 default:
                     return false;
             }
-            if (WouldBeInCheckAfter(m, m.Player))
+            if (validateCheck && WouldBeInCheckAfter(m, m.Player))
             {
                 return false;
             }
-            // TODO: Validate that other pieces are not in the way to do your move
+
             return true;
         }
 
@@ -140,7 +235,7 @@ namespace ChessDotNet
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
                     ChessPiece curr = Board[i, j];
-                    if (curr.Piece != Pieces.None && curr.Piece != Pieces.King)
+                    if (curr.Piece != Pieces.None && curr.Piece != Pieces.King && curr.Player == (player == Players.White ? Players.Black : Players.White))
                     {
                         piecePositions.Add(new Position((Position.Files)j, (Position.Ranks)i));
                     }
@@ -153,7 +248,7 @@ namespace ChessDotNet
 
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Players.White ? Players.Black : Players.White)))
+                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Players.White ? Players.Black : Players.White), false))
                 {
                     return true;
                 }
@@ -166,7 +261,7 @@ namespace ChessDotNet
         {
             ChessBoard copy = new ChessBoard(Board, Moves);
             copy.ApplyMove(m, true);
-            return copy.IsInCheck(player); 
+            return copy.IsInCheck(player);
         }
     }
 }

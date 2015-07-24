@@ -517,6 +517,7 @@ namespace ChessDotNet.Tests
             Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
         }
 
+        [Test]
         public void TestValidMoveBlackQueenVertical()
         {
             ChessBoard cb = new ChessBoard();
@@ -613,6 +614,31 @@ namespace ChessDotNet.Tests
             };
             ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
             Move m = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
+
+            Assert.False(cb.IsValidMove(m));
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteRook_NoPassThrough()
+        {
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, pw, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, kw, o, kb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.G, Position.Ranks.Seven), Players.White);
 
             Assert.False(cb.IsValidMove(m));
         }
