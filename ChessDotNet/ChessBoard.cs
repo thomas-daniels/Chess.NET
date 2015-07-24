@@ -126,5 +126,37 @@ namespace ChessDotNet
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
             return true;
         }
+
+        public bool IsInCheck(Players player)
+        {
+            List<Position> piecePositions = new List<Position>();
+            Position kingPos = new Position(Position.Files.None, Position.Ranks.None);
+
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.GetLength(1); j++)
+                {
+                    ChessPiece curr = Board[i, j];
+                    if (curr.Piece != Pieces.None && curr.Piece != Pieces.King)
+                    {
+                        piecePositions.Add(new Position((Position.Files)j, (Position.Ranks)i));
+                    }
+                    else if (curr.Piece == Pieces.King && curr.Player == player)
+                    {
+                        kingPos = new Position((Position.Files)j, (Position.Ranks)i);
+                    }
+                }
+            }
+
+            for (int i = 0; i < piecePositions.Count; i++)
+            {
+                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Players.White ? Players.Black : Players.White)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

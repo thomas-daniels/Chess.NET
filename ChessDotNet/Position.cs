@@ -11,7 +11,8 @@
             E = 4,
             F = 5,
             G = 6,
-            H = 7
+            H = 7,
+            None = -1
         }
 
         public enum Ranks
@@ -23,7 +24,8 @@
             Five = 3,
             Six = 2,
             Seven = 1,
-            Eight = 0
+            Eight = 0,
+            None = -1
         }
 
         Files _file;
