@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace ChessDotNet.Tests
 {
@@ -1033,6 +1034,508 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteStartingPosition()
+        {
+            ChessBoard cb = new ChessBoard();
+            List<Move> actual = cb.GetValidMoves(Players.White);
+            List<Move> expected = new List<Move>()
+            {
+                new Move("A2", "A3", Players.White),
+                new Move("A2", "A4", Players.White),
+                new Move("B2", "B3", Players.White),
+                new Move("B2", "B4", Players.White),
+                new Move("C2", "C3", Players.White),
+                new Move("C2", "C4", Players.White),
+                new Move("D2", "D3", Players.White),
+                new Move("D2", "D4", Players.White),
+                new Move("E2", "E3", Players.White),
+                new Move("E2", "E4", Players.White),
+                new Move("F2", "F3", Players.White),
+                new Move("F2", "F4", Players.White),
+                new Move("G2", "G3", Players.White),
+                new Move("G2", "G4", Players.White),
+                new Move("H2", "H3", Players.White),
+                new Move("H2", "H4", Players.White),
+                new Move("B1", "A3", Players.White),
+                new Move("B1", "C3", Players.White),
+                new Move("G1", "F3", Players.White),
+                new Move("G1", "H3", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackStartingPosition()
+        {
+            ChessBoard cb = new ChessBoard();
+            List<Move> actual = cb.GetValidMoves(Players.Black);
+            List<Move> expected = new List<Move>()
+            {
+                new Move("A7", "A6", Players.Black),
+                new Move("A7", "A5", Players.Black),
+                new Move("B7", "B6", Players.Black),
+                new Move("B7", "B5", Players.Black),
+                new Move("C7", "C6", Players.Black),
+                new Move("C7", "C5", Players.Black),
+                new Move("D7", "D6", Players.Black),
+                new Move("D7", "D5", Players.Black),
+                new Move("E7", "E6", Players.Black),
+                new Move("E7", "E5", Players.Black),
+                new Move("F7", "F6", Players.Black),
+                new Move("F7", "F5", Players.Black),
+                new Move("G7", "G6", Players.Black),
+                new Move("G7", "G5", Players.Black),
+                new Move("H7", "H6", Players.Black),
+                new Move("H7", "H5", Players.Black),
+                new Move("B8", "A6", Players.Black),
+                new Move("B8", "C6", Players.Black),
+                new Move("G8", "F6", Players.Black),
+                new Move("G8", "H6", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteKing()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "C3", Players.White),
+                new Move("D4", "C4", Players.White),
+                new Move("D4", "C5", Players.White),
+                new Move("D4", "D3", Players.White),
+                new Move("D4", "D5", Players.White),
+                new Move("D4", "E3", Players.White),
+                new Move("D4", "E4", Players.White),
+                new Move("D4", "E5", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteKnight()
+        {
+            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, nw, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "C2", Players.White),
+                new Move("D4", "B3", Players.White),
+                new Move("D4", "C6", Players.White),
+                new Move("D4", "B5", Players.White),
+                new Move("D4", "E2", Players.White),
+                new Move("D4", "E6", Players.White),
+                new Move("D4", "F3", Players.White),
+                new Move("D4", "F5", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteBishop()
+        {
+            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, bw, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "A1", Players.White),
+                new Move("D4", "B2", Players.White),
+                new Move("D4", "C3", Players.White),
+                new Move("D4", "E5", Players.White),
+                new Move("D4", "F6", Players.White),
+                new Move("D4", "G7", Players.White),
+                new Move("D4", "H8", Players.White),
+                new Move("D4", "G7", Players.White),
+                new Move("D4", "F6", Players.White),
+                new Move("D4", "E5", Players.White),
+                new Move("D4", "C3", Players.White),
+                new Move("D4", "B2", Players.White),
+                new Move("D4", "A1", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteRook()
+        {
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, rw, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "D1", Players.White),
+                new Move("D4", "D2", Players.White),
+                new Move("D4", "D3", Players.White),
+                new Move("D4", "D5", Players.White),
+                new Move("D4", "D6", Players.White),
+                new Move("D4", "D7", Players.White),
+                new Move("D4", "D8", Players.White),
+                new Move("D4", "A4", Players.White),
+                new Move("D4", "B4", Players.White),
+                new Move("D4", "C4", Players.White),
+                new Move("D4", "E4", Players.White),
+                new Move("D4", "F4", Players.White),
+                new Move("D4", "G4", Players.White),
+                new Move("D4", "H4", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesWhiteQueen()
+        {
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, qw, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "D1", Players.White),
+                new Move("D4", "D2", Players.White),
+                new Move("D4", "D3", Players.White),
+                new Move("D4", "D5", Players.White),
+                new Move("D4", "D6", Players.White),
+                new Move("D4", "D7", Players.White),
+                new Move("D4", "D8", Players.White),
+                new Move("D4", "A4", Players.White),
+                new Move("D4", "B4", Players.White),
+                new Move("D4", "C4", Players.White),
+                new Move("D4", "E4", Players.White),
+                new Move("D4", "F4", Players.White),
+                new Move("D4", "G4", Players.White),
+                new Move("D4", "H4", Players.White),
+                new Move("D4", "A1", Players.White),
+                new Move("D4", "B2", Players.White),
+                new Move("D4", "C3", Players.White),
+                new Move("D4", "E5", Players.White),
+                new Move("D4", "F6", Players.White),
+                new Move("D4", "G7", Players.White),
+                new Move("D4", "H8", Players.White),
+                new Move("D4", "G7", Players.White),
+                new Move("D4", "F6", Players.White),
+                new Move("D4", "E5", Players.White),
+                new Move("D4", "C3", Players.White),
+                new Move("D4", "B2", Players.White),
+                new Move("D4", "A1", Players.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackKing()
+        {
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "C3", Players.Black),
+                new Move("D4", "C4", Players.Black),
+                new Move("D4", "C5", Players.Black),
+                new Move("D4", "D3", Players.Black),
+                new Move("D4", "D5", Players.Black),
+                new Move("D4", "E3", Players.Black),
+                new Move("D4", "E4", Players.Black),
+                new Move("D4", "E5", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackKnight()
+        {
+            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, nb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "C2", Players.Black),
+                new Move("D4", "B3", Players.Black),
+                new Move("D4", "C6", Players.Black),
+                new Move("D4", "B5", Players.Black),
+                new Move("D4", "E2", Players.Black),
+                new Move("D4", "E6", Players.Black),
+                new Move("D4", "F3", Players.Black),
+                new Move("D4", "F5", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackBishop()
+        {
+            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, bb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "A1", Players.Black),
+                new Move("D4", "B2", Players.Black),
+                new Move("D4", "C3", Players.Black),
+                new Move("D4", "E5", Players.Black),
+                new Move("D4", "F6", Players.Black),
+                new Move("D4", "G7", Players.Black),
+                new Move("D4", "H8", Players.Black),
+                new Move("D4", "G7", Players.Black),
+                new Move("D4", "F6", Players.Black),
+                new Move("D4", "E5", Players.Black),
+                new Move("D4", "C3", Players.Black),
+                new Move("D4", "B2", Players.Black),
+                new Move("D4", "A1", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackRook()
+        {
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, rb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "D1", Players.Black),
+                new Move("D4", "D2", Players.Black),
+                new Move("D4", "D3", Players.Black),
+                new Move("D4", "D5", Players.Black),
+                new Move("D4", "D6", Players.Black),
+                new Move("D4", "D7", Players.Black),
+                new Move("D4", "D8", Players.Black),
+                new Move("D4", "A4", Players.Black),
+                new Move("D4", "B4", Players.Black),
+                new Move("D4", "C4", Players.Black),
+                new Move("D4", "E4", Players.Black),
+                new Move("D4", "F4", Players.Black),
+                new Move("D4", "G4", Players.Black),
+                new Move("D4", "H4", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
+        }
+
+        [Test]
+        public void TestGetValidMovesBlackQueen()
+        {
+            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, qb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+            List<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("D4", "D1", Players.Black),
+                new Move("D4", "D2", Players.Black),
+                new Move("D4", "D3", Players.Black),
+                new Move("D4", "D5", Players.Black),
+                new Move("D4", "D6", Players.Black),
+                new Move("D4", "D7", Players.Black),
+                new Move("D4", "D8", Players.Black),
+                new Move("D4", "A4", Players.Black),
+                new Move("D4", "B4", Players.Black),
+                new Move("D4", "C4", Players.Black),
+                new Move("D4", "E4", Players.Black),
+                new Move("D4", "F4", Players.Black),
+                new Move("D4", "G4", Players.Black),
+                new Move("D4", "H4", Players.Black),
+                new Move("D4", "A1", Players.Black),
+                new Move("D4", "B2", Players.Black),
+                new Move("D4", "C3", Players.Black),
+                new Move("D4", "E5", Players.Black),
+                new Move("D4", "F6", Players.Black),
+                new Move("D4", "G7", Players.Black),
+                new Move("D4", "H8", Players.Black),
+                new Move("D4", "G7", Players.Black),
+                new Move("D4", "F6", Players.Black),
+                new Move("D4", "E5", Players.Black),
+                new Move("D4", "C3", Players.Black),
+                new Move("D4", "B2", Players.Black),
+                new Move("D4", "A1", Players.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move m in expected)
+            {
+                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+            }
         }
 
         [Test]

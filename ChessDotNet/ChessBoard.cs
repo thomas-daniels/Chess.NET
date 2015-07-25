@@ -279,6 +279,152 @@ namespace ChessDotNet
             return true;
         }
 
+        public List<Move> GetValidMoves(Position from)
+        {
+            List<Move> validMoves = new List<Move>();
+            ChessPiece cp = GetPieceAt(from);
+            int l0 = Board.GetLength(0);
+            int l1 = Board.GetLength(1);
+            switch (cp.Piece)
+            {
+                case Pieces.King:
+                    int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
+                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } };
+                    foreach (int[] dir in directions)
+                    {
+                        if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
+                            || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                            continue;
+                            Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(m))
+                            validMoves.Add(m);
+                    }
+                    break;
+                case Pieces.Pawn:
+                    if (cp.Player == Players.Black)
+                    {
+                        directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 1, 1 }, new int[] { -1, 1 } };
+                    }
+                    else
+                    {
+                        directions = new int[][] { new int[] { 0, -1 }, new int[] { 0, -2 }, new int[] { -1, -1 }, new int[] { 1, -1 } };
+                    }
+                    foreach (int[] dir in directions)
+                    {
+                        if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
+                            || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                            continue;
+                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(m))
+                            validMoves.Add(m);
+                    }
+                    break;
+                case Pieces.Knight:
+                    directions = new int[][] { new int[] { 2, 1 }, new int[] { -2, -1 }, new int[] { 1, 2 }, new int[] { -1, -2 },
+                        new int[] { 1, -2 }, new int[] { -1, 2 }, new int[] { 2, -1 }, new int[] { -2, 1 } };
+                    foreach (int[] dir in directions)
+                    {
+                        if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
+                            || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                            continue;
+                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(m))
+                            validMoves.Add(m);
+                    }
+                    break;
+                case Pieces.Rook:
+                    for (int i = -7; i < 8; i++)
+                    {
+                        if (i == 0)
+                            continue;
+                        if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
+                        {
+                            Move m = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                        if ((int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                    }
+                    break;
+                case Pieces.Bishop:
+                    for (int i = -7; i < 8; i++)
+                    {
+                        if (i == 0)
+                            continue;
+                        if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
+                            && (int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                        if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
+                            && (int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                    }
+                    break;
+                case Pieces.Queen:
+                    for (int i = -7; i < 8; i++)
+                    {
+                        if (i == 0)
+                            continue;
+                        if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
+                        {
+                            Move m = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                        if ((int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                        if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
+                            && (int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                        if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
+                            && (int)from.File + i > -1 && (int)from.File + i < l1)
+                        {
+                            Move m = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
+                            if (IsValidMove(m))
+                                validMoves.Add(m);
+                        }
+                    }
+                    break;
+            }
+            return validMoves;
+        }
+
+        public List<Move> GetValidMoves(Players player)
+        {
+            List<Move> validMoves = new List<Move>();
+            for (int x = 0; x < Board.GetLength(0); x++)
+            {
+                for (int y = 0; y < Board.GetLength(1); y++)
+                {
+                    if (Board[x, y].Player == player)
+                    {
+                        validMoves.AddRange(GetValidMoves(new Position((Position.Files)y, (Position.Ranks)x)));
+                    }
+                }
+            }
+            return validMoves;
+        }
+
         public bool IsInCheck(Players player)
         {
             List<Position> piecePositions = new List<Position>();
