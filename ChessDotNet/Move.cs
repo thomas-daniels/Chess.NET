@@ -57,5 +57,10 @@
         {
             return !m1.Equals(m2);
         }
+
+        public override string ToString()
+        {
+            return OriginalPosition.ToString() + "-" + NewPosition.ToString();
+        }
     }
 }
