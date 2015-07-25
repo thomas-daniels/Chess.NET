@@ -125,6 +125,8 @@ namespace ChessDotNet
                     {
                         if (GetPieceAt(m.NewPosition).Player != (m.Player == Players.White ? Players.Black : Players.White))
                             checkEnPassant = true;
+                        if (GetPieceAt(m.NewPosition).Player == m.Player)
+                            return false;
                     }
                     if (checkEnPassant)
                     {
