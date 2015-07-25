@@ -324,6 +324,16 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveWhitePawn_TwoSteps()
+        {
+            ChessBoard cb = new ChessBoard();
+
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
         public void TestValidMoveWhitePawn_Capture()
         {
             ChessBoard cb = new ChessBoard();
@@ -349,6 +359,44 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(m2, true);
 
             Assert.False(cb.IsValidMove(m3));
+        }
+
+        [Test]
+        public void TestInvalidMoveWhitePawn_TwoStepsBlockingPiece()
+        {
+            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, pb, o, o, o },
+                { o, o, o, o, pw, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+
+            Assert.False(cb.IsValidMove(m), "m is considered valid");
+            
+        }
+
+        [Test]
+        public void TestInvalidMoveWhitePawn_TwoStepsNotOnRankTwo()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
         }
 
         [Test]
@@ -497,6 +545,82 @@ namespace ChessDotNet.Tests
             Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Six), Players.Black);
 
             Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackPawn_TwoSteps()
+        {
+            ChessBoard cb = new ChessBoard();
+
+            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackPawn_Capture()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.True(cb.IsValidMove(m3));
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackPawn_NoCapture()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3));
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackPawn_TwoStepsBlockingPiece()
+        {
+            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, pb, o, o, o },
+                { o, o, o, o, pw, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+
+            Assert.False(cb.IsValidMove(m), "m is considered valid");
+
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackPawn_TwoStepsNotOnRankSeven()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+
+            cb.ApplyMove(m1, true);
+
+            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
         }
 
         [Test]

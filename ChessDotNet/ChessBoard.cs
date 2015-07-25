@@ -113,13 +113,24 @@ namespace ChessDotNet
                     }
                     break;
                 case Pieces.Pawn:
-                    if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1))
+                    if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1)
+                        && (posDelta.DeltaX != 0 || posDelta.DeltaY != 2))
                         return false;
                     if (piece.Player == Players.White && (int)m.OriginalPosition.Rank < (int)m.NewPosition.Rank)
                         return false;
                     if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
                         return false;
-                    if (posDelta.DeltaX == 0 && posDelta.DeltaY == 1)
+                    if (posDelta.DeltaY == 2)
+                    {
+                        if ((m.OriginalPosition.Rank != Position.Ranks.Two && m.Player == Players.White)
+                            || (m.OriginalPosition.Rank != Position.Ranks.Seven && m.Player == Players.Black))
+                            return false;
+                        if (m.OriginalPosition.Rank == Position.Ranks.Two && GetPieceAt(m.OriginalPosition.File, Position.Ranks.Three).Piece != Pieces.None)
+                            return false;
+                        if (m.OriginalPosition.Rank == Position.Ranks.Seven && GetPieceAt(m.OriginalPosition.File, Position.Ranks.Six).Piece != Pieces.None)
+                            return false;
+                    }
+                    if (posDelta.DeltaX == 0 && (posDelta.DeltaY == 1 || posDelta.DeltaY == 2))
                     {
                         if (GetPieceAt(m.NewPosition).Player != Players.None)
                             return false;
