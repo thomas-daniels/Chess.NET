@@ -120,6 +120,7 @@ namespace ChessDotNet
                         return false;
                     if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
                         return false;
+                    bool checkEnPassant = false;
                     if (posDelta.DeltaY == 2)
                     {
                         if ((m.OriginalPosition.Rank != Position.Ranks.Two && m.Player == Players.White)
@@ -138,9 +139,33 @@ namespace ChessDotNet
                     else
                     {
                         if (GetPieceAt(m.NewPosition).Player != (m.Player == Players.White ? Players.Black : Players.White))
+                            checkEnPassant = true;
+                    }
+                    if (checkEnPassant)
+                    {
+                        if (Moves.Count == 0)
+                        {
+                            return false;
+                        }
+                        if ((m.OriginalPosition.Rank != Position.Ranks.Five && m.Player == Players.White)
+                            || (m.OriginalPosition.Rank != Position.Ranks.Four && m.Player == Players.Black))
+                            return false;
+                        Move latestMove = Moves[Moves.Count - 1];
+                        if (latestMove.Player != (m.Player == Players.White ? Players.Black : Players.White))
+                            return false;
+                        if (m.Player == Players.White)
+                        {
+                            if (latestMove.OriginalPosition.Rank != Position.Ranks.Seven || latestMove.NewPosition.Rank != Position.Ranks.Five)
+                                return false;
+                        }
+                        else // (m.Player == Players.Black)
+                        {
+                            if (latestMove.OriginalPosition.Rank != Position.Ranks.Two || latestMove.NewPosition.Rank != Position.Ranks.Four)
+                                return false;
+                        }
+                        if (m.NewPosition.File != latestMove.NewPosition.File)
                             return false;
                     }
-                    // TODO: take en passant in account
                     break;
                 case Pieces.Queen:
                     if (posDelta.DeltaX != posDelta.DeltaY && posDelta.DeltaX != 0 && posDelta.DeltaY != 0)
@@ -253,8 +278,17 @@ namespace ChessDotNet
             if (!alreadyValidated && !IsValidMove(m))
                 return false;
             ChessPiece movingPiece = GetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank);
+            if (movingPiece.Piece == Pieces.Pawn)
+            {
+                PositionDelta pd = new PositionDelta(m.OriginalPosition, m.NewPosition);
+                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(m.NewPosition).Piece == Pieces.None)
+                { // en passant
+                    SetPieceAt(m.NewPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
+                }
+            }
             SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, movingPiece);
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
+            Moves.Add(m);
             return true;
         }
 

@@ -348,6 +348,42 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveWhitePawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+
+            Assert.True(cb.IsValidMove(m5));
+        }
+
+        [Test]
+        public void TestInvalidMoveWhitePawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move m4 = new Move(new Position(Position.Files.H, Position.Ranks.Seven), new Position(Position.Files.H, Position.Ranks.Five), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+
+            Assert.False(cb.IsValidMove(m5));
+        }
+
+        [Test]
         public void TestInvalidMoveWhitePawn_NoCapture()
         {
             ChessBoard cb = new ChessBoard();
@@ -384,7 +420,7 @@ namespace ChessDotNet.Tests
             Move m = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
 
             Assert.False(cb.IsValidMove(m), "m is considered valid");
-            
+
         }
 
         [Test]
@@ -569,6 +605,46 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(m2, true);
 
             Assert.True(cb.IsValidMove(m3));
+        }
+
+        [Test]
+        public void TestValidMoveBlackPawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+            cb.ApplyMove(m5, true);
+
+            Assert.True(cb.IsValidMove(m6));
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackPawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.H, Position.Ranks.Two), new Position(Position.Files.H, Position.Ranks.Four), Players.White);
+            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+            cb.ApplyMove(m5, true);
+
+            Assert.False(cb.IsValidMove(m6));
         }
 
         [Test]
@@ -867,6 +943,96 @@ namespace ChessDotNet.Tests
                 { rw, nw, bw, qw, kw, bw, nw, rw }
             };
             Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying m2");
+        }
+
+        [Test]
+        public void ApplyMoveWhitePawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+            cb.ApplyMove(m5, true);
+
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
+            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
+            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
+            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, nb, bb, qb, kb, bb, nb, rb },
+                { pb, pb, pb, o, o, pb, pb, pb },
+                { o, o, o, pw, pb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { pw, pw, pw, pw, o, pw, pw, pw },
+                { rw, nw, bw, qw, kw, bw, nw, rw }
+            };
+
+            Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
+        }
+
+        [Test]
+        public void ApplyMoveBlackPawn_EnPassant()
+        {
+            ChessBoard cb = new ChessBoard();
+            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+            cb.ApplyMove(m3, true);
+            cb.ApplyMove(m4, true);
+            cb.ApplyMove(m5, true);
+            cb.ApplyMove(m6, true);
+
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
+            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
+            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
+            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
+            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
+            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, nb, bb, qb, kb, bb, nb, rb },
+                { pb, pb, pb, pb, o, pb, pb, pb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { nw, o, o, pb, pw, o, o, o },
+                { pw, pw, pw, o, o, pw, pw, pw },
+                { rw, o, bw, qw, kw, bw, nw, rw }
+            };
+
+            Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
         }
 
         [Test]
