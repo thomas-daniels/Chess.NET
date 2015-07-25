@@ -5,22 +5,32 @@
         public Position OriginalPosition
         {
             get;
+            private set;
         }
 
         public Position NewPosition
         {
             get;
+            private set;
         }
 
         public Players Player
         {
             get;
+            private set;
         }
 
         public Move(Position originalPos, Position newPos, Players player)
         {
             OriginalPosition = originalPos;
             NewPosition = newPos;
+            Player = player;
+        }
+
+        public Move(string originalPos, string newPos, Players player)
+        {
+            OriginalPosition = new Position(originalPos);
+            NewPosition = new Position(newPos);
             Player = player;
         }
 
