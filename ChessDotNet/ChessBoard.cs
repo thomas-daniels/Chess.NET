@@ -78,7 +78,7 @@ namespace ChessDotNet
             return IsValidMove(m, true);
         }
 
-        public bool IsValidMove(Move m, bool validateCheck)
+        protected bool IsValidMove(Move m, bool validateCheck)
         {
             if (m.OriginalPosition.Equals(m.NewPosition))
                 return false;
