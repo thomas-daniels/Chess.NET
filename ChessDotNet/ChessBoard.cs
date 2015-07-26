@@ -4,6 +4,12 @@ namespace ChessDotNet
 {
     public class ChessBoard
     {
+        public GameStatus Status
+        {
+            get;
+            private set;
+        }
+
         public ChessPiece[,] Board
         {
             get;
@@ -18,6 +24,7 @@ namespace ChessDotNet
 
         public ChessBoard()
         {
+            Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
             Board = new ChessPiece[8, 8];
             Moves = new List<Move>();
             InitBoard();
@@ -27,7 +34,18 @@ namespace ChessDotNet
         {
             Board = (ChessPiece[,])board.Clone();
             Moves = new List<Move>(moves);
-
+            if (IsInCheck(Players.White))
+            {
+                Status = new GameStatus(GameStatus.Events.Check, Players.Black, "White is in check");
+            }
+            else if (IsInCheck(Players.Black))
+            {
+                Status = new GameStatus(GameStatus.Events.Check, Players.White, "Black is in check");
+            }
+            else
+            {
+                Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
+            }
         }
 
         public void InitBoard()
@@ -276,6 +294,15 @@ namespace ChessDotNet
             SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, movingPiece);
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
             Moves.Add(m);
+            Players other = m.Player == Players.White ? Players.Black : Players.White;
+            if (IsInCheck(other))
+            {
+                Status = new GameStatus(GameStatus.Events.Check, m.Player, other.ToString() + " is in check");
+            }
+            else
+            {
+                Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
+            }
             return true;
         }
 
@@ -425,7 +452,7 @@ namespace ChessDotNet
             return validMoves;
         }
 
-        public bool IsInCheck(Players player)
+        protected bool IsInCheck(Players player)
         {
             List<Position> piecePositions = new List<Position>();
             Position kingPos = new Position(Position.Files.None, Position.Ranks.None);
