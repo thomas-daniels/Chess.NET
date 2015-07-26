@@ -51,7 +51,7 @@ namespace ChessDotNet
                 playersToValidateCheck.Add(Players.White);
                 playersToValidateCheck.Add(Players.Black);
             }
-            ChangeStatus(playersToValidateCheck, true);
+            ChangeStatus(playersToValidateCheck, true, true);
         }
 
         public void InitBoard()
@@ -82,7 +82,7 @@ namespace ChessDotNet
             };
         }
 
-        protected void ChangeStatus(List<Players> playersToValidate, bool validateHasAnyValidMoves)
+        protected void ChangeStatus(List<Players> playersToValidate, bool validateHasAnyValidMoves, bool breakAfterChange)
         {
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
             foreach (Players p in playersToValidate)
@@ -93,15 +93,21 @@ namespace ChessDotNet
                     if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
                     {
                         Status = new GameStatus(GameStatus.Events.Checkmate, other, p.ToString() + " is checkmated");
+                        if (breakAfterChange)
+                            break;
                     }
                     else
                     {
                         Status = new GameStatus(GameStatus.Events.Check, other, p.ToString() + " is in check");
+                        if (breakAfterChange)
+                            break;
                     }
                 }
                 else if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
                 {
                     Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
+                    if (breakAfterChange)
+                        break;
                 }
             }
         }
@@ -336,7 +342,7 @@ namespace ChessDotNet
             {
                 playersToValidate.Add(m.Player);
             }
-            ChangeStatus(playersToValidate, validateHasAnyValidMoves);
+            ChangeStatus(playersToValidate, validateHasAnyValidMoves, false);
             return true;
         }
 
