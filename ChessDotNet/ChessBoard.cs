@@ -51,29 +51,7 @@ namespace ChessDotNet
                 playersToValidateCheck.Add(Players.White);
                 playersToValidateCheck.Add(Players.Black);
             }
-            Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
-            foreach (Players p in playersToValidateCheck)
-            {
-                Players other = p == Players.White ? Players.Black : Players.White;
-                if (IsInCheck(p))
-                {
-                    if (HasAnyValidMoves(p))
-                    {
-                        Status = new GameStatus(GameStatus.Events.Check, other, p.ToString() + " is in check");
-                        break;
-                    }
-                    else
-                    {
-                        Status = new GameStatus(GameStatus.Events.Checkmate, other, p.ToString() + " is checkmated");
-                        break;
-                    }
-                }
-                else if (!HasAnyValidMoves(p))
-                {
-                    Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
-                    break;
-                }
-            }
+            ChangeStatus(playersToValidateCheck, true);
         }
 
         public void InitBoard()
@@ -102,6 +80,30 @@ namespace ChessDotNet
                 { pw, pw, pw, pw, pw, pw, pw, pw },
                 { rw, nw, bw, qw, kw, bw, nw, rw }
             };
+        }
+
+        protected void ChangeStatus(List<Players> playersToValidate, bool validateHasAnyValidMoves)
+        {
+            Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
+            foreach (Players p in playersToValidate)
+            {
+                Players other = p == Players.White ? Players.Black : Players.White;
+                if (IsInCheck(p))
+                {
+                    if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
+                    {
+                        Status = new GameStatus(GameStatus.Events.Checkmate, other, p.ToString() + " is checkmated");
+                    }
+                    else
+                    {
+                        Status = new GameStatus(GameStatus.Events.Check, other, p.ToString() + " is in check");
+                    }
+                }
+                else if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
+                {
+                    Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
+                }
+            }
         }
 
         public ChessPiece GetPieceAt(Position p)
@@ -334,29 +336,7 @@ namespace ChessDotNet
             {
                 playersToValidate.Add(m.Player);
             }
-            foreach (Players p in playersToValidate)
-            {
-                other = p == Players.White ? Players.Black : Players.White;
-                if (IsInCheck(p))
-                {
-                    if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
-                    {
-                        Status = new GameStatus(GameStatus.Events.Checkmate, other, p.ToString() + " is checkmated");
-                    }
-                    else
-                    {
-                        Status = new GameStatus(GameStatus.Events.Check, other, p.ToString() + " is in check");
-                    }
-                }
-                else if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
-                {
-                    Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
-                }
-                else
-                {
-                    Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
-                }
-            }
+            ChangeStatus(playersToValidate, validateHasAnyValidMoves);
             return true;
         }
 
@@ -381,7 +361,7 @@ namespace ChessDotNet
                         if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                             || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                             continue;
-                            Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
                         if (IsValidMove(m))
                         {
                             validMoves.Add(m);
@@ -596,6 +576,9 @@ namespace ChessDotNet
                     }
                 }
             }
+
+            if (kingPos.File == Position.Files.None)
+                return false;
 
             for (int i = 0; i < piecePositions.Count; i++)
             {
