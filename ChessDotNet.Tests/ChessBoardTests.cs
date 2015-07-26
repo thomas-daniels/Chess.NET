@@ -819,14 +819,7 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
             ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
-            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
-            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
@@ -1561,14 +1554,7 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
             ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
-            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
-            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
@@ -1581,7 +1567,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                { kb, o, o, o, o, o, o, o }
             };
             ChessBoard cb = new ChessBoard(board, new List<Move>());
 
@@ -1595,14 +1581,7 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
             ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
-            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
-            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
@@ -1627,14 +1606,8 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
             ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
             ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
-            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
@@ -1661,14 +1634,7 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
-            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
-            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
             ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
