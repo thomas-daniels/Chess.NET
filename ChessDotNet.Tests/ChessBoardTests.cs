@@ -835,7 +835,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             ChessBoard cb = new ChessBoard(board, new List<Move>());
-            Move m = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
+            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
 
             Assert.False(cb.IsValidMove(m));
         }
@@ -1652,6 +1652,48 @@ namespace ChessDotNet.Tests
             ChessBoard cb = new ChessBoard(board, new List<Move>());
 
             Assert.AreEqual(GameStatus.Events.None, cb.Status.Event);
+        }
+
+        [Test]
+        public void TestBlackCheckmated()
+        {
+            ChessBoard cb = new ChessBoard();
+            cb.ApplyMove(new Move("E2", "E4", Players.White), true);
+            cb.ApplyMove(new Move("E7", "E5", Players.Black), true);
+            cb.ApplyMove(new Move("F1", "C4", Players.White), true);
+            cb.ApplyMove(new Move("D7", "D6", Players.Black), true);
+            cb.ApplyMove(new Move("D1", "F3", Players.White), true);
+            cb.ApplyMove(new Move("H7", "H6", Players.Black), true);
+            Assert.True(cb.ApplyMove(new Move("F3", "F7", Players.White), false));
+
+            Assert.AreEqual(GameStatus.Events.Checkmate, cb.Status.Event);
+            Assert.AreEqual(Players.White, cb.Status.PlayerWhoCausedEvent);
+            Assert.AreEqual("Black is checkmated", cb.Status.EventExplanation);
+        }
+
+        [Test]
+        public void TestBlackStalemated()
+        {
+            ChessPiece o = ChessPiece.None;
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { kb, o, kw, o, o, o, o, o },
+                { o, o, qw, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
+
+            Assert.AreEqual(GameStatus.Events.Stalemate, cb.Status.Event);
+            Assert.AreEqual(Players.White, cb.Status.PlayerWhoCausedEvent);
+            Assert.AreEqual("Stalemate", cb.Status.EventExplanation);
         }
     }
 }
