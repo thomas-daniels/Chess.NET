@@ -614,5 +614,10 @@ namespace ChessDotNet
             copy.ApplyMove(m, true, false, true);
             return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
+
+        public void Draw(string reason)
+        {
+            Status = new GameStatus(GameStatus.Events.Draw, Players.None, reason);
+        }
     }
 }
