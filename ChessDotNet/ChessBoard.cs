@@ -619,5 +619,10 @@ namespace ChessDotNet
         {
             Status = new GameStatus(GameStatus.Events.Draw, Players.None, reason);
         }
+
+        public void Resign(Players player)
+        {
+            Status = new GameStatus(GameStatus.Events.Resign, player, player.ToString() + " resigned");
+        }
     }
 }

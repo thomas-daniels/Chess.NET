@@ -9,6 +9,7 @@
             Stalemate,
             Draw,
             Custom,
+            Resign,
             VariantEnd, // to be used for chess variants, which can be derived from ChessBoard
             None
         }
