@@ -247,7 +247,7 @@ namespace ChessDotNet.Tests
                 { pw, pw, pw, pw, o, pw, pw, pw },
                 { rw, nw, bw, qw, kw, bw, nw, rw }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Assert.AreEqual(rw, cb.GetPieceAt(a, one));
             Assert.AreEqual(nw, cb.GetPieceAt(b, one));
             Assert.AreEqual(bw, cb.GetPieceAt(c, one));
@@ -417,7 +417,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, pw, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Move m = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
 
             Assert.False(cb.IsValidMove(m), "m is considered valid");
@@ -681,7 +681,7 @@ namespace ChessDotNet.Tests
                 { kw, o, kb, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Move m = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
 
             Assert.False(cb.IsValidMove(m), "m is considered valid");
@@ -841,7 +841,7 @@ namespace ChessDotNet.Tests
                 { o, kb, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Move m = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
 
             Assert.False(cb.IsValidMove(m));
@@ -866,7 +866,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.G, Position.Ranks.Seven), Players.White);
 
             Assert.False(cb.IsValidMove(m));
@@ -889,7 +889,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
             Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
             Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
             Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
@@ -1583,7 +1583,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
 
             Assert.AreEqual(GameStatus.Events.Check, cb.Status.Event);
             Assert.AreEqual(Players.Black, cb.Status.PlayerWhoCausedEvent);
@@ -1617,7 +1617,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kb, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
 
             Assert.AreEqual(GameStatus.Events.None, cb.Status.Event);
         }
@@ -1649,7 +1649,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
 
             Assert.AreEqual(GameStatus.Events.Check, cb.Status.Event);
             Assert.AreEqual(Players.White, cb.Status.PlayerWhoCausedEvent);
@@ -1683,7 +1683,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            ChessBoard cb = new ChessBoard(board, new System.Collections.Generic.List<Move>());
+            ChessBoard cb = new ChessBoard(board, new List<Move>());
 
             Assert.AreEqual(GameStatus.Events.None, cb.Status.Event);
         }
