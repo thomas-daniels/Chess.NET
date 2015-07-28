@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChessDotNet
 {
@@ -30,28 +31,40 @@ namespace ChessDotNet
             InitBoard();
         }
 
-        public ChessBoard(ChessPiece[,] board, List<Move> moves):
+        public ChessBoard(ChessPiece[,] board, List<Move> moves) :
             this(board, moves, true)
         {
         }
 
         protected ChessBoard(ChessPiece[,] board, List<Move> moves, bool validateCheck)
         {
+            if (moves == null)
+                throw new ArgumentNullException("moves cannot be null.");
+            if (moves.Count == 0)
+                throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = (ChessPiece[,])board.Clone();
             Moves = new List<Move>(moves);
             if (!validateCheck)
                 return;
             List<Players> playersToValidateCheck = new List<Players>();
-            if (moves.Count != 0)
-            {
-                playersToValidateCheck.Add(moves[moves.Count - 1].Player == Players.White ? Players.Black : Players.White);
-            }
-            else
-            {
-                playersToValidateCheck.Add(Players.White);
-                playersToValidateCheck.Add(Players.Black);
-            }
+            playersToValidateCheck.Add(moves[moves.Count - 1].Player == Players.White ? Players.Black : Players.White);
             ChangeStatus(playersToValidateCheck, true, true);
+        }
+
+        public ChessBoard(ChessPiece[,] board, Players whoseTurn) :
+            this(board, whoseTurn, true)
+        {
+        }
+
+        protected ChessBoard(ChessPiece[,] board, Players whoseTurn, bool validateCheck)
+        {
+            Board = (ChessPiece[,])board.Clone();
+            Moves = new List<Move>();
+            if (!validateCheck)
+                return;
+            List<Players> playersToValidate = new List<Players>();
+            playersToValidate.Add(whoseTurn);
+            ChangeStatus(playersToValidate, true, true);
         }
 
         public void InitBoard()
@@ -599,7 +612,7 @@ namespace ChessDotNet
 
         protected bool WouldBeInCheckAfter(Move m, Players player)
         {
-            ChessBoard copy = new ChessBoard(Board, Moves, false);
+            ChessBoard copy = new ChessBoard(Board, player == Players.White ? Players.Black : Players.White, false);
             copy.ApplyMove(m, true, false, true);
             return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
