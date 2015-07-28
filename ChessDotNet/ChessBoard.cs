@@ -46,9 +46,9 @@ namespace ChessDotNet
             Moves = new List<Move>(moves);
             if (!validateCheck)
                 return;
-            List<Players> playersToValidateCheck = new List<Players>();
-            playersToValidateCheck.Add(moves[moves.Count - 1].Player == Players.White ? Players.Black : Players.White);
-            ChangeStatus(playersToValidateCheck, true, true);
+            List<Tuple<Players, bool>> playersToValidateCheck = new List<Tuple<Players, bool>>();
+            playersToValidateCheck.Add(new Tuple<Players, bool>(moves[moves.Count - 1].Player == Players.White ? Players.Black : Players.White, true));
+            ChangeStatus(playersToValidateCheck, true);
         }
 
         public ChessBoard(ChessPiece[,] board, Players whoseTurn) :
@@ -62,9 +62,9 @@ namespace ChessDotNet
             Moves = new List<Move>();
             if (!validateCheck)
                 return;
-            List<Players> playersToValidate = new List<Players>();
-            playersToValidate.Add(whoseTurn);
-            ChangeStatus(playersToValidate, true, true);
+            List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
+            playersToValidate.Add(new Tuple<Players, bool>(whoseTurn, true));
+            ChangeStatus(playersToValidate, true);
         }
 
         public void InitBoard()
@@ -95,11 +95,13 @@ namespace ChessDotNet
             };
         }
 
-        protected void ChangeStatus(List<Players> playersToValidate, bool validateHasAnyValidMoves, bool breakAfterChange)
+        protected void ChangeStatus(List<Tuple<Players, bool>> playersToValidate, bool breakAfterChange)
         {
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
-            foreach (Players p in playersToValidate)
+            foreach (Tuple<Players, bool> t in playersToValidate)
             {
+                Players p = t.Item1;
+                bool validateHasAnyValidMoves = t.Item2;
                 Players other = p == Players.White ? Players.Black : Players.White;
                 if (IsInCheck(p))
                 {
@@ -349,13 +351,13 @@ namespace ChessDotNet
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
             Moves.Add(m);
             Players other = m.Player == Players.White ? Players.Black : Players.White;
-            List<Players> playersToValidate = new List<Players>();
-            playersToValidate.Add(other);
+            List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
+            playersToValidate.Add(new Tuple<Players, bool>(other, validateHasAnyValidMoves));
             if (validateSelfCheck)
             {
-                playersToValidate.Add(m.Player);
+                playersToValidate.Add(new Tuple<Players, bool>(m.Player, false));
             }
-            ChangeStatus(playersToValidate, validateHasAnyValidMoves, false);
+            ChangeStatus(playersToValidate, false);
             return true;
         }
 
@@ -612,7 +614,7 @@ namespace ChessDotNet
 
         protected bool WouldBeInCheckAfter(Move m, Players player)
         {
-            ChessBoard copy = new ChessBoard(Board, player == Players.White ? Players.Black : Players.White, false);
+            ChessBoard copy = new ChessBoard(Board, player, false);
             copy.ApplyMove(m, true, false, true);
             return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
         }

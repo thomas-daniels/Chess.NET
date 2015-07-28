@@ -845,7 +845,7 @@ namespace ChessDotNet.Tests
         {
             ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
             ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
             ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
             ChessPiece o = ChessPiece.None;
             ChessPiece[,] board = new ChessPiece[8, 8]
