@@ -1695,5 +1695,30 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(Players.White, cb.Status.PlayerWhoCausedEvent);
             Assert.AreEqual("Stalemate", cb.Status.EventExplanation);
         }
+
+        [Test]
+        public void TestBlackNotStalemated()
+        {
+            ChessPiece o = ChessPiece.None;
+            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { kb, o, kw, o, o, o, o, o },
+                { o, o, qw, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, new List<Move>() { new Move("A7", "A8", Players.Black) });
+
+            Assert.AreEqual(GameStatus.Events.None, cb.Status.Event);
+            Assert.AreEqual(Players.None, cb.Status.PlayerWhoCausedEvent);
+            Assert.AreEqual("No special event", cb.Status.EventExplanation);
+        }
     }
 }
