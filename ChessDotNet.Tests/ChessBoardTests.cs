@@ -1826,7 +1826,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void ApplyMoveWhitePawn_EnPassant()
+        public void TestApplyMoveWhitePawn_EnPassant()
         {
             ChessBoard cb = new ChessBoard();
             Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
@@ -1870,7 +1870,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void ApplyMoveBlackPawn_EnPassant()
+        public void TestApplyMoveBlackPawn_EnPassant()
         {
             ChessBoard cb = new ChessBoard();
             Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
