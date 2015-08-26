@@ -32,9 +32,9 @@ namespace ChessDotNet
 
         public override bool Equals(object obj)
         {
-            ChessPiece c1 = this;
-            ChessPiece c2 = (ChessPiece)obj;
-            return c1.Piece == c2.Piece && c1.Player == c2.Player;
+            ChessPiece piece1 = this;
+            ChessPiece piece2 = (ChessPiece)obj;
+            return piece1.Piece == piece2.Piece && piece1.Player == piece2.Player;
         }
 
         public override int GetHashCode()
@@ -42,14 +42,14 @@ namespace ChessDotNet
             return new { Piece, Player }.GetHashCode();
         }
 
-        public static bool operator ==(ChessPiece c1, ChessPiece c2)
+        public static bool operator ==(ChessPiece piece1, ChessPiece piece2)
         {
-            return c1.Equals(c2);
+            return piece1.Equals(piece2);
         }
 
-        public static bool operator !=(ChessPiece c1, ChessPiece c2)
+        public static bool operator !=(ChessPiece piece1, ChessPiece piece2)
         {
-            return !c1.Equals(c2);
+            return !piece1.Equals(piece2);
         }
 
         public override string ToString()

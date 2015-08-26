@@ -52,11 +52,11 @@
 
         public override bool Equals(object obj)
         {
-            Move m1 = this;
-            Move m2 = (Move)obj;
-            return m1.OriginalPosition.Equals(m2.OriginalPosition)
-                && m1.NewPosition.Equals(m2.NewPosition)
-                && m1.Player == m2.Player;
+            Move move1 = this;
+            Move move2 = (Move)obj;
+            return move1.OriginalPosition.Equals(move2.OriginalPosition)
+                && move1.NewPosition.Equals(move2.NewPosition)
+                && move1.Player == move2.Player;
         }
 
         public override int GetHashCode()
@@ -64,14 +64,14 @@
             return new { OriginalPosition, NewPosition, Player }.GetHashCode();
         }
 
-        public static bool operator ==(Move m1, Move m2)
+        public static bool operator ==(Move move1, Move move2)
         {
-            return m1.Equals(m2);
+            return move1.Equals(move2);
         }
 
-        public static bool operator !=(Move m1, Move m2)
+        public static bool operator !=(Move move1, Move move2)
         {
-            return !m1.Equals(m2);
+            return !move1.Equals(move2);
         }
 
         public override string ToString()

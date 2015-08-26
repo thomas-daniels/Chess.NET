@@ -760,10 +760,10 @@ namespace ChessDotNet
             return false;
         }
 
-        protected bool WouldBeInCheckAfter(Move m, Players player)
+        protected bool WouldBeInCheckAfter(Move move, Players player)
         {
             Chessboard copy = new Chessboard(Board, player, false);
-            copy.ApplyMove(m, true, false, true);
+            copy.ApplyMove(move, true, false, true);
             return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
 
