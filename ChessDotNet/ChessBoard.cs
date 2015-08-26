@@ -261,10 +261,20 @@ namespace ChessDotNet
                     if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1)
                         && (posDelta.DeltaX != 0 || posDelta.DeltaY != 2))
                         return false;
-                    if (piece.Player == Players.White && (int)m.OriginalPosition.Rank < (int)m.NewPosition.Rank)
-                        return false;
-                    if (piece.Player == Players.Black && (int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
-                        return false;
+                    if (piece.Player == Players.White)
+                    {
+                        if ((int)m.OriginalPosition.Rank < (int)m.NewPosition.Rank)
+                            return false;
+                        if (m.NewPosition.Rank == Position.Ranks.Eight && m.Promotion == Pieces.None)
+                            return false;
+                    }
+                    if (piece.Player == Players.Black)
+                    {
+                        if ((int)m.OriginalPosition.Rank > (int)m.NewPosition.Rank)
+                            return false;
+                        if (m.NewPosition.Rank == Position.Ranks.One && m.Promotion == Pieces.None)
+                            return false;
+                    }
                     bool checkEnPassant = false;
                     if (posDelta.DeltaY == 2)
                     {
@@ -430,12 +440,17 @@ namespace ChessDotNet
             if (!alreadyValidated && !IsValidMove(m))
                 return false;
             ChessPiece movingPiece = GetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank);
+            ChessPiece newPiece = movingPiece;
             if (movingPiece.Piece == Pieces.Pawn)
             {
                 PositionDelta pd = new PositionDelta(m.OriginalPosition, m.NewPosition);
                 if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(m.NewPosition).Piece == Pieces.None)
                 { // en passant
                     SetPieceAt(m.NewPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
+                }
+                if (m.NewPosition.Rank == (m.Player == Players.White ? Position.Ranks.Eight : Position.Ranks.One))
+                {
+                    newPiece = new ChessPiece(m.Promotion, m.Player);
                 }
             }
             else if (movingPiece.Piece == Pieces.King && movingPiece.Player == Players.White)
@@ -462,7 +477,7 @@ namespace ChessDotNet
             {
                 _blackRookHMoved = true;
             }
-            SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, movingPiece);
+            SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, newPiece);
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
             if (movingPiece.Piece == Pieces.King && new PositionDelta(m.OriginalPosition, m.NewPosition).DeltaX == 2)
             {

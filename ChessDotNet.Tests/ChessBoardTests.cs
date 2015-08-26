@@ -1650,6 +1650,108 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestApplyMoveWhitePawn_PromotionToQueen()
+        {
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { pw, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White, Pieces.Queen);
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Assert.True(cb.ApplyMove(m, false), "m should be valid");
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { qw, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
+        public void TestApplyMoveBlackPawn_PromotionToQueen()
+        {
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, pb, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black, Pieces.Queen);
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Assert.True(cb.ApplyMove(m, false), "m should be valid");
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, o, o },
+                { o, o, o, o, o, o, qb, o }
+            };
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
+        public void TestInvalidMoveWhitePawnPromotion_NoPieceSpecified()
+        {
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { pw, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, o, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White);
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Assert.False(cb.IsValidMove(m), "m should be invalid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
+        {
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, kw, o, kb, pb, o },
+                { o, o, o, o, o, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black);
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Assert.False(cb.IsValidMove(m), "m should be invalid");
+        }
+
+        [Test]
         public void TestApplyMoveBlackPawn_EnPassant()
         {
             ChessBoard cb = new ChessBoard();

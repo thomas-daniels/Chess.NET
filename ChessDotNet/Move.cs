@@ -20,18 +20,34 @@
             private set;
         }
 
+        public Pieces Promotion
+        {
+            get;
+            private set;
+        }
+
         public Move(Position originalPos, Position newPos, Players player)
+            : this(originalPos, newPos, player, Pieces.None)
+        { }
+
+        public Move(string originalPos, string newPos, Players player)
+            : this(originalPos, newPos, player, Pieces.None)
+        { }
+
+        public Move(Position originalPos, Position newPos, Players player, Pieces promotion)
         {
             OriginalPosition = originalPos;
             NewPosition = newPos;
             Player = player;
+            Promotion = promotion;
         }
 
-        public Move(string originalPos, string newPos, Players player)
+        public Move(string originalPos, string newPos, Players player, Pieces promotion)
         {
             OriginalPosition = new Position(originalPos);
             NewPosition = new Position(newPos);
             Player = player;
+            Promotion = promotion;
         }
 
         public override bool Equals(object obj)
