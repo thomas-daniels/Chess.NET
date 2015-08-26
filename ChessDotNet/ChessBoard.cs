@@ -53,17 +53,17 @@ namespace ChessDotNet
             Moves = new List<Move>(moves);
             foreach (Move m in Moves)
             {
-                if (!_whiteKingMoved && m.Player == Players.White && m.OriginalPosition.File == Position.Files.E && m.OriginalPosition.Rank == Position.Ranks.One)
+                if (!_whiteKingMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.E, Position.Ranks.One))
                     _whiteKingMoved = true;
-                if (!_blackKingMoved && m.Player == Players.Black && m.OriginalPosition.File == Position.Files.E && m.OriginalPosition.Rank == Position.Ranks.Eight)
+                if (!_blackKingMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.E, Position.Ranks.Eight))
                     _blackKingMoved = true;
-                if (!_whiteRookAMoved && m.Player == Players.White && m.OriginalPosition.File == Position.Files.A && m.OriginalPosition.Rank == Position.Ranks.One)
+                if (!_whiteRookAMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.A, Position.Ranks.One))
                     _whiteRookAMoved = true;
-                if (!_whiteRookHMoved && m.Player == Players.White && m.OriginalPosition.File == Position.Files.H && m.OriginalPosition.Rank == Position.Ranks.One)
+                if (!_whiteRookHMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.H, Position.Ranks.One))
                     _whiteRookHMoved = true;
-                if (!_blackRookAMoved && m.Player == Players.Black && m.OriginalPosition.File == Position.Files.A && m.OriginalPosition.Rank == Position.Ranks.Eight)
+                if (!_blackRookAMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.A, Position.Ranks.Eight))
                     _blackRookAMoved = true;
-                if (!_blackRookHMoved && m.Player == Players.Black && m.OriginalPosition.File == Position.Files.H && m.OriginalPosition.Rank == Position.Ranks.Eight)
+                if (!_blackRookHMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.H, Position.Ranks.Eight))
                     _blackRookHMoved = true;
             }
             if (!validateCheck)
