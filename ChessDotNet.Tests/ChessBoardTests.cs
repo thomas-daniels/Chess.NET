@@ -575,6 +575,436 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveWhiteKing_KingSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteKing_QueenSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, kb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_WouldPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, rb, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_WouldPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, rb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteKing_KingSideCastling_WouldNotPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteKing_QueenSideCastling_WouldNotPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, rb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece1()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, rw, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece1()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, o, o, kb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, rw, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece2()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, rw, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece2()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, rw, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece3()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, rw, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_NoRook()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_NoRook()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_RookMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_RookMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_KingSideCastling_KingMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.One), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveWhiteKing_QueenSideCastling_KingMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, kb, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.One), Players.White);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
         public void TestValidMoveBlackPawn()
         {
             ChessBoard cb = new ChessBoard();
@@ -812,6 +1242,436 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(m1, true);
 
             Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKing_KingSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKing_QueenSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_WouldPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, rw, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_WouldPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, rw, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKing_KingSideCastling_WouldNotPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackKing_QueenSideCastling_WouldNotPassThroughCheck()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, rw, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece1()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, rb, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o}
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece1()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, rb, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece2()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, rb, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece2()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, rb, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece3()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, rb, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_NoRook()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_NoRook()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_RookMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, kw, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.H, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Seven), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_RookMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, kw, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_KingSideCastling_KingMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, kw, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+        }
+
+        [Test]
+        public void TestInvalidMoveBlackKing_QueenSideCastling_KingMoved()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, kw, o, o, o, o, o, o }
+            };
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
+
+            cb.ApplyMove(m1, true);
+            cb.ApplyMove(m2, true);
+
+            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
         }
 
         [Test]
