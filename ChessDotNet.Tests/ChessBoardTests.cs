@@ -1916,6 +1916,154 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestApplyMoveWhiteKing_KingSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, rw }
+            };
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            cb.ApplyMove(m, true);
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, rw, kw, o }
+            };
+
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
+        public void TestApplyMoveWhiteKing_QueenSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { rw, o, o, o, kw, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            ChessBoard cb = new ChessBoard(board, Players.White);
+            cb.ApplyMove(m, true);
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, kw, rw, o, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
+        public void TestApplyMoveBlackKing_KingSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, kb, o, o, rb },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            cb.ApplyMove(m, true);
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { o, o, o, o, o, rb, kb, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
+        public void TestApplyMoveBlackKing_QueenSideCastling()
+        {
+            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
+            ChessPiece o = ChessPiece.None;
+            ChessPiece[,] board = new ChessPiece[8, 8]
+            {
+                { rb, o, o, o, kb, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            ChessBoard cb = new ChessBoard(board, Players.Black);
+            cb.ApplyMove(m, true);
+
+            ChessPiece[,] expected = new ChessPiece[8, 8]
+            {
+                { o, o, kb, rb, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, o, o, o, o },
+                { o, o, o, o, kw, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.Board);
+        }
+
+        [Test]
         public void TestGetValidMovesWhiteStartingPosition()
         {
             ChessBoard cb = new ChessBoard();

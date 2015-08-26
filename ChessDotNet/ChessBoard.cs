@@ -464,6 +464,14 @@ namespace ChessDotNet
             }
             SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, movingPiece);
             SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
+            if (movingPiece.Piece == Pieces.King && new PositionDelta(m.OriginalPosition, m.NewPosition).DeltaX == 2)
+            {
+                Position.Ranks rank = m.Player == Players.White ? Position.Ranks.One : Position.Ranks.Eight;
+                Position.Files rookFile = m.NewPosition.File == Position.Files.C ? Position.Files.A : Position.Files.H;
+                Position.Files newRookFile = m.NewPosition.File == Position.Files.C ? Position.Files.D : Position.Files.F;
+                SetPieceAt(newRookFile, rank, new ChessPiece(Pieces.Rook, m.Player));
+                SetPieceAt(rookFile, rank, ChessPiece.None);
+            }
             Moves.Add(m);
             Players other = m.Player == Players.White ? Players.Black : Players.White;
             List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
