@@ -440,27 +440,27 @@ namespace ChessDotNet
             return true;
         }
 
-        public bool ApplyMove(Move m, bool alreadyValidated)
+        public bool ApplyMove(Move move, bool alreadyValidated)
         {
-            return ApplyMove(m, alreadyValidated, true, false);
+            return ApplyMove(move, alreadyValidated, true, false);
         }
 
-        protected bool ApplyMove(Move m, bool alreadyValidated, bool validateHasAnyValidMoves, bool validateSelfCheck)
+        protected bool ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves, bool validateSelfCheck)
         {
-            if (!alreadyValidated && !IsValidMove(m))
+            if (!alreadyValidated && !IsValidMove(move))
                 return false;
-            ChessPiece movingPiece = GetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank);
+            ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             ChessPiece newPiece = movingPiece;
             if (movingPiece.Piece == Pieces.Pawn)
             {
-                PositionDelta pd = new PositionDelta(m.OriginalPosition, m.NewPosition);
-                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(m.NewPosition).Piece == Pieces.None)
+                PositionDelta pd = new PositionDelta(move.OriginalPosition, move.NewPosition);
+                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(move.NewPosition).Piece == Pieces.None)
                 { // en passant
-                    SetPieceAt(m.NewPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
+                    SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
                 }
-                if (m.NewPosition.Rank == (m.Player == Players.White ? Position.Ranks.Eight : Position.Ranks.One))
+                if (move.NewPosition.Rank == (move.Player == Players.White ? Position.Ranks.Eight : Position.Ranks.One))
                 {
-                    newPiece = new ChessPiece(m.Promotion, m.Player);
+                    newPiece = new ChessPiece(move.Promotion, move.Player);
                 }
             }
             else if (movingPiece.Piece == Pieces.King && movingPiece.Player == Players.White)
@@ -471,39 +471,39 @@ namespace ChessDotNet
             {
                 _blackKingMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && m.OriginalPosition.File == Position.Files.A && m.OriginalPosition.Rank == Position.Ranks.One && m.Player == Players.White)
+            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.A && move.OriginalPosition.Rank == Position.Ranks.One && move.Player == Players.White)
             {
                 _whiteRookAMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && m.OriginalPosition.File == Position.Files.H && m.OriginalPosition.Rank == Position.Ranks.One && m.Player == Players.White)
+            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.H && move.OriginalPosition.Rank == Position.Ranks.One && move.Player == Players.White)
             {
                 _whiteRookHMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && m.OriginalPosition.File == Position.Files.A && m.OriginalPosition.Rank == Position.Ranks.Eight && m.Player == Players.Black)
+            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.A && move.OriginalPosition.Rank == Position.Ranks.Eight && move.Player == Players.Black)
             {
                 _blackRookAMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && m.OriginalPosition.File == Position.Files.H && m.OriginalPosition.Rank == Position.Ranks.Eight && m.Player == Players.Black)
+            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.H && move.OriginalPosition.Rank == Position.Ranks.Eight && move.Player == Players.Black)
             {
                 _blackRookHMoved = true;
             }
-            SetPieceAt(m.NewPosition.File, m.NewPosition.Rank, newPiece);
-            SetPieceAt(m.OriginalPosition.File, m.OriginalPosition.Rank, ChessPiece.None);
-            if (movingPiece.Piece == Pieces.King && new PositionDelta(m.OriginalPosition, m.NewPosition).DeltaX == 2)
+            SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
+            SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
+            if (movingPiece.Piece == Pieces.King && new PositionDelta(move.OriginalPosition, move.NewPosition).DeltaX == 2)
             {
-                Position.Ranks rank = m.Player == Players.White ? Position.Ranks.One : Position.Ranks.Eight;
-                Position.Files rookFile = m.NewPosition.File == Position.Files.C ? Position.Files.A : Position.Files.H;
-                Position.Files newRookFile = m.NewPosition.File == Position.Files.C ? Position.Files.D : Position.Files.F;
-                SetPieceAt(newRookFile, rank, new ChessPiece(Pieces.Rook, m.Player));
+                Position.Ranks rank = move.Player == Players.White ? Position.Ranks.One : Position.Ranks.Eight;
+                Position.Files rookFile = move.NewPosition.File == Position.Files.C ? Position.Files.A : Position.Files.H;
+                Position.Files newRookFile = move.NewPosition.File == Position.Files.C ? Position.Files.D : Position.Files.F;
+                SetPieceAt(newRookFile, rank, new ChessPiece(Pieces.Rook, move.Player));
                 SetPieceAt(rookFile, rank, ChessPiece.None);
             }
-            Moves.Add(m);
-            Players other = m.Player == Players.White ? Players.Black : Players.White;
+            Moves.Add(move);
+            Players other = move.Player == Players.White ? Players.Black : Players.White;
             List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
             playersToValidate.Add(new Tuple<Players, bool>(other, validateHasAnyValidMoves));
             if (validateSelfCheck)
             {
-                playersToValidate.Add(new Tuple<Players, bool>(m.Player, false));
+                playersToValidate.Add(new Tuple<Players, bool>(move.Player, false));
             }
             ChangeStatus(playersToValidate, false);
             return true;
@@ -530,10 +530,10 @@ namespace ChessDotNet
                         if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                             || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                             continue;
-                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
-                        if (IsValidMove(m))
+                        Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(move))
                         {
-                            validMoves.Add(m);
+                            validMoves.Add(move);
                             if (returnIfAny)
                                 return validMoves;
                         }
@@ -553,10 +553,10 @@ namespace ChessDotNet
                         if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                             || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                             continue;
-                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
-                        if (IsValidMove(m))
+                        Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(move))
                         {
-                            validMoves.Add(m);
+                            validMoves.Add(move);
                             if (returnIfAny)
                                 return validMoves;
                         }
@@ -570,10 +570,10 @@ namespace ChessDotNet
                         if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                             || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                             continue;
-                        Move m = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
-                        if (IsValidMove(m))
+                        Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                        if (IsValidMove(move))
                         {
-                            validMoves.Add(m);
+                            validMoves.Add(move);
                             if (returnIfAny)
                                 return validMoves;
                         }
@@ -586,20 +586,20 @@ namespace ChessDotNet
                             continue;
                         if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
                         {
-                            Move m = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
                         }
                         if ((int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
@@ -614,10 +614,10 @@ namespace ChessDotNet
                         if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
                             && (int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
@@ -625,10 +625,10 @@ namespace ChessDotNet
                         if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
                             && (int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
@@ -642,20 +642,20 @@ namespace ChessDotNet
                             continue;
                         if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
                         {
-                            Move m = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
                         }
                         if ((int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
@@ -663,10 +663,10 @@ namespace ChessDotNet
                         if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
                             && (int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
@@ -674,10 +674,10 @@ namespace ChessDotNet
                         if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
                             && (int)from.File + i > -1 && (int)from.File + i < l1)
                         {
-                            Move m = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
-                            if (IsValidMove(m))
+                            Move move = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
+                            if (IsValidMove(move))
                             {
-                                validMoves.Add(m);
+                                validMoves.Add(move);
                                 if (returnIfAny)
                                     return validMoves;
                             }
