@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChessDotNet
 {
-    public class ChessBoard
+    public class Chessboard
     {
         bool _whiteRookAMoved = false;
         bool _whiteRookHMoved = false;
@@ -30,7 +30,7 @@ namespace ChessDotNet
             private set;
         }
 
-        public ChessBoard()
+        public Chessboard()
         {
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
             Board = new ChessPiece[8, 8];
@@ -38,12 +38,12 @@ namespace ChessDotNet
             InitBoard();
         }
 
-        public ChessBoard(ChessPiece[,] board, List<Move> moves) :
+        public Chessboard(ChessPiece[,] board, List<Move> moves) :
             this(board, moves, true)
         {
         }
 
-        protected ChessBoard(ChessPiece[,] board, List<Move> moves, bool validateCheck)
+        protected Chessboard(ChessPiece[,] board, List<Move> moves, bool validateCheck)
         {
             if (moves == null)
                 throw new ArgumentNullException("moves cannot be null.");
@@ -73,12 +73,12 @@ namespace ChessDotNet
             ChangeStatus(playersToValidateCheck, true);
         }
 
-        public ChessBoard(ChessPiece[,] board, Players whoseTurn) :
+        public Chessboard(ChessPiece[,] board, Players whoseTurn) :
             this(board, whoseTurn, true)
         {
         }
 
-        protected ChessBoard(ChessPiece[,] board, Players whoseTurn, bool validateCheck)
+        protected Chessboard(ChessPiece[,] board, Players whoseTurn, bool validateCheck)
         {
             Board = (ChessPiece[,])board.Clone();
             Moves = new List<Move>();
@@ -752,7 +752,7 @@ namespace ChessDotNet
 
         protected bool WouldBeInCheckAfter(Move m, Players player)
         {
-            ChessBoard copy = new ChessBoard(Board, player, false);
+            Chessboard copy = new Chessboard(Board, player, false);
             copy.ApplyMove(m, true, false, true);
             return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
