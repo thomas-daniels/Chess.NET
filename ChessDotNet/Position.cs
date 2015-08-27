@@ -127,6 +127,10 @@ namespace ChessDotNet
 
         public override bool Equals(object obj)
         {
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj == null || GetType() != obj.GetType())
+                return false;
             Position pos2 = (Position)obj;
             return File == pos2.File && Rank == pos2.Rank;
         }
@@ -138,11 +142,19 @@ namespace ChessDotNet
 
         public static bool operator ==(Position p1, Position p2)
         {
+            if (ReferenceEquals(p1, p2))
+                return true;
+            if ((object)p1 == null || (object)p2 == null)
+                return false;
             return p1.Equals(p2);
         }
 
         public static bool operator !=(Position p1, Position p2)
         {
+            if (ReferenceEquals(p1, p2))
+                return false;
+            if ((object)p1 == null || (object)p2 == null)
+                return true;
             return !p1.Equals(p2);
         }
 

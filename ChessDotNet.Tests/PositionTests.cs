@@ -38,6 +38,27 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestInequalityNull()
+        {
+            Position position1 = new Position(Position.Files.E, Position.Ranks.One);
+            Position position2 = null;
+            Assert.AreNotEqual(position1, position2, "position1 and position2 should not be equal");
+            Assert.False(position1.Equals(position2), "position1.Equals(position2) should be false");
+            Assert.True(position1 != position2, "position1 != position2 should be true");
+            Assert.True(position2 != position1, "position2 != position1 should be true");
+            Assert.False(position1 == position2, "position1 == position2 should be false");
+            Assert.False(position2 == position1, "position2 == position1 should be false");
+        }
+
+        [Test]
+        public void TestInequalityDifferentType()
+        {
+            Position position1 = new Position(Position.Files.D, Position.Ranks.Three);
+            string str = "abc";
+            Assert.False(position1.Equals(str), "position1.Equals(str) should be false");
+        }
+
+        [Test]
         public void TestConstructors()
         {
             Assert.AreEqual(new Position(Position.Files.A, Position.Ranks.One), new Position("A1"));
