@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ChessDotNet
 {
@@ -160,7 +161,7 @@ namespace ChessDotNet
 
         public override string ToString()
         {
-            return File.ToString() + (8 - (int)Rank).ToString();
+            return File.ToString() + (8 - (int)Rank).ToString(CultureInfo.InvariantCulture);
         }
     }
 }
