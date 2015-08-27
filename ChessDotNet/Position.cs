@@ -57,6 +57,10 @@ namespace ChessDotNet
 
         public Position(string position)
         {
+            if (position == null)
+            {
+                throw new ArgumentNullException("position");
+            }
             if (position.Length != 2)
             {
                 throw new ArgumentException("Length of `pos` is not 2.");
