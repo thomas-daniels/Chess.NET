@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Globalization;
 
 namespace ChessDotNet
 {
@@ -54,7 +54,7 @@ namespace ChessDotNet
 
         public override string ToString()
         {
-            return String.Format("ChessPiece: {0}, {1}", Piece, Player);
+            return string.Format(CultureInfo.InvariantCulture, "ChessPiece: {0}, {1}", Piece, Player);
         }
     }
 }
