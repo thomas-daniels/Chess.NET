@@ -813,6 +813,8 @@ namespace ChessDotNet
 
         public void Resign(Players player)
         {
+            if (player == Players.None)
+                throw new ArgumentException("player cannot be None.");
             Status = new GameStatus(GameStatus.Events.Resign, player, player.ToString() + " resigned");
         }
     }
