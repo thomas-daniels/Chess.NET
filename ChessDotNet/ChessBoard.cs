@@ -47,7 +47,7 @@ namespace ChessDotNet
         protected Chessboard(ChessPiece[,] board, List<Move> moves, bool validateCheck)
         {
             if (moves == null)
-                throw new ArgumentNullException("moves cannot be null.");
+                throw new ArgumentNullException("moves");
             if (moves.Count == 0)
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = (ChessPiece[,])board.Clone();
