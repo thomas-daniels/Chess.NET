@@ -295,9 +295,9 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Two), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.Two), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -305,73 +305,73 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhitePawn_Capture()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(m3));
+            Assert.True(cb.IsValidMove(move3));
         }
 
         [Test]
         public void TestValidMoveWhitePawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
-            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move move4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
 
-            Assert.True(cb.IsValidMove(m5));
+            Assert.True(cb.IsValidMove(move5));
         }
 
         [Test]
         public void TestInvalidMoveWhitePawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
-            Move m4 = new Move(new Position(Position.Files.H, Position.Ranks.Seven), new Position(Position.Files.H, Position.Ranks.Five), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move move4 = new Move(new Position(Position.Files.H, Position.Ranks.Seven), new Position(Position.Files.H, Position.Ranks.Five), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
 
-            Assert.False(cb.IsValidMove(m5));
+            Assert.False(cb.IsValidMove(move5));
         }
 
         [Test]
         public void TestInvalidMoveWhitePawn_NoCapture()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Five), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3));
+            Assert.False(cb.IsValidMove(move3));
         }
 
         [Test]
@@ -389,9 +389,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
 
-            Assert.False(cb.IsValidMove(m), "m is considered valid");
+            Assert.False(cb.IsValidMove(move), "move is considered valid");
 
         }
 
@@ -399,12 +399,12 @@ namespace ChessDotNet.Tests
         public void TestInvalidMoveWhitePawn_TwoStepsNotOnRankTwo()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
+            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
         }
 
         [Test]
@@ -412,137 +412,137 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Three), Players.White);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Three), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteBishopC()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.C, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.Four), Players.White);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.C, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.Four), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteBishopF()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.F, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Four), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.F, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Four), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteRookA()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Two), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
+            Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.Two), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteRookH()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.H, Position.Ranks.Two), new Position(Position.Files.H, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
+            Move move1 = new Move(new Position(Position.Files.H, Position.Ranks.Two), new Position(Position.Files.H, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteQueenDiagonal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Five), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Five), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteQueenVertical()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteQueenHorizontal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
-            Move m3 = new Move(new Position(Position.Files.C, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
-            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
-            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move move3 = new Move(new Position(Position.Files.C, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
+            Move move4 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move5 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(m4), "m4 is considered invalid");
-            Assert.True(cb.IsValidMove(m5), "m5 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteKingDiagonal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.F, Position.Ranks.Two), new Position(Position.Files.F, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.Two), Players.White);
+            Move move1 = new Move(new Position(Position.Files.F, Position.Ranks.Two), new Position(Position.Files.F, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.Two), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteKingHorizontal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.Two), Players.White);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(m3), "m3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveWhiteKingVertical()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.E, Position.Ranks.Two), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.E, Position.Ranks.Two), Players.White);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
@@ -560,9 +560,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -580,9 +580,9 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -600,9 +600,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -620,9 +620,9 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -640,9 +640,9 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -660,9 +660,9 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -680,9 +680,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, rw, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -700,9 +700,9 @@ namespace ChessDotNet.Tests
                 { rw, rw, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -720,9 +720,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, rw, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -740,9 +740,9 @@ namespace ChessDotNet.Tests
                 { rw, o, rw, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -760,9 +760,9 @@ namespace ChessDotNet.Tests
                 { rw, o, o, rw, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -780,9 +780,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -800,9 +800,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -820,14 +820,14 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -845,14 +845,14 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -870,14 +870,14 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -895,14 +895,14 @@ namespace ChessDotNet.Tests
                 { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.One), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.One), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -910,9 +910,9 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Six), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Six), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -920,77 +920,77 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackPawn_Capture()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(m3));
+            Assert.True(cb.IsValidMove(move3));
         }
 
         [Test]
         public void TestValidMoveBlackPawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
-            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move move6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
-            cb.ApplyMove(m5, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
 
-            Assert.True(cb.IsValidMove(m6));
+            Assert.True(cb.IsValidMove(move6));
         }
 
         [Test]
         public void TestInvalidMoveBlackPawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.H, Position.Ranks.Two), new Position(Position.Files.H, Position.Ranks.Four), Players.White);
-            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.H, Position.Ranks.Two), new Position(Position.Files.H, Position.Ranks.Four), Players.White);
+            Move move6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
-            cb.ApplyMove(m5, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
 
-            Assert.False(cb.IsValidMove(m6));
+            Assert.False(cb.IsValidMove(move6));
         }
 
         [Test]
         public void TestInvalidMoveBlackPawn_NoCapture()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Three), Players.White);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Four), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3));
+            Assert.False(cb.IsValidMove(move3));
         }
 
         [Test]
@@ -1008,9 +1008,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
 
-            Assert.False(cb.IsValidMove(m), "m is considered valid");
+            Assert.False(cb.IsValidMove(move), "move is considered valid");
 
         }
 
@@ -1018,12 +1018,12 @@ namespace ChessDotNet.Tests
         public void TestInvalidMoveBlackPawn_TwoStepsNotOnRankSeven()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
+            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
         }
 
         [Test]
@@ -1031,113 +1031,113 @@ namespace ChessDotNet.Tests
         {
             Chessboard cb = new Chessboard();
 
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackBishopC()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Five), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Five), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackBishopF()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.F, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Five), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.F, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Five), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackQueenDiagonal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Four), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Four), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackQueenVertical()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackQueenHorizontal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
-            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.C, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+            Move move4 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(m4), "m4 is considered invalid");
-            Assert.True(cb.IsValidMove(m5), "m5 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingDiagonal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.F, Position.Ranks.Seven), new Position(Position.Files.F, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Seven), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.F, Position.Ranks.Seven), new Position(Position.Files.F, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Seven), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingHorizontal()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(m3), "m3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingVertical()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
 
-            cb.ApplyMove(m1, true);
+            cb.ApplyMove(move1, true);
 
-            Assert.True(cb.IsValidMove(m2), "m2 is considered invalid");
+            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
         }
 
         [Test]
@@ -1155,9 +1155,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -1175,9 +1175,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -1195,9 +1195,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, rw, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1215,9 +1215,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, rw, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1235,9 +1235,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -1255,9 +1255,9 @@ namespace ChessDotNet.Tests
                 { o, rw, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.True(cb.IsValidMove(m1), "m1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
         }
 
         [Test]
@@ -1275,9 +1275,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o}
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1295,9 +1295,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1315,9 +1315,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1335,9 +1335,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1355,9 +1355,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1375,9 +1375,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1395,9 +1395,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
         }
 
         [Test]
@@ -1415,14 +1415,14 @@ namespace ChessDotNet.Tests
                 { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.H, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Seven), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.H, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Seven), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -1440,14 +1440,14 @@ namespace ChessDotNet.Tests
                 { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -1465,14 +1465,14 @@ namespace ChessDotNet.Tests
                 { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
-            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move move3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -1490,14 +1490,14 @@ namespace ChessDotNet.Tests
                 { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
-            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.B, Position.Ranks.Two), Players.White);
+            Move move3 = new Move(new Position(Position.Files.D, Position.Ranks.Eight), new Position(Position.Files.B, Position.Ranks.Eight), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
@@ -1515,9 +1515,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
+            Move move = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
 
-            Assert.False(cb.IsValidMove(m));
+            Assert.False(cb.IsValidMove(move));
         }
 
         [Test]
@@ -1536,9 +1536,9 @@ namespace ChessDotNet.Tests
             };
 
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.E, Position.Ranks.One), Players.White);
+            Move move = new Move(new Position(Position.Files.D, Position.Ranks.One), new Position(Position.Files.E, Position.Ranks.One), Players.White);
 
-            Assert.False(cb.IsValidMove(m));
+            Assert.False(cb.IsValidMove(move));
         }
 
         [Test]
@@ -1556,9 +1556,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.G, Position.Ranks.Seven), Players.White);
+            Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.G, Position.Ranks.Seven), Players.White);
 
-            Assert.False(cb.IsValidMove(m));
+            Assert.False(cb.IsValidMove(move));
         }
 
         [Test]
@@ -1576,21 +1576,21 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            Move m1 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m2 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move2 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Seven), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
 
-            Assert.False(cb.IsValidMove(m1), "m1 is considered valid");
-            Assert.False(cb.IsValidMove(m2), "m2 is considered valid");
-            Assert.False(cb.IsValidMove(m3), "m3 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
         }
 
         [Test]
         public void TestApplyMoveWhitePawn()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Assert.True(cb.ApplyMove(m1, false));
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Assert.True(cb.ApplyMove(move1, false));
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
                 { rb, nb, bb, qb, kb, bb, nb, rb },
@@ -1602,9 +1602,9 @@ namespace ChessDotNet.Tests
                 { pw, pw, pw, pw, o, pw, pw, pw },
                 { rw, nw, bw, qw, kw, bw, nw, rw }
             };
-            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying m1");
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Assert.True(cb.ApplyMove(m2, true));
+            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move1");
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Assert.True(cb.ApplyMove(move2, true));
             expected = new ChessPiece[8, 8]
             {
                 { rb, nb, bb, qb, kb, bb, nb, rb },
@@ -1616,24 +1616,24 @@ namespace ChessDotNet.Tests
                 { pw, pw, pw, pw, o, pw, pw, pw },
                 { rw, nw, bw, qw, kw, bw, nw, rw }
             };
-            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying m2");
+            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move2");
         }
 
         [Test]
         public void TestApplyMoveWhitePawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
-            Move m4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
+            Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.E, Position.Ranks.Five), Players.White);
+            Move move4 = new Move(new Position(Position.Files.D, Position.Ranks.Seven), new Position(Position.Files.D, Position.Ranks.Five), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.D, Position.Ranks.Six), Players.White);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
-            cb.ApplyMove(m5, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
 
             ChessPiece[,] board = new ChessPiece[8, 8]
             {
@@ -1664,9 +1664,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, kw, o, kb, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White, Pieces.Queen);
+            Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White, Pieces.Queen);
             Chessboard cb = new Chessboard(board, Players.White);
-            Assert.True(cb.ApplyMove(m, false), "m should be valid");
+            Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1696,9 +1696,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, kw, o, kb, pb, o },
                 { o, o, o, o, o, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black, Pieces.Queen);
+            Move move = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black, Pieces.Queen);
             Chessboard cb = new Chessboard(board, Players.Black);
-            Assert.True(cb.ApplyMove(m, false), "m should be valid");
+            Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1728,9 +1728,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, kw, o, kb, o, o },
                 { o, o, o, o, o, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White);
+            Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
-            Assert.False(cb.IsValidMove(m), "m should be invalid");
+            Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
 
         [Test]
@@ -1747,28 +1747,28 @@ namespace ChessDotNet.Tests
                 { o, o, o, kw, o, kb, pb, o },
                 { o, o, o, o, o, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black);
+            Move move = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
-            Assert.False(cb.IsValidMove(m), "m should be invalid");
+            Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
 
         [Test]
         public void TestApplyMoveBlackPawn_EnPassant()
         {
             Chessboard cb = new Chessboard();
-            Move m1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
-            Move m2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
-            Move m3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
-            Move m4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
-            Move m5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
-            Move m6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
+            Move move1 = new Move(new Position(Position.Files.B, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Three), Players.White);
+            Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
+            Move move3 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
+            Move move4 = new Move(new Position(Position.Files.E, Position.Ranks.Five), new Position(Position.Files.E, Position.Ranks.Four), Players.Black);
+            Move move5 = new Move(new Position(Position.Files.D, Position.Ranks.Two), new Position(Position.Files.D, Position.Ranks.Four), Players.White);
+            Move move6 = new Move(new Position(Position.Files.E, Position.Ranks.Four), new Position(Position.Files.D, Position.Ranks.Three), Players.Black);
 
-            cb.ApplyMove(m1, true);
-            cb.ApplyMove(m2, true);
-            cb.ApplyMove(m3, true);
-            cb.ApplyMove(m4, true);
-            cb.ApplyMove(m5, true);
-            cb.ApplyMove(m6, true);
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
+            cb.ApplyMove(move6, true);
 
             ChessPiece[,] board = new ChessPiece[8, 8]
             {
@@ -1799,9 +1799,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, kw, o, o, rw }
             };
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
-            cb.ApplyMove(m, true);
+            cb.ApplyMove(move, true);
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1832,9 +1832,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { rw, o, o, o, kw, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
-            cb.ApplyMove(m, true);
+            cb.ApplyMove(move, true);
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1865,9 +1865,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, kw, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
-            cb.ApplyMove(m, true);
+            cb.ApplyMove(move, true);
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1898,9 +1898,9 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o },
                 { o, o, o, o, kw, o, o, o }
             };
-            Move m = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
+            Move move = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
-            cb.ApplyMove(m, true);
+            cb.ApplyMove(move, true);
 
             ChessPiece[,] expected = new ChessPiece[8, 8]
             {
@@ -1947,9 +1947,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -1983,9 +1983,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2018,9 +2018,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2053,9 +2053,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2093,9 +2093,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2134,9 +2134,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2188,9 +2188,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2223,9 +2223,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2258,9 +2258,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2298,9 +2298,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2339,9 +2339,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 
@@ -2393,9 +2393,9 @@ namespace ChessDotNet.Tests
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
-            foreach (Move m in expected)
+            foreach (Move move in expected)
             {
-                Assert.True(actual.Contains(m), "Actual does not contain " + m.ToString());
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
             }
         }
 

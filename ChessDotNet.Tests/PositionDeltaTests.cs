@@ -8,15 +8,15 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestPositionDelta()
         {
-            Position p1 = new Position(Position.Files.A, Position.Ranks.Two);
-            Position p2 = new Position(Position.Files.A, Position.Ranks.Three);
-            PositionDelta d = new PositionDelta(p1, p2);
-            Assert.AreEqual(0, d.DeltaX);
-            Assert.AreEqual(1, d.DeltaY);
+            Position position1 = new Position(Position.Files.A, Position.Ranks.Two);
+            Position position2 = new Position(Position.Files.A, Position.Ranks.Three);
+            PositionDelta delta1 = new PositionDelta(position1, position2);
+            Assert.AreEqual(0, delta1.DeltaX);
+            Assert.AreEqual(1, delta1.DeltaY);
 
-            PositionDelta d2 = new PositionDelta(p2, p1);
-            Assert.AreEqual(0, d.DeltaX);
-            Assert.AreEqual(1, d.DeltaY);
+            PositionDelta delta2 = new PositionDelta(position2, position1);
+            Assert.AreEqual(0, delta2.DeltaX);
+            Assert.AreEqual(1, delta2.DeltaY);
         }
     }
 }

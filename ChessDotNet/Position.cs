@@ -55,16 +55,16 @@ namespace ChessDotNet
             _rank = rank;
         }
 
-        public Position(string pos)
+        public Position(string position)
         {
-            if (pos.Length != 2)
+            if (position.Length != 2)
             {
                 throw new ArgumentException("Length of `pos` is not 2.");
             }
 
-            pos = pos.ToUpperInvariant();
-            char file = pos[0];
-            char rank = pos[1];
+            position = position.ToUpperInvariant();
+            char file = position[0];
+            char rank = position[1];
             switch (file)
             {
                 case 'A':
@@ -141,22 +141,22 @@ namespace ChessDotNet
             return new { File, Rank }.GetHashCode();
         }
 
-        public static bool operator ==(Position p1, Position p2)
+        public static bool operator ==(Position position1, Position position2)
         {
-            if (ReferenceEquals(p1, p2))
+            if (ReferenceEquals(position1, position2))
                 return true;
-            if ((object)p1 == null || (object)p2 == null)
+            if ((object)position1 == null || (object)position2 == null)
                 return false;
-            return p1.Equals(p2);
+            return position1.Equals(position2);
         }
 
-        public static bool operator !=(Position p1, Position p2)
+        public static bool operator !=(Position position1, Position position2)
         {
-            if (ReferenceEquals(p1, p2))
+            if (ReferenceEquals(position1, position2))
                 return false;
-            if ((object)p1 == null || (object)p2 == null)
+            if ((object)position1 == null || (object)position2 == null)
                 return true;
-            return !p1.Equals(p2);
+            return !position1.Equals(position2);
         }
 
         public override string ToString()

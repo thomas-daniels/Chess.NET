@@ -137,9 +137,9 @@ namespace ChessDotNet
             };
         }
 
-        protected void ThrowIfNull(object objectToTest, string paramName)
+        protected void ThrowIfNull(object value, string paramName)
         {
-            if (objectToTest == null)
+            if (value == null)
             {
                 throw new ArgumentNullException(paramName);
             }
@@ -150,25 +150,25 @@ namespace ChessDotNet
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
             foreach (Tuple<Players, bool> t in playersToValidate)
             {
-                Players p = t.Item1;
+                Players player = t.Item1;
                 bool validateHasAnyValidMoves = t.Item2;
-                Players other = p == Players.White ? Players.Black : Players.White;
-                if (IsInCheck(p))
+                Players other = player == Players.White ? Players.Black : Players.White;
+                if (IsInCheck(player))
                 {
-                    if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
+                    if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                     {
-                        Status = new GameStatus(GameStatus.Events.Checkmate, other, p.ToString() + " is checkmated");
+                        Status = new GameStatus(GameStatus.Events.Checkmate, other, player.ToString() + " is checkmated");
                         if (breakAfterChange)
                             break;
                     }
                     else
                     {
-                        Status = new GameStatus(GameStatus.Events.Check, other, p.ToString() + " is in check");
+                        Status = new GameStatus(GameStatus.Events.Check, other, player.ToString() + " is in check");
                         if (breakAfterChange)
                             break;
                     }
                 }
-                else if (validateHasAnyValidMoves && !HasAnyValidMoves(p))
+                else if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                 {
                     Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
                     if (breakAfterChange)
@@ -177,10 +177,10 @@ namespace ChessDotNet
             }
         }
 
-        public ChessPiece GetPieceAt(Position p)
+        public ChessPiece GetPieceAt(Position position)
         {
-            ThrowIfNull(p, "p");
-            return GetPieceAt(p.File, p.Rank);
+            ThrowIfNull(position, "position");
+            return GetPieceAt(position.File, position.Rank);
         }
 
         public ChessPiece GetPieceAt(Position.Files file, Position.Ranks rank)
@@ -188,16 +188,16 @@ namespace ChessDotNet
             return Board[(int)rank, (int)file];
         }
 
-        protected void SetPieceAt(Position.Files file, Position.Ranks rank, ChessPiece cp)
+        protected void SetPieceAt(Position.Files file, Position.Ranks rank, ChessPiece piece)
         {
-            ThrowIfNull(cp, "cp");
-            Board[(int)rank, (int)file] = cp;
+            ThrowIfNull(piece, "piece");
+            Board[(int)rank, (int)file] = piece;
         }
 
-        public bool IsValidMove(Move m)
+        public bool IsValidMove(Move move)
         {
-            ThrowIfNull(m, "m");
-            return IsValidMove(m, true);
+            ThrowIfNull(move, "move");
+            return IsValidMove(move, true);
         }
 
         protected bool IsValidMoveKing(Move move)

@@ -15,10 +15,10 @@ namespace ChessDotNet
             get;
             private set;
         }
-        public PositionDelta(Position pos1, Position pos2)
+        public PositionDelta(Position position1, Position position2)
         {
-            DeltaX = Math.Abs((int)pos1.File - (int)pos2.File);
-            DeltaY = Math.Abs((int)pos1.Rank - (int)pos2.Rank);
+            DeltaX = Math.Abs((int)position1.File - (int)position2.File);
+            DeltaY = Math.Abs((int)position1.Rank - (int)position2.Rank);
         }
     }
 }

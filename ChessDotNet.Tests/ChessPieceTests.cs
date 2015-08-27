@@ -8,61 +8,61 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestEquality()
         {
-            ChessPiece c1 = new ChessPiece(Pieces.King, Players.White);
-            ChessPiece c2 = new ChessPiece(Pieces.King, Players.White);
-            Assert.AreEqual(c1, c2, "c1 and c2 are not equal");
-            Assert.True(c1.Equals(c2), "c1.Equals(c2) is False");
-            Assert.True(c2.Equals(c1), "c2.Equals(c1) is False");
-            Assert.True(c1 == c2, "c1 == c2 is False");
-            Assert.True(c2 == c1, "c2 == c1 is False");
-            Assert.False(c1 != c2, "c1 != c2 is True");
-            Assert.False(c2 != c1, "c2 != c1 is True");
-            Assert.AreEqual(c1.GetHashCode(), c2.GetHashCode(), "Hash codes are different");
+            ChessPiece piece1 = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece piece2 = new ChessPiece(Pieces.King, Players.White);
+            Assert.AreEqual(piece1, piece2, "piece1 and piece2 are not equal");
+            Assert.True(piece1.Equals(piece2), "piece1.Equals(piece2) is False");
+            Assert.True(piece2.Equals(piece1), "piece2.Equals(piece1) is False");
+            Assert.True(piece1 == piece2, "piece1 == piece2 is False");
+            Assert.True(piece2 == piece1, "piece2 == piece1 is False");
+            Assert.False(piece1 != piece2, "piece1 != piece2 is True");
+            Assert.False(piece2 != piece1, "piece2 != piece1 is True");
+            Assert.AreEqual(piece1.GetHashCode(), piece2.GetHashCode(), "Hash codes are different");
         }
 
         [Test]
         public void TestInequality_DifferentPlayer()
         {
-            ChessPiece c1 = new ChessPiece(Pieces.King, Players.White);
-            ChessPiece c2 = new ChessPiece(Pieces.King, Players.Black);
-            Assert.AreNotEqual(c1, c2, "c1 and c2 are equal");
-            Assert.False(c1.Equals(c2), "c1.Equals(c2) is True");
-            Assert.False(c2.Equals(c1), "c2.Equals(c1) is True");
-            Assert.False(c1 == c2, "c1 == c2 is True");
-            Assert.False(c2 == c1, "c2 == c1 is True");
-            Assert.True(c1 != c2, "c1 != c2 is False");
-            Assert.True(c2 != c1, "c2 != c1 is False");
-            Assert.AreNotEqual(c1.GetHashCode(), c2.GetHashCode(), "Hash codes are equal");
+            ChessPiece piece1 = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece piece2 = new ChessPiece(Pieces.King, Players.Black);
+            Assert.AreNotEqual(piece1, piece2, "piece1 and piece2 are equal");
+            Assert.False(piece1.Equals(piece2), "piece1.Equals(piece2) is True");
+            Assert.False(piece2.Equals(piece1), "piece2.Equals(piece1) is True");
+            Assert.False(piece1 == piece2, "piece1 == piece2 is True");
+            Assert.False(piece2 == piece1, "piece2 == piece1 is True");
+            Assert.True(piece1 != piece2, "piece1 != piece2 is False");
+            Assert.True(piece2 != piece1, "piece2 != piece1 is False");
+            Assert.AreNotEqual(piece1.GetHashCode(), piece2.GetHashCode(), "Hash codes are equal");
         }
 
         [Test]
         public void TestInequality_DifferentPiece()
         {
-            ChessPiece c1 = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece c2 = new ChessPiece(Pieces.Queen, Players.Black);
-            Assert.AreNotEqual(c1, c2, "c1 and c2 are equal");
-            Assert.False(c1.Equals(c2), "c1.Equals(c2) is True");
-            Assert.False(c2.Equals(c1), "c2.Equals(c1) is True");
-            Assert.False(c1 == c2, "c1 == c2 is True");
-            Assert.False(c2 == c1, "c2 == c1 is True");
-            Assert.True(c1 != c2, "c1 != c2 is False");
-            Assert.True(c2 != c1, "c2 != c1 is False");
-            Assert.AreNotEqual(c1.GetHashCode(), c2.GetHashCode(), "Hash codes are equal");
+            ChessPiece piece1 = new ChessPiece(Pieces.King, Players.Black);
+            ChessPiece piece2 = new ChessPiece(Pieces.Queen, Players.Black);
+            Assert.AreNotEqual(piece1, piece2, "piece1 and piece2 are equal");
+            Assert.False(piece1.Equals(piece2), "piece1.Equals(piece2) is True");
+            Assert.False(piece2.Equals(piece1), "piece2.Equals(piece1) is True");
+            Assert.False(piece1 == piece2, "piece1 == piece2 is True");
+            Assert.False(piece2 == piece1, "piece2 == piece1 is True");
+            Assert.True(piece1 != piece2, "piece1 != piece2 is False");
+            Assert.True(piece2 != piece1, "piece2 != piece1 is False");
+            Assert.AreNotEqual(piece1.GetHashCode(), piece2.GetHashCode(), "Hash codes are equal");
         }
 
         [Test]
         public void TestInequality_DifferentPieceAndPlayer()
         {
-            ChessPiece c1 = new ChessPiece(Pieces.King, Players.White);
-            ChessPiece c2 = new ChessPiece(Pieces.Queen, Players.Black);
-            Assert.AreNotEqual(c1, c2, "c1 and c2 are equal");
-            Assert.False(c1.Equals(c2), "c1.Equals(c2) is True");
-            Assert.False(c2.Equals(c1), "c2.Equals(c1) is True");
-            Assert.False(c1 == c2, "c1 == c2 is True");
-            Assert.False(c2 == c1, "c2 == c1 is True");
-            Assert.True(c1 != c2, "c1 != c2 is False");
-            Assert.True(c2 != c1, "c2 != c1 is False");
-            Assert.AreNotEqual(c1.GetHashCode(), c2.GetHashCode(), "Hash codes are equal");
+            ChessPiece piece1 = new ChessPiece(Pieces.King, Players.White);
+            ChessPiece piece2 = new ChessPiece(Pieces.Queen, Players.Black);
+            Assert.AreNotEqual(piece1, piece2, "piece1 and piece2 are equal");
+            Assert.False(piece1.Equals(piece2), "piece1.Equals(piece2) is True");
+            Assert.False(piece2.Equals(piece1), "piece2.Equals(piece1) is True");
+            Assert.False(piece1 == piece2, "piece1 == piece2 is True");
+            Assert.False(piece2 == piece1, "piece2 == piece1 is True");
+            Assert.True(piece1 != piece2, "piece1 != piece2 is False");
+            Assert.True(piece2 != piece1, "piece2 != piece1 is False");
+            Assert.AreNotEqual(piece1.GetHashCode(), piece2.GetHashCode(), "Hash codes are equal");
         }
     }
 }
