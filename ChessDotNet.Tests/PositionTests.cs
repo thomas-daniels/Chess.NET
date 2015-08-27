@@ -13,6 +13,11 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(p1, p2, "p1 and p2 are not equal");
             Assert.True(p1.Equals(p2), "p1.Equals(p2) is False");
             Assert.True(p2.Equals(p1), "p2.Equals(p1) is False");
+            Assert.True(p1 == p2, "p1 == p2 should be true");
+            Assert.True(p2 == p1, "p2 == p1 should be true");
+            Assert.False(p1 != p2, "p1 != p2 should be false");
+            Assert.False(p2 != p1, "p2 != p1 should be false");
+            Assert.AreEqual(p1.GetHashCode(), p2.GetHashCode(), "Hash codes should be equal");
         }
 
         [Test]
@@ -23,18 +28,33 @@ namespace ChessDotNet.Tests
             Assert.AreNotEqual(p1, p2, "p1 and p2 are equal");
             Assert.False(p1.Equals(p2), "p1.Equals(p2) is True");
             Assert.False(p2.Equals(p1), "p2.Equals(p1) is True");
+            Assert.True(p1 != p2, "p1 != p2 should be true");
+            Assert.True(p2 != p1, "p2 != p1 should be true");
+            Assert.False(p1 == p2, "p1 == p2 should be false");
+            Assert.False(p2 == p1, "p2 == p1 should be false");
+            Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode(), "Hash codes of p1 and p2 should be different");
 
             Position p3 = new Position(Position.Files.E, Position.Ranks.Two);
             Position p4 = new Position(Position.Files.E, Position.Ranks.Five);
             Assert.AreNotEqual(p3, p4, "p3 and p4 are equal");
             Assert.False(p3.Equals(p4), "p3.Equals(p4) is True");
             Assert.False(p3.Equals(p4), "p4.Equals(p3) is True");
+            Assert.True(p3 != p4, "p3 != p4 should be true");
+            Assert.True(p4 != p3, "p4 != p3 should be true");
+            Assert.False(p3 == p4, "p3 == p4 should be false");
+            Assert.False(p4 == p3, "p4 == p3 should be false");
+            Assert.AreNotEqual(p3.GetHashCode(), p4.GetHashCode(), "Hash codes of p3 and p4 should be different");
 
             Position p5 = new Position(Position.Files.E, Position.Ranks.Two);
             Position p6 = new Position(Position.Files.B, Position.Ranks.Two);
             Assert.AreNotEqual(p5, p6, "p5 and p6 are equal");
             Assert.False(p5.Equals(p6), "p5.Equals(p6) is True");
             Assert.False(p6.Equals(p5), "p6.Equals(p5) is True");
+            Assert.True(p5 != p6, "p5 != p6 should be true");
+            Assert.True(p6 != p5, "p6 != p5 should be true");
+            Assert.False(p5 == p6, "p5 == p6 should be false");
+            Assert.False(p6 == p5, "p6 == p5 should be false");
+            Assert.AreNotEqual(p5.GetHashCode(), p6.GetHashCode(), "Hash codes of p5 and p6 should be different");
         }
 
         [Test]
