@@ -41,70 +41,70 @@ namespace ChessDotNet.Tests
             int f = (int)Position.Files.F;
             int g = (int)Position.Files.G;
             int h = (int)Position.Files.H;
-            Assert.AreEqual(rw, cb.Board[one, a]);
-            Assert.AreEqual(nw, cb.Board[one, b]);
-            Assert.AreEqual(bw, cb.Board[one, c]);
-            Assert.AreEqual(qw, cb.Board[one, d]);
-            Assert.AreEqual(kw, cb.Board[one, e]);
-            Assert.AreEqual(bw, cb.Board[one, f]);
-            Assert.AreEqual(nw, cb.Board[one, g]);
-            Assert.AreEqual(rw, cb.Board[one, h]);
-            Assert.AreEqual(pw, cb.Board[two, a]);
-            Assert.AreEqual(pw, cb.Board[two, b]);
-            Assert.AreEqual(pw, cb.Board[two, c]);
-            Assert.AreEqual(pw, cb.Board[two, d]);
-            Assert.AreEqual(pw, cb.Board[two, e]);
-            Assert.AreEqual(pw, cb.Board[two, f]);
-            Assert.AreEqual(pw, cb.Board[two, g]);
-            Assert.AreEqual(pw, cb.Board[two, h]);
-            Assert.AreEqual(o, cb.Board[three, a]);
-            Assert.AreEqual(o, cb.Board[three, b]);
-            Assert.AreEqual(o, cb.Board[three, c]);
-            Assert.AreEqual(o, cb.Board[three, d]);
-            Assert.AreEqual(o, cb.Board[three, e]);
-            Assert.AreEqual(o, cb.Board[three, f]);
-            Assert.AreEqual(o, cb.Board[three, g]);
-            Assert.AreEqual(o, cb.Board[three, h]);
-            Assert.AreEqual(o, cb.Board[four, a]);
-            Assert.AreEqual(o, cb.Board[four, b]);
-            Assert.AreEqual(o, cb.Board[four, c]);
-            Assert.AreEqual(o, cb.Board[four, d]);
-            Assert.AreEqual(o, cb.Board[four, e]);
-            Assert.AreEqual(o, cb.Board[four, f]);
-            Assert.AreEqual(o, cb.Board[four, g]);
-            Assert.AreEqual(o, cb.Board[four, h]);
-            Assert.AreEqual(o, cb.Board[five, a]);
-            Assert.AreEqual(o, cb.Board[five, b]);
-            Assert.AreEqual(o, cb.Board[five, c]);
-            Assert.AreEqual(o, cb.Board[five, d]);
-            Assert.AreEqual(o, cb.Board[five, e]);
-            Assert.AreEqual(o, cb.Board[five, f]);
-            Assert.AreEqual(o, cb.Board[five, g]);
-            Assert.AreEqual(o, cb.Board[five, h]);
-            Assert.AreEqual(o, cb.Board[six, a]);
-            Assert.AreEqual(o, cb.Board[six, b]);
-            Assert.AreEqual(o, cb.Board[six, c]);
-            Assert.AreEqual(o, cb.Board[six, d]);
-            Assert.AreEqual(o, cb.Board[six, e]);
-            Assert.AreEqual(o, cb.Board[six, f]);
-            Assert.AreEqual(o, cb.Board[six, g]);
-            Assert.AreEqual(o, cb.Board[six, h]);
-            Assert.AreEqual(pb, cb.Board[seven, a]);
-            Assert.AreEqual(pb, cb.Board[seven, b]);
-            Assert.AreEqual(pb, cb.Board[seven, c]);
-            Assert.AreEqual(pb, cb.Board[seven, d]);
-            Assert.AreEqual(pb, cb.Board[seven, e]);
-            Assert.AreEqual(pb, cb.Board[seven, f]);
-            Assert.AreEqual(pb, cb.Board[seven, g]);
-            Assert.AreEqual(pb, cb.Board[seven, h]);
-            Assert.AreEqual(rb, cb.Board[eight, a]);
-            Assert.AreEqual(nb, cb.Board[eight, b]);
-            Assert.AreEqual(bb, cb.Board[eight, c]);
-            Assert.AreEqual(qb, cb.Board[eight, d]);
-            Assert.AreEqual(kb, cb.Board[eight, e]);
-            Assert.AreEqual(bb, cb.Board[eight, f]);
-            Assert.AreEqual(nb, cb.Board[eight, g]);
-            Assert.AreEqual(rb, cb.Board[eight, h]);
+            Assert.AreEqual(rw, cb.Board[one][a]);
+            Assert.AreEqual(nw, cb.Board[one][b]);
+            Assert.AreEqual(bw, cb.Board[one][c]);
+            Assert.AreEqual(qw, cb.Board[one][d]);
+            Assert.AreEqual(kw, cb.Board[one][e]);
+            Assert.AreEqual(bw, cb.Board[one][f]);
+            Assert.AreEqual(nw, cb.Board[one][g]);
+            Assert.AreEqual(rw, cb.Board[one][h]);
+            Assert.AreEqual(pw, cb.Board[two][a]);
+            Assert.AreEqual(pw, cb.Board[two][b]);
+            Assert.AreEqual(pw, cb.Board[two][c]);
+            Assert.AreEqual(pw, cb.Board[two][d]);
+            Assert.AreEqual(pw, cb.Board[two][e]);
+            Assert.AreEqual(pw, cb.Board[two][f]);
+            Assert.AreEqual(pw, cb.Board[two][g]);
+            Assert.AreEqual(pw, cb.Board[two][h]);
+            Assert.AreEqual(o, cb.Board[three][a]);
+            Assert.AreEqual(o, cb.Board[three][b]);
+            Assert.AreEqual(o, cb.Board[three][c]);
+            Assert.AreEqual(o, cb.Board[three][d]);
+            Assert.AreEqual(o, cb.Board[three][e]);
+            Assert.AreEqual(o, cb.Board[three][f]);
+            Assert.AreEqual(o, cb.Board[three][g]);
+            Assert.AreEqual(o, cb.Board[three][h]);
+            Assert.AreEqual(o, cb.Board[four][a]);
+            Assert.AreEqual(o, cb.Board[four][b]);
+            Assert.AreEqual(o, cb.Board[four][c]);
+            Assert.AreEqual(o, cb.Board[four][d]);
+            Assert.AreEqual(o, cb.Board[four][e]);
+            Assert.AreEqual(o, cb.Board[four][f]);
+            Assert.AreEqual(o, cb.Board[four][g]);
+            Assert.AreEqual(o, cb.Board[four][h]);
+            Assert.AreEqual(o, cb.Board[five][a]);
+            Assert.AreEqual(o, cb.Board[five][b]);
+            Assert.AreEqual(o, cb.Board[five][c]);
+            Assert.AreEqual(o, cb.Board[five][d]);
+            Assert.AreEqual(o, cb.Board[five][e]);
+            Assert.AreEqual(o, cb.Board[five][f]);
+            Assert.AreEqual(o, cb.Board[five][g]);
+            Assert.AreEqual(o, cb.Board[five][h]);
+            Assert.AreEqual(o, cb.Board[six][a]);
+            Assert.AreEqual(o, cb.Board[six][b]);
+            Assert.AreEqual(o, cb.Board[six][c]);
+            Assert.AreEqual(o, cb.Board[six][d]);
+            Assert.AreEqual(o, cb.Board[six][e]);
+            Assert.AreEqual(o, cb.Board[six][f]);
+            Assert.AreEqual(o, cb.Board[six][g]);
+            Assert.AreEqual(o, cb.Board[six][h]);
+            Assert.AreEqual(pb, cb.Board[seven][a]);
+            Assert.AreEqual(pb, cb.Board[seven][b]);
+            Assert.AreEqual(pb, cb.Board[seven][c]);
+            Assert.AreEqual(pb, cb.Board[seven][d]);
+            Assert.AreEqual(pb, cb.Board[seven][e]);
+            Assert.AreEqual(pb, cb.Board[seven][f]);
+            Assert.AreEqual(pb, cb.Board[seven][g]);
+            Assert.AreEqual(pb, cb.Board[seven][h]);
+            Assert.AreEqual(rb, cb.Board[eight][a]);
+            Assert.AreEqual(nb, cb.Board[eight][b]);
+            Assert.AreEqual(bb, cb.Board[eight][c]);
+            Assert.AreEqual(qb, cb.Board[eight][d]);
+            Assert.AreEqual(kb, cb.Board[eight][e]);
+            Assert.AreEqual(bb, cb.Board[eight][f]);
+            Assert.AreEqual(nb, cb.Board[eight][g]);
+            Assert.AreEqual(rb, cb.Board[eight][h]);
         }
 
         [Test]
@@ -212,16 +212,16 @@ namespace ChessDotNet.Tests
             Position.Files f = Position.Files.F;
             Position.Files g = Position.Files.G;
             Position.Files h = Position.Files.H;
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
-                { rb, o, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, pb, pb, pb, pb, pb },
-                { o, o, nb, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, pw, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { pw, pw, pw, pw, o, pw, pw, pw },
-                { rw, nw, bw, qw, kw, bw, nw, rw }
+                new[] { rb, o, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
+                new[] { o, o, nb, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, pw, pw, o, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Assert.AreEqual(rw, cb.GetPieceAt(a, one));
@@ -377,16 +377,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhitePawn_TwoStepsBlockingPiece()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
-                { kw, o, kb, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, pb, o, o, o },
-                { o, o, o, o, pw, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kw, o, kb, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, pb, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
@@ -548,16 +548,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveWhiteKing_KingSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -568,16 +568,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveWhiteKing_QueenSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
-                { o, o, o, kb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, rw }
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -588,16 +588,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, rb, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, rb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -608,16 +608,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, rb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, rb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -628,16 +628,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveWhiteKing_KingSideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -648,16 +648,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveWhiteKing_QueenSideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, rb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, rb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -668,16 +668,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece1()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, rw, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, rw, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -688,16 +688,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece1()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, kb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, rw, o, o, kw, o, o, o }
+                new[] { o, o, o, o, o, o, o, kb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, rw, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -708,16 +708,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece2()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, rw, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, rw, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -728,16 +728,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece2()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, rw, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, rw, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -748,16 +748,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece3()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, rw, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, rw, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -768,16 +768,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_NoRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
@@ -788,16 +788,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_NoRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
@@ -808,16 +808,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_RookMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.H, Position.Ranks.One), new Position(Position.Files.H, Position.Ranks.Two), Players.White);
@@ -833,16 +833,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_RookMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.One), new Position(Position.Files.A, Position.Ranks.Two), Players.White);
@@ -858,16 +858,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_KingSideCastling_KingMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
@@ -883,16 +883,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteKing_QueenSideCastling_KingMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White);
@@ -996,16 +996,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackPawn_TwoStepsBlockingPiece()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, pb, o, o, o },
-                { o, o, o, o, pw, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { kw, o, kb, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, pb, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, kb, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.Seven), new Position(Position.Files.E, Position.Ranks.Five), Players.Black);
@@ -1143,16 +1143,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveBlackKing_KingSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1163,16 +1163,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveBlackKing_QueenSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1183,16 +1183,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, rw, o }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, rw, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1203,16 +1203,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, rw, kw, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, rw, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1223,16 +1223,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveBlackKing_KingSideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1243,16 +1243,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestValidMoveBlackKing_QueenSideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, rw, o, o, kw, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, rw, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1263,16 +1263,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece1()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, rb, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o}
+                new[] { o, o, o, o, kb, o, rb, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o}
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1283,16 +1283,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece1()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, rb, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { rb, rb, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1303,16 +1303,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece2()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, rb, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, rb, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1323,16 +1323,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece2()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, rb, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { rb, o, rb, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1343,16 +1343,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece3()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, rb, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { rb, o, o, rb, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1363,16 +1363,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_NoRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
@@ -1383,16 +1383,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_NoRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
@@ -1403,16 +1403,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_RookMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kw, o, o, o, o, o, o }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.H, Position.Ranks.Eight), new Position(Position.Files.H, Position.Ranks.Seven), Players.Black);
@@ -1428,16 +1428,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_RookMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kw, o, o, o, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.Black);
@@ -1453,16 +1453,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_KingSideCastling_KingMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kw, o, o, o, o, o, o }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
@@ -1478,16 +1478,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_QueenSideCastling_KingMoved()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kw, o, o, o, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kw, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black);
@@ -1503,16 +1503,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhite_WouldBeInCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { kw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, qb },
-                { pw, o, o, pb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, qb },
+                new[] { pw, o, o, pb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move = new Move(new Position(Position.Files.A, Position.Ranks.Eight), new Position(Position.Files.A, Position.Ranks.Seven), Players.White);
@@ -1523,16 +1523,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhite_WouldBeCheckmated()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, rb },
-                { o, o, o, kw, nb, o, rb, o }
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, rb },
+                new[] { o, o, o, kw, nb, o, rb, o }
             };
 
             Chessboard cb = new Chessboard(board, Players.White);
@@ -1544,16 +1544,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhiteRook_NoPassThrough()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, pw, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, kw, o, kb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, kw, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.G, Position.Ranks.Seven), Players.White);
@@ -1564,16 +1564,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackKing_NoAdjacentKings()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kb, o, kw, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, kw, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             Move move1 = new Move(new Position(Position.Files.D, Position.Ranks.Six), new Position(Position.Files.E, Position.Ranks.Six), Players.Black);
@@ -1591,30 +1591,30 @@ namespace ChessDotNet.Tests
             Chessboard cb = new Chessboard();
             Move move1 = new Move(new Position(Position.Files.E, Position.Ranks.Two), new Position(Position.Files.E, Position.Ranks.Three), Players.White);
             Assert.True(cb.ApplyMove(move1, false));
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { rb, nb, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, pb, pb, pb, pb, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, pw, o, o, o },
-                { pw, pw, pw, pw, o, pw, pw, pw },
-                { rw, nw, bw, qw, kw, bw, nw, rw }
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { pw, pw, pw, pw, o, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
             Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move1");
             Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
             Assert.True(cb.ApplyMove(move2, true));
-            expected = new ChessPiece[8, 8]
+            expected = new ChessPiece[8][]
             {
-                { rb, nb, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, pb, pb, pb, pb, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, pw, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { pw, pw, pw, pw, o, pw, pw, pw },
-                { rw, nw, bw, qw, kw, bw, nw, rw }
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, pw, pw, o, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
             Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move2");
         }
@@ -1635,16 +1635,16 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move4, true);
             cb.ApplyMove(move5, true);
 
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, nb, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, o, o, pb, pb, pb },
-                { o, o, o, pw, pb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { pw, pw, pw, pw, o, pw, pw, pw },
-                { rw, nw, bw, qw, kw, bw, nw, rw }
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, o, o, pb, pb, pb },
+                new[] { o, o, o, pw, pb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, pw, pw, o, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
 
             Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
@@ -1653,31 +1653,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveWhitePawn_PromotionToQueen()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { pw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White, Pieces.Queen);
             Chessboard cb = new Chessboard(board, Players.White);
             Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { qw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { qw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Assert.AreEqual(expected, cb.Board);
         }
@@ -1685,31 +1685,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveBlackPawn_PromotionToQueen()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, pb, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, pb, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black, Pieces.Queen);
             Chessboard cb = new Chessboard(board, Players.Black);
             Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, qb, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, qb, o }
             };
             Assert.AreEqual(expected, cb.Board);
         }
@@ -1717,16 +1717,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveWhitePawnPromotion_NoPieceSpecified()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { pw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.A, Position.Ranks.Seven), new Position(Position.Files.A, Position.Ranks.Eight), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
@@ -1736,16 +1736,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, kb, pb, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, kb, pb, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.G, Position.Ranks.Two), new Position(Position.Files.G, Position.Ranks.One), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
@@ -1770,16 +1770,16 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move5, true);
             cb.ApplyMove(move6, true);
 
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, nb, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, pb, o, pb, pb, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { nw, o, o, pb, pw, o, o, o },
-                { pw, pw, pw, o, o, pw, pw, pw },
-                { rw, o, bw, qw, kw, bw, nw, rw }
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, o, pb, pb, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { nw, o, o, pb, pw, o, o, o },
+                new[] { pw, pw, pw, o, o, pw, pw, pw },
+                new[] { rw, o, bw, qw, kw, bw, nw, rw }
             };
 
             Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
@@ -1788,31 +1788,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveWhiteKing_KingSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, rw }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
             };
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
             cb.ApplyMove(move, true);
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, rw, kw, o }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, rw, kw, o }
             };
 
             Assert.AreEqual(expected, cb.Board);
@@ -1821,31 +1821,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveWhiteKing_QueenSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { rw, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White);
             Chessboard cb = new Chessboard(board, Players.White);
             cb.ApplyMove(move, true);
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, kw, rw, o, o, o, o }
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, kw, rw, o, o, o, o }
             };
 
             Assert.AreEqual(expected, cb.Board);
@@ -1854,31 +1854,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveBlackKing_KingSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kb, o, o, rb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
             cb.ApplyMove(move, true);
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { o, o, o, o, o, rb, kb, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, o, o, o, rb, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
 
             Assert.AreEqual(expected, cb.Board);
@@ -1887,31 +1887,31 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestApplyMoveBlackKing_QueenSideCastling()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { rb, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
             Move move = new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black);
             Chessboard cb = new Chessboard(board, Players.Black);
             cb.ApplyMove(move, true);
 
-            ChessPiece[,] expected = new ChessPiece[8, 8]
+            ChessPiece[][] expected = new ChessPiece[8][]
             {
-                { o, o, kb, rb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kw, o, o, o }
+                new[] { o, o, kb, rb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
             };
 
             Assert.AreEqual(expected, cb.Board);
@@ -1992,16 +1992,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesWhiteKing()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, kb, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kw, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, kb, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2027,16 +2027,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesWhiteKnight()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, nw, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, nw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2062,16 +2062,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesWhiteBishop()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, bw, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, bw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2102,16 +2102,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesWhiteRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kw, o, kb, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, rw, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, kw, o, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, rw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2143,16 +2143,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesWhiteQueen()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kw, o, kb, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, qw, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, kw, o, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, qw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2197,16 +2197,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesBlackKing()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { kw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, kb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2232,16 +2232,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesBlackKnight()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, nb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, nb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2267,16 +2267,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesBlackBishop()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, kw, o, kb, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, bb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, kw, o, kb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, bb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2307,16 +2307,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesBlackRook()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kw, o, kb, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, rb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, kw, o, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, rb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2348,16 +2348,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestGetValidMovesBlackQueen()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, kw, o, kb, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, qb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, kw, o, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, qb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
@@ -2402,16 +2402,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestIsWhiteInCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, o, o, o, o, o },
-                { kw, o, o, o, o, o, o, qb },
-                { pw, o, o, pb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { kb, o, o, o, o, o, o, o }
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, o, o, o, o, o, qb },
+                new[] { pw, o, o, pb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kb, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
 
@@ -2423,16 +2423,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestIsWhiteNotInCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { kw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, qb },
-                { pw, o, o, pb, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, kb, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, qb },
+                new[] { pw, o, o, pb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
 
@@ -2442,16 +2442,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestIsBlackInCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, nw, o, o, o, o },
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { kw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, nw, o, o, o, o },
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
 
@@ -2463,16 +2463,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestIsBlackNotInCheck()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, o, nb, o, o, o, o },
-                { o, kb, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { kw, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, o, nb, o, o, o, o },
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
 
@@ -2499,16 +2499,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestBlackStalemated()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { kb, o, kw, o, o, o, o, o },
-                { o, o, qw, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kb, o, kw, o, o, o, o, o },
+                new[] { o, o, qw, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
 
@@ -2520,16 +2520,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestBlackNotStalemated()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { kb, o, kw, o, o, o, o, o },
-                { o, o, qw, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { kb, o, kw, o, o, o, o, o },
+                new[] { o, o, qw, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, new List<Move>() { new Move("A7", "A8", Players.Black) });
 
@@ -2541,16 +2541,16 @@ namespace ChessDotNet.Tests
         [Test]
         public void TestBlackNotStalematedAfterApplyMove()
         {
-            ChessPiece[,] board = new ChessPiece[8, 8]
+            ChessPiece[][] board  = new ChessPiece[8][]
             {
-                { o, o, kw, o, o, o, o, o },
-                { kb, o, qw, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o }
+                new[] { o, o, kw, o, o, o, o, o },
+                new[] { kb, o, qw, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
 

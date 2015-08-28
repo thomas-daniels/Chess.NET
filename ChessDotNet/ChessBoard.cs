@@ -20,7 +20,7 @@ namespace ChessDotNet
             private set;
         }
 
-        public ChessPiece[,] Board
+        public ChessPiece[][] Board
         {
             get;
             private set;
@@ -32,26 +32,37 @@ namespace ChessDotNet
             private set;
         }
 
+        protected ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
+        {
+            ChessPiece[][] newBoard = new ChessPiece[originalBoard.Length][];
+            for (int i = 0; i < originalBoard.Length; i++)
+            {
+                newBoard[i] = new ChessPiece[originalBoard[i].Length];
+                Array.Copy(originalBoard[i], newBoard[i], originalBoard[i].Length);
+            }
+            return newBoard;
+        }
+
         public Chessboard()
         {
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
-            Board = new ChessPiece[8, 8];
+            Board = new ChessPiece[8][];
             Moves = new List<Move>();
             InitBoard();
         }
 
-        public Chessboard(ChessPiece[,] board, List<Move> moves) :
+        public Chessboard(ChessPiece[][] board, List<Move> moves) :
             this(board, moves, true)
         {
         }
 
-        protected Chessboard(ChessPiece[,] board, List<Move> moves, bool validateCheck)
+        protected Chessboard(ChessPiece[][] board, List<Move> moves, bool validateCheck)
         {
             if (moves == null)
                 throw new ArgumentNullException("moves");
             if (moves.Count == 0)
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
-            Board = (ChessPiece[,])board.Clone();
+            Board = CloneBoard(board);
             Moves = new List<Move>(moves);
             foreach (Move m in Moves)
             {
@@ -75,14 +86,14 @@ namespace ChessDotNet
             ChangeStatus(playersToValidateCheck, true);
         }
 
-        public Chessboard(ChessPiece[,] board, Players whoseTurn) :
+        public Chessboard(ChessPiece[][] board, Players whoseTurn) :
             this(board, whoseTurn, true)
         {
         }
 
-        protected Chessboard(ChessPiece[,] board, Players whoseTurn, bool validateCheck)
+        protected Chessboard(ChessPiece[][] board, Players whoseTurn, bool validateCheck)
         {
-            Board = (ChessPiece[,])board.Clone();
+            Board = CloneBoard(board);
             Moves = new List<Move>();
             ChessPiece e1 = GetPieceAt(Position.Files.E, Position.Ranks.One);
             ChessPiece e8 = GetPieceAt(Position.Files.E, Position.Ranks.Eight);
@@ -124,16 +135,16 @@ namespace ChessDotNet
             ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
             ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
             ChessPiece o = ChessPiece.None;
-            Board = new ChessPiece[8, 8]
+            Board = new ChessPiece[8][]
             {
-                { rb, nb, bb, qb, kb, bb, nb, rb },
-                { pb, pb, pb, pb, pb, pb, pb, pb },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { o, o, o, o, o, o, o, o },
-                { pw, pw, pw, pw, pw, pw, pw, pw },
-                { rw, nw, bw, qw, kw, bw, nw, rw }
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, pw, pw, pw, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
         }
 
@@ -185,13 +196,13 @@ namespace ChessDotNet
 
         public ChessPiece GetPieceAt(Position.Files file, Position.Ranks rank)
         {
-            return Board[(int)rank, (int)file];
+            return Board[(int)rank][(int)file];
         }
 
         protected void SetPieceAt(Position.Files file, Position.Ranks rank, ChessPiece piece)
         {
             ThrowIfNull(piece, "piece");
-            Board[(int)rank, (int)file] = piece;
+            Board[(int)rank][(int)file] = piece;
         }
 
         public bool IsValidMove(Move move)
@@ -355,7 +366,7 @@ namespace ChessDotNet
                     increasingRank ? r < (int)move.NewPosition.Rank : r > (int)move.NewPosition.Rank;
                     r += increasingRank ? 1 : -1)
                 {
-                    if (Board[r, f].Player != Players.None)
+                    if (Board[r][f].Player != Players.None)
                     {
                         return false;
                     }
@@ -368,7 +379,7 @@ namespace ChessDotNet
                     increasingFile ? f < (int)move.NewPosition.File : f > (int)move.NewPosition.File;
                     f += increasingFile ? 1 : -1)
                 {
-                    if (Board[r, f].Player != Players.None)
+                    if (Board[r][f].Player != Players.None)
                     {
                         return false;
                     }
@@ -389,7 +400,7 @@ namespace ChessDotNet
                  increasingFile ? f < (int)move.NewPosition.File : f > (int)move.NewPosition.File;
                  f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
             {
-                if (Board[r, f].Player != Players.None)
+                if (Board[r][f].Player != Players.None)
                 {
                     return false;
                 }
@@ -543,8 +554,8 @@ namespace ChessDotNet
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
-            int l0 = Board.GetLength(0);
-            int l1 = Board.GetLength(1);
+            int l0 = Board.Length;
+            int l1 = Board[0].Length;
             int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
                         new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } };
             foreach (int[] dir in directions)
@@ -568,8 +579,8 @@ namespace ChessDotNet
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
-            int l0 = Board.GetLength(0);
-            int l1 = Board.GetLength(1);
+            int l0 = Board.Length;
+            int l1 = Board[0].Length;
             int[][] directions;
             if (cp.Player == Players.Black)
             {
@@ -600,8 +611,8 @@ namespace ChessDotNet
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
-            int l0 = Board.GetLength(0);
-            int l1 = Board.GetLength(1);
+            int l0 = Board.Length;
+            int l1 = Board[0].Length;
             int[][] directions = new int[][] { new int[] { 2, 1 }, new int[] { -2, -1 }, new int[] { 1, 2 }, new int[] { -1, -2 },
                         new int[] { 1, -2 }, new int[] { -1, 2 }, new int[] { 2, -1 }, new int[] { -2, 1 } };
             foreach (int[] dir in directions)
@@ -625,8 +636,8 @@ namespace ChessDotNet
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
-            int l0 = Board.GetLength(0);
-            int l1 = Board.GetLength(1);
+            int l0 = Board.Length;
+            int l1 = Board[0].Length;
             for (int i = -7; i < 8; i++)
             {
                 if (i == 0)
@@ -660,8 +671,8 @@ namespace ChessDotNet
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
-            int l0 = Board.GetLength(0);
-            int l1 = Board.GetLength(1);
+            int l0 = Board.Length;
+            int l1 = Board[0].Length;
             for (int i = -7; i < 8; i++)
             {
                 if (i == 0)
@@ -733,11 +744,11 @@ namespace ChessDotNet
         protected ReadOnlyCollection<Move> GetValidMoves(Players player, bool returnIfAny)
         {
             List<Move> validMoves = new List<Move>();
-            for (int x = 0; x < Board.GetLength(0); x++)
+            for (int x = 0; x < Board.Length; x++)
             {
-                for (int y = 0; y < Board.GetLength(1); y++)
+                for (int y = 0; y < Board[x].Length; y++)
                 {
-                    if (Board[x, y].Player == player)
+                    if (Board[x][y].Player == player)
                     {
                         validMoves.AddRange(GetValidMoves(new Position((Position.Files)y, (Position.Ranks)x), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)
@@ -768,11 +779,11 @@ namespace ChessDotNet
             List<Position> piecePositions = new List<Position>();
             Position kingPos = new Position(Position.Files.None, Position.Ranks.None);
 
-            for (int i = 0; i < Board.GetLength(0); i++)
+            for (int i = 0; i < Board.Length; i++)
             {
-                for (int j = 0; j < Board.GetLength(1); j++)
+                for (int j = 0; j < Board[i].Length; j++)
                 {
-                    ChessPiece curr = Board[i, j];
+                    ChessPiece curr = Board[i][j];
                     if (curr.Piece != Pieces.None && curr.Player == (player == Players.White ? Players.Black : Players.White))
                     {
                         piecePositions.Add(new Position((Position.Files)j, (Position.Ranks)i));
