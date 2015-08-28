@@ -532,13 +532,13 @@ namespace ChessDotNet
             return true;
         }
 
-        public IReadOnlyCollection<Move> GetValidMoves(Position from)
+        public ReadOnlyCollection<Move> GetValidMoves(Position from)
         {
             ThrowIfNull(from, "from");
             return GetValidMoves(from, false);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesKing(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesKing(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -557,13 +557,13 @@ namespace ChessDotNet
                 {
                     validMoves.Add(move);
                     if (returnIfAny)
-                        return validMoves;
+                        return new ReadOnlyCollection<Move>(validMoves);
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesPawn(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesPawn(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -589,13 +589,13 @@ namespace ChessDotNet
                 {
                     validMoves.Add(move);
                     if (returnIfAny)
-                        return validMoves;
+                        return new ReadOnlyCollection<Move>(validMoves);
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesKnight(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesKnight(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -614,13 +614,13 @@ namespace ChessDotNet
                 {
                     validMoves.Add(move);
                     if (returnIfAny)
-                        return validMoves;
+                        return new ReadOnlyCollection<Move>(validMoves);
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesRook(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesRook(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -638,7 +638,7 @@ namespace ChessDotNet
                     {
                         validMoves.Add(move);
                         if (returnIfAny)
-                            return validMoves;
+                            return new ReadOnlyCollection<Move>(validMoves);
                     }
                 }
                 if ((int)from.File + i > -1 && (int)from.File + i < l1)
@@ -648,14 +648,14 @@ namespace ChessDotNet
                     {
                         validMoves.Add(move);
                         if (returnIfAny)
-                            return validMoves;
+                            return new ReadOnlyCollection<Move>(validMoves);
                     }
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesBishop(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesBishop(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -674,7 +674,7 @@ namespace ChessDotNet
                     {
                         validMoves.Add(move);
                         if (returnIfAny)
-                            return validMoves;
+                            return new ReadOnlyCollection<Move>(validMoves);
                     }
                 }
                 if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
@@ -685,24 +685,24 @@ namespace ChessDotNet
                     {
                         validMoves.Add(move);
                         if (returnIfAny)
-                            return validMoves;
+                            return new ReadOnlyCollection<Move>(validMoves);
                     }
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMovesQueen(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMovesQueen(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
-            IReadOnlyCollection<Move> horizontalVerticalMoves = GetValidMovesRook(from, returnIfAny);
+            ReadOnlyCollection<Move> horizontalVerticalMoves = GetValidMovesRook(from, returnIfAny);
             if (returnIfAny && horizontalVerticalMoves.Count > 0)
                 return horizontalVerticalMoves;
-            IReadOnlyCollection<Move> diagonalMoves = GetValidMovesBishop(from, returnIfAny);
+            ReadOnlyCollection<Move> diagonalMoves = GetValidMovesBishop(from, returnIfAny);
             return new ReadOnlyCollection<Move>(horizontalVerticalMoves.Concat(diagonalMoves).ToList());
         }
 
-        protected IReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
             Pieces piece = GetPieceAt(from).Piece;
@@ -721,16 +721,16 @@ namespace ChessDotNet
                 case Pieces.Queen:
                     return GetValidMovesQueen(from, returnIfAny);
                 default:
-                    return new Collection<Move>();
+                    return new ReadOnlyCollection<Move>(new List<Move>());
             }
         }
 
-        public IReadOnlyCollection<Move> GetValidMoves(Players player)
+        public ReadOnlyCollection<Move> GetValidMoves(Players player)
         {
             return GetValidMoves(player, false);
         }
 
-        protected IReadOnlyCollection<Move> GetValidMoves(Players player, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMoves(Players player, bool returnIfAny)
         {
             List<Move> validMoves = new List<Move>();
             for (int x = 0; x < Board.GetLength(0); x++)
@@ -742,24 +742,24 @@ namespace ChessDotNet
                         validMoves.AddRange(GetValidMoves(new Position((Position.Files)y, (Position.Ranks)x), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)
                         {
-                            return validMoves;
+                            return new ReadOnlyCollection<Move>(validMoves);
                         }
                     }
                 }
             }
-            return validMoves;
+            return new ReadOnlyCollection<Move>(validMoves);
         }
 
         protected bool HasAnyValidMoves(Position from)
         {
             ThrowIfNull(from, "from");
-            IReadOnlyCollection<Move> validMoves = GetValidMoves(from, true);
+            ReadOnlyCollection<Move> validMoves = GetValidMoves(from, true);
             return validMoves.Count > 0;
         }
 
         protected bool HasAnyValidMoves(Players player)
         {
-            IReadOnlyCollection<Move> validMoves = GetValidMoves(player, true);
+            ReadOnlyCollection<Move> validMoves = GetValidMoves(player, true);
             return validMoves.Count > 0;
         }
 

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Tests
 {
@@ -1921,7 +1921,7 @@ namespace ChessDotNet.Tests
         public void TestGetValidMovesWhiteStartingPosition()
         {
             Chessboard cb = new Chessboard();
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.White);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.White);
             List<Move> expected = new List<Move>()
             {
                 new Move("A2", "A3", Players.White),
@@ -1957,7 +1957,7 @@ namespace ChessDotNet.Tests
         public void TestGetValidMovesBlackStartingPosition()
         {
             Chessboard cb = new Chessboard();
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.Black);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.Black);
             List<Move> expected = new List<Move>()
             {
                 new Move("A7", "A6", Players.Black),
@@ -2004,7 +2004,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "C3", Players.White),
@@ -2039,7 +2039,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "C2", Players.White),
@@ -2074,7 +2074,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "A1", Players.White),
@@ -2114,7 +2114,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "D1", Players.White),
@@ -2155,7 +2155,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.White);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "D1", Players.White),
@@ -2209,7 +2209,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "C3", Players.Black),
@@ -2244,7 +2244,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "C2", Players.Black),
@@ -2279,7 +2279,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "A1", Players.Black),
@@ -2319,7 +2319,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "D1", Players.Black),
@@ -2360,7 +2360,7 @@ namespace ChessDotNet.Tests
                 { o, o, o, o, o, o, o, o }
             };
             Chessboard cb = new Chessboard(board, Players.Black);
-            IReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(Position.Files.D, Position.Ranks.Four));
             List<Move> expected = new List<Move>()
             {
                 new Move("D4", "D1", Players.Black),
