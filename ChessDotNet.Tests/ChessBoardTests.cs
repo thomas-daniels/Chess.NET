@@ -1921,7 +1921,7 @@ namespace ChessDotNet.Tests
         public void TestGetValidMovesWhiteStartingPosition()
         {
             Chessboard cb = new Chessboard();
-            List<Move> actual = cb.GetValidMoves(Players.White);
+            IReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.White);
             List<Move> expected = new List<Move>()
             {
                 new Move("A2", "A3", Players.White),
@@ -1957,7 +1957,7 @@ namespace ChessDotNet.Tests
         public void TestGetValidMovesBlackStartingPosition()
         {
             Chessboard cb = new Chessboard();
-            List<Move> actual = cb.GetValidMoves(Players.Black);
+            IReadOnlyCollection<Move> actual = cb.GetValidMoves(Players.Black);
             List<Move> expected = new List<Move>()
             {
                 new Move("A7", "A6", Players.Black),

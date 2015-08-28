@@ -725,12 +725,12 @@ namespace ChessDotNet
             }
         }
 
-        public List<Move> GetValidMoves(Players player)
+        public IReadOnlyCollection<Move> GetValidMoves(Players player)
         {
             return GetValidMoves(player, false);
         }
 
-        protected List<Move> GetValidMoves(Players player, bool returnIfAny)
+        protected IReadOnlyCollection<Move> GetValidMoves(Players player, bool returnIfAny)
         {
             List<Move> validMoves = new List<Move>();
             for (int x = 0; x < Board.GetLength(0); x++)
@@ -759,7 +759,7 @@ namespace ChessDotNet
 
         protected bool HasAnyValidMoves(Players player)
         {
-            List<Move> validMoves = GetValidMoves(player, true);
+            IReadOnlyCollection<Move> validMoves = GetValidMoves(player, true);
             return validMoves.Count > 0;
         }
 
