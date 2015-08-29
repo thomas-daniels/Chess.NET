@@ -24,5 +24,28 @@ namespace ChessDotNet
             DeltaX = Math.Abs((int)position1.File - (int)position2.File);
             DeltaY = Math.Abs((int)position1.Rank - (int)position2.Rank);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            PositionDelta delta2 = (PositionDelta)obj;
+            return DeltaX == delta2.DeltaX && DeltaY == delta2.DeltaY;
+        }
+
+        public override int GetHashCode()
+        {
+            return new { DeltaX, DeltaY }.GetHashCode();
+        }
+
+        public static bool operator ==(PositionDelta delta1, PositionDelta delta2)
+        {
+            return delta1.Equals(delta2);
+        }
+
+        public static bool operator !=(PositionDelta delta1, PositionDelta delta2)
+        {
+            return !delta1.Equals(delta2);
+        }
     }
 }
