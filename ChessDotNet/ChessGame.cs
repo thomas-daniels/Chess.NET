@@ -472,7 +472,7 @@ namespace ChessDotNet
                         return false;
                     break;
                 case Piece.Knight:
-                    if ((posDelta.DeltaX != 2 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 2))
+                    if (!IsValidMoveKnight(move))
                         return false;
                     break;
                 default:
