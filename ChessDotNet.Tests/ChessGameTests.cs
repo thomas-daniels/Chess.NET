@@ -422,110 +422,8 @@ namespace ChessDotNet.Tests
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.C, Rank.One), new Position(File.F, Rank.Four), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteBishopF()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.F, Rank.One), new Position(File.C, Rank.Four), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteRookA()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.A, Rank.One), new Position(File.A, Rank.Two), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteRookH()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.H, Rank.One), new Position(File.H, Rank.Two), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteQueenDiagonal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.D, Rank.One), new Position(File.H, Rank.Five), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteQueenVertical()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.D, Rank.One), new Position(File.D, Rank.Two), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteQueenHorizontal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.C, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
-            Move move3 = new Move(new Position(File.C, Rank.One), new Position(File.D, Rank.Two), Player.White);
-            Move move4 = new Move(new Position(File.D, Rank.One), new Position(File.C, Rank.One), Player.White);
-            Move move5 = new Move(new Position(File.D, Rank.One), new Position(File.B, Rank.One), Player.White);
-
-            cb.ApplyMove(move1, true);
-            cb.ApplyMove(move2, true);
-            cb.ApplyMove(move3, true);
-
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
-            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteKingDiagonal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.F, Rank.Two), new Position(File.F, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.E, Rank.One), new Position(File.F, Rank.Two), Player.White);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveWhiteKingHorizontal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.D, Rank.One), new Position(File.D, Rank.Two), Player.White);
-            Move move3 = new Move(new Position(File.E, Rank.One), new Position(File.D, Rank.One), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.C, Rank.One), new Position(File.F, Rank.Four), Player.White);
 
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
@@ -534,15 +432,143 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public void TestValidMoveWhiteBishopF()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.F, Rank.One), new Position(File.C, Rank.Four), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteRookA()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.A, Rank.One), new Position(File.A, Rank.Two), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteRookH()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.One), new Position(File.H, Rank.Two), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteQueenDiagonal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.One), new Position(File.H, Rank.Five), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteQueenVertical()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.One), new Position(File.D, Rank.Two), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteQueenHorizontal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.C, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.B, Rank.Seven), new Position(File.B, Rank.Six), Player.Black);
+            Move move5 = new Move(new Position(File.C, Rank.One), new Position(File.D, Rank.Two), Player.White);
+            Move move6 = new Move(new Position(File.C, Rank.Seven), new Position(File.C, Rank.Six), Player.Black);
+            Move move7 = new Move(new Position(File.D, Rank.One), new Position(File.C, Rank.One), Player.White);
+            Move move8 = new Move(new Position(File.D, Rank.One), new Position(File.B, Rank.One), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
+            cb.ApplyMove(move6, true);
+
+            Assert.True(cb.IsValidMove(move7), "move7 is considered invalid");
+            Assert.True(cb.IsValidMove(move8), "move8 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteKingDiagonal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.F, Rank.Two), new Position(File.F, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.E, Rank.One), new Position(File.F, Rank.Two), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveWhiteKingHorizontal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.One), new Position(File.D, Rank.Two), Player.White);
+            Move move4 = new Move(new Position(File.H, Rank.Seven), new Position(File.H, Rank.Six), Player.Black);
+            Move move5 = new Move(new Position(File.E, Rank.One), new Position(File.D, Rank.One), Player.White);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+
+            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
+        }
+
+        [Test]
         public void TestValidMoveWhiteKingVertical()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
-            Move move2 = new Move(new Position(File.E, Rank.One), new Position(File.E, Rank.Two), Player.White);
+            Move move2 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.E, Rank.One), new Position(File.E, Rank.Two), Player.White);
 
             cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
         }
 
         [Test]
@@ -909,6 +935,7 @@ namespace ChessDotNet.Tests
         public void TestValidMoveBlackPawn()
         {
             ChessGame cb = new ChessGame();
+            cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
 
             Move move1 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
 
@@ -919,6 +946,7 @@ namespace ChessDotNet.Tests
         public void TestValidMoveBlackPawn_TwoSteps()
         {
             ChessGame cb = new ChessGame();
+            cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
 
             Move move1 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Five), Player.Black);
 
@@ -929,14 +957,16 @@ namespace ChessDotNet.Tests
         public void TestValidMoveBlackPawn_Capture()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
-            Move move2 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Four), Player.White);
-            Move move3 = new Move(new Position(File.E, Rank.Five), new Position(File.D, Rank.Four), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Four), Player.White);
+            Move move4 = new Move(new Position(File.E, Rank.Five), new Position(File.D, Rank.Four), Player.Black);
 
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move3));
+            Assert.True(cb.IsValidMove(move4));
         }
 
         [Test]
@@ -983,14 +1013,16 @@ namespace ChessDotNet.Tests
         public void TestInvalidMoveBlackPawn_NoCapture()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
-            Move move2 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
-            Move move3 = new Move(new Position(File.E, Rank.Five), new Position(File.D, Rank.Four), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
+            Move move3 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.E, Rank.Five), new Position(File.D, Rank.Four), Player.Black);
 
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.False(cb.IsValidMove(move3));
+            Assert.False(cb.IsValidMove(move4));
         }
 
         [Test]
@@ -1018,18 +1050,23 @@ namespace ChessDotNet.Tests
         public void TestInvalidMoveBlackPawn_TwoStepsNotOnRankSeven()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.E, Rank.Six), new Position(File.E, Rank.Four), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.E, Rank.Six), new Position(File.E, Rank.Four), Player.Black);
 
             cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
+            Assert.False(cb.IsValidMove(move4), "move4 is considered valid");
         }
 
         [Test]
         public void TestValidMoveBlackKnight()
         {
             ChessGame cb = new ChessGame();
+            cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
 
             Move move1 = new Move(new Position(File.B, Rank.Eight), new Position(File.C, Rank.Six), Player.Black);
 
@@ -1040,104 +1077,142 @@ namespace ChessDotNet.Tests
         public void TestValidMoveBlackBishopC()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.C, Rank.Eight), new Position(File.F, Rank.Five), Player.Black);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveBlackBishopF()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.F, Rank.Eight), new Position(File.C, Rank.Five), Player.Black);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveBlackQueenDiagonal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.D, Rank.Eight), new Position(File.H, Rank.Four), Player.Black);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveBlackQueenVertical()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.D, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
-
-            cb.ApplyMove(move1, true);
-
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
-        }
-
-        [Test]
-        public void TestValidMoveBlackQueenHorizontal()
-        {
-            ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.B, Rank.Eight), new Position(File.C, Rank.Six), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
             Move move2 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
-            Move move3 = new Move(new Position(File.C, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
-            Move move4 = new Move(new Position(File.D, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
-            Move move5 = new Move(new Position(File.D, Rank.Eight), new Position(File.B, Rank.Eight), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.C, Rank.Eight), new Position(File.F, Rank.Five), Player.Black);
 
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
             Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
-            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackBishopF()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.F, Rank.Eight), new Position(File.C, Rank.Five), Player.Black);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackQueenDiagonal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.D, Rank.Eight), new Position(File.H, Rank.Four), Player.Black);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackQueenVertical()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.D, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+        }
+
+        [Test]
+        public void TestValidMoveBlackQueenHorizontal()
+        {
+            ChessGame cb = new ChessGame();
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.B, Rank.Eight), new Position(File.C, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.B, Rank.Two), new Position(File.B, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
+            Move move5 = new Move(new Position(File.C, Rank.Two), new Position(File.C, Rank.Three), Player.White);
+            Move move6 = new Move(new Position(File.C, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
+            Move move7 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
+            Move move8 = new Move(new Position(File.D, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
+            Move move9 = new Move(new Position(File.D, Rank.Eight), new Position(File.B, Rank.Eight), Player.Black);
+
+            cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
+            cb.ApplyMove(move6, true);
+            cb.ApplyMove(move7, true);
+
+            Assert.True(cb.IsValidMove(move8), "move8 is considered invalid");
+            Assert.True(cb.IsValidMove(move9), "move9 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingDiagonal()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.F, Rank.Seven), new Position(File.F, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.E, Rank.Eight), new Position(File.F, Rank.Seven), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.F, Rank.Seven), new Position(File.F, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.E, Rank.Eight), new Position(File.F, Rank.Seven), Player.Black);
 
             cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingHorizontal()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.D, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
-            Move move3 = new Move(new Position(File.E, Rank.Eight), new Position(File.D, Rank.Eight), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.D, Rank.Eight), new Position(File.D, Rank.Seven), Player.Black);
+            Move move5 = new Move(new Position(File.B, Rank.Two), new Position(File.B, Rank.Three), Player.White);
+            Move move6 = new Move(new Position(File.E, Rank.Eight), new Position(File.D, Rank.Eight), Player.Black);
 
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
+            cb.ApplyMove(move4, true);
+            cb.ApplyMove(move5, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move6), "move6 is considered invalid");
         }
 
         [Test]
         public void TestValidMoveBlackKingVertical()
         {
             ChessGame cb = new ChessGame();
-            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
-            Move move2 = new Move(new Position(File.E, Rank.Eight), new Position(File.E, Rank.Seven), Player.Black);
+            Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
+            Move move2 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Six), Player.Black);
+            Move move3 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
+            Move move4 = new Move(new Position(File.E, Rank.Eight), new Position(File.E, Rank.Seven), Player.Black);
 
             cb.ApplyMove(move1, true);
+            cb.ApplyMove(move2, true);
+            cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move2), "move2 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
         }
 
         [Test]
@@ -1957,6 +2032,7 @@ namespace ChessDotNet.Tests
         public void TestGetValidMovesBlackStartingPosition()
         {
             ChessGame cb = new ChessGame();
+            cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(Player.Black);
             List<Move> expected = new List<Move>()
             {

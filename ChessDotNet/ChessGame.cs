@@ -20,6 +20,12 @@ namespace ChessDotNet
             private set;
         }
 
+        public Player WhoseTurn
+        {
+            get;
+            private set;
+        }
+
         protected ChessPiece[][] Board;
         public ChessPiece[][] GetBoard()
         {
@@ -51,6 +57,7 @@ namespace ChessDotNet
         {
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             Board = new ChessPiece[8][];
+            WhoseTurn = Player.White;
             _moves = new List<Move>();
             InitBoard();
         }
@@ -68,6 +75,7 @@ namespace ChessDotNet
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = CloneBoard(board);
             _moves = new List<Move>(moves);
+            WhoseTurn = _moves.Last().Player == Player.White ? Player.Black : Player.White;
             foreach (Move m in _moves)
             {
                 if (!_whiteKingMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.E, Rank.One))
@@ -99,6 +107,7 @@ namespace ChessDotNet
         {
             Board = CloneBoard(board);
             _moves = new List<Move>();
+            WhoseTurn = whoseTurn;
             ChessPiece e1 = GetPieceAt(File.E, Rank.One);
             ChessPiece e8 = GetPieceAt(File.E, Rank.Eight);
             ChessPiece a1 = GetPieceAt(File.A, Rank.One);
@@ -433,6 +442,7 @@ namespace ChessDotNet
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             ChessPiece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+            if (move.Player != WhoseTurn) return false;
             if (piece.Player != move.Player) return false;
             if (GetPieceAt(move.NewPosition).Player == move.Player)
             {
@@ -527,6 +537,7 @@ namespace ChessDotNet
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
+            WhoseTurn = move.Player == Player.White ? Player.Black : Player.White;
             if (movingPiece.Piece == Piece.King && new PositionDelta(move.OriginalPosition, move.NewPosition).DeltaX == 2)
             {
                 Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
@@ -720,7 +731,9 @@ namespace ChessDotNet
         protected ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
-            Piece piece = GetPieceAt(from).Piece;
+            ChessPiece cp = GetPieceAt(from);
+            if (cp.Player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
+            Piece piece = cp.Piece;
             switch (piece)
             {
                 case Piece.King:
@@ -747,6 +760,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMoves(Player player, bool returnIfAny)
         {
+            if (player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             List<Move> validMoves = new List<Move>();
             for (int x = 0; x < Board.Length; x++)
             {
@@ -802,9 +816,10 @@ namespace ChessDotNet
             if (kingPos.File == File.None)
                 return false;
 
+            ChessGame copy = new ChessGame(Board, player == Player.White ? Player.Black : Player.White, false);
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Player.White ? Player.Black : Player.White), false))
+                if (copy.IsValidMove(new Move(piecePositions[i], kingPos, player == Player.White ? Player.Black : Player.White), false))
                 {
                     return true;
                 }
