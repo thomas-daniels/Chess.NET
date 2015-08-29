@@ -32,9 +32,9 @@
             private set;
         }
 
-        public GameStatus(Event _event, Player whoCausedEvent, string eventExplanation)
+        public GameStatus(Event @event, Player whoCausedEvent, string eventExplanation)
         {
-            Event = _event;
+            Event = @event;
             PlayerWhoCausedEvent = whoCausedEvent;
             EventExplanation = eventExplanation;
         }
