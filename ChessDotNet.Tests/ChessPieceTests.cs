@@ -64,5 +64,27 @@ namespace ChessDotNet.Tests
             Assert.True(piece2 != piece1, "piece2 != piece1 is False");
             Assert.AreNotEqual(piece1.GetHashCode(), piece2.GetHashCode(), "Hash codes are equal");
         }
+
+        [Test]
+        public void TestInEquality_OneIsNull()
+        {
+            ChessPiece piece1 = new ChessPiece(Piece.Rook, Player.White);
+            ChessPiece piece2 = null;
+            Assert.AreNotEqual(piece1, piece2, "piece1 and piece2 are equal");
+            Assert.False(piece1.Equals(piece2), "piece1.Equals(piece2) is True");
+            Assert.False(piece1 == piece2, "piece1 == piece2 is True");
+            Assert.False(piece2 == piece1, "piece2 == piece1 is True");
+            Assert.True(piece1 != piece2, "piece1 != piece2 is False");
+            Assert.True(piece2 != piece1, "piece2 != piece1 is False");
+
+            piece1 = null;
+            piece2 = new ChessPiece(Piece.Bishop, Player.Black);
+            Assert.AreNotEqual(piece1, piece2, "piece1 and piece2 are equal");
+            Assert.False(piece2.Equals(piece1), "piece1.Equals(piece2) is True");
+            Assert.False(piece1 == piece2, "piece1 == piece2 is True");
+            Assert.False(piece2 == piece1, "piece2 == piece1 is True");
+            Assert.True(piece1 != piece2, "piece1 != piece2 is False");
+            Assert.True(piece2 != piece1, "piece2 != piece1 is False");
+        }
     }
 }
