@@ -20,10 +20,10 @@ namespace ChessDotNet
             private set;
         }
 
-        public ChessPiece[][] Board
+        protected ChessPiece[][] Board;
+        public ChessPiece[][] GetBoard()
         {
-            get;
-            private set;
+            return CloneBoard(Board);
         }
 
         List<Move> _moves;

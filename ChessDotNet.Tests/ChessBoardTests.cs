@@ -41,70 +41,70 @@ namespace ChessDotNet.Tests
             int f = (int)Position.Files.F;
             int g = (int)Position.Files.G;
             int h = (int)Position.Files.H;
-            Assert.AreEqual(rw, cb.Board[one][a]);
-            Assert.AreEqual(nw, cb.Board[one][b]);
-            Assert.AreEqual(bw, cb.Board[one][c]);
-            Assert.AreEqual(qw, cb.Board[one][d]);
-            Assert.AreEqual(kw, cb.Board[one][e]);
-            Assert.AreEqual(bw, cb.Board[one][f]);
-            Assert.AreEqual(nw, cb.Board[one][g]);
-            Assert.AreEqual(rw, cb.Board[one][h]);
-            Assert.AreEqual(pw, cb.Board[two][a]);
-            Assert.AreEqual(pw, cb.Board[two][b]);
-            Assert.AreEqual(pw, cb.Board[two][c]);
-            Assert.AreEqual(pw, cb.Board[two][d]);
-            Assert.AreEqual(pw, cb.Board[two][e]);
-            Assert.AreEqual(pw, cb.Board[two][f]);
-            Assert.AreEqual(pw, cb.Board[two][g]);
-            Assert.AreEqual(pw, cb.Board[two][h]);
-            Assert.AreEqual(o, cb.Board[three][a]);
-            Assert.AreEqual(o, cb.Board[three][b]);
-            Assert.AreEqual(o, cb.Board[three][c]);
-            Assert.AreEqual(o, cb.Board[three][d]);
-            Assert.AreEqual(o, cb.Board[three][e]);
-            Assert.AreEqual(o, cb.Board[three][f]);
-            Assert.AreEqual(o, cb.Board[three][g]);
-            Assert.AreEqual(o, cb.Board[three][h]);
-            Assert.AreEqual(o, cb.Board[four][a]);
-            Assert.AreEqual(o, cb.Board[four][b]);
-            Assert.AreEqual(o, cb.Board[four][c]);
-            Assert.AreEqual(o, cb.Board[four][d]);
-            Assert.AreEqual(o, cb.Board[four][e]);
-            Assert.AreEqual(o, cb.Board[four][f]);
-            Assert.AreEqual(o, cb.Board[four][g]);
-            Assert.AreEqual(o, cb.Board[four][h]);
-            Assert.AreEqual(o, cb.Board[five][a]);
-            Assert.AreEqual(o, cb.Board[five][b]);
-            Assert.AreEqual(o, cb.Board[five][c]);
-            Assert.AreEqual(o, cb.Board[five][d]);
-            Assert.AreEqual(o, cb.Board[five][e]);
-            Assert.AreEqual(o, cb.Board[five][f]);
-            Assert.AreEqual(o, cb.Board[five][g]);
-            Assert.AreEqual(o, cb.Board[five][h]);
-            Assert.AreEqual(o, cb.Board[six][a]);
-            Assert.AreEqual(o, cb.Board[six][b]);
-            Assert.AreEqual(o, cb.Board[six][c]);
-            Assert.AreEqual(o, cb.Board[six][d]);
-            Assert.AreEqual(o, cb.Board[six][e]);
-            Assert.AreEqual(o, cb.Board[six][f]);
-            Assert.AreEqual(o, cb.Board[six][g]);
-            Assert.AreEqual(o, cb.Board[six][h]);
-            Assert.AreEqual(pb, cb.Board[seven][a]);
-            Assert.AreEqual(pb, cb.Board[seven][b]);
-            Assert.AreEqual(pb, cb.Board[seven][c]);
-            Assert.AreEqual(pb, cb.Board[seven][d]);
-            Assert.AreEqual(pb, cb.Board[seven][e]);
-            Assert.AreEqual(pb, cb.Board[seven][f]);
-            Assert.AreEqual(pb, cb.Board[seven][g]);
-            Assert.AreEqual(pb, cb.Board[seven][h]);
-            Assert.AreEqual(rb, cb.Board[eight][a]);
-            Assert.AreEqual(nb, cb.Board[eight][b]);
-            Assert.AreEqual(bb, cb.Board[eight][c]);
-            Assert.AreEqual(qb, cb.Board[eight][d]);
-            Assert.AreEqual(kb, cb.Board[eight][e]);
-            Assert.AreEqual(bb, cb.Board[eight][f]);
-            Assert.AreEqual(nb, cb.Board[eight][g]);
-            Assert.AreEqual(rb, cb.Board[eight][h]);
+            Assert.AreEqual(rw, cb.GetBoard()[one][a]);
+            Assert.AreEqual(nw, cb.GetBoard()[one][b]);
+            Assert.AreEqual(bw, cb.GetBoard()[one][c]);
+            Assert.AreEqual(qw, cb.GetBoard()[one][d]);
+            Assert.AreEqual(kw, cb.GetBoard()[one][e]);
+            Assert.AreEqual(bw, cb.GetBoard()[one][f]);
+            Assert.AreEqual(nw, cb.GetBoard()[one][g]);
+            Assert.AreEqual(rw, cb.GetBoard()[one][h]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][a]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][b]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][c]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][d]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][e]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][f]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][g]);
+            Assert.AreEqual(pw, cb.GetBoard()[two][h]);
+            Assert.AreEqual(o, cb.GetBoard()[three][a]);
+            Assert.AreEqual(o, cb.GetBoard()[three][b]);
+            Assert.AreEqual(o, cb.GetBoard()[three][c]);
+            Assert.AreEqual(o, cb.GetBoard()[three][d]);
+            Assert.AreEqual(o, cb.GetBoard()[three][e]);
+            Assert.AreEqual(o, cb.GetBoard()[three][f]);
+            Assert.AreEqual(o, cb.GetBoard()[three][g]);
+            Assert.AreEqual(o, cb.GetBoard()[three][h]);
+            Assert.AreEqual(o, cb.GetBoard()[four][a]);
+            Assert.AreEqual(o, cb.GetBoard()[four][b]);
+            Assert.AreEqual(o, cb.GetBoard()[four][c]);
+            Assert.AreEqual(o, cb.GetBoard()[four][d]);
+            Assert.AreEqual(o, cb.GetBoard()[four][e]);
+            Assert.AreEqual(o, cb.GetBoard()[four][f]);
+            Assert.AreEqual(o, cb.GetBoard()[four][g]);
+            Assert.AreEqual(o, cb.GetBoard()[four][h]);
+            Assert.AreEqual(o, cb.GetBoard()[five][a]);
+            Assert.AreEqual(o, cb.GetBoard()[five][b]);
+            Assert.AreEqual(o, cb.GetBoard()[five][c]);
+            Assert.AreEqual(o, cb.GetBoard()[five][d]);
+            Assert.AreEqual(o, cb.GetBoard()[five][e]);
+            Assert.AreEqual(o, cb.GetBoard()[five][f]);
+            Assert.AreEqual(o, cb.GetBoard()[five][g]);
+            Assert.AreEqual(o, cb.GetBoard()[five][h]);
+            Assert.AreEqual(o, cb.GetBoard()[six][a]);
+            Assert.AreEqual(o, cb.GetBoard()[six][b]);
+            Assert.AreEqual(o, cb.GetBoard()[six][c]);
+            Assert.AreEqual(o, cb.GetBoard()[six][d]);
+            Assert.AreEqual(o, cb.GetBoard()[six][e]);
+            Assert.AreEqual(o, cb.GetBoard()[six][f]);
+            Assert.AreEqual(o, cb.GetBoard()[six][g]);
+            Assert.AreEqual(o, cb.GetBoard()[six][h]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][a]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][b]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][c]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][d]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][e]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][f]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][g]);
+            Assert.AreEqual(pb, cb.GetBoard()[seven][h]);
+            Assert.AreEqual(rb, cb.GetBoard()[eight][a]);
+            Assert.AreEqual(nb, cb.GetBoard()[eight][b]);
+            Assert.AreEqual(bb, cb.GetBoard()[eight][c]);
+            Assert.AreEqual(qb, cb.GetBoard()[eight][d]);
+            Assert.AreEqual(kb, cb.GetBoard()[eight][e]);
+            Assert.AreEqual(bb, cb.GetBoard()[eight][f]);
+            Assert.AreEqual(nb, cb.GetBoard()[eight][g]);
+            Assert.AreEqual(rb, cb.GetBoard()[eight][h]);
         }
 
         [Test]
@@ -1602,7 +1602,7 @@ namespace ChessDotNet.Tests
                 new[] { pw, pw, pw, pw, o, pw, pw, pw },
                 new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
-            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move1");
+            Assert.AreEqual(expected, cb.GetBoard(), "Unexpected board layout after applying move1");
             Move move2 = new Move(new Position(Position.Files.E, Position.Ranks.Three), new Position(Position.Files.E, Position.Ranks.Four), Players.White);
             Assert.True(cb.ApplyMove(move2, true));
             expected = new ChessPiece[8][]
@@ -1616,7 +1616,7 @@ namespace ChessDotNet.Tests
                 new[] { pw, pw, pw, pw, o, pw, pw, pw },
                 new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
-            Assert.AreEqual(expected, cb.Board, "Unexpected board layout after applying move2");
+            Assert.AreEqual(expected, cb.GetBoard(), "Unexpected board layout after applying move2");
         }
 
         [Test]
@@ -1647,7 +1647,7 @@ namespace ChessDotNet.Tests
                 new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
 
-            Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
+            Assert.AreEqual(board, cb.GetBoard(), "Unexpected board layout after en passant capture.");
         }
 
         [Test]
@@ -1679,7 +1679,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
@@ -1711,7 +1711,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, qb, o }
             };
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
@@ -1782,7 +1782,7 @@ namespace ChessDotNet.Tests
                 new[] { rw, o, bw, qw, kw, bw, nw, rw }
             };
 
-            Assert.AreEqual(board, cb.Board, "Unexpected board layout after en passant capture.");
+            Assert.AreEqual(board, cb.GetBoard(), "Unexpected board layout after en passant capture.");
         }
 
         [Test]
@@ -1815,7 +1815,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, o, rw, kw, o }
             };
 
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
@@ -1848,7 +1848,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, kw, rw, o, o, o, o }
             };
 
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
@@ -1881,7 +1881,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, kw, o, o, o }
             };
 
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
@@ -1914,7 +1914,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, kw, o, o, o }
             };
 
-            Assert.AreEqual(expected, cb.Board);
+            Assert.AreEqual(expected, cb.GetBoard());
         }
 
         [Test]
