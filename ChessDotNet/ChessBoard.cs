@@ -26,10 +26,13 @@ namespace ChessDotNet
             private set;
         }
 
-        public List<Move> Moves
+        List<Move> _moves;
+        public ReadOnlyCollection<Move> Moves
         {
-            get;
-            private set;
+            get
+            {
+                return new ReadOnlyCollection<Move>(_moves);
+            }
         }
 
         protected ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
@@ -47,7 +50,7 @@ namespace ChessDotNet
         {
             Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
             Board = new ChessPiece[8][];
-            Moves = new List<Move>();
+            _moves = new List<Move>();
             InitBoard();
         }
 
@@ -63,8 +66,8 @@ namespace ChessDotNet
             if (moves.Count == 0)
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = CloneBoard(board);
-            Moves = new List<Move>(moves);
-            foreach (Move m in Moves)
+            _moves = new List<Move>(moves);
+            foreach (Move m in _moves)
             {
                 if (!_whiteKingMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.E, Position.Ranks.One))
                     _whiteKingMoved = true;
@@ -94,7 +97,7 @@ namespace ChessDotNet
         protected Chessboard(ChessPiece[][] board, Players whoseTurn, bool validateCheck)
         {
             Board = CloneBoard(board);
-            Moves = new List<Move>();
+            _moves = new List<Move>();
             ChessPiece e1 = GetPieceAt(Position.Files.E, Position.Ranks.One);
             ChessPiece e8 = GetPieceAt(Position.Files.E, Position.Ranks.Eight);
             ChessPiece a1 = GetPieceAt(Position.Files.A, Position.Ranks.One);
@@ -325,14 +328,14 @@ namespace ChessDotNet
             }
             if (checkEnPassant)
             {
-                if (Moves.Count == 0)
+                if (_moves.Count == 0)
                 {
                     return false;
                 }
                 if ((move.OriginalPosition.Rank != Position.Ranks.Five && move.Player == Players.White)
                     || (move.OriginalPosition.Rank != Position.Ranks.Four && move.Player == Players.Black))
                     return false;
-                Move latestMove = Moves[Moves.Count - 1];
+                Move latestMove = _moves[_moves.Count - 1];
                 if (latestMove.Player != (move.Player == Players.White ? Players.Black : Players.White))
                     return false;
                 if (move.Player == Players.White)
@@ -531,7 +534,7 @@ namespace ChessDotNet
                 SetPieceAt(newRookFile, rank, new ChessPiece(Pieces.Rook, move.Player));
                 SetPieceAt(rookFile, rank, ChessPiece.None);
             }
-            Moves.Add(move);
+            _moves.Add(move);
             Players other = move.Player == Players.White ? Players.Black : Players.White;
             List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
             playersToValidate.Add(new Tuple<Players, bool>(other, validateHasAnyValidMoves));
