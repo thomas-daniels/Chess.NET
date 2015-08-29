@@ -35,7 +35,7 @@ namespace ChessDotNet
             }
         }
 
-        protected ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
+        protected static ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
         {
             ChessPiece[][] newBoard = new ChessPiece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
@@ -151,7 +151,7 @@ namespace ChessDotNet
             };
         }
 
-        protected void ThrowIfNull(object value, string paramName)
+        protected static void ThrowIfNull(object value, string paramName)
         {
             if (value == null)
             {
