@@ -3,36 +3,36 @@ using System.Globalization;
 
 namespace ChessDotNet
 {
+    public enum File
+    {
+        A = 0,
+        B = 1,
+        C = 2,
+        D = 3,
+        E = 4,
+        F = 5,
+        G = 6,
+        H = 7,
+        None = -1
+    }
+
+    public enum Rank
+    {
+        One = 7,
+        Two = 6,
+        Three = 5,
+        Four = 4,
+        Five = 3,
+        Six = 2,
+        Seven = 1,
+        Eight = 0,
+        None = -1
+    }
+
     public class Position
     {
-        public enum Files
-        {
-            A = 0,
-            B = 1,
-            C = 2,
-            D = 3,
-            E = 4,
-            F = 5,
-            G = 6,
-            H = 7,
-            None = -1
-        }
-
-        public enum Ranks
-        {
-            One = 7,
-            Two = 6,
-            Three = 5,
-            Four = 4,
-            Five = 3,
-            Six = 2,
-            Seven = 1,
-            Eight = 0,
-            None = -1
-        }
-
-        Files _file;
-        public Files File
+        File _file;
+        public File File
         {
             get
             {
@@ -40,8 +40,8 @@ namespace ChessDotNet
             }
         }
 
-        Ranks _rank;
-        public Ranks Rank
+        Rank _rank;
+        public Rank Rank
         {
             get
             {
@@ -49,7 +49,7 @@ namespace ChessDotNet
             }
         }
 
-        public Position(Files file, Ranks rank)
+        public Position(File file, Rank rank)
         {
             _file = file;
             _rank = rank;
@@ -72,28 +72,28 @@ namespace ChessDotNet
             switch (file)
             {
                 case 'A':
-                    _file = Files.A;
+                    _file = File.A;
                     break;
                 case 'B':
-                    _file = Files.B;
+                    _file = File.B;
                     break;
                 case 'C':
-                    _file = Files.C;
+                    _file = File.C;
                     break;
                 case 'D':
-                    _file = Files.D;
+                    _file = File.D;
                     break;
                 case 'E':
-                    _file = Files.E;
+                    _file = File.E;
                     break;
                 case 'F':
-                    _file = Files.F;
+                    _file = File.F;
                     break;
                 case 'G':
-                    _file = Files.G;
+                    _file = File.G;
                     break;
                 case 'H':
-                    _file = Files.H;
+                    _file = File.H;
                     break;
                 default:
                     throw new ArgumentException("First char of `pos` not in range A-F.");
@@ -102,28 +102,28 @@ namespace ChessDotNet
             switch (rank)
             {
                 case '1':
-                    _rank = Ranks.One;
+                    _rank = Rank.One;
                     break;
                 case '2':
-                    _rank = Ranks.Two;
+                    _rank = Rank.Two;
                     break;
                 case '3':
-                    _rank = Ranks.Three;
+                    _rank = Rank.Three;
                     break;
                 case '4':
-                    _rank = Ranks.Four;
+                    _rank = Rank.Four;
                     break;
                 case '5':
-                    _rank = Ranks.Five;
+                    _rank = Rank.Five;
                     break;
                 case '6':
-                    _rank = Ranks.Six;
+                    _rank = Rank.Six;
                     break;
                 case '7':
-                    _rank = Ranks.Seven;
+                    _rank = Rank.Seven;
                     break;
                 case '8':
-                    _rank = Ranks.Eight;
+                    _rank = Rank.Eight;
                     break;
                 default:
                     throw new ArgumentException("Second char of `pos` not in range 1-8.");

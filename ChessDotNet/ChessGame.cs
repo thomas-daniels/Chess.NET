@@ -49,7 +49,7 @@ namespace ChessDotNet
 
         public ChessGame()
         {
-            Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
+            Status = new GameStatus(Event.None, Player.None, "No special event");
             Board = new ChessPiece[8][];
             _moves = new List<Move>();
             InitBoard();
@@ -70,74 +70,74 @@ namespace ChessDotNet
             _moves = new List<Move>(moves);
             foreach (Move m in _moves)
             {
-                if (!_whiteKingMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.E, Position.Ranks.One))
+                if (!_whiteKingMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.E, Rank.One))
                     _whiteKingMoved = true;
-                if (!_blackKingMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.E, Position.Ranks.Eight))
+                if (!_blackKingMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.E, Rank.Eight))
                     _blackKingMoved = true;
-                if (!_whiteRookAMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.A, Position.Ranks.One))
+                if (!_whiteRookAMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.A, Rank.One))
                     _whiteRookAMoved = true;
-                if (!_whiteRookHMoved && m.Player == Players.White && m.OriginalPosition == new Position(Position.Files.H, Position.Ranks.One))
+                if (!_whiteRookHMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.H, Rank.One))
                     _whiteRookHMoved = true;
-                if (!_blackRookAMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.A, Position.Ranks.Eight))
+                if (!_blackRookAMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.A, Rank.Eight))
                     _blackRookAMoved = true;
-                if (!_blackRookHMoved && m.Player == Players.Black && m.OriginalPosition == new Position(Position.Files.H, Position.Ranks.Eight))
+                if (!_blackRookHMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.H, Rank.Eight))
                     _blackRookHMoved = true;
             }
             if (!validateCheck)
                 return;
-            List<Tuple<Players, bool>> playersToValidateCheck = new List<Tuple<Players, bool>>();
-            playersToValidateCheck.Add(new Tuple<Players, bool>(moves.ElementAt(moves.Count() - 1).Player == Players.White ? Players.Black : Players.White, true));
+            List<Tuple<Player, bool>> playersToValidateCheck = new List<Tuple<Player, bool>>();
+            playersToValidateCheck.Add(new Tuple<Player, bool>(moves.ElementAt(moves.Count() - 1).Player == Player.White ? Player.Black : Player.White, true));
             ChangeStatus(playersToValidateCheck, true);
         }
 
-        public ChessGame(ChessPiece[][] board, Players whoseTurn) :
+        public ChessGame(ChessPiece[][] board, Player whoseTurn) :
             this(board, whoseTurn, true)
         {
         }
 
-        protected ChessGame(ChessPiece[][] board, Players whoseTurn, bool validateCheck)
+        protected ChessGame(ChessPiece[][] board, Player whoseTurn, bool validateCheck)
         {
             Board = CloneBoard(board);
             _moves = new List<Move>();
-            ChessPiece e1 = GetPieceAt(Position.Files.E, Position.Ranks.One);
-            ChessPiece e8 = GetPieceAt(Position.Files.E, Position.Ranks.Eight);
-            ChessPiece a1 = GetPieceAt(Position.Files.A, Position.Ranks.One);
-            ChessPiece h1 = GetPieceAt(Position.Files.H, Position.Ranks.One);
-            ChessPiece a8 = GetPieceAt(Position.Files.A, Position.Ranks.Eight);
-            ChessPiece h8 = GetPieceAt(Position.Files.H, Position.Ranks.Eight);
-            if (e1.Piece != Pieces.King || e1.Player != Players.White)
+            ChessPiece e1 = GetPieceAt(File.E, Rank.One);
+            ChessPiece e8 = GetPieceAt(File.E, Rank.Eight);
+            ChessPiece a1 = GetPieceAt(File.A, Rank.One);
+            ChessPiece h1 = GetPieceAt(File.H, Rank.One);
+            ChessPiece a8 = GetPieceAt(File.A, Rank.Eight);
+            ChessPiece h8 = GetPieceAt(File.H, Rank.Eight);
+            if (e1.Piece != Piece.King || e1.Player != Player.White)
                 _whiteKingMoved = true;
-            if (e8.Piece != Pieces.King || e8.Player != Players.Black)
+            if (e8.Piece != Piece.King || e8.Player != Player.Black)
                 _blackKingMoved = true;
-            if (a1.Piece != Pieces.Rook || a1.Player != Players.White)
+            if (a1.Piece != Piece.Rook || a1.Player != Player.White)
                 _whiteRookAMoved = true;
-            if (h1.Piece != Pieces.Rook || h1.Player != Players.White)
+            if (h1.Piece != Piece.Rook || h1.Player != Player.White)
                 _whiteRookHMoved = true;
-            if (a8.Piece != Pieces.Rook || a8.Player != Players.Black)
+            if (a8.Piece != Piece.Rook || a8.Player != Player.Black)
                 _blackRookAMoved = true;
-            if (h8.Piece != Pieces.Rook || h8.Player != Players.Black)
+            if (h8.Piece != Piece.Rook || h8.Player != Player.Black)
                 _blackRookHMoved = true;
             if (!validateCheck)
                 return;
-            List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
-            playersToValidate.Add(new Tuple<Players, bool>(whoseTurn, true));
+            List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
+            playersToValidate.Add(new Tuple<Player, bool>(whoseTurn, true));
             ChangeStatus(playersToValidate, true);
         }
 
         public void InitBoard()
         {
-            ChessPiece kw = new ChessPiece(Pieces.King, Players.White);
-            ChessPiece kb = new ChessPiece(Pieces.King, Players.Black);
-            ChessPiece qw = new ChessPiece(Pieces.Queen, Players.White);
-            ChessPiece qb = new ChessPiece(Pieces.Queen, Players.Black);
-            ChessPiece rw = new ChessPiece(Pieces.Rook, Players.White);
-            ChessPiece rb = new ChessPiece(Pieces.Rook, Players.Black);
-            ChessPiece nw = new ChessPiece(Pieces.Knight, Players.White);
-            ChessPiece nb = new ChessPiece(Pieces.Knight, Players.Black);
-            ChessPiece bw = new ChessPiece(Pieces.Bishop, Players.White);
-            ChessPiece bb = new ChessPiece(Pieces.Bishop, Players.Black);
-            ChessPiece pw = new ChessPiece(Pieces.Pawn, Players.White);
-            ChessPiece pb = new ChessPiece(Pieces.Pawn, Players.Black);
+            ChessPiece kw = new ChessPiece(Piece.King, Player.White);
+            ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
+            ChessPiece qw = new ChessPiece(Piece.Queen, Player.White);
+            ChessPiece qb = new ChessPiece(Piece.Queen, Player.Black);
+            ChessPiece rw = new ChessPiece(Piece.Rook, Player.White);
+            ChessPiece rb = new ChessPiece(Piece.Rook, Player.Black);
+            ChessPiece nw = new ChessPiece(Piece.Knight, Player.White);
+            ChessPiece nb = new ChessPiece(Piece.Knight, Player.Black);
+            ChessPiece bw = new ChessPiece(Piece.Bishop, Player.White);
+            ChessPiece bb = new ChessPiece(Piece.Bishop, Player.Black);
+            ChessPiece pw = new ChessPiece(Piece.Pawn, Player.White);
+            ChessPiece pb = new ChessPiece(Piece.Pawn, Player.Black);
             ChessPiece o = ChessPiece.None;
             Board = new ChessPiece[8][]
             {
@@ -160,32 +160,32 @@ namespace ChessDotNet
             }
         }
 
-        protected void ChangeStatus(List<Tuple<Players, bool>> playersToValidate, bool breakAfterChange)
+        protected void ChangeStatus(List<Tuple<Player, bool>> playersToValidate, bool breakAfterChange)
         {
-            Status = new GameStatus(GameStatus.Events.None, Players.None, "No special event");
-            foreach (Tuple<Players, bool> t in playersToValidate)
+            Status = new GameStatus(Event.None, Player.None, "No special event");
+            foreach (Tuple<Player, bool> t in playersToValidate)
             {
-                Players player = t.Item1;
+                Player player = t.Item1;
                 bool validateHasAnyValidMoves = t.Item2;
-                Players other = player == Players.White ? Players.Black : Players.White;
+                Player other = player == Player.White ? Player.Black : Player.White;
                 if (IsInCheck(player))
                 {
                     if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                     {
-                        Status = new GameStatus(GameStatus.Events.Checkmate, other, player.ToString() + " is checkmated");
+                        Status = new GameStatus(Event.Checkmate, other, player.ToString() + " is checkmated");
                         if (breakAfterChange)
                             break;
                     }
                     else
                     {
-                        Status = new GameStatus(GameStatus.Events.Check, other, player.ToString() + " is in check");
+                        Status = new GameStatus(Event.Check, other, player.ToString() + " is in check");
                         if (breakAfterChange)
                             break;
                     }
                 }
                 else if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                 {
-                    Status = new GameStatus(GameStatus.Events.Stalemate, other, "Stalemate");
+                    Status = new GameStatus(Event.Stalemate, other, "Stalemate");
                     if (breakAfterChange)
                         break;
                 }
@@ -198,12 +198,12 @@ namespace ChessDotNet
             return GetPieceAt(position.File, position.Rank);
         }
 
-        public ChessPiece GetPieceAt(Position.Files file, Position.Ranks rank)
+        public ChessPiece GetPieceAt(File file, Rank rank)
         {
             return Board[(int)rank][(int)file];
         }
 
-        protected void SetPieceAt(Position.Files file, Position.Ranks rank, ChessPiece piece)
+        protected void SetPieceAt(File file, Rank rank, ChessPiece piece)
         {
             ThrowIfNull(piece, "piece");
             Board[(int)rank][(int)file] = piece;
@@ -232,51 +232,51 @@ namespace ChessDotNet
         protected bool CanCastle(Move move)
         {
             ThrowIfNull(move, "move");
-            if (move.Player == Players.White)
+            if (move.Player == Player.White)
             {
-                if (move.OriginalPosition.File != Position.Files.E || move.OriginalPosition.Rank != Position.Ranks.One)
+                if (move.OriginalPosition.File != File.E || move.OriginalPosition.Rank != Rank.One)
                     return false;
-                if (_whiteKingMoved || (Status.Event == GameStatus.Events.Check && Status.PlayerWhoCausedEvent == Players.Black))
+                if (_whiteKingMoved || (Status.Event == Event.Check && Status.PlayerWhoCausedEvent == Player.Black))
                     return false;
-                if (move.NewPosition.File == Position.Files.C)
+                if (move.NewPosition.File == File.C)
                 {
-                    if (_whiteRookAMoved || GetPieceAt(Position.Files.D, Position.Ranks.One).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.C, Position.Ranks.One).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.B, Position.Ranks.One).Piece != Pieces.None
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.D, Position.Ranks.One), Players.White), Players.White)
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.C, Position.Ranks.One), Players.White), Players.White))
+                    if (_whiteRookAMoved || GetPieceAt(File.D, Rank.One).Piece != Piece.None
+                        || GetPieceAt(File.C, Rank.One).Piece != Piece.None
+                        || GetPieceAt(File.B, Rank.One).Piece != Piece.None
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.D, Rank.One), Player.White), Player.White)
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White), Player.White))
                         return false;
                 }
                 else
                 {
-                    if (_whiteRookHMoved || GetPieceAt(Position.Files.F, Position.Ranks.One).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.G, Position.Ranks.One).Piece != Pieces.None
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.F, Position.Ranks.One), Players.White), Players.White)
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.One), new Position(Position.Files.G, Position.Ranks.One), Players.White), Players.White))
+                    if (_whiteRookHMoved || GetPieceAt(File.F, Rank.One).Piece != Piece.None
+                        || GetPieceAt(File.G, Rank.One).Piece != Piece.None
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.F, Rank.One), Player.White), Player.White)
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White), Player.White))
                         return false;
                 }
             }
             else
             {
-                if (move.OriginalPosition.File != Position.Files.E || move.OriginalPosition.Rank != Position.Ranks.Eight)
+                if (move.OriginalPosition.File != File.E || move.OriginalPosition.Rank != Rank.Eight)
                     return false;
-                if (_blackKingMoved || (Status.Event == GameStatus.Events.Check && Status.PlayerWhoCausedEvent == Players.White))
+                if (_blackKingMoved || (Status.Event == Event.Check && Status.PlayerWhoCausedEvent == Player.White))
                     return false;
-                if (move.NewPosition.File == Position.Files.C)
+                if (move.NewPosition.File == File.C)
                 {
-                    if (_blackRookAMoved || GetPieceAt(Position.Files.D, Position.Ranks.Eight).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.C, Position.Ranks.Eight).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.B, Position.Ranks.Eight).Piece != Pieces.None
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.D, Position.Ranks.Eight), Players.Black), Players.Black)
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.C, Position.Ranks.Eight), Players.Black), Players.Black))
+                    if (_blackRookAMoved || GetPieceAt(File.D, Rank.Eight).Piece != Piece.None
+                        || GetPieceAt(File.C, Rank.Eight).Piece != Piece.None
+                        || GetPieceAt(File.B, Rank.Eight).Piece != Piece.None
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.D, Rank.Eight), Player.Black), Player.Black)
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black), Player.Black))
                         return false;
                 }
                 else
                 {
-                    if (_blackRookHMoved || GetPieceAt(Position.Files.F, Position.Ranks.Eight).Piece != Pieces.None
-                        || GetPieceAt(Position.Files.G, Position.Ranks.Eight).Piece != Pieces.None
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.F, Position.Ranks.Eight), Players.Black), Players.Black)
-                        || WouldBeInCheckAfter(new Move(new Position(Position.Files.E, Position.Ranks.Eight), new Position(Position.Files.G, Position.Ranks.Eight), Players.Black), Players.Black))
+                    if (_blackRookHMoved || GetPieceAt(File.F, Rank.Eight).Piece != Piece.None
+                        || GetPieceAt(File.G, Rank.Eight).Piece != Piece.None
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.F, Rank.Eight), Player.Black), Player.Black)
+                        || WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black), Player.Black))
                         return false;
                 }
             }
@@ -290,39 +290,39 @@ namespace ChessDotNet
             if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1)
                         && (posDelta.DeltaX != 0 || posDelta.DeltaY != 2))
                 return false;
-            if (move.Player == Players.White)
+            if (move.Player == Player.White)
             {
                 if ((int)move.OriginalPosition.Rank < (int)move.NewPosition.Rank)
                     return false;
-                if (move.NewPosition.Rank == Position.Ranks.Eight && move.Promotion == Pieces.None)
+                if (move.NewPosition.Rank == Rank.Eight && move.Promotion == Piece.None)
                     return false;
             }
-            if (move.Player == Players.Black)
+            if (move.Player == Player.Black)
             {
                 if ((int)move.OriginalPosition.Rank > (int)move.NewPosition.Rank)
                     return false;
-                if (move.NewPosition.Rank == Position.Ranks.One && move.Promotion == Pieces.None)
+                if (move.NewPosition.Rank == Rank.One && move.Promotion == Piece.None)
                     return false;
             }
             bool checkEnPassant = false;
             if (posDelta.DeltaY == 2)
             {
-                if ((move.OriginalPosition.Rank != Position.Ranks.Two && move.Player == Players.White)
-                    || (move.OriginalPosition.Rank != Position.Ranks.Seven && move.Player == Players.Black))
+                if ((move.OriginalPosition.Rank != Rank.Two && move.Player == Player.White)
+                    || (move.OriginalPosition.Rank != Rank.Seven && move.Player == Player.Black))
                     return false;
-                if (move.OriginalPosition.Rank == Position.Ranks.Two && GetPieceAt(move.OriginalPosition.File, Position.Ranks.Three).Piece != Pieces.None)
+                if (move.OriginalPosition.Rank == Rank.Two && GetPieceAt(move.OriginalPosition.File, Rank.Three).Piece != Piece.None)
                     return false;
-                if (move.OriginalPosition.Rank == Position.Ranks.Seven && GetPieceAt(move.OriginalPosition.File, Position.Ranks.Six).Piece != Pieces.None)
+                if (move.OriginalPosition.Rank == Rank.Seven && GetPieceAt(move.OriginalPosition.File, Rank.Six).Piece != Piece.None)
                     return false;
             }
             if (posDelta.DeltaX == 0 && (posDelta.DeltaY == 1 || posDelta.DeltaY == 2))
             {
-                if (GetPieceAt(move.NewPosition).Player != Players.None)
+                if (GetPieceAt(move.NewPosition).Player != Player.None)
                     return false;
             }
             else
             {
-                if (GetPieceAt(move.NewPosition).Player != (move.Player == Players.White ? Players.Black : Players.White))
+                if (GetPieceAt(move.NewPosition).Player != (move.Player == Player.White ? Player.Black : Player.White))
                     checkEnPassant = true;
                 if (GetPieceAt(move.NewPosition).Player == move.Player)
                     return false;
@@ -333,20 +333,20 @@ namespace ChessDotNet
                 {
                     return false;
                 }
-                if ((move.OriginalPosition.Rank != Position.Ranks.Five && move.Player == Players.White)
-                    || (move.OriginalPosition.Rank != Position.Ranks.Four && move.Player == Players.Black))
+                if ((move.OriginalPosition.Rank != Rank.Five && move.Player == Player.White)
+                    || (move.OriginalPosition.Rank != Rank.Four && move.Player == Player.Black))
                     return false;
                 Move latestMove = _moves[_moves.Count - 1];
-                if (latestMove.Player != (move.Player == Players.White ? Players.Black : Players.White))
+                if (latestMove.Player != (move.Player == Player.White ? Player.Black : Player.White))
                     return false;
-                if (move.Player == Players.White)
+                if (move.Player == Player.White)
                 {
-                    if (latestMove.OriginalPosition.Rank != Position.Ranks.Seven || latestMove.NewPosition.Rank != Position.Ranks.Five)
+                    if (latestMove.OriginalPosition.Rank != Rank.Seven || latestMove.NewPosition.Rank != Rank.Five)
                         return false;
                 }
                 else // (m.Player == Players.Black)
                 {
-                    if (latestMove.OriginalPosition.Rank != Position.Ranks.Two || latestMove.NewPosition.Rank != Position.Ranks.Four)
+                    if (latestMove.OriginalPosition.Rank != Rank.Two || latestMove.NewPosition.Rank != Rank.Four)
                         return false;
                 }
                 if (move.NewPosition.File != latestMove.NewPosition.File)
@@ -370,7 +370,7 @@ namespace ChessDotNet
                     increasingRank ? r < (int)move.NewPosition.Rank : r > (int)move.NewPosition.Rank;
                     r += increasingRank ? 1 : -1)
                 {
-                    if (Board[r][f].Player != Players.None)
+                    if (Board[r][f].Player != Player.None)
                     {
                         return false;
                     }
@@ -383,7 +383,7 @@ namespace ChessDotNet
                     increasingFile ? f < (int)move.NewPosition.File : f > (int)move.NewPosition.File;
                     f += increasingFile ? 1 : -1)
                 {
-                    if (Board[r][f].Player != Players.None)
+                    if (Board[r][f].Player != Player.None)
                     {
                         return false;
                     }
@@ -404,7 +404,7 @@ namespace ChessDotNet
                  increasingFile ? f < (int)move.NewPosition.File : f > (int)move.NewPosition.File;
                  f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
             {
-                if (Board[r][f].Player != Players.None)
+                if (Board[r][f].Player != Player.None)
                 {
                     return false;
                 }
@@ -441,27 +441,27 @@ namespace ChessDotNet
             PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
             switch (piece.Piece)
             {
-                case Pieces.King:
+                case Piece.King:
                     if (!IsValidMoveKing(move))
                         return false;
                     break;
-                case Pieces.Pawn:
+                case Piece.Pawn:
                     if (!IsValidMovePawn(move))
                         return false;
                     break;
-                case Pieces.Queen:
+                case Piece.Queen:
                     if (!IsValidMoveQueen(move))
                         return false;
                     break;
-                case Pieces.Rook:
+                case Piece.Rook:
                     if (!IsValidMoveRook(move))
                         return false;
                     break;
-                case Pieces.Bishop:
+                case Piece.Bishop:
                     if (!IsValidMoveBishop(move))
                         return false;
                     break;
-                case Pieces.Knight:
+                case Piece.Knight:
                     if ((posDelta.DeltaX != 2 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 2))
                         return false;
                     break;
@@ -489,59 +489,59 @@ namespace ChessDotNet
                 return false;
             ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             ChessPiece newPiece = movingPiece;
-            if (movingPiece.Piece == Pieces.Pawn)
+            if (movingPiece.Piece == Piece.Pawn)
             {
                 PositionDelta pd = new PositionDelta(move.OriginalPosition, move.NewPosition);
-                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(move.NewPosition).Piece == Pieces.None)
+                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(move.NewPosition).Piece == Piece.None)
                 { // en passant
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
                 }
-                if (move.NewPosition.Rank == (move.Player == Players.White ? Position.Ranks.Eight : Position.Ranks.One))
+                if (move.NewPosition.Rank == (move.Player == Player.White ? Rank.Eight : Rank.One))
                 {
                     newPiece = new ChessPiece(move.Promotion, move.Player);
                 }
             }
-            else if (movingPiece.Piece == Pieces.King && movingPiece.Player == Players.White)
+            else if (movingPiece.Piece == Piece.King && movingPiece.Player == Player.White)
             {
                 _whiteKingMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.King && movingPiece.Player == Players.Black)
+            else if (movingPiece.Piece == Piece.King && movingPiece.Player == Player.Black)
             {
                 _blackKingMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.A && move.OriginalPosition.Rank == Position.Ranks.One && move.Player == Players.White)
+            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.One && move.Player == Player.White)
             {
                 _whiteRookAMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.H && move.OriginalPosition.Rank == Position.Ranks.One && move.Player == Players.White)
+            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.One && move.Player == Player.White)
             {
                 _whiteRookHMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.A && move.OriginalPosition.Rank == Position.Ranks.Eight && move.Player == Players.Black)
+            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.Eight && move.Player == Player.Black)
             {
                 _blackRookAMoved = true;
             }
-            else if (movingPiece.Piece == Pieces.Rook && move.OriginalPosition.File == Position.Files.H && move.OriginalPosition.Rank == Position.Ranks.Eight && move.Player == Players.Black)
+            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.Eight && move.Player == Player.Black)
             {
                 _blackRookHMoved = true;
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
-            if (movingPiece.Piece == Pieces.King && new PositionDelta(move.OriginalPosition, move.NewPosition).DeltaX == 2)
+            if (movingPiece.Piece == Piece.King && new PositionDelta(move.OriginalPosition, move.NewPosition).DeltaX == 2)
             {
-                Position.Ranks rank = move.Player == Players.White ? Position.Ranks.One : Position.Ranks.Eight;
-                Position.Files rookFile = move.NewPosition.File == Position.Files.C ? Position.Files.A : Position.Files.H;
-                Position.Files newRookFile = move.NewPosition.File == Position.Files.C ? Position.Files.D : Position.Files.F;
-                SetPieceAt(newRookFile, rank, new ChessPiece(Pieces.Rook, move.Player));
+                Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
+                File rookFile = move.NewPosition.File == File.C ? File.A : File.H;
+                File newRookFile = move.NewPosition.File == File.C ? File.D : File.F;
+                SetPieceAt(newRookFile, rank, new ChessPiece(Piece.Rook, move.Player));
                 SetPieceAt(rookFile, rank, ChessPiece.None);
             }
             _moves.Add(move);
-            Players other = move.Player == Players.White ? Players.Black : Players.White;
-            List<Tuple<Players, bool>> playersToValidate = new List<Tuple<Players, bool>>();
-            playersToValidate.Add(new Tuple<Players, bool>(other, validateHasAnyValidMoves));
+            Player other = move.Player == Player.White ? Player.Black : Player.White;
+            List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
+            playersToValidate.Add(new Tuple<Player, bool>(other, validateHasAnyValidMoves));
             if (validateSelfCheck)
             {
-                playersToValidate.Add(new Tuple<Players, bool>(move.Player, false));
+                playersToValidate.Add(new Tuple<Player, bool>(move.Player, false));
             }
             ChangeStatus(playersToValidate, false);
             return true;
@@ -586,7 +586,7 @@ namespace ChessDotNet
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             int[][] directions;
-            if (cp.Player == Players.Black)
+            if (cp.Player == Player.Black)
             {
                 directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 1, 1 }, new int[] { -1, 1 } };
             }
@@ -720,32 +720,32 @@ namespace ChessDotNet
         protected ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
             ThrowIfNull(from, "from");
-            Pieces piece = GetPieceAt(from).Piece;
+            Piece piece = GetPieceAt(from).Piece;
             switch (piece)
             {
-                case Pieces.King:
+                case Piece.King:
                     return GetValidMovesKing(from, returnIfAny);
-                case Pieces.Pawn:
+                case Piece.Pawn:
                     return GetValidMovesPawn(from, returnIfAny);
-                case Pieces.Knight:
+                case Piece.Knight:
                     return GetValidMovesKnight(from, returnIfAny);
-                case Pieces.Rook:
+                case Piece.Rook:
                     return GetValidMovesRook(from, returnIfAny);
-                case Pieces.Bishop:
+                case Piece.Bishop:
                     return GetValidMovesBishop(from, returnIfAny);
-                case Pieces.Queen:
+                case Piece.Queen:
                     return GetValidMovesQueen(from, returnIfAny);
                 default:
                     return new ReadOnlyCollection<Move>(new List<Move>());
             }
         }
 
-        public ReadOnlyCollection<Move> GetValidMoves(Players player)
+        public ReadOnlyCollection<Move> GetValidMoves(Player player)
         {
             return GetValidMoves(player, false);
         }
 
-        protected ReadOnlyCollection<Move> GetValidMoves(Players player, bool returnIfAny)
+        protected ReadOnlyCollection<Move> GetValidMoves(Player player, bool returnIfAny)
         {
             List<Move> validMoves = new List<Move>();
             for (int x = 0; x < Board.Length; x++)
@@ -754,7 +754,7 @@ namespace ChessDotNet
                 {
                     if (Board[x][y].Player == player)
                     {
-                        validMoves.AddRange(GetValidMoves(new Position((Position.Files)y, (Position.Ranks)x), returnIfAny));
+                        validMoves.AddRange(GetValidMoves(new Position((File)y, (Rank)x), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)
                         {
                             return new ReadOnlyCollection<Move>(validMoves);
@@ -772,39 +772,39 @@ namespace ChessDotNet
             return validMoves.Count > 0;
         }
 
-        protected bool HasAnyValidMoves(Players player)
+        protected bool HasAnyValidMoves(Player player)
         {
             ReadOnlyCollection<Move> validMoves = GetValidMoves(player, true);
             return validMoves.Count > 0;
         }
 
-        protected bool IsInCheck(Players player)
+        protected bool IsInCheck(Player player)
         {
             List<Position> piecePositions = new List<Position>();
-            Position kingPos = new Position(Position.Files.None, Position.Ranks.None);
+            Position kingPos = new Position(File.None, Rank.None);
 
             for (int i = 0; i < Board.Length; i++)
             {
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     ChessPiece curr = Board[i][j];
-                    if (curr.Piece != Pieces.None && curr.Player == (player == Players.White ? Players.Black : Players.White))
+                    if (curr.Piece != Piece.None && curr.Player == (player == Player.White ? Player.Black : Player.White))
                     {
-                        piecePositions.Add(new Position((Position.Files)j, (Position.Ranks)i));
+                        piecePositions.Add(new Position((File)j, (Rank)i));
                     }
-                    else if (curr.Piece == Pieces.King && curr.Player == player)
+                    else if (curr.Piece == Piece.King && curr.Player == player)
                     {
-                        kingPos = new Position((Position.Files)j, (Position.Ranks)i);
+                        kingPos = new Position((File)j, (Rank)i);
                     }
                 }
             }
 
-            if (kingPos.File == Position.Files.None)
+            if (kingPos.File == File.None)
                 return false;
 
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Players.White ? Players.Black : Players.White), false))
+                if (IsValidMove(new Move(piecePositions[i], kingPos, player == Player.White ? Player.Black : Player.White), false))
                 {
                     return true;
                 }
@@ -813,24 +813,24 @@ namespace ChessDotNet
             return false;
         }
 
-        protected bool WouldBeInCheckAfter(Move move, Players player)
+        protected bool WouldBeInCheckAfter(Move move, Player player)
         {
             ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false, true);
-            return copy.Status.Event == GameStatus.Events.Check && copy.Status.PlayerWhoCausedEvent != player;
+            return copy.Status.Event == Event.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
 
         public void Draw(string reason)
         {
-            Status = new GameStatus(GameStatus.Events.Draw, Players.None, reason);
+            Status = new GameStatus(Event.Draw, Player.None, reason);
         }
 
-        public void Resign(Players player)
+        public void Resign(Player player)
         {
-            if (player == Players.None)
+            if (player == Player.None)
                 throw new ArgumentException("player cannot be None.");
-            Status = new GameStatus(GameStatus.Events.Resign, player, player.ToString() + " resigned");
+            Status = new GameStatus(Event.Resign, player, player.ToString() + " resigned");
         }
     }
 }

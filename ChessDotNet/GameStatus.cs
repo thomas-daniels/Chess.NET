@@ -1,26 +1,26 @@
 ﻿namespace ChessDotNet
 {
-    public class GameStatus
+    public enum Event
     {
-        public enum Events
-        {
-            Check,
-            Checkmate,
-            Stalemate,
-            Draw,
-            Custom,
-            Resign,
-            VariantEnd, // to be used for chess variants, which can be derived from ChessBoard
-            None
-        }
-        
-        public Events Event
+        Check,
+        Checkmate,
+        Stalemate,
+        Draw,
+        Custom,
+        Resign,
+        VariantEnd, // to be used for chess variants, which can be derived from ChessGame
+        None
+    }
+
+    public class GameStatus
+    {   
+        public Event Event
         {
             get;
             private set;
         }
 
-        public Players PlayerWhoCausedEvent
+        public Player PlayerWhoCausedEvent
         {
             get;
             private set;
@@ -32,7 +32,7 @@
             private set;
         }
 
-        public GameStatus(Events _event, Players whoCausedEvent, string eventExplanation)
+        public GameStatus(Event _event, Player whoCausedEvent, string eventExplanation)
         {
             Event = _event;
             PlayerWhoCausedEvent = whoCausedEvent;

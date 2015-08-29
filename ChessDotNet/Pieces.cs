@@ -1,6 +1,6 @@
 ﻿namespace ChessDotNet
 {
-    public enum Pieces
+    public enum Piece
     {
         King,
         Queen,

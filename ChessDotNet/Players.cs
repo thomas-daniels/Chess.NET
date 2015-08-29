@@ -1,6 +1,6 @@
 ﻿namespace ChessDotNet
 {
-    public enum Players
+    public enum Player
     {
         Black,
         White,

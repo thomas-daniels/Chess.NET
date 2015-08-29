@@ -4,13 +4,13 @@ namespace ChessDotNet
 {
     public class ChessPiece
     {
-        public Pieces Piece
+        public Piece Piece
         {
             get;
             private set;
         }
 
-        public Players Player
+        public Player Player
         {
             get;
             private set;
@@ -20,11 +20,11 @@ namespace ChessDotNet
         {
             get
             {
-                return new ChessPiece(Pieces.None, Players.None);
+                return new ChessPiece(Piece.None, Player.None);
             }
         }
 
-        public ChessPiece(Pieces piece, Players player)
+        public ChessPiece(Piece piece, Player player)
         {
             Piece = piece;
             Player = player;
