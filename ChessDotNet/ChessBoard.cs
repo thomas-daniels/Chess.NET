@@ -54,16 +54,16 @@ namespace ChessDotNet
             InitBoard();
         }
 
-        public Chessboard(ChessPiece[][] board, List<Move> moves) :
+        public Chessboard(ChessPiece[][] board, IEnumerable<Move> moves) :
             this(board, moves, true)
         {
         }
 
-        protected Chessboard(ChessPiece[][] board, List<Move> moves, bool validateCheck)
+        protected Chessboard(ChessPiece[][] board, IEnumerable<Move> moves, bool validateCheck)
         {
             if (moves == null)
                 throw new ArgumentNullException("moves");
-            if (moves.Count == 0)
+            if (moves.Count() == 0)
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = CloneBoard(board);
             _moves = new List<Move>(moves);
@@ -85,7 +85,7 @@ namespace ChessDotNet
             if (!validateCheck)
                 return;
             List<Tuple<Players, bool>> playersToValidateCheck = new List<Tuple<Players, bool>>();
-            playersToValidateCheck.Add(new Tuple<Players, bool>(moves[moves.Count - 1].Player == Players.White ? Players.Black : Players.White, true));
+            playersToValidateCheck.Add(new Tuple<Players, bool>(moves.ElementAt(moves.Count() - 1).Player == Players.White ? Players.Black : Players.White, true));
             ChangeStatus(playersToValidateCheck, true);
         }
 
