@@ -37,6 +37,7 @@ namespace ChessDotNet
 
         protected static ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
         {
+            ThrowIfNull(originalBoard, "originalBoard");
             ChessPiece[][] newBoard = new ChessPiece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
             {
