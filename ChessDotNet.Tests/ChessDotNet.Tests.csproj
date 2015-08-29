@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChessBoardTests.cs" />
+    <Compile Include="ChessGameTests.cs" />
     <Compile Include="ChessPieceTests.cs" />
     <Compile Include="MoveTests.cs" />
     <Compile Include="PositionDeltaTests.cs" />
