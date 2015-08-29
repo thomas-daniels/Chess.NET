@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChessGame.cs" />
+    <Compile Include="GameEvent.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="ChessPiece.cs" />
