@@ -49,7 +49,7 @@ namespace ChessDotNet
 
         public ChessGame()
         {
-            Status = new GameStatus(Event.None, Player.None, "No special event");
+            Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             Board = new ChessPiece[8][];
             _moves = new List<Move>();
             InitBoard();
@@ -162,7 +162,7 @@ namespace ChessDotNet
 
         protected void ChangeStatus(List<Tuple<Player, bool>> playersToValidate, bool breakAfterChange)
         {
-            Status = new GameStatus(Event.None, Player.None, "No special event");
+            Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             foreach (Tuple<Player, bool> t in playersToValidate)
             {
                 Player player = t.Item1;
@@ -172,20 +172,20 @@ namespace ChessDotNet
                 {
                     if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                     {
-                        Status = new GameStatus(Event.Checkmate, other, player.ToString() + " is checkmated");
+                        Status = new GameStatus(GameEvent.Checkmate, other, player.ToString() + " is checkmated");
                         if (breakAfterChange)
                             break;
                     }
                     else
                     {
-                        Status = new GameStatus(Event.Check, other, player.ToString() + " is in check");
+                        Status = new GameStatus(GameEvent.Check, other, player.ToString() + " is in check");
                         if (breakAfterChange)
                             break;
                     }
                 }
                 else if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                 {
-                    Status = new GameStatus(Event.Stalemate, other, "Stalemate");
+                    Status = new GameStatus(GameEvent.Stalemate, other, "Stalemate");
                     if (breakAfterChange)
                         break;
                 }
@@ -236,7 +236,7 @@ namespace ChessDotNet
             {
                 if (move.OriginalPosition.File != File.E || move.OriginalPosition.Rank != Rank.One)
                     return false;
-                if (_whiteKingMoved || (Status.Event == Event.Check && Status.PlayerWhoCausedEvent == Player.Black))
+                if (_whiteKingMoved || (Status.Event == GameEvent.Check && Status.PlayerWhoCausedEvent == Player.Black))
                     return false;
                 if (move.NewPosition.File == File.C)
                 {
@@ -260,7 +260,7 @@ namespace ChessDotNet
             {
                 if (move.OriginalPosition.File != File.E || move.OriginalPosition.Rank != Rank.Eight)
                     return false;
-                if (_blackKingMoved || (Status.Event == Event.Check && Status.PlayerWhoCausedEvent == Player.White))
+                if (_blackKingMoved || (Status.Event == GameEvent.Check && Status.PlayerWhoCausedEvent == Player.White))
                     return false;
                 if (move.NewPosition.File == File.C)
                 {
@@ -818,19 +818,19 @@ namespace ChessDotNet
             ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false, true);
-            return copy.Status.Event == Event.Check && copy.Status.PlayerWhoCausedEvent != player;
+            return copy.Status.Event == GameEvent.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
 
         public void Draw(string reason)
         {
-            Status = new GameStatus(Event.Draw, Player.None, reason);
+            Status = new GameStatus(GameEvent.Draw, Player.None, reason);
         }
 
         public void Resign(Player player)
         {
             if (player == Player.None)
                 throw new ArgumentException("player cannot be None.");
-            Status = new GameStatus(Event.Resign, player, player.ToString() + " resigned");
+            Status = new GameStatus(GameEvent.Resign, player, player.ToString() + " resigned");
         }
     }
 }

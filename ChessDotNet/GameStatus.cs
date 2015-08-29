@@ -1,6 +1,6 @@
 ﻿namespace ChessDotNet
 {
-    public enum Event
+    public enum GameEvent
     {
         Check,
         Checkmate,
@@ -14,7 +14,7 @@
 
     public class GameStatus
     {   
-        public Event Event
+        public GameEvent Event
         {
             get;
             private set;
@@ -32,7 +32,7 @@
             private set;
         }
 
-        public GameStatus(Event @event, Player whoCausedEvent, string eventExplanation)
+        public GameStatus(GameEvent @event, Player whoCausedEvent, string eventExplanation)
         {
             Event = @event;
             PlayerWhoCausedEvent = whoCausedEvent;
