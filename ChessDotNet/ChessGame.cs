@@ -95,7 +95,7 @@ namespace ChessDotNet
                 return;
             List<Tuple<Player, bool>> playersToValidateCheck = new List<Tuple<Player, bool>>();
             playersToValidateCheck.Add(new Tuple<Player, bool>(moves.ElementAt(moves.Count() - 1).Player == Player.White ? Player.Black : Player.White, true));
-            ChangeStatus(playersToValidateCheck, true);
+            ChangeStatus(playersToValidateCheck);
         }
 
         public ChessGame(ChessPiece[][] board, Player whoseTurn) :
@@ -130,7 +130,7 @@ namespace ChessDotNet
                 return;
             List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
             playersToValidate.Add(new Tuple<Player, bool>(whoseTurn, true));
-            ChangeStatus(playersToValidate, true);
+            ChangeStatus(playersToValidate);
         }
 
         public void InitBoard()
@@ -169,7 +169,7 @@ namespace ChessDotNet
             }
         }
 
-        protected void ChangeStatus(List<Tuple<Player, bool>> playersToValidate, bool breakAfterChange)
+        protected void ChangeStatus(List<Tuple<Player, bool>> playersToValidate)
         {
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             foreach (Tuple<Player, bool> t in playersToValidate)
@@ -182,21 +182,15 @@ namespace ChessDotNet
                     if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                     {
                         Status = new GameStatus(GameEvent.Checkmate, other, player.ToString() + " is checkmated");
-                        if (breakAfterChange)
-                            break;
                     }
                     else
                     {
                         Status = new GameStatus(GameEvent.Check, other, player.ToString() + " is in check");
-                        if (breakAfterChange)
-                            break;
                     }
                 }
                 else if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
                 {
                     Status = new GameStatus(GameEvent.Stalemate, other, "Stalemate");
-                    if (breakAfterChange)
-                        break;
                 }
             }
         }
@@ -554,7 +548,7 @@ namespace ChessDotNet
             {
                 playersToValidate.Add(new Tuple<Player, bool>(move.Player, false));
             }
-            ChangeStatus(playersToValidate, false);
+            ChangeStatus(playersToValidate);
             return true;
         }
 
