@@ -483,10 +483,10 @@ namespace ChessDotNet
         public bool ApplyMove(Move move, bool alreadyValidated)
         {
             ThrowIfNull(move, "move");
-            return ApplyMove(move, alreadyValidated, true, false);
+            return ApplyMove(move, alreadyValidated, true);
         }
 
-        protected bool ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves, bool validateSelfCheck)
+        protected bool ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
         {
             ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
@@ -544,10 +544,6 @@ namespace ChessDotNet
             Player other = move.Player == Player.White ? Player.Black : Player.White;
             List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
             playersToValidate.Add(new Tuple<Player, bool>(other, validateHasAnyValidMoves));
-            if (validateSelfCheck)
-            {
-                playersToValidate.Add(new Tuple<Player, bool>(move.Player, false));
-            }
             ChangeStatus(playersToValidate);
             return true;
         }
@@ -826,7 +822,8 @@ namespace ChessDotNet
         {
             ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
-            copy.ApplyMove(move, true, false, true);
+            copy.ApplyMove(move, true, false);
+            copy.ChangeStatus(new List<Tuple<Player, bool>>() { new Tuple<Player, bool>(player, false) });
             return copy.Status.Event == GameEvent.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
 
