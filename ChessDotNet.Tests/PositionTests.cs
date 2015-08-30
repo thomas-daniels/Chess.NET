@@ -3,10 +3,10 @@
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class PositionTests
+    public static class PositionTests
     {
         [Test]
-        public void TestEquality()
+        public static void TestEquality()
         {
             Position position1 = new Position(File.C, Rank.Six);
             Position position2 = new Position(File.C, Rank.Six);
@@ -21,7 +21,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality()
+        public static void TestInequality()
         {
             Position position1 = new Position(File.E, Rank.Two);
             Position position2 = new Position(File.B, Rank.Five);
@@ -58,7 +58,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequalityNull()
+        public static void TestInequalityNull()
         {
             Position position1 = new Position(File.E, Rank.One);
             Position position2 = null;
@@ -71,7 +71,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequalityDifferentType()
+        public static void TestInequalityDifferentType()
         {
             Position position1 = new Position(File.D, Rank.Three);
             string str = "abc";
@@ -79,7 +79,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestConstructors()
+        public static void TestConstructors()
         {
             Assert.AreEqual(new Position(File.A, Rank.One), new Position("A1"));
             Assert.AreEqual(new Position(File.B, Rank.Two), new Position("B2"));
@@ -92,7 +92,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestToString()
+        public static void TestToString()
         {
             Assert.AreEqual("H5", new Position(File.H, Rank.Five).ToString());
             Assert.AreEqual("H5", new Position("H5").ToString());

@@ -3,10 +3,10 @@
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class PositionDistanceTests
+    public static class PositionDistanceTests
     {
         [Test]
-        public void TestPositionDistance()
+        public static void TestPositionDistance()
         {
             Position position1 = new Position(File.A, Rank.Two);
             Position position2 = new Position(File.A, Rank.Three);

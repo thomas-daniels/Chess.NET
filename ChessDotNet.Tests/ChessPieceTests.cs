@@ -3,10 +3,10 @@
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class ChessPieceTests
+    public static class ChessPieceTests
     {
         [Test]
-        public void TestEquality()
+        public static void TestEquality()
         {
             ChessPiece piece1 = new ChessPiece(Piece.King, Player.White);
             ChessPiece piece2 = new ChessPiece(Piece.King, Player.White);
@@ -21,7 +21,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentPlayer()
+        public static void TestInequality_DifferentPlayer()
         {
             ChessPiece piece1 = new ChessPiece(Piece.King, Player.White);
             ChessPiece piece2 = new ChessPiece(Piece.King, Player.Black);
@@ -36,7 +36,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentPiece()
+        public static void TestInequality_DifferentPiece()
         {
             ChessPiece piece1 = new ChessPiece(Piece.King, Player.Black);
             ChessPiece piece2 = new ChessPiece(Piece.Queen, Player.Black);
@@ -51,7 +51,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentPieceAndPlayer()
+        public static void TestInequality_DifferentPieceAndPlayer()
         {
             ChessPiece piece1 = new ChessPiece(Piece.King, Player.White);
             ChessPiece piece2 = new ChessPiece(Piece.Queen, Player.Black);
@@ -66,7 +66,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInEquality_OneIsNull()
+        public static void TestInEquality_OneIsNull()
         {
             ChessPiece piece1 = new ChessPiece(Piece.Rook, Player.White);
             ChessPiece piece2 = null;

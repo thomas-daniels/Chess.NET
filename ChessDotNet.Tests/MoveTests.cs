@@ -3,10 +3,10 @@
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class MoveTests
+    public static class MoveTests
     {
         [Test]
-        public void TestEquality()
+        public static void TestEquality()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.H, Rank.Five);
@@ -28,7 +28,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentPlayer()
+        public static void TestInequality_DifferentPlayer()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.H, Rank.Five);
@@ -47,7 +47,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentFile()
+        public static void TestInequality_DifferentFile()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.H, Rank.Five);
@@ -66,7 +66,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentRank()
+        public static void TestInequality_DifferentRank()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.H, Rank.Five);
@@ -85,7 +85,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentRankAndFile()
+        public static void TestInequality_DifferentRankAndFile()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.H, Rank.Five);
@@ -104,7 +104,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentPromotion()
+        public static void TestInequality_DifferentPromotion()
         {
             Position position1 = new Position(File.A, Rank.Seven);
             Position position2 = new Position(File.A, Rank.Eight);
@@ -121,7 +121,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_OneIsNull()
+        public static void TestInequality_OneIsNull()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.G, Rank.Eight);
@@ -134,7 +134,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInequality_DifferentType()
+        public static void TestInequality_DifferentType()
         {
             Position position1 = new Position(File.G, Rank.Four);
             Position position2 = new Position(File.G, Rank.Eight);

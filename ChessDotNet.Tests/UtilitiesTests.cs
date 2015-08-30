@@ -9,10 +9,10 @@ using NUnit.Framework;
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class UtilitiesTests
+    public static class UtilitiesTests
     {
         [Test]
-        public void TestThrowIfNull()
+        public static void TestThrowIfNull()
         {
             Assert.Throws<ArgumentNullException>(delegate ()
             {
@@ -28,7 +28,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetOpponentOf()
+        public static void TestGetOpponentOf()
         {
             Assert.AreEqual(Player.Black, Utilities.GetOpponentOf(Player.White));
             Assert.AreEqual(Player.White, Utilities.GetOpponentOf(Player.Black));

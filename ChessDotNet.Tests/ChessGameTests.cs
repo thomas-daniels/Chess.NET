@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 namespace ChessDotNet.Tests
 {
     [TestFixture]
-    public class ChessGameTests
+    public static class ChessGameTests
     {
         static readonly ChessPiece kw = new ChessPiece(Piece.King, Player.White);
         static readonly ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
@@ -22,7 +22,7 @@ namespace ChessDotNet.Tests
         static readonly ChessPiece o = ChessPiece.None;
 
         [Test]
-        public void TestArrayGetting()
+        public static void TestArrayGetting()
         {
             ChessGame cb = new ChessGame();
             int one = (int)Rank.One;
@@ -108,7 +108,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetPieceAt()
+        public static void TestGetPieceAt()
         {
             ChessGame cb = new ChessGame();
             Rank one = Rank.One;
@@ -194,7 +194,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestCustomInitialize()
+        public static void TestCustomInitialize()
         {
             Rank one = Rank.One;
             Rank two = Rank.Two;
@@ -291,7 +291,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhitePawn()
+        public static void TestValidMoveWhitePawn()
         {
             ChessGame cb = new ChessGame();
 
@@ -301,7 +301,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhitePawn_TwoSteps()
+        public static void TestValidMoveWhitePawn_TwoSteps()
         {
             ChessGame cb = new ChessGame();
 
@@ -311,7 +311,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhitePawn_Capture()
+        public static void TestValidMoveWhitePawn_Capture()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
@@ -325,7 +325,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhitePawn_EnPassant()
+        public static void TestValidMoveWhitePawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
@@ -343,7 +343,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhitePawn_EnPassant()
+        public static void TestInvalidMoveWhitePawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
@@ -361,7 +361,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhitePawn_NoCapture()
+        public static void TestInvalidMoveWhitePawn_NoCapture()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
@@ -375,7 +375,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhitePawn_TwoStepsBlockingPiece()
+        public static void TestInvalidMoveWhitePawn_TwoStepsBlockingPiece()
         {
             ChessPiece[][] board = new ChessPiece[8][]
             {
@@ -396,7 +396,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhitePawn_TwoStepsNotOnRankTwo()
+        public static void TestInvalidMoveWhitePawn_TwoStepsNotOnRankTwo()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
@@ -408,7 +408,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKnight()
+        public static void TestValidMoveWhiteKnight()
         {
             ChessGame cb = new ChessGame();
 
@@ -418,7 +418,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteBishopC()
+        public static void TestValidMoveWhiteBishopC()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
@@ -432,7 +432,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteBishopF()
+        public static void TestValidMoveWhiteBishopF()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
@@ -446,7 +446,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteRookA()
+        public static void TestValidMoveWhiteRookA()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -460,7 +460,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteRookH()
+        public static void TestValidMoveWhiteRookH()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.H, Rank.Two), new Position(File.H, Rank.Three), Player.White);
@@ -474,7 +474,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteQueenDiagonal()
+        public static void TestValidMoveWhiteQueenDiagonal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
@@ -488,7 +488,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteQueenVertical()
+        public static void TestValidMoveWhiteQueenVertical()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
@@ -502,7 +502,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteQueenHorizontal()
+        public static void TestValidMoveWhiteQueenHorizontal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.C, Rank.Three), Player.White);
@@ -526,7 +526,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKingDiagonal()
+        public static void TestValidMoveWhiteKingDiagonal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.F, Rank.Two), new Position(File.F, Rank.Three), Player.White);
@@ -540,7 +540,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKingHorizontal()
+        public static void TestValidMoveWhiteKingHorizontal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Three), Player.White);
@@ -558,7 +558,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKingVertical()
+        public static void TestValidMoveWhiteKingVertical()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
@@ -572,7 +572,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKing_KingSideCastling()
+        public static void TestValidMoveWhiteKing_KingSideCastling()
         {
             ChessPiece[][] board = new ChessPiece[8][]
             {
@@ -592,7 +592,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKing_QueenSideCastling()
+        public static void TestValidMoveWhiteKing_QueenSideCastling()
         {
             ChessPiece[][] board = new ChessPiece[8][]
             {
@@ -612,7 +612,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_WouldPassThroughCheck()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_WouldPassThroughCheck()
         {
             ChessPiece[][] board = new ChessPiece[8][]
             {
@@ -632,7 +632,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_WouldPassThroughCheck()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_WouldPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -652,7 +652,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKing_KingSideCastling_WouldNotPassThroughCheck()
+        public static void TestValidMoveWhiteKing_KingSideCastling_WouldNotPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -672,7 +672,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveWhiteKing_QueenSideCastling_WouldNotPassThroughCheck()
+        public static void TestValidMoveWhiteKing_QueenSideCastling_WouldNotPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -692,7 +692,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece1()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece1()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -712,7 +712,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece1()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece1()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -732,7 +732,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece2()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_BlockingPiece2()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -752,7 +752,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece2()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece2()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -772,7 +772,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece3()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_BlockingPiece3()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -792,7 +792,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_NoRook()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_NoRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -812,7 +812,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_NoRook()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_NoRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -832,7 +832,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_RookMoved()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_RookMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -857,7 +857,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_RookMoved()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_RookMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -882,7 +882,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_KingSideCastling_KingMoved()
+        public static void TestInvalidMoveWhiteKing_KingSideCastling_KingMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -907,7 +907,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteKing_QueenSideCastling_KingMoved()
+        public static void TestInvalidMoveWhiteKing_QueenSideCastling_KingMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -932,7 +932,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackPawn()
+        public static void TestValidMoveBlackPawn()
         {
             ChessGame cb = new ChessGame();
             cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
@@ -943,7 +943,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackPawn_TwoSteps()
+        public static void TestValidMoveBlackPawn_TwoSteps()
         {
             ChessGame cb = new ChessGame();
             cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
@@ -954,7 +954,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackPawn_Capture()
+        public static void TestValidMoveBlackPawn_Capture()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -970,7 +970,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackPawn_EnPassant()
+        public static void TestValidMoveBlackPawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.A, Rank.Three), Player.White);
@@ -990,7 +990,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackPawn_EnPassant()
+        public static void TestInvalidMoveBlackPawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.A, Rank.Three), Player.White);
@@ -1010,7 +1010,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackPawn_NoCapture()
+        public static void TestInvalidMoveBlackPawn_NoCapture()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1026,7 +1026,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackPawn_TwoStepsBlockingPiece()
+        public static void TestInvalidMoveBlackPawn_TwoStepsBlockingPiece()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1047,7 +1047,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackPawn_TwoStepsNotOnRankSeven()
+        public static void TestInvalidMoveBlackPawn_TwoStepsNotOnRankSeven()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1063,7 +1063,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKnight()
+        public static void TestValidMoveBlackKnight()
         {
             ChessGame cb = new ChessGame();
             cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
@@ -1074,7 +1074,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackBishopC()
+        public static void TestValidMoveBlackBishopC()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1090,7 +1090,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackBishopF()
+        public static void TestValidMoveBlackBishopF()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1106,7 +1106,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackQueenDiagonal()
+        public static void TestValidMoveBlackQueenDiagonal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1122,7 +1122,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackQueenVertical()
+        public static void TestValidMoveBlackQueenVertical()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1138,7 +1138,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackQueenHorizontal()
+        public static void TestValidMoveBlackQueenHorizontal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1164,7 +1164,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKingDiagonal()
+        public static void TestValidMoveBlackKingDiagonal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1180,7 +1180,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKingHorizontal()
+        public static void TestValidMoveBlackKingHorizontal()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1200,7 +1200,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKingVertical()
+        public static void TestValidMoveBlackKingVertical()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
@@ -1216,7 +1216,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKing_KingSideCastling()
+        public static void TestValidMoveBlackKing_KingSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1236,7 +1236,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKing_QueenSideCastling()
+        public static void TestValidMoveBlackKing_QueenSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1256,7 +1256,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_WouldPassThroughCheck()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_WouldPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1276,7 +1276,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_WouldPassThroughCheck()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_WouldPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1296,7 +1296,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKing_KingSideCastling_WouldNotPassThroughCheck()
+        public static void TestValidMoveBlackKing_KingSideCastling_WouldNotPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1316,7 +1316,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestValidMoveBlackKing_QueenSideCastling_WouldNotPassThroughCheck()
+        public static void TestValidMoveBlackKing_QueenSideCastling_WouldNotPassThroughCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1336,7 +1336,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece1()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece1()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1356,7 +1356,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece1()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece1()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1376,7 +1376,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece2()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_BlockingPiece2()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1396,7 +1396,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece2()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece2()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1416,7 +1416,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece3()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_BlockingPiece3()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1436,7 +1436,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_NoRook()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_NoRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1456,7 +1456,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_NoRook()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_NoRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1476,7 +1476,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_RookMoved()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_RookMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1501,7 +1501,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_RookMoved()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_RookMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1526,7 +1526,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_KingSideCastling_KingMoved()
+        public static void TestInvalidMoveBlackKing_KingSideCastling_KingMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1551,7 +1551,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_QueenSideCastling_KingMoved()
+        public static void TestInvalidMoveBlackKing_QueenSideCastling_KingMoved()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1576,7 +1576,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhite_WouldBeInCheck()
+        public static void TestInvalidMoveWhite_WouldBeInCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1596,7 +1596,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhite_WouldBeCheckmated()
+        public static void TestInvalidMoveWhite_WouldBeCheckmated()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1617,7 +1617,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhiteRook_NoPassThrough()
+        public static void TestInvalidMoveWhiteRook_NoPassThrough()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1637,7 +1637,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackKing_NoAdjacentKings()
+        public static void TestInvalidMoveBlackKing_NoAdjacentKings()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1661,7 +1661,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveWhitePawn()
+        public static void TestApplyMoveWhitePawn()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
@@ -1695,7 +1695,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveWhitePawn_EnPassant()
+        public static void TestApplyMoveWhitePawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
@@ -1726,7 +1726,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveWhitePawn_PromotionToQueen()
+        public static void TestApplyMoveWhitePawn_PromotionToQueen()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1758,7 +1758,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveBlackPawn_PromotionToQueen()
+        public static void TestApplyMoveBlackPawn_PromotionToQueen()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1790,7 +1790,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveWhitePawnPromotion_NoPieceSpecified()
+        public static void TestInvalidMoveWhitePawnPromotion_NoPieceSpecified()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1809,7 +1809,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
+        public static void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1828,7 +1828,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveBlackPawn_EnPassant()
+        public static void TestApplyMoveBlackPawn_EnPassant()
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.A, Rank.Three), Player.White);
@@ -1861,7 +1861,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveWhiteKing_KingSideCastling()
+        public static void TestApplyMoveWhiteKing_KingSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1894,7 +1894,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveWhiteKing_QueenSideCastling()
+        public static void TestApplyMoveWhiteKing_QueenSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1927,7 +1927,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveBlackKing_KingSideCastling()
+        public static void TestApplyMoveBlackKing_KingSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1960,7 +1960,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestApplyMoveBlackKing_QueenSideCastling()
+        public static void TestApplyMoveBlackKing_QueenSideCastling()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -1993,7 +1993,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteStartingPosition()
+        public static void TestGetValidMovesWhiteStartingPosition()
         {
             ChessGame cb = new ChessGame();
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(Player.White);
@@ -2029,7 +2029,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackStartingPosition()
+        public static void TestGetValidMovesBlackStartingPosition()
         {
             ChessGame cb = new ChessGame();
             cb.ApplyMove(new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White), true);
@@ -2066,7 +2066,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteKing()
+        public static void TestGetValidMovesWhiteKing()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2101,7 +2101,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteKnight()
+        public static void TestGetValidMovesWhiteKnight()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2136,7 +2136,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteBishop()
+        public static void TestGetValidMovesWhiteBishop()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2176,7 +2176,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteRook()
+        public static void TestGetValidMovesWhiteRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2217,7 +2217,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesWhiteQueen()
+        public static void TestGetValidMovesWhiteQueen()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2271,7 +2271,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackKing()
+        public static void TestGetValidMovesBlackKing()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2306,7 +2306,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackKnight()
+        public static void TestGetValidMovesBlackKnight()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2341,7 +2341,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackBishop()
+        public static void TestGetValidMovesBlackBishop()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2381,7 +2381,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackRook()
+        public static void TestGetValidMovesBlackRook()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2422,7 +2422,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestGetValidMovesBlackQueen()
+        public static void TestGetValidMovesBlackQueen()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2476,7 +2476,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestIsWhiteInCheck()
+        public static void TestIsWhiteInCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2497,7 +2497,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestIsWhiteNotInCheck()
+        public static void TestIsWhiteNotInCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2516,7 +2516,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestIsBlackInCheck()
+        public static void TestIsBlackInCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2537,7 +2537,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestIsBlackNotInCheck()
+        public static void TestIsBlackNotInCheck()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2556,7 +2556,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestBlackCheckmated()
+        public static void TestBlackCheckmated()
         {
             ChessGame cb = new ChessGame();
             cb.ApplyMove(new Move("E2", "E4", Player.White), true);
@@ -2573,7 +2573,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestBlackStalemated()
+        public static void TestBlackStalemated()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2594,7 +2594,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestBlackNotStalemated()
+        public static void TestBlackNotStalemated()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
@@ -2615,7 +2615,7 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public void TestBlackNotStalematedAfterApplyMove()
+        public static void TestBlackNotStalematedAfterApplyMove()
         {
             ChessPiece[][] board  = new ChessPiece[8][]
             {
