@@ -43,7 +43,7 @@ namespace ChessDotNet
 
         protected static ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
         {
-            ThrowIfNull(originalBoard, "originalBoard");
+            Utilities.ThrowIfNull(originalBoard, "originalBoard");
             ChessPiece[][] newBoard = new ChessPiece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
             {
@@ -157,17 +157,9 @@ namespace ChessDotNet
             };
         }
 
-        protected static void ThrowIfNull(object value, string parameterName)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-        }
-
         protected void ChangeStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
-            ThrowIfNull(playerToValidate, "playerToValidate");
+            Utilities.ThrowIfNull(playerToValidate, "playerToValidate");
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             Player other = playerToValidate == Player.White ? Player.Black : Player.White;
             if (IsInCheck(playerToValidate))
@@ -189,7 +181,7 @@ namespace ChessDotNet
 
         public ChessPiece GetPieceAt(Position position)
         {
-            ThrowIfNull(position, "position");
+            Utilities.ThrowIfNull(position, "position");
             return GetPieceAt(position.File, position.Rank);
         }
 
@@ -200,19 +192,19 @@ namespace ChessDotNet
 
         protected void SetPieceAt(File file, Rank rank, ChessPiece piece)
         {
-            ThrowIfNull(piece, "piece");
+            Utilities.ThrowIfNull(piece, "piece");
             Board[(int)rank][(int)file] = piece;
         }
 
         public bool IsValidMove(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             return IsValidMove(move, true);
         }
 
         protected bool IsValidMoveKing(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             PositionDistance distance = new PositionDistance(move.OriginalPosition, move.NewPosition);
             if ((distance.DistanceX != 1 || distance.DistanceY != 1)
                         && (distance.DistanceX != 0 || distance.DistanceY != 1)
@@ -226,7 +218,7 @@ namespace ChessDotNet
 
         protected bool CanCastle(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             if (move.Player == Player.White)
             {
                 if (move.OriginalPosition.File != File.E || move.OriginalPosition.Rank != Rank.One)
@@ -280,7 +272,7 @@ namespace ChessDotNet
 
         protected bool IsValidMovePawn(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
@@ -352,7 +344,7 @@ namespace ChessDotNet
 
         protected bool IsValidMoveRook(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             if (posDelta.DistanceX != 0 && posDelta.DistanceY != 0)
                 return false;
@@ -389,7 +381,7 @@ namespace ChessDotNet
 
         protected bool IsValidMoveBishop(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             if (posDelta.DistanceX != posDelta.DistanceY)
                 return false;
@@ -409,7 +401,7 @@ namespace ChessDotNet
 
         protected bool IsValidMoveKnight(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             if ((posDelta.DistanceX != 2 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 2))
                 return false;
@@ -418,13 +410,13 @@ namespace ChessDotNet
 
         protected bool IsValidMoveQueen(Move move)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             return IsValidMoveBishop(move) || IsValidMoveRook(move);
         }
 
         protected bool IsValidMove(Move move, bool validateCheck)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             ChessPiece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -474,13 +466,13 @@ namespace ChessDotNet
 
         public bool ApplyMove(Move move, bool alreadyValidated)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             return ApplyMove(move, alreadyValidated, true);
         }
 
         protected bool ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
                 return false;
             ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -540,13 +532,13 @@ namespace ChessDotNet
 
         public ReadOnlyCollection<Move> GetValidMoves(Position from)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             return GetValidMoves(from, false);
         }
 
         protected ReadOnlyCollection<Move> GetValidMovesKing(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
             int l0 = Board.Length;
@@ -571,7 +563,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMovesPawn(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
             int l0 = Board.Length;
@@ -603,7 +595,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMovesKnight(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
             int l0 = Board.Length;
@@ -628,7 +620,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMovesRook(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
             int l0 = Board.Length;
@@ -663,7 +655,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMovesBishop(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             ChessPiece cp = GetPieceAt(from);
             int l0 = Board.Length;
@@ -700,7 +692,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMovesQueen(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             ReadOnlyCollection<Move> horizontalVerticalMoves = GetValidMovesRook(from, returnIfAny);
             if (returnIfAny && horizontalVerticalMoves.Count > 0)
                 return horizontalVerticalMoves;
@@ -710,7 +702,7 @@ namespace ChessDotNet
 
         protected ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             ChessPiece cp = GetPieceAt(from);
             if (cp.Player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             Piece piece = cp.Piece;
@@ -761,7 +753,7 @@ namespace ChessDotNet
 
         protected bool HasAnyValidMoves(Position from)
         {
-            ThrowIfNull(from, "from");
+            Utilities.ThrowIfNull(from, "from");
             ReadOnlyCollection<Move> validMoves = GetValidMoves(from, true);
             return validMoves.Count > 0;
         }
@@ -810,7 +802,7 @@ namespace ChessDotNet
 
         protected bool WouldBeInCheckAfter(Move move, Player player)
         {
-            ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false);
             copy.ChangeStatus(player, false);
