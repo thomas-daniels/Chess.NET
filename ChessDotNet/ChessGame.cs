@@ -93,9 +93,7 @@ namespace ChessDotNet
             }
             if (!validateCheck)
                 return;
-            List<Tuple<Player, bool>> playersToValidateCheck = new List<Tuple<Player, bool>>();
-            playersToValidateCheck.Add(new Tuple<Player, bool>(moves.ElementAt(moves.Count() - 1).Player == Player.White ? Player.Black : Player.White, true));
-            ChangeStatus(playersToValidateCheck);
+            ChangeStatus(moves.ElementAt(moves.Count() - 1).Player == Player.White ? Player.Black : Player.White, true);
         }
 
         public ChessGame(ChessPiece[][] board, Player whoseTurn) :
@@ -128,9 +126,7 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
             if (!validateCheck)
                 return;
-            List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
-            playersToValidate.Add(new Tuple<Player, bool>(whoseTurn, true));
-            ChangeStatus(playersToValidate);
+            ChangeStatus(whoseTurn, true);
         }
 
         public void InitBoard()
@@ -169,29 +165,25 @@ namespace ChessDotNet
             }
         }
 
-        protected void ChangeStatus(List<Tuple<Player, bool>> playersToValidate)
+        protected void ChangeStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
+            ThrowIfNull(playerToValidate, "playerToValidate");
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
-            foreach (Tuple<Player, bool> t in playersToValidate)
+            Player other = playerToValidate == Player.White ? Player.Black : Player.White;
+            if (IsInCheck(playerToValidate))
             {
-                Player player = t.Item1;
-                bool validateHasAnyValidMoves = t.Item2;
-                Player other = player == Player.White ? Player.Black : Player.White;
-                if (IsInCheck(player))
+                if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
                 {
-                    if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
-                    {
-                        Status = new GameStatus(GameEvent.Checkmate, other, player.ToString() + " is checkmated");
-                    }
-                    else
-                    {
-                        Status = new GameStatus(GameEvent.Check, other, player.ToString() + " is in check");
-                    }
+                    Status = new GameStatus(GameEvent.Checkmate, other, playerToValidate.ToString() + " is checkmated");
                 }
-                else if (validateHasAnyValidMoves && !HasAnyValidMoves(player))
+                else
                 {
-                    Status = new GameStatus(GameEvent.Stalemate, other, "Stalemate");
+                    Status = new GameStatus(GameEvent.Check, other, playerToValidate.ToString() + " is in check");
                 }
+            }
+            else if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
+            {
+                Status = new GameStatus(GameEvent.Stalemate, other, "Stalemate");
             }
         }
 
@@ -542,9 +534,7 @@ namespace ChessDotNet
             }
             _moves.Add(move);
             Player other = move.Player == Player.White ? Player.Black : Player.White;
-            List<Tuple<Player, bool>> playersToValidate = new List<Tuple<Player, bool>>();
-            playersToValidate.Add(new Tuple<Player, bool>(other, validateHasAnyValidMoves));
-            ChangeStatus(playersToValidate);
+            ChangeStatus(other, validateHasAnyValidMoves);
             return true;
         }
 
@@ -823,7 +813,7 @@ namespace ChessDotNet
             ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false);
-            copy.ChangeStatus(new List<Tuple<Player, bool>>() { new Tuple<Player, bool>(player, false) });
+            copy.ChangeStatus(player, false);
             return copy.Status.Event == GameEvent.Check && copy.Status.PlayerWhoCausedEvent != player;
         }
 
