@@ -159,7 +159,6 @@ namespace ChessDotNet
 
         protected void ChangeStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
-            Utilities.ThrowIfNull(playerToValidate, "playerToValidate");
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             Player other = Utilities.GetOpponentOf(playerToValidate);
             if (IsInCheck(playerToValidate))
