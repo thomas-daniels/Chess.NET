@@ -75,7 +75,7 @@ namespace ChessDotNet
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             Board = CloneBoard(board);
             _moves = new List<Move>(moves);
-            WhoseTurn = _moves.Last().Player == Player.White ? Player.Black : Player.White;
+            WhoseTurn = Utilities.GetOpponentOf(_moves.Last().Player);
             foreach (Move m in _moves)
             {
                 if (!_whiteKingMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.E, Rank.One))
@@ -93,7 +93,7 @@ namespace ChessDotNet
             }
             if (!validateCheck)
                 return;
-            ChangeStatus(moves.ElementAt(moves.Count() - 1).Player == Player.White ? Player.Black : Player.White, true);
+            ChangeStatus(WhoseTurn, true);
         }
 
         public ChessGame(ChessPiece[][] board, Player whoseTurn) :
@@ -161,7 +161,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(playerToValidate, "playerToValidate");
             Status = new GameStatus(GameEvent.None, Player.None, "No special event");
-            Player other = playerToValidate == Player.White ? Player.Black : Player.White;
+            Player other = Utilities.GetOpponentOf(playerToValidate);
             if (IsInCheck(playerToValidate))
             {
                 if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
@@ -309,7 +309,7 @@ namespace ChessDotNet
             }
             else
             {
-                if (GetPieceAt(move.NewPosition).Player != (move.Player == Player.White ? Player.Black : Player.White))
+                if (GetPieceAt(move.NewPosition).Player != Utilities.GetOpponentOf(move.Player))
                     checkEnPassant = true;
                 if (GetPieceAt(move.NewPosition).Player == move.Player)
                     return false;
@@ -324,7 +324,7 @@ namespace ChessDotNet
                     || (move.OriginalPosition.Rank != Rank.Four && move.Player == Player.Black))
                     return false;
                 Move latestMove = _moves[_moves.Count - 1];
-                if (latestMove.Player != (move.Player == Player.White ? Player.Black : Player.White))
+                if (latestMove.Player != Utilities.GetOpponentOf(move.Player))
                     return false;
                 if (move.Player == Player.White)
                 {
@@ -515,7 +515,7 @@ namespace ChessDotNet
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
-            WhoseTurn = move.Player == Player.White ? Player.Black : Player.White;
+            WhoseTurn = Utilities.GetOpponentOf(move.Player);
             if (movingPiece.Piece == Piece.King && new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
             {
                 Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
@@ -525,7 +525,7 @@ namespace ChessDotNet
                 SetPieceAt(rookFile, rank, ChessPiece.None);
             }
             _moves.Add(move);
-            Player other = move.Player == Player.White ? Player.Black : Player.White;
+            Player other = Utilities.GetOpponentOf(move.Player);
             ChangeStatus(other, validateHasAnyValidMoves);
             return true;
         }
@@ -774,7 +774,7 @@ namespace ChessDotNet
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     ChessPiece curr = Board[i][j];
-                    if (curr.Piece != Piece.None && curr.Player == (player == Player.White ? Player.Black : Player.White))
+                    if (curr.Piece != Piece.None && curr.Player == Utilities.GetOpponentOf(player))
                     {
                         piecePositions.Add(new Position((File)j, (Rank)i));
                     }
@@ -788,10 +788,10 @@ namespace ChessDotNet
             if (kingPos.File == File.None)
                 return false;
 
-            ChessGame copy = new ChessGame(Board, player == Player.White ? Player.Black : Player.White, false);
+            ChessGame copy = new ChessGame(Board, Utilities.GetOpponentOf(player), false);
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                if (copy.IsValidMove(new Move(piecePositions[i], kingPos, player == Player.White ? Player.Black : Player.White), false))
+                if (copy.IsValidMove(new Move(piecePositions[i], kingPos, Utilities.GetOpponentOf(player)), false))
                 {
                     return true;
                 }

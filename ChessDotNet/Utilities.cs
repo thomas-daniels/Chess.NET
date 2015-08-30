@@ -11,5 +11,12 @@ namespace ChessDotNet
                 throw new ArgumentNullException(parameterName);
             }
         }
+
+        public static Player GetOpponentOf(Player player)
+        {
+            if (player == Player.None)
+                throw new ArgumentException("`player` cannot be Player.None.");
+            return player == Player.White ? Player.Black : Player.White;
+        }
     }
 }
