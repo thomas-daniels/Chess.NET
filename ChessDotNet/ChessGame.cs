@@ -161,11 +161,11 @@ namespace ChessDotNet
             };
         }
 
-        protected static void ThrowIfNull(object value, string paramName)
+        protected static void ThrowIfNull(object value, string parameterName)
         {
             if (value == null)
             {
-                throw new ArgumentNullException(paramName);
+                throw new ArgumentNullException(parameterName);
             }
         }
 
