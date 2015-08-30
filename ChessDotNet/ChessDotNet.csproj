@@ -51,7 +51,7 @@
     <Compile Include="Pieces.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Position.cs" />
-    <Compile Include="PositionDelta.cs" />
+    <Compile Include="PositionDistance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,7 +48,7 @@
     <Compile Include="ChessGameTests.cs" />
     <Compile Include="ChessPieceTests.cs" />
     <Compile Include="MoveTests.cs" />
-    <Compile Include="PositionDeltaTests.cs" />
+    <Compile Include="PositionDistanceTests.cs" />
     <Compile Include="PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

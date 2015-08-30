@@ -221,13 +221,13 @@ namespace ChessDotNet
         protected bool IsValidMoveKing(Move move)
         {
             ThrowIfNull(move, "move");
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
-            if ((posDelta.DeltaX != 1 || posDelta.DeltaY != 1)
-                        && (posDelta.DeltaX != 0 || posDelta.DeltaY != 1)
-                        && (posDelta.DeltaX != 1 || posDelta.DeltaY != 0)
-                        && (posDelta.DeltaX != 2 || posDelta.DeltaY != 0))
+            PositionDistance distance = new PositionDistance(move.OriginalPosition, move.NewPosition);
+            if ((distance.DistanceX != 1 || distance.DistanceY != 1)
+                        && (distance.DistanceX != 0 || distance.DistanceY != 1)
+                        && (distance.DistanceX != 1 || distance.DistanceY != 0)
+                        && (distance.DistanceX != 2 || distance.DistanceY != 0))
                 return false;
-            if (posDelta.DeltaX != 2)
+            if (distance.DistanceX != 2)
                 return true;
             return CanCastle(move);
         }
@@ -289,9 +289,9 @@ namespace ChessDotNet
         protected bool IsValidMovePawn(Move move)
         {
             ThrowIfNull(move, "move");
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
-            if ((posDelta.DeltaX != 0 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 1)
-                        && (posDelta.DeltaX != 0 || posDelta.DeltaY != 2))
+            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
+            if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
+                        && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
                 return false;
             if (move.Player == Player.White)
             {
@@ -308,7 +308,7 @@ namespace ChessDotNet
                     return false;
             }
             bool checkEnPassant = false;
-            if (posDelta.DeltaY == 2)
+            if (posDelta.DistanceY == 2)
             {
                 if ((move.OriginalPosition.Rank != Rank.Two && move.Player == Player.White)
                     || (move.OriginalPosition.Rank != Rank.Seven && move.Player == Player.Black))
@@ -318,7 +318,7 @@ namespace ChessDotNet
                 if (move.OriginalPosition.Rank == Rank.Seven && GetPieceAt(move.OriginalPosition.File, Rank.Six).Piece != Piece.None)
                     return false;
             }
-            if (posDelta.DeltaX == 0 && (posDelta.DeltaY == 1 || posDelta.DeltaY == 2))
+            if (posDelta.DistanceX == 0 && (posDelta.DistanceY == 1 || posDelta.DistanceY == 2))
             {
                 if (GetPieceAt(move.NewPosition).Player != Player.None)
                     return false;
@@ -361,12 +361,12 @@ namespace ChessDotNet
         protected bool IsValidMoveRook(Move move)
         {
             ThrowIfNull(move, "move");
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
-            if (posDelta.DeltaX != 0 && posDelta.DeltaY != 0)
+            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
+            if (posDelta.DistanceX != 0 && posDelta.DistanceY != 0)
                 return false;
             bool increasingRank = (int)move.NewPosition.Rank > (int)move.OriginalPosition.Rank;
             bool increasingFile = (int)move.NewPosition.File > (int)move.OriginalPosition.File;
-            if (posDelta.DeltaX == 0)
+            if (posDelta.DistanceX == 0)
             {
                 int f = (int)move.OriginalPosition.File;
                 for (int r = (int)move.OriginalPosition.Rank + (increasingRank ? 1 : -1);
@@ -398,8 +398,8 @@ namespace ChessDotNet
         protected bool IsValidMoveBishop(Move move)
         {
             ThrowIfNull(move, "move");
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
-            if (posDelta.DeltaX != posDelta.DeltaY)
+            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
+            if (posDelta.DistanceX != posDelta.DistanceY)
                 return false;
             bool increasingRank = (int)move.NewPosition.Rank > (int)move.OriginalPosition.Rank;
             bool increasingFile = (int)move.NewPosition.File > (int)move.OriginalPosition.File;
@@ -418,8 +418,8 @@ namespace ChessDotNet
         protected bool IsValidMoveKnight(Move move)
         {
             ThrowIfNull(move, "move");
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
-            if ((posDelta.DeltaX != 2 || posDelta.DeltaY != 1) && (posDelta.DeltaX != 1 || posDelta.DeltaY != 2))
+            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
+            if ((posDelta.DistanceX != 2 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 2))
                 return false;
             return true;
         }
@@ -442,7 +442,7 @@ namespace ChessDotNet
             {
                 return false;
             }
-            PositionDelta posDelta = new PositionDelta(move.OriginalPosition, move.NewPosition);
+            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             switch (piece.Piece)
             {
                 case Piece.King:
@@ -495,8 +495,8 @@ namespace ChessDotNet
             ChessPiece newPiece = movingPiece;
             if (movingPiece.Piece == Piece.Pawn)
             {
-                PositionDelta pd = new PositionDelta(move.OriginalPosition, move.NewPosition);
-                if (pd.DeltaX == 1 && pd.DeltaY == 1 && GetPieceAt(move.NewPosition).Piece == Piece.None)
+                PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
+                if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition).Piece == Piece.None)
                 { // en passant
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
                 }
@@ -532,7 +532,7 @@ namespace ChessDotNet
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
             WhoseTurn = move.Player == Player.White ? Player.Black : Player.White;
-            if (movingPiece.Piece == Piece.King && new PositionDelta(move.OriginalPosition, move.NewPosition).DeltaX == 2)
+            if (movingPiece.Piece == Piece.King && new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
             {
                 Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
                 File rookFile = move.NewPosition.File == File.C ? File.A : File.H;
