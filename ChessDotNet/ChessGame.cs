@@ -488,41 +488,42 @@ namespace ChessDotNet
                     newPiece = new ChessPiece(move.Promotion, move.Player);
                 }
             }
-            else if (movingPiece.Piece == Piece.King && movingPiece.Player == Player.White)
+            else if (movingPiece.Piece == Piece.King)
             {
-                _whiteKingMoved = true;
+                if (movingPiece.Player == Player.White)
+                    _whiteKingMoved = true;
+                else
+                    _blackKingMoved = true;
+
+                if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
+                {
+                    Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
+                    File rookFile = move.NewPosition.File == File.C ? File.A : File.H;
+                    File newRookFile = move.NewPosition.File == File.C ? File.D : File.F;
+                    SetPieceAt(newRookFile, rank, new ChessPiece(Piece.Rook, move.Player));
+                    SetPieceAt(rookFile, rank, ChessPiece.None);
+                }
             }
-            else if (movingPiece.Piece == Piece.King && movingPiece.Player == Player.Black)
+            else if (movingPiece.Piece == Piece.Rook)
             {
-                _blackKingMoved = true;
-            }
-            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.One && move.Player == Player.White)
-            {
-                _whiteRookAMoved = true;
-            }
-            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.One && move.Player == Player.White)
-            {
-                _whiteRookHMoved = true;
-            }
-            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.Eight && move.Player == Player.Black)
-            {
-                _blackRookAMoved = true;
-            }
-            else if (movingPiece.Piece == Piece.Rook && move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.Eight && move.Player == Player.Black)
-            {
-                _blackRookHMoved = true;
+                if (move.Player == Player.White)
+                {
+                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.One)
+                        _whiteRookAMoved = true;
+                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.One)
+                        _whiteRookHMoved = true;
+                }
+                else
+                {
+                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.Eight)
+                        _blackRookAMoved = true;
+                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.Eight)
+                        _blackRookHMoved = true;
+                }
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
             WhoseTurn = Utilities.GetOpponentOf(move.Player);
-            if (movingPiece.Piece == Piece.King && new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
-            {
-                Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
-                File rookFile = move.NewPosition.File == File.C ? File.A : File.H;
-                File newRookFile = move.NewPosition.File == File.C ? File.D : File.F;
-                SetPieceAt(newRookFile, rank, new ChessPiece(Piece.Rook, move.Player));
-                SetPieceAt(rookFile, rank, ChessPiece.None);
-            }
             _moves.Add(move);
             Player other = Utilities.GetOpponentOf(move.Player);
             ChangeStatus(other, validateHasAnyValidMoves);
