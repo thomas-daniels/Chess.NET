@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ChessDotNet")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Chess.NET")]
+[assembly: AssemblyDescription("A .NET chess library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ProgramFOX")]
 [assembly: AssemblyProduct("ChessDotNet")]
