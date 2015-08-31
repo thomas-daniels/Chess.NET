@@ -297,7 +297,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.A, Rank.Two), new Position(File.A, Rank.Three), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -307,7 +307,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.D, Rank.Two), new Position(File.D, Rank.Four), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -391,7 +391,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White);
 
-            Assert.False(cb.IsValidMove(move), "move is considered valid");
+            Assert.False(cb.IsValidMove(move), "move should be invalid");
 
         }
 
@@ -404,7 +404,7 @@ namespace ChessDotNet.Tests
 
             cb.ApplyMove(move1, true);
 
-            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
+            Assert.False(cb.IsValidMove(move2), "move2 should be invalid");
         }
 
         [Test]
@@ -414,7 +414,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.B, Rank.One), new Position(File.C, Rank.Three), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -428,7 +428,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -442,7 +442,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -456,7 +456,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -470,7 +470,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -484,7 +484,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -498,7 +498,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -521,8 +521,8 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move5, true);
             cb.ApplyMove(move6, true);
 
-            Assert.True(cb.IsValidMove(move7), "move7 is considered invalid");
-            Assert.True(cb.IsValidMove(move8), "move8 is considered invalid");
+            Assert.True(cb.IsValidMove(move7), "move7 should be valid");
+            Assert.True(cb.IsValidMove(move8), "move8 should be valid");
         }
 
         [Test]
@@ -536,7 +536,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -554,7 +554,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move3, true);
             cb.ApplyMove(move4, true);
 
-            Assert.True(cb.IsValidMove(move5), "move5 is considered invalid");
+            Assert.True(cb.IsValidMove(move5), "move5 should be valid");
         }
 
         [Test]
@@ -568,7 +568,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.True(cb.IsValidMove(move3), "move3 is considered invalid");
+            Assert.True(cb.IsValidMove(move3), "move3 should be valid");
         }
 
         [Test]
@@ -588,7 +588,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -608,7 +608,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -628,7 +628,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -648,7 +648,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -668,7 +668,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -688,7 +688,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -708,7 +708,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -728,7 +728,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -748,7 +748,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -768,7 +768,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -788,7 +788,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -808,7 +808,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -828,7 +828,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -853,7 +853,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -878,7 +878,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -903,7 +903,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -928,7 +928,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -939,7 +939,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Six), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -950,7 +950,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.D, Rank.Seven), new Position(File.D, Rank.Five), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1042,7 +1042,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
 
-            Assert.False(cb.IsValidMove(move), "move is considered valid");
+            Assert.False(cb.IsValidMove(move), "move should be invalid");
 
         }
 
@@ -1059,7 +1059,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.False(cb.IsValidMove(move4), "move4 is considered valid");
+            Assert.False(cb.IsValidMove(move4), "move4 should be invalid");
         }
 
         [Test]
@@ -1070,7 +1070,7 @@ namespace ChessDotNet.Tests
 
             Move move1 = new Move(new Position(File.B, Rank.Eight), new Position(File.C, Rank.Six), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1086,7 +1086,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1102,7 +1102,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1118,7 +1118,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1134,7 +1134,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1159,8 +1159,8 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move6, true);
             cb.ApplyMove(move7, true);
 
-            Assert.True(cb.IsValidMove(move8), "move8 is considered invalid");
-            Assert.True(cb.IsValidMove(move9), "move9 is considered invalid");
+            Assert.True(cb.IsValidMove(move8), "move8 should be valid");
+            Assert.True(cb.IsValidMove(move9), "move9 should be valid");
         }
 
         [Test]
@@ -1176,7 +1176,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1196,7 +1196,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move4, true);
             cb.ApplyMove(move5, true);
 
-            Assert.True(cb.IsValidMove(move6), "move6 is considered invalid");
+            Assert.True(cb.IsValidMove(move6), "move6 should be valid");
         }
 
         [Test]
@@ -1212,7 +1212,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move2, true);
             cb.ApplyMove(move3, true);
 
-            Assert.True(cb.IsValidMove(move4), "move4 is considered invalid");
+            Assert.True(cb.IsValidMove(move4), "move4 should be valid");
         }
 
         [Test]
@@ -1232,7 +1232,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1252,7 +1252,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1272,7 +1272,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1292,7 +1292,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1312,7 +1312,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1332,7 +1332,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.True(cb.IsValidMove(move1), "move1 is considered invalid");
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
 
         [Test]
@@ -1352,7 +1352,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1372,7 +1372,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1392,7 +1392,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1412,7 +1412,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1432,7 +1432,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1452,7 +1452,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1472,7 +1472,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
 
         [Test]
@@ -1497,7 +1497,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -1522,7 +1522,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -1547,7 +1547,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -1572,7 +1572,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move1, true);
             cb.ApplyMove(move2, true);
 
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
@@ -1655,9 +1655,9 @@ namespace ChessDotNet.Tests
             Move move2 = new Move(new Position(File.D, Rank.Six), new Position(File.E, Rank.Seven), Player.Black);
             Move move3 = new Move(new Position(File.D, Rank.Six), new Position(File.E, Rank.Five), Player.Black);
 
-            Assert.False(cb.IsValidMove(move1), "move1 is considered valid");
-            Assert.False(cb.IsValidMove(move2), "move2 is considered valid");
-            Assert.False(cb.IsValidMove(move3), "move3 is considered valid");
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
+            Assert.False(cb.IsValidMove(move2), "move2 should be invalid");
+            Assert.False(cb.IsValidMove(move3), "move3 should be invalid");
         }
 
         [Test]
