@@ -29,7 +29,7 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(Player.White, Utilities.GetOpponentOf(Player.Black));
             Assert.Throws<ArgumentException>(delegate ()
             {
-                Player p = Utilities.GetOpponentOf(Player.None);
+                Utilities.GetOpponentOf(Player.None);
             });
         }
     }

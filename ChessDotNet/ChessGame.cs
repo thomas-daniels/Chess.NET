@@ -425,7 +425,6 @@ namespace ChessDotNet
             {
                 return false;
             }
-            PositionDistance posDelta = new PositionDistance(move.OriginalPosition, move.NewPosition);
             switch (piece.Piece)
             {
                 case Piece.King:
