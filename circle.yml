@@ -2,6 +2,7 @@ dependencies:
   post:
     - sudo apt-get update
     - sudo apt-get install mono-xbuild nunit-console
+    - sudo apt-get autoremove
 test:
   override:
     - xbuild /p:Configuration=Release /p:TargetFrameworkVersion=v4.5 ChessDotNet.sln
