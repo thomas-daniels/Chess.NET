@@ -4,16 +4,22 @@ namespace ChessDotNet
 {
     public struct PositionDistance
     {
+        int _distanceX;
         public int DistanceX
         {
-            get;
-            private set;
+            get
+            {
+                return _distanceX;
+            }
         }
 
+        int _distanceY;
         public int DistanceY
         {
-            get;
-            private set;
+            get
+            {
+                return _distanceY;
+            }
         }
         public PositionDistance(Position position1, Position position2)
         {
@@ -21,8 +27,8 @@ namespace ChessDotNet
                 throw new ArgumentNullException("position1");
             if (position2 == null)
                 throw new ArgumentNullException("position2");
-            DistanceX = Math.Abs((int)position1.File - (int)position2.File);
-            DistanceY = Math.Abs((int)position1.Rank - (int)position2.Rank);
+            _distanceX = Math.Abs((int)position1.File - (int)position2.File);
+            _distanceY = Math.Abs((int)position1.Rank - (int)position2.Rank);
         }
 
         public override bool Equals(object obj)
