@@ -13,11 +13,16 @@ namespace ChessDotNet
         bool _blackRookAMoved = false;
         bool _blackRookHMoved = false;
         bool _blackKingMoved = false;
+        bool _drawn = false;
+        string _drawReason = null;
+        Player _resigned = Player.None;
 
         public GameStatus Status
         {
-            get;
-            private set;
+            get
+            {
+                return GetStatus(WhoseTurn, true);
+            }
         }
 
         public Player WhoseTurn
@@ -55,7 +60,6 @@ namespace ChessDotNet
 
         public ChessGame()
         {
-            Status = new GameStatus(GameEvent.None, Player.None, "No special event");
             Board = new ChessPiece[8][];
             WhoseTurn = Player.White;
             _moves = new List<Move>();
@@ -93,7 +97,6 @@ namespace ChessDotNet
             }
             if (!validateCheck)
                 return;
-            ChangeStatus(WhoseTurn, true);
         }
 
         public ChessGame(ChessPiece[][] board, Player whoseTurn) :
@@ -126,7 +129,6 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
             if (!validateCheck)
                 return;
-            ChangeStatus(whoseTurn, true);
         }
 
         protected virtual void InitBoard()
@@ -157,25 +159,33 @@ namespace ChessDotNet
             };
         }
 
-        protected virtual void ChangeStatus(Player playerToValidate, bool validateHasAnyValidMoves)
+        protected virtual GameStatus GetStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
-            Status = new GameStatus(GameEvent.None, Player.None, "No special event");
+            if (_drawn)
+            {
+                return new GameStatus(GameEvent.Draw, Player.None, _drawReason);
+            }
+            if (_resigned != Player.None)
+            {
+                return new GameStatus(GameEvent.Resign, _resigned, _resigned.ToString() + " resigned");
+            }
             Player other = Utilities.GetOpponentOf(playerToValidate);
             if (IsInCheck(playerToValidate))
             {
                 if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
                 {
-                    Status = new GameStatus(GameEvent.Checkmate, other, playerToValidate.ToString() + " is checkmated");
+                    return new GameStatus(GameEvent.Checkmate, other, playerToValidate.ToString() + " is checkmated");
                 }
                 else
                 {
-                    Status = new GameStatus(GameEvent.Check, other, playerToValidate.ToString() + " is in check");
+                    return new GameStatus(GameEvent.Check, other, playerToValidate.ToString() + " is in check");
                 }
             }
             else if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
             {
-                Status = new GameStatus(GameEvent.Stalemate, other, "Stalemate");
+                return new GameStatus(GameEvent.Stalemate, other, "Stalemate");
             }
+            return new GameStatus(GameEvent.None, Player.None, "No special event");
         }
 
         public ChessPiece GetPieceAt(Position position)
@@ -524,8 +534,6 @@ namespace ChessDotNet
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
             WhoseTurn = Utilities.GetOpponentOf(move.Player);
             _moves.Add(move);
-            Player other = Utilities.GetOpponentOf(move.Player);
-            ChangeStatus(other, validateHasAnyValidMoves);
             return true;
         }
 
@@ -804,20 +812,19 @@ namespace ChessDotNet
             Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false);
-            copy.ChangeStatus(player, false);
-            return copy.Status.Event == GameEvent.Check && copy.Status.PlayerWhoCausedEvent != player;
+            GameStatus status = copy.GetStatus(player, false);
+            return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
         }
 
         public void Draw(string reason)
         {
-            Status = new GameStatus(GameEvent.Draw, Player.None, reason);
+            _drawn = true;
+            _drawReason = reason;
         }
 
         public void Resign(Player player)
         {
-            if (player == Player.None)
-                throw new ArgumentException("player cannot be None.");
-            Status = new GameStatus(GameEvent.Resign, player, player.ToString() + " resigned");
+            _resigned = player;
         }
     }
 }
