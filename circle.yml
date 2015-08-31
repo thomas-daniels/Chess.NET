@@ -1,7 +1,7 @@
 dependencies:
   post:
     - sudo apt-get update
-    - sudo apt-get install mono-complete nunit-console
+    - sudo apt-get install mono-mcs nunit-console
 test:
   override:
     - xbuild /p:Configuration=Release /p:TargetFrameworkVersion=v4.5 ChessDotNet.sln
