@@ -21,7 +21,7 @@ namespace ChessDotNet
         {
             get
             {
-                return GetStatus(WhoseTurn, true);
+                return CalculateStatus(WhoseTurn, true);
             }
         }
 
@@ -154,7 +154,7 @@ namespace ChessDotNet
                 return;
         }
 
-        protected virtual GameStatus GetStatus(Player playerToValidate, bool validateHasAnyValidMoves)
+        protected virtual GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
             if (_drawn)
             {
@@ -807,7 +807,7 @@ namespace ChessDotNet
             Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player, false);
             copy.ApplyMove(move, true, false);
-            GameStatus status = copy.GetStatus(player, false);
+            GameStatus status = copy.CalculateStatus(player, false);
             return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
         }
 
