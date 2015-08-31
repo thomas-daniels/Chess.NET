@@ -60,10 +60,33 @@ namespace ChessDotNet
 
         public ChessGame()
         {
-            Board = new ChessPiece[8][];
             WhoseTurn = Player.White;
             _moves = new List<Move>();
-            InitBoard();
+            Board = new ChessPiece[8][];
+            ChessPiece kw = new ChessPiece(Piece.King, Player.White);
+            ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
+            ChessPiece qw = new ChessPiece(Piece.Queen, Player.White);
+            ChessPiece qb = new ChessPiece(Piece.Queen, Player.Black);
+            ChessPiece rw = new ChessPiece(Piece.Rook, Player.White);
+            ChessPiece rb = new ChessPiece(Piece.Rook, Player.Black);
+            ChessPiece nw = new ChessPiece(Piece.Knight, Player.White);
+            ChessPiece nb = new ChessPiece(Piece.Knight, Player.Black);
+            ChessPiece bw = new ChessPiece(Piece.Bishop, Player.White);
+            ChessPiece bb = new ChessPiece(Piece.Bishop, Player.Black);
+            ChessPiece pw = new ChessPiece(Piece.Pawn, Player.White);
+            ChessPiece pb = new ChessPiece(Piece.Pawn, Player.Black);
+            ChessPiece o = ChessPiece.None;
+            Board = new ChessPiece[8][]
+            {
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, pw, pw, pw, pw, pw, pw },
+                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
+            };
         }
 
         public ChessGame(ChessPiece[][] board, IEnumerable<Move> moves) :
@@ -129,34 +152,6 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
             if (!validateCheck)
                 return;
-        }
-
-        protected virtual void InitBoard()
-        {
-            ChessPiece kw = new ChessPiece(Piece.King, Player.White);
-            ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
-            ChessPiece qw = new ChessPiece(Piece.Queen, Player.White);
-            ChessPiece qb = new ChessPiece(Piece.Queen, Player.Black);
-            ChessPiece rw = new ChessPiece(Piece.Rook, Player.White);
-            ChessPiece rb = new ChessPiece(Piece.Rook, Player.Black);
-            ChessPiece nw = new ChessPiece(Piece.Knight, Player.White);
-            ChessPiece nb = new ChessPiece(Piece.Knight, Player.Black);
-            ChessPiece bw = new ChessPiece(Piece.Bishop, Player.White);
-            ChessPiece bb = new ChessPiece(Piece.Bishop, Player.Black);
-            ChessPiece pw = new ChessPiece(Piece.Pawn, Player.White);
-            ChessPiece pb = new ChessPiece(Piece.Pawn, Player.Black);
-            ChessPiece o = ChessPiece.None;
-            Board = new ChessPiece[8][]
-            {
-                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
-                new[] { pb, pb, pb, pb, pb, pb, pb, pb },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { pw, pw, pw, pw, pw, pw, pw, pw },
-                new[] { rw, nw, bw, qw, kw, bw, nw, rw }
-            };
         }
 
         protected virtual GameStatus GetStatus(Player playerToValidate, bool validateHasAnyValidMoves)
