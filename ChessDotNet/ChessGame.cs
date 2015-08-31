@@ -129,7 +129,7 @@ namespace ChessDotNet
             ChangeStatus(whoseTurn, true);
         }
 
-        public void InitBoard()
+        protected void InitBoard()
         {
             ChessPiece kw = new ChessPiece(Piece.King, Player.White);
             ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
