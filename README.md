@@ -12,3 +12,4 @@ Planned features:
 
  - FEN string parsing
  - Draw on threefold repetition
+ - Draw on insufficient mating material
