@@ -31,6 +31,14 @@ namespace ChessDotNet
             private set;
         }
 
+        public ReadOnlyCollection<ChessPiece> PiecesOnBoard
+        {
+            get
+            {
+                return new ReadOnlyCollection<ChessPiece>(Board.SelectMany(x => x).Where(x => x != ChessPiece.None).ToList());
+            }
+        }
+
         protected ChessPiece[][] Board;
         public ChessPiece[][] GetBoard()
         {
@@ -152,6 +160,13 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
             if (!validateCheck)
                 return;
+        }
+
+        public virtual int GetRelativePieceValue(Player player)
+        {
+            return PiecesOnBoard.Where(x => x.Player == player && x.Piece != Piece.King)
+                                .Select(Utilities.GetRelativePieceValue)
+                                .Sum();
         }
 
         protected virtual GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)

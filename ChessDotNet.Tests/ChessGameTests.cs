@@ -634,7 +634,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -654,7 +654,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveWhiteKing_KingsideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -674,7 +674,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveWhiteKing_QueensideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -694,7 +694,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_KingsideCastling_BlockingPiece1()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -714,7 +714,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_BlockingPiece1()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, kb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -734,7 +734,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_KingsideCastling_BlockingPiece2()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -754,7 +754,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_BlockingPiece2()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -774,7 +774,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_BlockingPiece3()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -794,7 +794,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_KingsideCastling_NoRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -814,7 +814,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_NoRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -834,7 +834,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_KingsideCastling_RookMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -859,7 +859,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_RookMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -884,7 +884,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_KingsideCastling_KingMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -909,7 +909,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteKing_QueensideCastling_KingMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1028,7 +1028,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackPawn_TwoStepsBlockingPiece()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, pb, o, o, o },
@@ -1218,7 +1218,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveBlackKing_KingsideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1238,7 +1238,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveBlackKing_QueensideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1258,7 +1258,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1278,7 +1278,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_WouldPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1298,7 +1298,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveBlackKing_KingsideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1318,7 +1318,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestValidMoveBlackKing_QueensideCastling_WouldNotPassThroughCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1338,7 +1338,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_BlockingPiece1()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, rb, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1358,7 +1358,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_BlockingPiece1()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, rb, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1378,7 +1378,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_BlockingPiece2()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, rb, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1398,7 +1398,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_BlockingPiece2()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, rb, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1418,7 +1418,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_BlockingPiece3()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, rb, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1438,7 +1438,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_NoRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1458,7 +1458,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_NoRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1478,7 +1478,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_RookMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1503,7 +1503,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_RookMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1528,7 +1528,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_KingsideCastling_KingMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1553,7 +1553,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_QueensideCastling_KingMoved()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1578,7 +1578,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhite_WouldBeInCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { kw, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, qb },
@@ -1598,7 +1598,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhite_WouldBeCheckmated()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, kb, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1619,7 +1619,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhiteRook_NoPassThrough()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { rw, o, o, o, pw, o, o, o },
@@ -1639,7 +1639,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackKing_NoAdjacentKings()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1710,7 +1710,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move4, true);
             cb.ApplyMove(move5, true);
 
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
                 new[] { pb, pb, pb, o, o, pb, pb, pb },
@@ -1728,7 +1728,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveWhitePawn_PromotionToQueen()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { pw, o, o, o, o, o, o, o },
@@ -1760,7 +1760,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveBlackPawn_PromotionToQueen()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1792,7 +1792,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveWhitePawnPromotion_NoPieceSpecified()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { pw, o, o, o, o, o, o, o },
@@ -1811,7 +1811,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1845,7 +1845,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(move5, true);
             cb.ApplyMove(move6, true);
 
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
                 new[] { pb, pb, pb, pb, o, pb, pb, pb },
@@ -1863,7 +1863,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveWhiteKing_KingsideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1896,7 +1896,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveWhiteKing_QueensideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1929,7 +1929,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveBlackKing_KingsideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kb, o, o, rb },
                 new[] { o, o, o, o, o, o, o, o },
@@ -1962,7 +1962,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestApplyMoveBlackKing_QueensideCastling()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { rb, o, o, o, kb, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2068,7 +2068,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesWhiteKing()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, kb, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2103,7 +2103,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesWhiteKnight()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2138,7 +2138,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesWhiteBishop()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2178,7 +2178,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesWhiteRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kw, o, kb, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2219,7 +2219,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesWhiteQueen()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kw, o, kb, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2273,7 +2273,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesBlackKing()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { kw, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2308,7 +2308,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesBlackKnight()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2343,7 +2343,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesBlackBishop()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2383,7 +2383,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesBlackRook()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kw, o, kb, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2424,7 +2424,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestGetValidMovesBlackQueen()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, kw, o, kb, o },
                 new[] { o, o, o, o, o, o, o, o },
@@ -2478,7 +2478,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestIsWhiteInCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { kw, o, o, o, o, o, o, qb },
@@ -2499,7 +2499,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestIsWhiteNotInCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { kw, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, qb },
@@ -2518,7 +2518,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestIsBlackInCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, nw, o, o, o, o },
                 new[] { o, kb, o, o, o, o, o, o },
@@ -2539,7 +2539,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestIsBlackNotInCheck()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, o, nb, o, o, o, o },
                 new[] { o, kb, o, o, o, o, o, o },
@@ -2575,7 +2575,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestBlackStalemated()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { kb, o, kw, o, o, o, o, o },
                 new[] { o, o, qw, o, o, o, o, o },
@@ -2596,7 +2596,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestBlackNotStalemated()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { kb, o, kw, o, o, o, o, o },
                 new[] { o, o, qw, o, o, o, o, o },
@@ -2617,7 +2617,7 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestBlackNotStalematedAfterApplyMove()
         {
-            ChessPiece[][] board  = new ChessPiece[8][]
+            ChessPiece[][] board = new ChessPiece[8][]
             {
                 new[] { o, o, kw, o, o, o, o, o },
                 new[] { kb, o, qw, o, o, o, o, o },
@@ -2635,6 +2635,56 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(GameEvent.None, cb.Status.Event);
             Assert.AreEqual(Player.None, cb.Status.PlayerWhoCausedEvent);
             Assert.AreEqual("No special event", cb.Status.EventExplanation);
+        }
+
+        [Test]
+        public static void TestGetRelativePieceValueWhite()
+        {
+            ChessGame game = new ChessGame();
+            Assert.AreEqual(39, game.GetRelativePieceValue(Player.White));
+        }
+
+        [Test]
+        public static void TestGetRelativePieceValueBlack()
+        {
+            ChessGame game = new ChessGame();
+            Assert.AreEqual(39, game.GetRelativePieceValue(Player.Black));
+        }
+
+        [Test]
+        public static void TestGetRelativePieceValueWhite_IncompleteBoard()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, pw },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { qw, o, o, o, o, o, o, nw },
+                new[] { o, o, o, kw, o, o, o, o }
+            };
+            ChessGame game = new ChessGame(board, Player.White);
+            Assert.AreEqual(13, game.GetRelativePieceValue(Player.White));
+        }
+
+        [Test]
+        public static void TestGetRelativePieceValueBlack_IncompleteBoard()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { rb, o, o, kb, o, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pb, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kw, o, o, o, o }
+            };
+            ChessGame game = new ChessGame(board, Player.Black);
+            Assert.AreEqual(11, game.GetRelativePieceValue(Player.Black));
         }
     }
 }
