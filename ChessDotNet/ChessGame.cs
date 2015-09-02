@@ -783,7 +783,6 @@ namespace ChessDotNet
 
         protected virtual bool IsInCheck(Player player)
         {
-            List<Position> piecePositions = new List<Position>();
             Position kingPos = new Position(File.None, Rank.None);
 
             for (int i = 0; i < Board.Length; i++)
@@ -791,11 +790,7 @@ namespace ChessDotNet
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     ChessPiece curr = Board[i][j];
-                    if (curr.Piece != Piece.None && curr.Player == Utilities.GetOpponentOf(player))
-                    {
-                        piecePositions.Add(new Position((File)j, (Rank)i));
-                    }
-                    else if (curr.Piece == Piece.King && curr.Player == player)
+                    if (curr.Piece == Piece.King && curr.Player == player)
                     {
                         kingPos = new Position((File)j, (Rank)i);
                     }
@@ -805,15 +800,37 @@ namespace ChessDotNet
             if (kingPos.File == File.None)
                 return false;
 
-            ChessGame copy = new ChessGame(Board, Utilities.GetOpponentOf(player), false);
+            return CanAnyPieceMoveTo(kingPos, false);
+        }
+
+        public virtual bool CanAnyPieceMoveTo(Position to, bool takeWhoseTurnInAccount)
+        {
+            List<Position> piecePositions = new List<Position>();
+
+            for (int i = 0; i < Board.Length; i++)
+            {
+                for (int j = 0; j < Board[i].Length; j++)
+                {
+                    ChessPiece curr = Board[i][j];
+                    if (curr.Piece != Piece.None)
+                    {
+                        if (takeWhoseTurnInAccount && WhoseTurn != curr.Player) continue;
+                        piecePositions.Add(new Position((File)j, (Rank)i));
+                    }
+                }
+            }
+
+            ChessGame copyWhite = new ChessGame(Board, Player.White, false);
+            ChessGame copyBlack = new ChessGame(Board, Player.Black, false);
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                if (copy.IsValidMove(new Move(piecePositions[i], kingPos, Utilities.GetOpponentOf(player)), false))
+                Player player = GetPieceAt(piecePositions[i]).Player;
+                Move m = new Move(piecePositions[i], to, player);
+                if ((player == Player.White ? copyWhite : copyBlack).IsValidMove(m, false))
                 {
                     return true;
                 }
             }
-
             return false;
         }
 
