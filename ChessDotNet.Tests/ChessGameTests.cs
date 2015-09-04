@@ -2271,6 +2271,68 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestGetValidMovesWhitePawn()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { pb, o, pb, o, o, o, o, o },
+                new[] { o, pw, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.B, Rank.Two));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("B2", "B3", Player.White),
+                new Move("B2", "B4", Player.White),
+                new Move("B2", "A3", Player.White),
+                new Move("B2", "C3", Player.White)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move move in expected)
+            {
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
+            }
+        }
+
+        [Test]
+        public static void TestGetValidMovesWhitePawnPromotion()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, pw },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, Rank.Seven));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("H7", "H8", Player.White, Piece.Queen),
+                new Move("H7", "H8", Player.White, Piece.Rook),
+                new Move("H7", "H8", Player.White, Piece.Bishop),
+                new Move("H7", "H8", Player.White, Piece.Knight)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move move in expected)
+            {
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
+            }
+        }
+
+        [Test]
         public static void TestGetValidMovesBlackKing()
         {
             ChessPiece[][] board = new ChessPiece[8][]
@@ -2476,6 +2538,67 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestGetValidMovesBlackPawn()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, pb, o, o, o, o, o, o },
+                new[] { pw, o, pw, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.B, Rank.Three));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("B3", "B2", Player.Black),
+                new Move("B3", "A2", Player.Black),
+                new Move("B3", "C2", Player.Black)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move move in expected)
+            {
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
+            }
+        }
+
+        [Test]
+        public static void TestGetValidMovesBlackPawnPromotion()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { kw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, pb },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, Rank.Two));
+            List<Move> expected = new List<Move>()
+            {
+                new Move("H2", "H1", Player.Black, Piece.Queen),
+                new Move("H2", "H1", Player.Black, Piece.Rook),
+                new Move("H2", "H1", Player.Black, Piece.Bishop),
+                new Move("H2", "H1", Player.Black, Piece.Knight)
+            };
+
+            Assert.AreEqual(expected.Count, actual.Count);
+            foreach (Move move in expected)
+            {
+                Assert.True(actual.Contains(move), "Actual does not contain " + move.ToString());
+            }
+        }
+
+        [Test]
         public static void TestIsWhiteInCheck()
         {
             ChessPiece[][] board = new ChessPiece[8][]
@@ -2488,6 +2611,27 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { kb, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+
+            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
+            Assert.AreEqual(Player.Black, cb.Status.PlayerWhoCausedEvent);
+            Assert.AreEqual("White is in check", cb.Status.EventExplanation);
+        }
+
+        [Test]
+        public static void TestIsWhiteInCheck_OnRankOne()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, pb, o },
+                new[] { kb, o, o, o, o, o, o, kw }
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
@@ -2516,6 +2660,25 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestIsWhiteNotInCheck_PawnsCanOnlyCheckDiagonally()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o },
+                new[] { o, o, o, o, pb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kb, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+
+            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+        }
+
+        [Test]
         public static void TestIsBlackInCheck()
         {
             ChessPiece[][] board = new ChessPiece[8][]
@@ -2537,6 +2700,27 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestIsBlackInCheck_OnRankEight()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, pw, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+
+            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
+            Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
+            Assert.AreEqual("Black is in check", cb.Status.EventExplanation);
+        }
+
+        [Test]
         public static void TestIsBlackNotInCheck()
         {
             ChessPiece[][] board = new ChessPiece[8][]
@@ -2549,6 +2733,25 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+
+            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+        }
+
+        [Test]
+        public static void TestIsBlackNotInCheck_PawnsCanOnlyCheckDiagonally()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, pw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { kw, o, o, o, o, o, o, o }
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 

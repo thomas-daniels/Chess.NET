@@ -600,11 +600,26 @@ namespace ChessDotNet
                     || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                     continue;
                 Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
-                if (IsValidMove(move))
+                List<Move> moves = new List<Move>();
+                if ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black))
                 {
-                    validMoves.Add(move);
-                    if (returnIfAny)
-                        return new ReadOnlyCollection<Move>(validMoves);
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Queen));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Rook));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Knight));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Bishop));
+                }
+                else
+                {
+                    moves.Add(move);
+                }
+                foreach (Move m in moves)
+                {
+                    if (IsValidMove(m))
+                    {
+                        validMoves.Add(m);
+                        if (returnIfAny)
+                            return new ReadOnlyCollection<Move>(validMoves);
+                    }
                 }
             }
             return new ReadOnlyCollection<Move>(validMoves);
@@ -824,11 +839,27 @@ namespace ChessDotNet
             ChessGame copyBlack = new ChessGame(Board, Player.Black, false);
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                Player player = GetPieceAt(piecePositions[i]).Player;
-                Move m = new Move(piecePositions[i], to, player);
-                if ((player == Player.White ? copyWhite : copyBlack).IsValidMove(m, false))
+                ChessPiece cp = GetPieceAt(piecePositions[i]);
+                Player player = cp.Player;
+                Move move = new Move(piecePositions[i], to, player);
+                List<Move> moves = new List<Move>();
+                if (cp.Piece == Piece.Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
                 {
-                    return true;
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Queen));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Rook));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Bishop));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Knight));
+                }
+                else
+                {
+                    moves.Add(move);
+                }
+                foreach (Move m in moves)
+                {
+                    if ((player == Player.White ? copyWhite : copyBlack).IsValidMove(m, false))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
