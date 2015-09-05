@@ -361,6 +361,29 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestInvalidMoveWhitePawn_EnPassant_NoPawn()
+        {
+            ChessPiece[][] board = new ChessPiece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, rb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, pw, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame game = new ChessGame(board, Player.Black);
+
+            Move move1 = new Move(new Position(File.E, Rank.Seven), new Position(File.E, Rank.Five), Player.Black);
+            Move move2 = new Move(new Position(File.F, Rank.Five), new Position(File.E, Rank.Six), Player.White);
+            game.ApplyMove(move1, true);
+
+            Assert.False(game.IsValidMove(move2));
+        }
+
+        [Test]
         public static void TestInvalidMoveWhitePawn_NoCapture()
         {
             ChessGame cb = new ChessGame();

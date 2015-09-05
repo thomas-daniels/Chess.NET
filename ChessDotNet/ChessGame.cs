@@ -345,6 +345,8 @@ namespace ChessDotNet
                 Move latestMove = _moves[_moves.Count - 1];
                 if (latestMove.Player != Utilities.GetOpponentOf(move.Player))
                     return false;
+                if (GetPieceAt(latestMove.NewPosition).Piece != Piece.Pawn)
+                    return false;
                 if (move.Player == Player.White)
                 {
                     if (latestMove.OriginalPosition.Rank != Rank.Seven || latestMove.NewPosition.Rank != Rank.Five)
