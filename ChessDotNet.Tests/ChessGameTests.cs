@@ -2833,7 +2833,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, o, o, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            ChessGame cb = new ChessGame(board, new List<Move>() { new Move("A7", "A8", Player.Black) });
+            ChessGame cb = new ChessGame(board, Player.White);
 
             Assert.AreEqual(GameEvent.None, cb.Status.Event);
             Assert.AreEqual(Player.None, cb.Status.PlayerWhoCausedEvent);
