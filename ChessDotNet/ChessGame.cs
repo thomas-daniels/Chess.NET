@@ -45,12 +45,60 @@ namespace ChessDotNet
             return CloneBoard(Board);
         }
 
-        List<Move> _moves;
-        public ReadOnlyCollection<Move> Moves
+        List<DetailedMove> _moves;
+        public ReadOnlyCollection<DetailedMove> Moves
         {
             get
             {
-                return new ReadOnlyCollection<Move>(_moves);
+                return new ReadOnlyCollection<DetailedMove>(_moves);
+            }
+        }
+
+        public bool BlackKingMoved
+        {
+            get
+            {
+                return _blackKingMoved;
+            }
+        }
+
+        public bool BlackRookAMoved
+        {
+            get
+            {
+                return _blackRookAMoved;
+            }
+        }
+
+        public bool BlackRookHMoved
+        {
+            get
+            {
+                return _blackRookHMoved;
+            }
+        }
+
+        public bool WhiteKingMoved
+        {
+            get
+            {
+                return _whiteKingMoved;
+            }
+        }
+
+        public bool WhiteRookAMoved
+        {
+            get
+            {
+                return _whiteRookAMoved;
+            }
+        }
+
+        public bool WhiteRookHMoved
+        {
+            get
+            {
+                return _whiteRookHMoved;
             }
         }
 
@@ -69,7 +117,7 @@ namespace ChessDotNet
         public ChessGame()
         {
             WhoseTurn = Player.White;
-            _moves = new List<Move>();
+            _moves = new List<DetailedMove>();
             Board = new ChessPiece[8][];
             ChessPiece kw = new ChessPiece(Piece.King, Player.White);
             ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
@@ -97,48 +145,25 @@ namespace ChessDotNet
             };
         }
 
-        public ChessGame(ChessPiece[][] board, IEnumerable<Move> moves) :
-            this(board, moves, true)
-        {
-        }
-
-        protected ChessGame(ChessPiece[][] board, IEnumerable<Move> moves, bool validateCheck)
+        public ChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this()
         {
             if (moves == null)
                 throw new ArgumentNullException("moves");
             if (moves.Count() == 0)
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
-            Board = CloneBoard(board);
-            _moves = new List<Move>(moves);
-            WhoseTurn = Utilities.GetOpponentOf(_moves.Last().Player);
-            foreach (Move m in _moves)
+            foreach (Move m in moves)
             {
-                if (!_whiteKingMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.E, Rank.One))
-                    _whiteKingMoved = true;
-                if (!_blackKingMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.E, Rank.Eight))
-                    _blackKingMoved = true;
-                if (!_whiteRookAMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.A, Rank.One))
-                    _whiteRookAMoved = true;
-                if (!_whiteRookHMoved && m.Player == Player.White && m.OriginalPosition == new Position(File.H, Rank.One))
-                    _whiteRookHMoved = true;
-                if (!_blackRookAMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.A, Rank.Eight))
-                    _blackRookAMoved = true;
-                if (!_blackRookHMoved && m.Player == Player.Black && m.OriginalPosition == new Position(File.H, Rank.Eight))
-                    _blackRookHMoved = true;
+                if (!ApplyMove(m, movesAreValidated))
+                {
+                    throw new ArgumentException("Invalid move passed to ChessGame constructor.");
+                }
             }
-            if (!validateCheck)
-                return;
         }
 
-        public ChessGame(ChessPiece[][] board, Player whoseTurn) :
-            this(board, whoseTurn, true)
-        {
-        }
-
-        protected ChessGame(ChessPiece[][] board, Player whoseTurn, bool validateCheck)
+        public ChessGame(ChessPiece[][] board, Player whoseTurn)
         {
             Board = CloneBoard(board);
-            _moves = new List<Move>();
+            _moves = new List<DetailedMove>();
             WhoseTurn = whoseTurn;
             ChessPiece e1 = GetPieceAt(File.E, Rank.One);
             ChessPiece e8 = GetPieceAt(File.E, Rank.Eight);
@@ -158,8 +183,6 @@ namespace ChessDotNet
                 _blackRookAMoved = true;
             if (h8.Piece != Piece.Rook || h8.Player != Player.Black)
                 _blackRookHMoved = true;
-            if (!validateCheck)
-                return;
         }
 
         public virtual int GetRelativePieceValue(Player player)
@@ -496,12 +519,16 @@ namespace ChessDotNet
             if (!alreadyValidated && !IsValidMove(move))
                 return false;
             ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+            ChessPiece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
             ChessPiece newPiece = movingPiece;
+            bool isCapture = capturedPiece.Piece != Piece.None;
+            CastlingType castle = CastlingType.None;
             if (movingPiece.Piece == Piece.Pawn)
             {
                 PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
                 if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition).Piece == Piece.None)
                 { // en passant
+                    isCapture = true;
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
                 }
                 if (move.NewPosition.Rank == (move.Player == Player.White ? Rank.Eight : Rank.One))
@@ -519,8 +546,20 @@ namespace ChessDotNet
                 if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
                 {
                     Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
-                    File rookFile = move.NewPosition.File == File.C ? File.A : File.H;
-                    File newRookFile = move.NewPosition.File == File.C ? File.D : File.F;
+                    File rookFile;
+                    File newRookFile;
+                    if (move.NewPosition.File == File.C)
+                    {
+                        castle = CastlingType.QueenSide;
+                        rookFile = File.A;
+                        newRookFile = File.D;
+                    }
+                    else
+                    {
+                        castle = CastlingType.KingSide;
+                        rookFile = File.H;
+                        newRookFile = File.F;
+                    }
                     SetPieceAt(newRookFile, rank, new ChessPiece(Piece.Rook, move.Player));
                     SetPieceAt(rookFile, rank, ChessPiece.None);
                 }
@@ -545,7 +584,7 @@ namespace ChessDotNet
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
             WhoseTurn = Utilities.GetOpponentOf(move.Player);
-            _moves.Add(move);
+            _moves.Add(new DetailedMove(move, movingPiece.Piece, isCapture, castle));
             return true;
         }
 
@@ -837,8 +876,8 @@ namespace ChessDotNet
                 }
             }
 
-            ChessGame copyWhite = new ChessGame(Board, Player.White, false);
-            ChessGame copyBlack = new ChessGame(Board, Player.Black, false);
+            ChessGame copyWhite = new ChessGame(Board, Player.White);
+            ChessGame copyBlack = new ChessGame(Board, Player.Black);
             for (int i = 0; i < piecePositions.Count; i++)
             {
                 ChessPiece cp = GetPieceAt(piecePositions[i]);
@@ -870,7 +909,7 @@ namespace ChessDotNet
         protected virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             Utilities.ThrowIfNull(move, "move");
-            ChessGame copy = new ChessGame(Board, player, false);
+            ChessGame copy = new ChessGame(Board, player);
             copy.ApplyMove(move, true, false);
             GameStatus status = copy.CalculateStatus(player, false);
             return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
