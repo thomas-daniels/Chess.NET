@@ -27,12 +27,11 @@
                 return false;
             bool increasingRank = (int)destination.Rank > (int)origin.Rank;
             bool increasingFile = (int)destination.File > (int)origin.File;
-            ChessPiece[][] board = game.GetBoardForReadOnlyPurposes();
             for (int f = (int)origin.File + (increasingFile ? 1 : -1), r = (int)origin.Rank + (increasingRank ? 1 : -1);
                  increasingFile ? f < (int)destination.File : f > (int)destination.File;
                  f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
             {
-                if (board[r][f].Owner != Player.None)
+                if (game.GetPieceAt((File)f, (Rank)r).Owner != Player.None)
                 {
                     return false;
                 }
