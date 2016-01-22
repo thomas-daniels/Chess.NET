@@ -2,7 +2,7 @@
 {
     public class Bishop : ChessPiece
     {
-        Player Owner
+        public override Player Owner
         {
             get;
             set;

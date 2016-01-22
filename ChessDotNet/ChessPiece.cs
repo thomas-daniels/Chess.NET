@@ -2,11 +2,10 @@
 {
     public abstract class ChessPiece
     {
-
-        public Player Player
+        public abstract Player Owner
         {
             get;
-            private set;
+            set;
         }
 
         public override bool Equals(object obj)
@@ -17,12 +16,12 @@
                 return false;
             ChessPiece piece1 = this;
             ChessPiece piece2 = (ChessPiece)obj;
-            return piece1.Player == piece2.Player;
+            return piece1.Owner == piece2.Owner;
         }
 
         public override int GetHashCode()
         {
-            return new { Piece = GetFenCharacter(), Player }.GetHashCode();
+            return new { Piece = GetFenCharacter(), Owner }.GetHashCode();
         }
 
         public static bool operator ==(ChessPiece piece1, ChessPiece piece2)
