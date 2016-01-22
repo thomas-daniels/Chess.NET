@@ -43,5 +43,6 @@
         }
 
         public abstract string GetFenCharacter();
+        public abstract bool IsValidDestination(Position from, Position to);
     }
 }
