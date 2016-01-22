@@ -45,6 +45,11 @@ namespace ChessDotNet
             return CloneBoard(Board);
         }
 
+        public ChessPiece[][] GetBoardForReadOnlyPurposes()
+        {
+            return Board;
+        }
+
         List<DetailedMove> _moves;
         public ReadOnlyCollection<DetailedMove> Moves
         {
