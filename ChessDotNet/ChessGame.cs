@@ -182,7 +182,7 @@ namespace ChessDotNet
                 _whiteRookHMoved = true;
             if (!(a8 is Rook) || a8.Owner != Player.Black)
                 _blackRookAMoved = true;
-            if (!(a1 is Rook) || h8.Owner != Player.Black)
+            if (!(h8 is Rook) || h8.Owner != Player.Black)
                 _blackRookHMoved = true;
         }
 
@@ -252,7 +252,8 @@ namespace ChessDotNet
             ChessPiece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             if (move.Player != WhoseTurn) return false;
             if (piece.Owner != move.Player) return false;
-            if (GetPieceAt(move.NewPosition).Owner == move.Player)
+            ChessPiece pieceAtDestination = GetPieceAt(move.NewPosition);
+            if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
             {
                 return false;
             }
@@ -562,7 +563,7 @@ namespace ChessDotNet
             {
                 for (int y = 0; y < Board[x].Length; y++)
                 {
-                    if (Board[x][y].Owner == player)
+                    if (Board[x][y] != null && Board[x][y].Owner == player)
                     {
                         validMoves.AddRange(GetValidMoves(new Position((File)y, (Rank)x), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)

@@ -39,7 +39,7 @@ namespace ChessDotNet.Pieces
                     increasingRank ? r < (int)destination.Rank : r > (int)destination.Rank;
                     r += increasingRank ? 1 : -1)
                 {
-                    if (game.GetPieceAt((File)f, (Rank)r).Owner != Player.None)
+                    if (game.GetPieceAt((File)f, (Rank)r) != null)
                     {
                         return false;
                     }
@@ -52,7 +52,7 @@ namespace ChessDotNet.Pieces
                     increasingFile ? f < (int)destination.File : f > (int)destination.File;
                     f += increasingFile ? 1 : -1)
                 {
-                    if (game.GetPieceAt((File)f, (Rank)r).Owner != Player.None)
+                    if (game.GetPieceAt((File)f, (Rank)r) != null)
                     {
                         return false;
                     }

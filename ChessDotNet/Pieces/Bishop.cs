@@ -34,7 +34,7 @@
                  increasingFile ? f < (int)destination.File : f > (int)destination.File;
                  f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
             {
-                if (game.GetPieceAt((File)f, (Rank)r).Owner != Player.None)
+                if (game.GetPieceAt((File)f, (Rank)r) != null)
                 {
                     return false;
                 }

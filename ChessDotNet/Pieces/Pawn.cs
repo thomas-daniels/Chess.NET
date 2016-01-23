@@ -58,16 +58,17 @@ namespace ChessDotNet.Pieces
                 if (origin.Rank == Rank.Seven && game.GetPieceAt(origin.File, Rank.Six) != null)
                     return false;
             }
+            ChessPiece pieceAtDestination = game.GetPieceAt(destination);
             if (posDelta.DistanceX == 0 && (posDelta.DistanceY == 1 || posDelta.DistanceY == 2))
             {
-                if (game.GetPieceAt(destination).Owner != Player.None)
+                if (pieceAtDestination != null)
                     return false;
             }
             else
             {
-                if (game.GetPieceAt(destination).Owner != Utilities.GetOpponentOf(Owner))
+                if (pieceAtDestination == null)
                     checkEnPassant = true;
-                if (game.GetPieceAt(destination).Owner == Owner)
+                else if (pieceAtDestination.Owner == Owner)
                     return false;
             }
             if (checkEnPassant)
@@ -83,7 +84,9 @@ namespace ChessDotNet.Pieces
                 Move latestMove = _moves[_moves.Count - 1];
                 if (latestMove.Player != Utilities.GetOpponentOf(Owner))
                     return false;
-                if (game.GetPieceAt(latestMove.NewPosition) != null)
+                if (game.GetPieceAt(latestMove.NewPosition).Owner == Owner)
+                    return false;
+                if (!(game.GetPieceAt(latestMove.NewPosition) is Pawn))
                     return false;
                 if (Owner == Player.White)
                 {
