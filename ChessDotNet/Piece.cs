@@ -1,4 +1,6 @@
-﻿namespace ChessDotNet
+﻿using System.Collections.ObjectModel;
+
+namespace ChessDotNet
 {
     public abstract class Piece
     {
@@ -45,5 +47,6 @@
         public abstract char GetFenCharacter();
         public abstract bool IsValidMove(Move move, ChessGame game);
         public abstract float GetRelativePieceValue();
+        public abstract ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game);
     }
 }
