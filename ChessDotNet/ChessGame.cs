@@ -251,39 +251,14 @@ namespace ChessDotNet
                 return false;
             ChessPiece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             if (move.Player != WhoseTurn) return false;
-            if (piece.Player != move.Player) return false;
-            if (GetPieceAt(move.NewPosition).Player == move.Player)
+            if (piece.Owner != move.Player) return false;
+            if (GetPieceAt(move.NewPosition).Owner == move.Player)
             {
                 return false;
             }
-            switch (piece.Piece)
+            if (!piece.IsValidMove(move, this))
             {
-                case Piece.King:
-                    if (!IsValidMoveKing(move))
-                        return false;
-                    break;
-                case Piece.Pawn:
-                    if (!IsValidMovePawn(move))
-                        return false;
-                    break;
-                case Piece.Queen:
-                    if (!IsValidMoveQueen(move))
-                        return false;
-                    break;
-                case Piece.Rook:
-                    if (!IsValidMoveRook(move))
-                        return false;
-                    break;
-                case Piece.Bishop:
-                    if (!IsValidMoveBishop(move))
-                        return false;
-                    break;
-                case Piece.Knight:
-                    if (!IsValidMoveKnight(move))
-                        return false;
-                    break;
-                default:
-                    return false;
+                return false;
             }
             if (validateCheck && WouldBeInCheckAfter(move, move.Player))
             {
