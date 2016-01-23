@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Pieces
 {
@@ -36,6 +38,31 @@ namespace ChessDotNet.Pieces
         public override float GetRelativePieceValue()
         {
             return 3;
+        }
+
+        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
+        {
+            List<Move> validMoves = new List<Move>();
+            Piece piece = game.GetPieceAt(from);
+            Piece[][] board = game.GetBoard();
+            int l0 = board.Length;
+            int l1 = board[0].Length;
+            int[][] directions = new int[][] { new int[] { 2, 1 }, new int[] { -2, -1 }, new int[] { 1, 2 }, new int[] { -1, -2 },
+                        new int[] { 1, -2 }, new int[] { -1, 2 }, new int[] { 2, -1 }, new int[] { -2, 1 } };
+            foreach (int[] dir in directions)
+            {
+                if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
+                    || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                    continue;
+                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
+                if (game.IsValidMove(move))
+                {
+                    validMoves.Add(move);
+                    if (returnIfAny)
+                        return new ReadOnlyCollection<Move>(validMoves);
+                }
+            }
+            return new ReadOnlyCollection<Move>(validMoves);
         }
     }
 }
