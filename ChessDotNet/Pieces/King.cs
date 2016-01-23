@@ -8,9 +8,18 @@
             set;
         }
 
-        public King(Player owner)
+        public bool HasCastlingAbility
+        {
+            get;
+            set;
+        }
+
+        public King(Player owner) : this(owner, true) { }
+
+        public King(Player owner, bool hasCastlingAbility)
         {
             Owner = owner;
+            HasCastlingAbility = hasCastlingAbility;
         }
 
         public override string GetFenCharacter()
