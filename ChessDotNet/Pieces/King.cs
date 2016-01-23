@@ -29,9 +29,11 @@ namespace ChessDotNet.Pieces
             return Owner == Player.White ? "K" : "k";
         }
 
-        public override bool IsValidMove(Position origin, Position destination, ChessGame game)
+        public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(origin, "origin");
+            Utilities.ThrowIfNull(move, "move");
+            Position origin = move.OriginalPosition;
+            Position destination = move.NewPosition;
             PositionDistance distance = new PositionDistance(origin, destination);
             if ((distance.DistanceX != 1 || distance.DistanceY != 1)
                         && (distance.DistanceX != 0 || distance.DistanceY != 1)
