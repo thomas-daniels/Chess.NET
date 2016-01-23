@@ -36,7 +36,7 @@ namespace ChessDotNet
         {
             get
             {
-                return new ReadOnlyCollection<ChessPiece>(Board.SelectMany(x => x).Where(x => x != ChessPiece.None).ToList());
+                return new ReadOnlyCollection<ChessPiece>(Board.SelectMany(x => x).Where(x => x != null).ToList());
             }
         }
 
