@@ -28,7 +28,7 @@ namespace ChessDotNet.Pieces
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
-            Piece promotion = move.Promotion;
+            ChessPiece promotion = move.Promotion;
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
@@ -37,14 +37,14 @@ namespace ChessDotNet.Pieces
             {
                 if ((int)origin.Rank < (int)destination.Rank)
                     return false;
-                if (destination.Rank == Rank.Eight && promotion == Piece.None)
+                if (destination.Rank == Rank.Eight && promotion == null)
                     return false;
             }
             if (Owner == Player.Black)
             {
                 if ((int)origin.Rank > (int)destination.Rank)
                     return false;
-                if (destination.Rank == Rank.One && promotion == Piece.None)
+                if (destination.Rank == Rank.One && promotion == null)
                     return false;
             }
             bool checkEnPassant = false;
