@@ -2,45 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using ChessDotNet.Pieces;
 
 namespace ChessDotNet
 {
     public static class FenConvert
     {
-        static char ChessPieceToFenRepresentation(ChessPiece piece)
-        {
-            char pieceChar;
-            switch (piece.Piece)
-            {
-                case Piece.King:
-                    pieceChar = 'k';
-                    break;
-                case Piece.Queen:
-                    pieceChar = 'q';
-                    break;
-                case Piece.Rook:
-                    pieceChar = 'r';
-                    break;
-                case Piece.Bishop:
-                    pieceChar = 'b';
-                    break;
-                case Piece.Knight:
-                    pieceChar = 'n';
-                    break;
-                case Piece.Pawn:
-                    pieceChar = 'p';
-                    break;
-                default:
-                    pieceChar = '\0';
-                    break;
-            }
-            if (piece.Player == Player.White)
-            {
-                pieceChar = char.ToUpperInvariant(pieceChar);
-            }
-            return pieceChar;
-        }
         public static string GameToFen(ChessGame game)
         {
             StringBuilder fenBuilder = new StringBuilder();
@@ -51,7 +18,7 @@ namespace ChessDotNet
                 int empty = 0;
                 foreach (ChessPiece piece in row)
                 {
-                    char pieceChar = ChessPieceToFenRepresentation(piece);
+                    char pieceChar = piece.GetFenCharacter()[0];
                     if (pieceChar == '\0')
                     {
                         empty++;
@@ -115,7 +82,7 @@ namespace ChessDotNet
             fenBuilder.Append(' ');
 
             DetailedMove last;
-            if (game.Moves.Count > 0 && (last = game.Moves[game.Moves.Count - 1]).Piece == Piece.Pawn && Math.Abs(last.OriginalPosition.Rank - last.NewPosition.Rank) == 2)
+            if (game.Moves.Count > 0 && (last = game.Moves[game.Moves.Count - 1]).Piece is Pawn && Math.Abs(last.OriginalPosition.Rank - last.NewPosition.Rank) == 2)
             {
                 fenBuilder.Append(last.NewPosition.File.ToString().ToLowerInvariant());
                 fenBuilder.Append(last.Player == Player.White ? 3 : 6);
@@ -131,7 +98,7 @@ namespace ChessDotNet
             int halfmoveCounter = 0;
             foreach (DetailedMove move in movesReversed)
             {
-                if (move.Piece != Piece.Pawn && !move.IsCapture)
+                if (!(move.Piece is Pawn) && !move.IsCapture)
                 {
                     halfmoveCounter++;
                 }
