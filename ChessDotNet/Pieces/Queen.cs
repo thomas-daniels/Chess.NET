@@ -1,4 +1,6 @@
-﻿namespace ChessDotNet.Pieces
+﻿using System;
+
+namespace ChessDotNet.Pieces
 {
     public class Queen : ChessPiece
     {
@@ -16,6 +18,11 @@
         public override string GetFenCharacter()
         {
             return Owner == Player.White ? "Q" : "q";
+        }
+
+        public override bool IsValidDestination(Position origin, Position destination, ChessGame game)
+        {
+            return new Bishop(Owner).IsValidDestination(origin, destination, game) || new Rook(Owner).IsValidDestination(origin, destination, game);
         }
     }
 }
