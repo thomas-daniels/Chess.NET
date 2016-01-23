@@ -20,9 +20,9 @@ namespace ChessDotNet.Pieces
             return Owner == Player.White ? "Q" : "q";
         }
 
-        public override bool IsValidDestination(Position origin, Position destination, ChessGame game)
+        public override bool IsValidMove(Position origin, Position destination, ChessGame game)
         {
-            return new Bishop(Owner).IsValidDestination(origin, destination, game) || new Rook(Owner).IsValidDestination(origin, destination, game);
+            return new Bishop(Owner).IsValidMove(origin, destination, game) || new Rook(Owner).IsValidMove(origin, destination, game);
         }
     }
 }

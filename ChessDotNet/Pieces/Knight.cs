@@ -20,7 +20,7 @@ namespace ChessDotNet.Pieces
             return Owner == Player.White ? "N" : "n";
         }
 
-        public override bool IsValidDestination(Position origin, Position destination, ChessGame game)
+        public override bool IsValidMove(Position origin, Position destination, ChessGame game)
         {
             Utilities.ThrowIfNull(origin, "origin");
             Utilities.ThrowIfNull(destination, "destination");
