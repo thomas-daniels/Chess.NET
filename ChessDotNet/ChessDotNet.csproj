@@ -51,7 +51,6 @@
     <Compile Include="GameStatus.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="ChessPiece.cs" />
-    <Compile Include="Pieces.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
