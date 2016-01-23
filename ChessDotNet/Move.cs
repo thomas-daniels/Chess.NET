@@ -20,21 +20,21 @@
             private set;
         }
 
-        public Piece Promotion
+        public ChessPiece Promotion
         {
             get;
             private set;
         }
 
         public Move(Position originalPosition, Position newPosition, Player player)
-            : this(originalPosition, newPosition, player, Piece.None)
+            : this(originalPosition, newPosition, player, null)
         { }
 
         public Move(string originalPosition, string newPosition, Player player)
-            : this(originalPosition, newPosition, player, Piece.None)
+            : this(originalPosition, newPosition, player, null)
         { }
 
-        public Move(Position originalPosition, Position newPosition, Player player, Piece promotion)
+        public Move(Position originalPosition, Position newPosition, Player player, ChessPiece promotion)
         {
             OriginalPosition = originalPosition;
             NewPosition = newPosition;
@@ -42,7 +42,7 @@
             Promotion = promotion;
         }
 
-        public Move(string originalPosition, string newPosition, Player player, Piece promotion)
+        public Move(string originalPosition, string newPosition, Player player, ChessPiece promotion)
         {
             OriginalPosition = new Position(originalPosition);
             NewPosition = new Position(newPosition);

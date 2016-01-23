@@ -283,24 +283,24 @@ namespace ChessDotNet
             ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             ChessPiece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
             ChessPiece newPiece = movingPiece;
-            bool isCapture = capturedPiece.Piece != Piece.None;
+            bool isCapture = capturedPiece != null;
             CastlingType castle = CastlingType.None;
-            if (movingPiece.Piece == Piece.Pawn)
+            if (movingPiece is Pawn)
             {
                 PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
-                if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition).Piece == Piece.None)
+                if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition) == null)
                 { // en passant
                     isCapture = true;
-                    SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
+                    SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, null);
                 }
                 if (move.NewPosition.Rank == (move.Player == Player.White ? Rank.Eight : Rank.One))
                 {
-                    newPiece = new ChessPiece(move.Promotion, move.Player);
+                    newPiece = move.Promotion;
                 }
             }
-            else if (movingPiece.Piece == Piece.King)
+            else if (movingPiece is King)
             {
-                if (movingPiece.Player == Player.White)
+                if (movingPiece.Owner == Player.White)
                     _whiteKingMoved = true;
                 else
                     _blackKingMoved = true;
@@ -322,11 +322,11 @@ namespace ChessDotNet
                         rookFile = File.H;
                         newRookFile = File.F;
                     }
-                    SetPieceAt(newRookFile, rank, new ChessPiece(Piece.Rook, move.Player));
-                    SetPieceAt(rookFile, rank, ChessPiece.None);
+                    SetPieceAt(newRookFile, rank, new Rook(move.Player));
+                    SetPieceAt(rookFile, rank, null);
                 }
             }
-            else if (movingPiece.Piece == Piece.Rook)
+            else if (movingPiece is Rook)
             {
                 if (move.Player == Player.White)
                 {
@@ -344,9 +344,9 @@ namespace ChessDotNet
                 }
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
-            SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, ChessPiece.None);
+            SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
             WhoseTurn = Utilities.GetOpponentOf(move.Player);
-            _moves.Add(new DetailedMove(move, movingPiece.Piece, isCapture, castle));
+            _moves.Add(new DetailedMove(move, movingPiece, isCapture, castle));
             return true;
         }
 
@@ -406,10 +406,10 @@ namespace ChessDotNet
                 List<Move> moves = new List<Move>();
                 if ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black))
                 {
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Queen));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Rook));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Knight));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Bishop));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Knight(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
                 }
                 else
                 {
@@ -638,10 +638,10 @@ namespace ChessDotNet
                 List<Move> moves = new List<Move>();
                 if (cp is Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
                 {
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Queen));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Rook));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Bishop));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Knight));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
                 }
                 else
                 {

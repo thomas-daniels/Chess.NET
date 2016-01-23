@@ -2,7 +2,7 @@
 {
     public class DetailedMove : Move
     {
-        public Piece Piece
+        public ChessPiece Piece
         {
             get;
             private set;
@@ -20,7 +20,7 @@
             private set;
         }
 
-        public DetailedMove(Position originalPosition, Position newPosition, Player player, Piece promotion, Piece piece, bool isCapture, CastlingType castling) : 
+        public DetailedMove(Position originalPosition, Position newPosition, Player player, ChessPiece promotion, ChessPiece piece, bool isCapture, CastlingType castling) : 
             base(originalPosition, newPosition, player, promotion)
         {
             Piece = piece;
@@ -28,7 +28,7 @@
             Castling = castling;
         }
 
-        public DetailedMove(Move move, Piece piece, bool isCapture, CastlingType castling)
+        public DetailedMove(Move move, ChessPiece piece, bool isCapture, CastlingType castling)
             : this(move.OriginalPosition, move.NewPosition, move.Player, move.Promotion, piece, isCapture, castling)
         {
         }
