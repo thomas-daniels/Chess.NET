@@ -96,5 +96,10 @@ namespace ChessDotNet.Pieces
             }
             return true;
         }
+
+        public override float GetRelativePieceValue()
+        {
+            return float.PositiveInfinity;
+        }
     }
 }

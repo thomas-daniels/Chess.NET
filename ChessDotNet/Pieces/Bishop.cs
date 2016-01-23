@@ -41,5 +41,10 @@
             }
             return true;
         }
+
+        public override float GetRelativePieceValue()
+        {
+            return 3;
+        }
     }
 }

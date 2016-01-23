@@ -44,5 +44,6 @@
 
         public abstract string GetFenCharacter();
         public abstract bool IsValidMove(Move move, ChessGame game);
+        public abstract float GetRelativePieceValue();
     }
 }

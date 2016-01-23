@@ -32,5 +32,10 @@ namespace ChessDotNet.Pieces
                 return false;
             return true;
         }
+
+        public override float GetRelativePieceValue()
+        {
+            return 3;
+        }
     }
 }

@@ -60,5 +60,10 @@ namespace ChessDotNet.Pieces
             }
             return true;
         }
+
+        public override float GetRelativePieceValue()
+        {
+            return 5;
+        }
     }
 }

@@ -26,5 +26,10 @@ namespace ChessDotNet.Pieces
             Utilities.ThrowIfNull(game, "game");
             return new Bishop(Owner).IsValidMove(move, game) || new Rook(Owner).IsValidMove(move, game);
         }
+
+        public override float GetRelativePieceValue()
+        {
+            return 9;
+        }
     }
 }
