@@ -172,17 +172,17 @@ namespace ChessDotNet
             ChessPiece h1 = GetPieceAt(File.H, Rank.One);
             ChessPiece a8 = GetPieceAt(File.A, Rank.Eight);
             ChessPiece h8 = GetPieceAt(File.H, Rank.Eight);
-            if (e1.Piece != Piece.King || e1.Player != Player.White)
+            if (!(e1 is King) || e1.Owner != Player.White)
                 _whiteKingMoved = true;
-            if (e8.Piece != Piece.King || e8.Player != Player.Black)
+            if (!(e8 is King) || e8.Owner != Player.Black)
                 _blackKingMoved = true;
-            if (a1.Piece != Piece.Rook || a1.Player != Player.White)
+            if (!(a1 is Rook) || a1.Owner != Player.White)
                 _whiteRookAMoved = true;
-            if (h1.Piece != Piece.Rook || h1.Player != Player.White)
+            if (!(h1 is Rook) || h1.Owner != Player.White)
                 _whiteRookHMoved = true;
-            if (a8.Piece != Piece.Rook || a8.Player != Player.Black)
+            if (!(a8 is Rook) || a8.Owner != Player.Black)
                 _blackRookAMoved = true;
-            if (h8.Piece != Piece.Rook || h8.Player != Player.Black)
+            if (!(a1 is Rook) || h8.Owner != Player.Black)
                 _blackRookHMoved = true;
         }
 
