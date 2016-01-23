@@ -11,12 +11,12 @@ namespace ChessDotNet
         public static string GameToFen(ChessGame game)
         {
             StringBuilder fenBuilder = new StringBuilder();
-            ChessPiece[][] board = game.GetBoard();
+            Piece[][] board = game.GetBoard();
             for (int i = 0; i < board.Length; i++)
             {
-                ChessPiece[] row = board[i];
+                Piece[] row = board[i];
                 int empty = 0;
-                foreach (ChessPiece piece in row)
+                foreach (Piece piece in row)
                 {
                     char pieceChar = piece == null ? '\0' : piece.GetFenCharacter();
                     if (pieceChar == '\0')

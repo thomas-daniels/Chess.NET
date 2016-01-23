@@ -32,16 +32,16 @@ namespace ChessDotNet
             private set;
         }
 
-        public ReadOnlyCollection<ChessPiece> PiecesOnBoard
+        public ReadOnlyCollection<Piece> PiecesOnBoard
         {
             get
             {
-                return new ReadOnlyCollection<ChessPiece>(Board.SelectMany(x => x).Where(x => x != null).ToList());
+                return new ReadOnlyCollection<Piece>(Board.SelectMany(x => x).Where(x => x != null).ToList());
             }
         }
 
-        protected ChessPiece[][] Board;
-        public ChessPiece[][] GetBoard()
+        protected Piece[][] Board;
+        public Piece[][] GetBoard()
         {
             return CloneBoard(Board);
         }
@@ -103,13 +103,13 @@ namespace ChessDotNet
             }
         }
 
-        protected static ChessPiece[][] CloneBoard(ChessPiece[][] originalBoard)
+        protected static Piece[][] CloneBoard(Piece[][] originalBoard)
         {
             Utilities.ThrowIfNull(originalBoard, "originalBoard");
-            ChessPiece[][] newBoard = new ChessPiece[originalBoard.Length][];
+            Piece[][] newBoard = new Piece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
             {
-                newBoard[i] = new ChessPiece[originalBoard[i].Length];
+                newBoard[i] = new Piece[originalBoard[i].Length];
                 Array.Copy(originalBoard[i], newBoard[i], originalBoard[i].Length);
             }
             return newBoard;
@@ -119,21 +119,21 @@ namespace ChessDotNet
         {
             WhoseTurn = Player.White;
             _moves = new List<DetailedMove>();
-            Board = new ChessPiece[8][];
-            ChessPiece kw = new King(Player.White);
-            ChessPiece kb = new King(Player.Black);
-            ChessPiece qw = new Queen(Player.White);
-            ChessPiece qb = new Queen(Player.Black);
-            ChessPiece rw = new Rook(Player.White);
-            ChessPiece rb = new Rook(Player.Black);
-            ChessPiece nw = new Knight(Player.White);
-            ChessPiece nb = new Knight(Player.Black);
-            ChessPiece bw = new Bishop(Player.White);
-            ChessPiece bb = new Bishop(Player.Black);
-            ChessPiece pw = new Pawn(Player.White);
-            ChessPiece pb = new Pawn(Player.Black);
-            ChessPiece o = null;
-            Board = new ChessPiece[8][]
+            Board = new Piece[8][];
+            Piece kw = new King(Player.White);
+            Piece kb = new King(Player.Black);
+            Piece qw = new Queen(Player.White);
+            Piece qb = new Queen(Player.Black);
+            Piece rw = new Rook(Player.White);
+            Piece rb = new Rook(Player.Black);
+            Piece nw = new Knight(Player.White);
+            Piece nb = new Knight(Player.Black);
+            Piece bw = new Bishop(Player.White);
+            Piece bb = new Bishop(Player.Black);
+            Piece pw = new Pawn(Player.White);
+            Piece pb = new Pawn(Player.Black);
+            Piece o = null;
+            Board = new Piece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
                 new[] { pb, pb, pb, pb, pb, pb, pb, pb },
@@ -161,17 +161,17 @@ namespace ChessDotNet
             }
         }
 
-        public ChessGame(ChessPiece[][] board, Player whoseTurn)
+        public ChessGame(Piece[][] board, Player whoseTurn)
         {
             Board = CloneBoard(board);
             _moves = new List<DetailedMove>();
             WhoseTurn = whoseTurn;
-            ChessPiece e1 = GetPieceAt(File.E, Rank.One);
-            ChessPiece e8 = GetPieceAt(File.E, Rank.Eight);
-            ChessPiece a1 = GetPieceAt(File.A, Rank.One);
-            ChessPiece h1 = GetPieceAt(File.H, Rank.One);
-            ChessPiece a8 = GetPieceAt(File.A, Rank.Eight);
-            ChessPiece h8 = GetPieceAt(File.H, Rank.Eight);
+            Piece e1 = GetPieceAt(File.E, Rank.One);
+            Piece e8 = GetPieceAt(File.E, Rank.Eight);
+            Piece a1 = GetPieceAt(File.A, Rank.One);
+            Piece h1 = GetPieceAt(File.H, Rank.One);
+            Piece a8 = GetPieceAt(File.A, Rank.Eight);
+            Piece h8 = GetPieceAt(File.H, Rank.Eight);
             if (!(e1 is King) || e1.Owner != Player.White)
                 _whiteKingMoved = true;
             if (!(e8 is King) || e8.Owner != Player.Black)
@@ -222,18 +222,18 @@ namespace ChessDotNet
             return new GameStatus(GameEvent.None, Player.None, "No special event");
         }
 
-        public ChessPiece GetPieceAt(Position position)
+        public Piece GetPieceAt(Position position)
         {
             Utilities.ThrowIfNull(position, "position");
             return GetPieceAt(position.File, position.Rank);
         }
 
-        public ChessPiece GetPieceAt(File file, Rank rank)
+        public Piece GetPieceAt(File file, Rank rank)
         {
             return Board[(int)rank][(int)file];
         }
 
-        protected virtual void SetPieceAt(File file, Rank rank, ChessPiece piece)
+        protected virtual void SetPieceAt(File file, Rank rank, Piece piece)
         {
             Board[(int)rank][(int)file] = piece;
         }
@@ -249,10 +249,10 @@ namespace ChessDotNet
             Utilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
-            ChessPiece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+            Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             if (move.Player != WhoseTurn) return false;
             if (piece.Owner != move.Player) return false;
-            ChessPiece pieceAtDestination = GetPieceAt(move.NewPosition);
+            Piece pieceAtDestination = GetPieceAt(move.NewPosition);
             if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
             {
                 return false;
@@ -280,9 +280,9 @@ namespace ChessDotNet
             Utilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
                 return false;
-            ChessPiece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
-            ChessPiece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
-            ChessPiece newPiece = movingPiece;
+            Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+            Piece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
+            Piece newPiece = movingPiece;
             bool isCapture = capturedPiece != null;
             CastlingType castle = CastlingType.None;
             if (movingPiece is Pawn)
@@ -360,7 +360,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
@@ -385,7 +385,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             int[][] directions;
@@ -432,7 +432,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             int[][] directions = new int[][] { new int[] { 2, 1 }, new int[] { -2, -1 }, new int[] { 1, 2 }, new int[] { -1, -2 },
@@ -457,7 +457,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             for (int i = -7; i < 8; i++)
@@ -492,7 +492,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             for (int i = -7; i < 8; i++)
@@ -538,7 +538,7 @@ namespace ChessDotNet
         protected virtual ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
             Utilities.ThrowIfNull(from, "from");
-            ChessPiece cp = GetPieceAt(from);
+            Piece cp = GetPieceAt(from);
             if (cp.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             if (cp is King) return GetValidMovesKing(from, returnIfAny);
             else if (cp is Pawn) return GetValidMovesPawn(from, returnIfAny);
@@ -597,7 +597,7 @@ namespace ChessDotNet
             {
                 for (int j = 0; j < Board[i].Length; j++)
                 {
-                    ChessPiece curr = Board[i][j];
+                    Piece curr = Board[i][j];
                     if (curr is King && curr.Owner == player)
                     {
                         kingPos = new Position((File)j, (Rank)i);
@@ -619,7 +619,7 @@ namespace ChessDotNet
             {
                 for (int j = 0; j < Board[i].Length; j++)
                 {
-                    ChessPiece curr = Board[i][j];
+                    Piece curr = Board[i][j];
                     if (curr != null)
                     {
                         if (takeWhoseTurnInAccount && WhoseTurn != curr.Owner) continue;
@@ -632,7 +632,7 @@ namespace ChessDotNet
             ChessGame copyBlack = new ChessGame(Board, Player.Black);
             for (int i = 0; i < piecePositions.Count; i++)
             {
-                ChessPiece cp = GetPieceAt(piecePositions[i]);
+                Piece cp = GetPieceAt(piecePositions[i]);
                 Player player = cp.Owner;
                 Move move = new Move(piecePositions[i], to, player);
                 List<Move> moves = new List<Move>();

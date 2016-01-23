@@ -2,7 +2,7 @@
 
 namespace ChessDotNet.Pieces
 {
-    public class King : ChessPiece
+    public class King : Piece
     {
         public override Player Owner
         {

@@ -1,6 +1,6 @@
 ﻿namespace ChessDotNet.Pieces
 {
-    public class Bishop : ChessPiece
+    public class Bishop : Piece
     {
         public override Player Owner
         {

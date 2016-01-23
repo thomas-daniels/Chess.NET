@@ -19,7 +19,7 @@ namespace ChessDotNet.Tests
 
             Assert.DoesNotThrow(delegate ()
             {
-                ChessPiece piece = new Bishop(Player.White);
+                Piece piece = new Bishop(Player.White);
                 Utilities.ThrowIfNull(piece, "piece");
             });
         }

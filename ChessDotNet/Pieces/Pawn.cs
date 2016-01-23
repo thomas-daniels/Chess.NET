@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Pieces
 {
-    public class Pawn : ChessPiece
+    public class Pawn : Piece
     {
         public override Player Owner
         {
@@ -28,7 +28,7 @@ namespace ChessDotNet.Pieces
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
-            ChessPiece promotion = move.Promotion;
+            Piece promotion = move.Promotion;
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
@@ -58,7 +58,7 @@ namespace ChessDotNet.Pieces
                 if (origin.Rank == Rank.Seven && game.GetPieceAt(origin.File, Rank.Six) != null)
                     return false;
             }
-            ChessPiece pieceAtDestination = game.GetPieceAt(destination);
+            Piece pieceAtDestination = game.GetPieceAt(destination);
             if (posDelta.DistanceX == 0 && (posDelta.DistanceY == 1 || posDelta.DistanceY == 2))
             {
                 if (pieceAtDestination != null)

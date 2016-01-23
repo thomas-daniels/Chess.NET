@@ -1,6 +1,6 @@
 ﻿namespace ChessDotNet
 {
-    public abstract class ChessPiece
+    public abstract class Piece
     {
         public abstract Player Owner
         {
@@ -14,8 +14,8 @@
                 return true;
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            ChessPiece piece1 = this;
-            ChessPiece piece2 = (ChessPiece)obj;
+            Piece piece1 = this;
+            Piece piece2 = (Piece)obj;
             return piece1.Owner == piece2.Owner;
         }
 
@@ -24,7 +24,7 @@
             return new { Piece = GetFenCharacter(), Owner }.GetHashCode();
         }
 
-        public static bool operator ==(ChessPiece piece1, ChessPiece piece2)
+        public static bool operator ==(Piece piece1, Piece piece2)
         {
             if (ReferenceEquals(piece1, piece2))
                 return true;
@@ -33,7 +33,7 @@
             return piece1.Equals(piece2);
         }
 
-        public static bool operator !=(ChessPiece piece1, ChessPiece piece2)
+        public static bool operator !=(Piece piece1, Piece piece2)
         {
             if (ReferenceEquals(piece1, piece2))
                 return false;
