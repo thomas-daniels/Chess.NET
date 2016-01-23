@@ -906,7 +906,7 @@ namespace ChessDotNet
             return false;
         }
 
-        protected virtual bool WouldBeInCheckAfter(Move move, Player player)
+        public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player);
