@@ -28,7 +28,7 @@ namespace ChessDotNet.Pieces
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
-            Piece promotion = move.Promotion; // TODO: pass as argument
+            Piece promotion = move.Promotion;
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
