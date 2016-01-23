@@ -51,7 +51,12 @@
     <Compile Include="GameStatus.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="ChessPiece.cs" />
-    <Compile Include="Pieces.cs" />
+    <Compile Include="Pieces\Bishop.cs" />
+    <Compile Include="Pieces\King.cs" />
+    <Compile Include="Pieces\Knight.cs" />
+    <Compile Include="Pieces\Pawn.cs" />
+    <Compile Include="Pieces\Queen.cs" />
+    <Compile Include="Pieces\Rook.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="PositionDistance.cs" />

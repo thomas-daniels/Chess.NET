@@ -3,6 +3,8 @@ using NUnit.Framework;
 
 namespace ChessDotNet.Tests
 {
+    using Pieces;
+
     [TestFixture]
     public static class UtilitiesTests
     {
@@ -17,7 +19,7 @@ namespace ChessDotNet.Tests
 
             Assert.DoesNotThrow(delegate ()
             {
-                ChessPiece piece = new ChessPiece(Piece.Bishop, Player.White);
+                ChessPiece piece = new Bishop(Player.White);
                 Utilities.ThrowIfNull(piece, "piece");
             });
         }

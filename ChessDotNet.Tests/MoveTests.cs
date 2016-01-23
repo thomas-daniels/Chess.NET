@@ -2,6 +2,8 @@
 
 namespace ChessDotNet.Tests
 {
+    using Pieces;
+
     [TestFixture]
     public static class MoveTests
     {
@@ -108,8 +110,8 @@ namespace ChessDotNet.Tests
         {
             Position position1 = new Position(File.A, Rank.Seven);
             Position position2 = new Position(File.A, Rank.Eight);
-            Move move1 = new Move(position1, position2, Player.White, Piece.Queen);
-            Move move2 = new Move(position1, position2, Player.White, Piece.Knight);
+            Move move1 = new Move(position1, position2, Player.White, new Queen(Player.White));
+            Move move2 = new Move(position1, position2, Player.White, new Knight(Player.White));
             Assert.AreNotEqual(move1, move2, "move1 and move2 should not be equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");

@@ -4,22 +4,24 @@ using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Tests
 {
+    using Pieces;
+
     [TestFixture]
     public static class ChessGameTests
     {
-        static readonly ChessPiece kw = new ChessPiece(Piece.King, Player.White);
-        static readonly ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
-        static readonly ChessPiece qw = new ChessPiece(Piece.Queen, Player.White);
-        static readonly ChessPiece qb = new ChessPiece(Piece.Queen, Player.Black);
-        static readonly ChessPiece rw = new ChessPiece(Piece.Rook, Player.White);
-        static readonly ChessPiece rb = new ChessPiece(Piece.Rook, Player.Black);
-        static readonly ChessPiece nw = new ChessPiece(Piece.Knight, Player.White);
-        static readonly ChessPiece nb = new ChessPiece(Piece.Knight, Player.Black);
-        static readonly ChessPiece bw = new ChessPiece(Piece.Bishop, Player.White);
-        static readonly ChessPiece bb = new ChessPiece(Piece.Bishop, Player.Black);
-        static readonly ChessPiece pw = new ChessPiece(Piece.Pawn, Player.White);
-        static readonly ChessPiece pb = new ChessPiece(Piece.Pawn, Player.Black);
-        static readonly ChessPiece o = ChessPiece.None;
+        static readonly ChessPiece kw = new King(Player.White);
+        static readonly ChessPiece kb = new King(Player.Black);
+        static readonly ChessPiece qw = new Queen(Player.White);
+        static readonly ChessPiece qb = new Queen(Player.Black);
+        static readonly ChessPiece rw = new Rook(Player.White);
+        static readonly ChessPiece rb = new Rook(Player.Black);
+        static readonly ChessPiece nw = new Knight(Player.White);
+        static readonly ChessPiece nb = new Knight(Player.Black);
+        static readonly ChessPiece bw = new Bishop(Player.White);
+        static readonly ChessPiece bb = new Bishop(Player.Black);
+        static readonly ChessPiece pw = new Pawn(Player.White);
+        static readonly ChessPiece pb = new Pawn(Player.Black);
+        static readonly ChessPiece o = null;
 
         [Test]
         public static void TestArrayGetting()
@@ -1762,7 +1764,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Eight), Player.White, Piece.Queen);
+            Move move = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Eight), Player.White, new Queen(Player.White));
             ChessGame cb = new ChessGame(board, Player.White);
             Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
@@ -1794,7 +1796,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, pb, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.G, Rank.Two), new Position(File.G, Rank.One), Player.Black, Piece.Queen);
+            Move move = new Move(new Position(File.G, Rank.Two), new Position(File.G, Rank.One), Player.Black, new Queen(Player.Black));
             ChessGame cb = new ChessGame(board, Player.Black);
             Assert.True(cb.ApplyMove(move, false), "move should be valid");
 
@@ -2342,10 +2344,10 @@ namespace ChessDotNet.Tests
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, Rank.Seven));
             List<Move> expected = new List<Move>()
             {
-                new Move("H7", "H8", Player.White, Piece.Queen),
-                new Move("H7", "H8", Player.White, Piece.Rook),
-                new Move("H7", "H8", Player.White, Piece.Bishop),
-                new Move("H7", "H8", Player.White, Piece.Knight)
+                new Move("H7", "H8", Player.White, new Queen(Player.White)),
+                new Move("H7", "H8", Player.White, new Rook(Player.White)),
+                new Move("H7", "H8", Player.White, new Bishop(Player.White)),
+                new Move("H7", "H8", Player.White, new Knight(Player.White))
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
@@ -2608,10 +2610,10 @@ namespace ChessDotNet.Tests
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, Rank.Two));
             List<Move> expected = new List<Move>()
             {
-                new Move("H2", "H1", Player.Black, Piece.Queen),
-                new Move("H2", "H1", Player.Black, Piece.Rook),
-                new Move("H2", "H1", Player.Black, Piece.Bishop),
-                new Move("H2", "H1", Player.Black, Piece.Knight)
+                new Move("H2", "H1", Player.Black, new Queen(Player.Black)),
+                new Move("H2", "H1", Player.Black, new Rook(Player.Black)),
+                new Move("H2", "H1", Player.Black, new Knight(Player.Black)),
+                new Move("H2", "H1", Player.Black, new Bishop(Player.Black))
             };
 
             Assert.AreEqual(expected.Count, actual.Count);

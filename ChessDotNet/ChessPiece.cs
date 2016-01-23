@@ -1,33 +1,11 @@
-﻿using System.Globalization;
-
-namespace ChessDotNet
+﻿namespace ChessDotNet
 {
-    public class ChessPiece
+    public abstract class ChessPiece
     {
-        public Piece Piece
+        public abstract Player Owner
         {
             get;
-            private set;
-        }
-
-        public Player Player
-        {
-            get;
-            private set;
-        }
-
-        public static ChessPiece None
-        {
-            get
-            {
-                return new ChessPiece(Piece.None, Player.None);
-            }
-        }
-
-        public ChessPiece(Piece piece, Player player)
-        {
-            Piece = piece;
-            Player = player;
+            set;
         }
 
         public override bool Equals(object obj)
@@ -38,12 +16,12 @@ namespace ChessDotNet
                 return false;
             ChessPiece piece1 = this;
             ChessPiece piece2 = (ChessPiece)obj;
-            return piece1.Piece == piece2.Piece && piece1.Player == piece2.Player;
+            return piece1.Owner == piece2.Owner;
         }
 
         public override int GetHashCode()
         {
-            return new { Piece, Player }.GetHashCode();
+            return new { Piece = GetFenCharacter(), Owner }.GetHashCode();
         }
 
         public static bool operator ==(ChessPiece piece1, ChessPiece piece2)
@@ -64,9 +42,8 @@ namespace ChessDotNet
             return !piece1.Equals(piece2);
         }
 
-        public override string ToString()
-        {
-            return string.Format(CultureInfo.InvariantCulture, "ChessPiece: {0}, {1}", Piece, Player);
-        }
+        public abstract char GetFenCharacter();
+        public abstract bool IsValidMove(Move move, ChessGame game);
+        public abstract float GetRelativePieceValue();
     }
 }
