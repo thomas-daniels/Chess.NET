@@ -21,11 +21,13 @@ namespace ChessDotNet.Pieces
             return Owner == Player.White ? "P" : "p";
         }
 
-        public override bool IsValidMove(Position origin, Position destination, ChessGame game)
+        public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(origin, "origin");
-            Utilities.ThrowIfNull(destination, "destination");
+            Utilities.ThrowIfNull(move, "move");
             Utilities.ThrowIfNull(game, "game");
+            Position origin = move.OriginalPosition;
+            Position destination = move.NewPosition;
+
             ChessPiece promotion = null; // TODO: pass as argument
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)

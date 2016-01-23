@@ -43,6 +43,6 @@
         }
 
         public abstract string GetFenCharacter();
-        public abstract bool IsValidMove(Position origin, Position destination, ChessGame game);
+        public abstract bool IsValidMove(Move move, ChessGame game);
     }
 }

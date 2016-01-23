@@ -18,10 +18,13 @@
             return Owner == Player.White ? "B" : "b";
         }
 
-        public override bool IsValidMove(Position origin, Position destination, ChessGame game)
+        public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(origin, "origin");
-            Utilities.ThrowIfNull(destination, "destination");
+            Utilities.ThrowIfNull(move, "move");
+            Utilities.ThrowIfNull(game, "game");
+            Position origin = move.OriginalPosition;
+            Position destination = move.NewPosition;
+
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if (posDelta.DistanceX != posDelta.DistanceY)
                 return false;
