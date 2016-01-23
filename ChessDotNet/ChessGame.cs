@@ -370,7 +370,7 @@ namespace ChessDotNet
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                     || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                     continue;
-                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Owner);
                 if (IsValidMove(move))
                 {
                     validMoves.Add(move);
@@ -389,7 +389,7 @@ namespace ChessDotNet
             int l0 = Board.Length;
             int l1 = Board[0].Length;
             int[][] directions;
-            if (cp.Player == Player.Black)
+            if (cp.Owner == Player.Black)
             {
                 directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 1, 1 }, new int[] { -1, 1 } };
             }
@@ -402,7 +402,7 @@ namespace ChessDotNet
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                     || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                     continue;
-                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Owner);
                 List<Move> moves = new List<Move>();
                 if ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black))
                 {
@@ -442,7 +442,7 @@ namespace ChessDotNet
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                     || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
                     continue;
-                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Player);
+                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), cp.Owner);
                 if (IsValidMove(move))
                 {
                     validMoves.Add(move);
@@ -466,7 +466,7 @@ namespace ChessDotNet
                     continue;
                 if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
                 {
-                    Move move = new Move(from, new Position(from.File, from.Rank + i), cp.Player);
+                    Move move = new Move(from, new Position(from.File, from.Rank + i), cp.Owner);
                     if (IsValidMove(move))
                     {
                         validMoves.Add(move);
@@ -476,7 +476,7 @@ namespace ChessDotNet
                 }
                 if ((int)from.File + i > -1 && (int)from.File + i < l1)
                 {
-                    Move move = new Move(from, new Position(from.File + i, from.Rank), cp.Player);
+                    Move move = new Move(from, new Position(from.File + i, from.Rank), cp.Owner);
                     if (IsValidMove(move))
                     {
                         validMoves.Add(move);
@@ -502,7 +502,7 @@ namespace ChessDotNet
                 if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
                     && (int)from.File + i > -1 && (int)from.File + i < l1)
                 {
-                    Move move = new Move(from, new Position(from.File + i, from.Rank + i), cp.Player);
+                    Move move = new Move(from, new Position(from.File + i, from.Rank + i), cp.Owner);
                     if (IsValidMove(move))
                     {
                         validMoves.Add(move);
@@ -513,7 +513,7 @@ namespace ChessDotNet
                 if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
                     && (int)from.File + i > -1 && (int)from.File + i < l1)
                 {
-                    Move move = new Move(from, new Position(from.File + i, from.Rank - i), cp.Player);
+                    Move move = new Move(from, new Position(from.File + i, from.Rank - i), cp.Owner);
                     if (IsValidMove(move))
                     {
                         validMoves.Add(move);
@@ -539,25 +539,15 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(from, "from");
             ChessPiece cp = GetPieceAt(from);
-            if (cp.Player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
-            Piece piece = cp.Piece;
-            switch (piece)
-            {
-                case Piece.King:
-                    return GetValidMovesKing(from, returnIfAny);
-                case Piece.Pawn:
-                    return GetValidMovesPawn(from, returnIfAny);
-                case Piece.Knight:
-                    return GetValidMovesKnight(from, returnIfAny);
-                case Piece.Rook:
-                    return GetValidMovesRook(from, returnIfAny);
-                case Piece.Bishop:
-                    return GetValidMovesBishop(from, returnIfAny);
-                case Piece.Queen:
-                    return GetValidMovesQueen(from, returnIfAny);
-                default:
-                    return new ReadOnlyCollection<Move>(new List<Move>());
-            }
+            if (cp.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
+            if (cp is King) return GetValidMovesKing(from, returnIfAny);
+            else if (cp is Pawn) return GetValidMovesPawn(from, returnIfAny);
+            else if (cp is Knight) return GetValidMovesKnight(from, returnIfAny);
+            else if (cp is Bishop) return GetValidMovesBishop(from, returnIfAny);
+            else if (cp is Rook) return GetValidMovesRook(from, returnIfAny);
+            else if (cp is Queen) return GetValidMovesQueen(from, returnIfAny);
+            else return new ReadOnlyCollection<Move>(new List<Move>());
+            // TODO: use polymorphism, like for IsValidMove
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Player player)
@@ -573,7 +563,7 @@ namespace ChessDotNet
             {
                 for (int y = 0; y < Board[x].Length; y++)
                 {
-                    if (Board[x][y].Player == player)
+                    if (Board[x][y].Owner == player)
                     {
                         validMoves.AddRange(GetValidMoves(new Position((File)y, (Rank)x), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)
@@ -608,7 +598,7 @@ namespace ChessDotNet
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     ChessPiece curr = Board[i][j];
-                    if (curr.Piece == Piece.King && curr.Player == player)
+                    if (curr is King && curr.Owner == player)
                     {
                         kingPos = new Position((File)j, (Rank)i);
                     }
@@ -630,9 +620,9 @@ namespace ChessDotNet
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     ChessPiece curr = Board[i][j];
-                    if (curr.Piece != Piece.None)
+                    if (curr != null)
                     {
-                        if (takeWhoseTurnInAccount && WhoseTurn != curr.Player) continue;
+                        if (takeWhoseTurnInAccount && WhoseTurn != curr.Owner) continue;
                         piecePositions.Add(new Position((File)j, (Rank)i));
                     }
                 }
@@ -643,10 +633,10 @@ namespace ChessDotNet
             for (int i = 0; i < piecePositions.Count; i++)
             {
                 ChessPiece cp = GetPieceAt(piecePositions[i]);
-                Player player = cp.Player;
+                Player player = cp.Owner;
                 Move move = new Move(piecePositions[i], to, player);
                 List<Move> moves = new List<Move>();
-                if (cp.Piece == Piece.Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
+                if (cp is Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
                 {
                     moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Queen));
                     moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, Piece.Rook));
