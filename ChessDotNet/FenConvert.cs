@@ -18,7 +18,7 @@ namespace ChessDotNet
                 int empty = 0;
                 foreach (ChessPiece piece in row)
                 {
-                    char pieceChar = piece.GetFenCharacter();
+                    char pieceChar = piece == null ? '\0' : piece.GetFenCharacter();
                     if (pieceChar == '\0')
                     {
                         empty++;
