@@ -186,10 +186,10 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
         }
 
-        public virtual int GetRelativePieceValue(Player player)
+        public virtual float GetRelativePieceValue(Player player)
         {
-            return PiecesOnBoard.Where(x => x.Player == player && x.Piece != Piece.King)
-                                .Select(Utilities.GetRelativePieceValue)
+            return PiecesOnBoard.Where(x => x.Owner == player && !(x is King))
+                                .Select(y => y.GetRelativePieceValue())
                                 .Sum();
         }
 
