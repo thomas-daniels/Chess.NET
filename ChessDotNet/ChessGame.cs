@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ChessDotNet.Pieces;
 
 namespace ChessDotNet
 {
@@ -119,19 +120,19 @@ namespace ChessDotNet
             WhoseTurn = Player.White;
             _moves = new List<DetailedMove>();
             Board = new ChessPiece[8][];
-            ChessPiece kw = new ChessPiece(Piece.King, Player.White);
-            ChessPiece kb = new ChessPiece(Piece.King, Player.Black);
-            ChessPiece qw = new ChessPiece(Piece.Queen, Player.White);
-            ChessPiece qb = new ChessPiece(Piece.Queen, Player.Black);
-            ChessPiece rw = new ChessPiece(Piece.Rook, Player.White);
-            ChessPiece rb = new ChessPiece(Piece.Rook, Player.Black);
-            ChessPiece nw = new ChessPiece(Piece.Knight, Player.White);
-            ChessPiece nb = new ChessPiece(Piece.Knight, Player.Black);
-            ChessPiece bw = new ChessPiece(Piece.Bishop, Player.White);
-            ChessPiece bb = new ChessPiece(Piece.Bishop, Player.Black);
-            ChessPiece pw = new ChessPiece(Piece.Pawn, Player.White);
-            ChessPiece pb = new ChessPiece(Piece.Pawn, Player.Black);
-            ChessPiece o = ChessPiece.None;
+            ChessPiece kw = new King(Player.White);
+            ChessPiece kb = new King(Player.Black);
+            ChessPiece qw = new Queen(Player.White);
+            ChessPiece qb = new Queen(Player.Black);
+            ChessPiece rw = new Rook(Player.White);
+            ChessPiece rb = new Rook(Player.Black);
+            ChessPiece nw = new Knight(Player.White);
+            ChessPiece nb = new Knight(Player.Black);
+            ChessPiece bw = new Bishop(Player.White);
+            ChessPiece bb = new Bishop(Player.Black);
+            ChessPiece pw = new Pawn(Player.White);
+            ChessPiece pb = new Pawn(Player.Black);
+            ChessPiece o = null;
             Board = new ChessPiece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
