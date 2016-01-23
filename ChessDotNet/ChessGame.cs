@@ -235,7 +235,6 @@ namespace ChessDotNet
 
         protected virtual void SetPieceAt(File file, Rank rank, ChessPiece piece)
         {
-            Utilities.ThrowIfNull(piece, "piece");
             Board[(int)rank][(int)file] = piece;
         }
 
