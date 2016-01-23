@@ -24,9 +24,9 @@ namespace ChessDotNet.Pieces
             HasCastlingAbility = hasCastlingAbility;
         }
 
-        public override string GetFenCharacter()
+        public override char GetFenCharacter()
         {
-            return Owner == Player.White ? "K" : "k";
+            return Owner == Player.White ? 'K' : 'k';
         }
 
         public override bool IsValidMove(Move move, ChessGame game)

@@ -15,9 +15,9 @@ namespace ChessDotNet.Pieces
             Owner = owner;
         }
 
-        public override string GetFenCharacter()
+        public override char GetFenCharacter()
         {
-            return Owner == Player.White ? "Q" : "q";
+            return Owner == Player.White ? 'Q' : 'q';
         }
 
         public override bool IsValidMove(Move move, ChessGame game)

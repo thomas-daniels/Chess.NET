@@ -42,7 +42,7 @@
             return !piece1.Equals(piece2);
         }
 
-        public abstract string GetFenCharacter();
+        public abstract char GetFenCharacter();
         public abstract bool IsValidMove(Move move, ChessGame game);
         public abstract float GetRelativePieceValue();
     }

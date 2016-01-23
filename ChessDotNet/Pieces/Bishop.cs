@@ -13,9 +13,9 @@
             Owner = owner;
         }
 
-        public override string GetFenCharacter()
+        public override char GetFenCharacter()
         {
-            return Owner == Player.White ? "B" : "b";
+            return Owner == Player.White ? 'B' : 'b';
         }
 
         public override bool IsValidMove(Move move, ChessGame game)
