@@ -359,16 +359,9 @@ namespace ChessDotNet
         protected virtual ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
             Utilities.ThrowIfNull(from, "from");
-            Piece cp = GetPieceAt(from);
-            if (cp.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
-            if (cp is King) return GetValidMovesKing(from, returnIfAny);
-            else if (cp is Pawn) return GetValidMovesPawn(from, returnIfAny);
-            else if (cp is Knight) return GetValidMovesKnight(from, returnIfAny);
-            else if (cp is Bishop) return GetValidMovesBishop(from, returnIfAny);
-            else if (cp is Rook) return GetValidMovesRook(from, returnIfAny);
-            else if (cp is Queen) return GetValidMovesQueen(from, returnIfAny);
-            else return new ReadOnlyCollection<Move>(new List<Move>());
-            // TODO: use polymorphism, like for IsValidMove
+            Piece piece = GetPieceAt(from);
+            if (piece == null || piece.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
+            return piece.GetValidMoves(from, returnIfAny, this);
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Player player)
