@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Pieces
 {
@@ -30,6 +31,16 @@ namespace ChessDotNet.Pieces
         public override float GetRelativePieceValue()
         {
             return 9;
+        }
+
+        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
+        {
+            Utilities.ThrowIfNull(from, "from");
+            ReadOnlyCollection<Move> horizontalVerticalMoves = new Rook(Owner).GetValidMoves(from, returnIfAny, game);
+            if (returnIfAny && horizontalVerticalMoves.Count > 0)
+                return horizontalVerticalMoves;
+            ReadOnlyCollection<Move> diagonalMoves = new Bishop(Owner).GetValidMoves(from, returnIfAny, game);
+            return new ReadOnlyCollection<Move>(horizontalVerticalMoves.Concat(diagonalMoves).ToList());
         }
     }
 }
