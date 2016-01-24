@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Pieces
@@ -107,6 +108,54 @@ namespace ChessDotNet.Pieces
         public override float GetRelativePieceValue()
         {
             return 1;
+        }
+
+        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
+        {
+            Utilities.ThrowIfNull(from, "from");
+            List<Move> validMoves = new List<Move>();
+            Piece piece = game.GetPieceAt(from);
+            Piece[][] board = game.GetBoard();
+            int l0 = board.Length;
+            int l1 = board[0].Length;
+            int[][] directions;
+            if (piece.Owner == Player.Black)
+            {
+                directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 1, 1 }, new int[] { -1, 1 } };
+            }
+            else
+            {
+                directions = new int[][] { new int[] { 0, -1 }, new int[] { 0, -2 }, new int[] { -1, -1 }, new int[] { 1, -1 } };
+            }
+            foreach (int[] dir in directions)
+            {
+                if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
+                    || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                    continue;
+                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
+                List<Move> moves = new List<Move>();
+                if ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black))
+                {
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Knight(move.Player)));
+                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
+                }
+                else
+                {
+                    moves.Add(move);
+                }
+                foreach (Move m in moves)
+                {
+                    if (game.IsValidMove(m))
+                    {
+                        validMoves.Add(m);
+                        if (returnIfAny)
+                            return new ReadOnlyCollection<Move>(validMoves);
+                    }
+                }
+            }
+            return new ReadOnlyCollection<Move>(validMoves);
         }
     }
 }
