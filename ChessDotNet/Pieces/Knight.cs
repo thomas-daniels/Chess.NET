@@ -38,7 +38,6 @@ namespace ChessDotNet.Pieces
         {
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
-            Piece[][] board = game.GetBoard();
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
             int[][] directions = new int[][] { new int[] { 2, 1 }, new int[] { -2, -1 }, new int[] { 1, 2 }, new int[] { -1, -2 },
