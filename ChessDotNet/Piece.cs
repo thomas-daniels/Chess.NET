@@ -46,7 +46,6 @@ namespace ChessDotNet
 
         public abstract char GetFenCharacter();
         public abstract bool IsValidMove(Move move, ChessGame game);
-        public abstract float GetRelativePieceValue();
         public abstract ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game);
     }
 }

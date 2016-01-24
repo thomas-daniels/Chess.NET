@@ -186,13 +186,6 @@ namespace ChessDotNet
                 _blackRookHMoved = true;
         }
 
-        public virtual float GetRelativePieceValue(Player player)
-        {
-            return PiecesOnBoard.Where(x => x.Owner == player && !(x is King))
-                                .Select(y => y.GetRelativePieceValue())
-                                .Sum();
-        }
-
         protected virtual GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
             if (_drawn)

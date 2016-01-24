@@ -28,11 +28,6 @@ namespace ChessDotNet.Pieces
             return new Bishop(Owner).IsValidMove(move, game) || new Rook(Owner).IsValidMove(move, game);
         }
 
-        public override float GetRelativePieceValue()
-        {
-            return 9;
-        }
-
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
             Utilities.ThrowIfNull(from, "from");

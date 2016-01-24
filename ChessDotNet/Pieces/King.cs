@@ -101,11 +101,6 @@ namespace ChessDotNet.Pieces
             return true;
         }
 
-        public override float GetRelativePieceValue()
-        {
-            return float.PositiveInfinity;
-        }
-
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
             Utilities.ThrowIfNull(from, "from");

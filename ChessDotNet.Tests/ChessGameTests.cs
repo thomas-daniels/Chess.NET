@@ -2866,56 +2866,6 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public static void TestGetRelativePieceValueWhite()
-        {
-            ChessGame game = new ChessGame();
-            Assert.AreEqual(39, game.GetRelativePieceValue(Player.White));
-        }
-
-        [Test]
-        public static void TestGetRelativePieceValueBlack()
-        {
-            ChessGame game = new ChessGame();
-            Assert.AreEqual(39, game.GetRelativePieceValue(Player.Black));
-        }
-
-        [Test]
-        public static void TestGetRelativePieceValueWhite_IncompleteBoard()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { o, o, o, kb, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, pw },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { qw, o, o, o, o, o, o, nw },
-                new[] { o, o, o, kw, o, o, o, o }
-            };
-            ChessGame game = new ChessGame(board, Player.White);
-            Assert.AreEqual(13, game.GetRelativePieceValue(Player.White));
-        }
-
-        [Test]
-        public static void TestGetRelativePieceValueBlack_IncompleteBoard()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { rb, o, o, kb, o, o, o, rb },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { pb, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, kw, o, o, o, o }
-            };
-            ChessGame game = new ChessGame(board, Player.Black);
-            Assert.AreEqual(11, game.GetRelativePieceValue(Player.Black));
-        }
-
-        [Test]
         public static void TestCanAnyPieceMoveToWhite()
         {
             Piece[][] board = new Piece[8][]

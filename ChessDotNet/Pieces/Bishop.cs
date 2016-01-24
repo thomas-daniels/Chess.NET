@@ -46,11 +46,6 @@ namespace ChessDotNet.Pieces
             return true;
         }
 
-        public override float GetRelativePieceValue()
-        {
-            return 3;
-        }
-
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
             List<Move> validMoves = new List<Move>();
