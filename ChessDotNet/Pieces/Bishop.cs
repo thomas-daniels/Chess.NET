@@ -50,9 +50,8 @@ namespace ChessDotNet.Pieces
         {
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
-            Piece[][] board = game.GetBoard();
-            int l0 = board.Length;
-            int l1 = board[0].Length;
+            int l0 = game.BoardHeight;
+            int l1 = game.BoardWidth;
             for (int i = -7; i < 8; i++)
             {
                 if (i == 0)

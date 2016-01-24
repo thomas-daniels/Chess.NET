@@ -110,9 +110,8 @@ namespace ChessDotNet.Pieces
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
-            Piece[][] board = game.GetBoard();
-            int l0 = board.Length;
-            int l1 = board[0].Length;
+            int l0 = game.BoardHeight;
+            int l1 = game.BoardWidth;
             int[][] directions;
             if (piece.Owner == Player.Black)
             {

@@ -106,9 +106,8 @@ namespace ChessDotNet.Pieces
             Utilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
-            Piece[][] board = game.GetBoard();
-            int l0 = board.Length;
-            int l1 = board[0].Length;
+            int l0 = game.BoardHeight;
+            int l1 = game.BoardWidth;
             int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
                         new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } };
             foreach (int[] dir in directions)
