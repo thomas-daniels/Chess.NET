@@ -40,6 +40,22 @@ namespace ChessDotNet
             }
         }
 
+        public virtual int BoardWidth
+        {
+            get
+            {
+                return 8;
+            }
+        }
+
+        public virtual int BoardHeight
+        {
+            get
+            {
+                return 8;
+            }
+        }
+
         protected Piece[][] Board;
         public Piece[][] GetBoard()
         {
