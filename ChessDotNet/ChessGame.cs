@@ -301,13 +301,7 @@ namespace ChessDotNet
             return castle;
         }
 
-        public MoveType ApplyMove(Move move, bool alreadyValidated)
-        {
-            Utilities.ThrowIfNull(move, "move");
-            return ApplyMove(move, alreadyValidated, true);
-        }
-
-        protected virtual MoveType ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
+        public virtual MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             Utilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
@@ -499,7 +493,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player);
-            copy.ApplyMove(move, true, false);
+            copy.ApplyMove(move, true);
             GameStatus status = copy.CalculateStatus(player, false);
             return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
         }
