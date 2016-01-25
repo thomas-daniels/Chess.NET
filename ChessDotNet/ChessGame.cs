@@ -278,6 +278,29 @@ namespace ChessDotNet
             return true;
         }
 
+        protected virtual CastlingType ApplyCastle(Move move)
+        {
+            CastlingType castle;
+            Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
+            File rookFile;
+            File newRookFile;
+            if (move.NewPosition.File == File.C)
+            {
+                castle = CastlingType.QueenSide;
+                rookFile = File.A;
+                newRookFile = File.D;
+            }
+            else
+            {
+                castle = CastlingType.KingSide;
+                rookFile = File.H;
+                newRookFile = File.F;
+            }
+            SetPieceAt(newRookFile, rank, new Rook(move.Player));
+            SetPieceAt(rookFile, rank, null);
+            return castle;
+        }
+
         public bool ApplyMove(Move move, bool alreadyValidated)
         {
             Utilities.ThrowIfNull(move, "move");
@@ -316,23 +339,7 @@ namespace ChessDotNet
 
                 if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
                 {
-                    Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
-                    File rookFile;
-                    File newRookFile;
-                    if (move.NewPosition.File == File.C)
-                    {
-                        castle = CastlingType.QueenSide;
-                        rookFile = File.A;
-                        newRookFile = File.D;
-                    }
-                    else
-                    {
-                        castle = CastlingType.KingSide;
-                        rookFile = File.H;
-                        newRookFile = File.F;
-                    }
-                    SetPieceAt(newRookFile, rank, new Rook(move.Player));
-                    SetPieceAt(rookFile, rank, null);
+                    castle = ApplyCastle(move);
                 }
             }
             else if (movingPiece is Rook)
