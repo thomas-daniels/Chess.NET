@@ -170,7 +170,7 @@ namespace ChessDotNet
                 throw new ArgumentException("The Count of moves has to be greater than 0.");
             foreach (Move m in moves)
             {
-                if (!ApplyMove(m, movesAreValidated))
+                if (ApplyMove(m, movesAreValidated) == MoveType.Invalid)
                 {
                     throw new ArgumentException("Invalid move passed to ChessGame constructor.");
                 }
@@ -301,17 +301,18 @@ namespace ChessDotNet
             return castle;
         }
 
-        public bool ApplyMove(Move move, bool alreadyValidated)
+        public MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             Utilities.ThrowIfNull(move, "move");
             return ApplyMove(move, alreadyValidated, true);
         }
 
-        protected virtual bool ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
+        protected virtual MoveType ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
         {
             Utilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
-                return false;
+                return MoveType.Invalid;
+            MoveType type = MoveType.Move;
             Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             Piece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
             Piece newPiece = movingPiece;
@@ -328,6 +329,7 @@ namespace ChessDotNet
                 if (move.NewPosition.Rank == (move.Player == Player.White ? Rank.Eight : Rank.One))
                 {
                     newPiece = move.Promotion;
+                    type |= MoveType.Promotion;
                 }
             }
             else if (movingPiece is King)
@@ -340,6 +342,7 @@ namespace ChessDotNet
                 if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
                 {
                     castle = ApplyCastle(move);
+                    type |= MoveType.Castling;
                 }
             }
             else if (movingPiece is Rook)
@@ -359,11 +362,15 @@ namespace ChessDotNet
                         _blackRookHMoved = true;
                 }
             }
+            if (isCapture)
+            {
+                type |= MoveType.Capture;
+            }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
             WhoseTurn = Utilities.GetOpponentOf(move.Player);
             _moves.Add(new DetailedMove(move, movingPiece, isCapture, castle));
-            return true;
+            return type;
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Position from)

@@ -1690,7 +1690,7 @@ namespace ChessDotNet.Tests
         {
             ChessGame cb = new ChessGame();
             Move move1 = new Move(new Position(File.E, Rank.Two), new Position(File.E, Rank.Three), Player.White);
-            Assert.True(cb.ApplyMove(move1, false));
+            Assert.AreNotEqual(cb.ApplyMove(move1, false), MoveType.Invalid);
             Piece[][] expected = new Piece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
@@ -1704,7 +1704,7 @@ namespace ChessDotNet.Tests
             };
             Assert.AreEqual(expected, cb.GetBoard(), "Unexpected board layout after applying move1");
             Move move2 = new Move(new Position(File.E, Rank.Three), new Position(File.E, Rank.Four), Player.White);
-            Assert.True(cb.ApplyMove(move2, true));
+            Assert.AreNotEqual(cb.ApplyMove(move2, true), MoveType.Invalid);
             expected = new Piece[8][]
             {
                 new[] { rb, nb, bb, qb, kb, bb, nb, rb },
@@ -1766,7 +1766,7 @@ namespace ChessDotNet.Tests
             };
             Move move = new Move(new Position(File.A, Rank.Seven), new Position(File.A, Rank.Eight), Player.White, new Queen(Player.White));
             ChessGame cb = new ChessGame(board, Player.White);
-            Assert.True(cb.ApplyMove(move, false), "move should be valid");
+            Assert.AreNotEqual(cb.ApplyMove(move, false), MoveType.Invalid, "move should be valid");
 
             Piece[][] expected = new Piece[8][]
             {
@@ -1798,7 +1798,7 @@ namespace ChessDotNet.Tests
             };
             Move move = new Move(new Position(File.G, Rank.Two), new Position(File.G, Rank.One), Player.Black, new Queen(Player.Black));
             ChessGame cb = new ChessGame(board, Player.Black);
-            Assert.True(cb.ApplyMove(move, false), "move should be valid");
+            Assert.AreNotEqual(cb.ApplyMove(move, false), MoveType.Invalid, "move should be valid");
 
             Piece[][] expected = new Piece[8][]
             {
@@ -2793,7 +2793,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(new Move("D7", "D6", Player.Black), true);
             cb.ApplyMove(new Move("D1", "F3", Player.White), true);
             cb.ApplyMove(new Move("H7", "H6", Player.Black), true);
-            Assert.True(cb.ApplyMove(new Move("F3", "F7", Player.White), false));
+            Assert.AreNotEqual(cb.ApplyMove(new Move("F3", "F7", Player.White), false), MoveType.Invalid);
 
             Assert.AreEqual(GameEvent.Checkmate, cb.Status.Event);
             Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
@@ -2858,7 +2858,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.True(cb.ApplyMove(new Move("A7", "A8", Player.Black), false));
+            Assert.AreNotEqual(cb.ApplyMove(new Move("A7", "A8", Player.Black), false), MoveType.Invalid);
 
             Assert.AreEqual(GameEvent.None, cb.Status.Event);
             Assert.AreEqual(Player.None, cb.Status.PlayerWhoCausedEvent);
@@ -2911,6 +2911,39 @@ namespace ChessDotNet.Tests
 
             game = new ChessGame(board, Player.White);
             Assert.True(game.CanAnyPieceMoveTo(new Position(File.B, Rank.Eight), false));
+        }
+
+        [Test]
+        public static void TestApplyMove_ReturnedMoveType()
+        {
+            ChessGame game = new ChessGame();
+            MoveType type = game.ApplyMove(new Move("E2", "E4", Player.White), true);
+            Assert.AreEqual(type, MoveType.Move);
+            type = game.ApplyMove(new Move("D7", "D5", Player.Black), true);
+            Assert.AreEqual(type, MoveType.Move);
+            type = game.ApplyMove(new Move("E4", "D5", Player.White), true);
+            Assert.AreEqual(type, MoveType.Move | MoveType.Capture);
+            type = game.ApplyMove(new Move("A5", "A4", Player.White), false);
+            Assert.AreEqual(type, MoveType.Invalid);
+
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { rb, o, o, kb, o, o, o, o },
+                new[] { o, pw, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pb, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
+            };
+            game = new ChessGame(board, Player.White);
+            type = game.ApplyMove(new Move("E1", "G1", Player.White), true);
+            Assert.AreEqual(type, MoveType.Move | MoveType.Castling);
+            type = game.ApplyMove(new Move("A2", "A1", Player.Black), true);
+            Assert.AreEqual(type, MoveType.Move | MoveType.Promotion);
+            type = game.ApplyMove(new Move("B7", "A8", Player.White), true);
+            Assert.AreEqual(type, MoveType.Move | MoveType.Capture | MoveType.Promotion);
         }
     }
 }
