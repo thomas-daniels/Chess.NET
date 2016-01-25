@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessDotNet.Tests", "ChessD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessDotNet.Variants", "ChessDotNet.Variants\ChessDotNet.Variants.csproj", "{BD136017-2E1F-48F4-B072-958F9BA853C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessDotNet.Variants.Tests", "ChessDotNet.Variants.Tests\ChessDotNet.Variants.Tests.csproj", "{BDE515B6-CFF3-40E5-ACFF-BF7873487DA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD136017-2E1F-48F4-B072-958F9BA853C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD136017-2E1F-48F4-B072-958F9BA853C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD136017-2E1F-48F4-B072-958F9BA853C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE515B6-CFF3-40E5-ACFF-BF7873487DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE515B6-CFF3-40E5-ACFF-BF7873487DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE515B6-CFF3-40E5-ACFF-BF7873487DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE515B6-CFF3-40E5-ACFF-BF7873487DA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
