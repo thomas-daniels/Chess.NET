@@ -35,11 +35,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Atomic\AtomicChessGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Atomic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
       <Project>{f089f32e-0218-4f80-a65d-484f6eb806bd}</Project>
