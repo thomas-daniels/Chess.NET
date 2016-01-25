@@ -1,9 +1,14 @@
-﻿namespace ChessDotNet.Variants.Atomic
-{
-    using Pieces;
+﻿using System.Collections.Generic;
+using ChessDotNet.Pieces;
 
+namespace ChessDotNet.Variants.Atomic
+{
     public class AtomicChessGame : ChessGame
     {
+        public AtomicChessGame() : base() { }
+        public AtomicChessGame(Piece[][] board, Player whoseTurn) : base(board, whoseTurn) { }
+        public AtomicChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
+
         public override MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             MoveType type = base.ApplyMove(move, alreadyValidated);
