@@ -50,6 +50,7 @@
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="MoveType.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\King.cs" />
