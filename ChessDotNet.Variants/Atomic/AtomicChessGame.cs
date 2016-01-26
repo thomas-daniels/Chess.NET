@@ -28,5 +28,25 @@ namespace ChessDotNet.Variants.Atomic
             }
             return type;
         }
+
+        protected override GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
+        {
+            bool kingFound = false;
+            for (int x = 0; x < BoardWidth; x++)
+            {
+                for (int y = 0; y < BoardHeight; y++)
+                {
+                    if (Board[x][y] is King && Board[x][y].Owner == playerToValidate)
+                    {
+                        kingFound = true;
+                    }
+                }
+            }
+            if (!kingFound)
+            {
+                return new GameStatus(GameEvent.VariantEnd, Utilities.GetOpponentOf(playerToValidate), "King exploded");
+            }
+            return base.CalculateStatus(playerToValidate, validateHasAnyValidMoves);
+        }
     }
 }
