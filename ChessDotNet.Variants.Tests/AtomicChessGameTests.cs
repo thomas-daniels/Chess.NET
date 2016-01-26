@@ -54,5 +54,27 @@ namespace ChessDotNet.Variants.Tests
             Piece[][] actual = game.GetBoard();
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void TestVariantEnd()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { rb, nb, bb, qb, kb, bb, nb, rb },
+                new[] { o, pb, pb, pb, o, pb, pb, pb },
+                new[] { pb, o, o, o, pb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, pw, qw, o },
+                new[] { pw, pw, pw, pw, o, pw, pw, pw },
+                new[] { rw, nw, bw, o, kw, bw, nw, rw }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.White);
+            game.ApplyMove(new Move("F3", "F7", Player.White), true);
+            GameStatus status = game.Status;
+            Assert.AreEqual(GameEvent.VariantEnd, status.Event);
+            Assert.AreEqual("King exploded", status.EventExplanation);
+            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+        }
     }
 }
