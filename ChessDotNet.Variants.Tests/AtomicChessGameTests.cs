@@ -117,5 +117,43 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(GameEvent.Stalemate, status.Event);
             Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
         }
+
+        [Test]
+        public void TestStalemateAdjacentKings()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, qw, qw },
+                new[] { o, o, o, o, o, o, kb, kw }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.Black);
+            GameStatus status = game.Status;
+            Assert.AreEqual(GameEvent.Stalemate, status.Event);
+            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+        }
+
+        [Test]
+        public void TestValidMoveAdjacentKings()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, pw, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, kb, o, kw }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.Black);
+            Assert.True(game.IsValidMove(new Move("F1", "G1", Player.Black)));
+        }
     }
 }
