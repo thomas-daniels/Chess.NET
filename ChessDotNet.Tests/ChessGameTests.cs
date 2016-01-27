@@ -2866,54 +2866,6 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public static void TestCanAnyPieceMoveToWhite()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { o, o, o, kb, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, pw },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { qw, o, o, o, o, o, o, nw },
-                new[] { o, o, o, kw, o, o, o, o }
-            };
-            ChessGame game = new ChessGame(board, Player.White);
-            Assert.True(game.CanAnyPieceMoveTo(new Position(File.A, Rank.Three), true));
-
-            game = new ChessGame(board, Player.Black);
-            Assert.False(game.CanAnyPieceMoveTo(new Position(File.A, Rank.Three), true));
-
-            game = new ChessGame(board, Player.Black);
-            Assert.True(game.CanAnyPieceMoveTo(new Position(File.A, Rank.Three), false));
-        }
-
-        [Test]
-        public static void TestCanAnyPieceMoveToBlack()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { rb, o, o, kb, o, o, o, rb },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { pb, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, kw, o, o, o, o }
-            };
-            ChessGame game = new ChessGame(board, Player.Black);
-            Assert.True(game.CanAnyPieceMoveTo(new Position(File.B, Rank.Eight), true));
-
-            game = new ChessGame(board, Player.White);
-            Assert.False(game.CanAnyPieceMoveTo(new Position(File.B, Rank.Eight), true));
-
-            game = new ChessGame(board, Player.White);
-            Assert.True(game.CanAnyPieceMoveTo(new Position(File.B, Rank.Eight), false));
-        }
-
-        [Test]
         public static void TestApplyMove_ReturnedMoveType()
         {
             ChessGame game = new ChessGame();
