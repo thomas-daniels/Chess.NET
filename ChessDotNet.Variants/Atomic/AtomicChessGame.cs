@@ -62,6 +62,10 @@ namespace ChessDotNet.Variants.Atomic
             {
                 return false;
             }
+            else if (WouldBeSuicide(move, move.Player))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -79,6 +83,23 @@ namespace ChessDotNet.Variants.Atomic
                 }
             }
             return true;
+        }
+
+        protected virtual bool WouldBeSuicide(Move move, Player player)
+        {
+            Utilities.ThrowIfNull(move, "move");
+            AtomicChessGame copy = new AtomicChessGame(Board, player);
+            copy.ApplyMove(move, true);
+            bool ownKingIsGone = copy.KingIsGone(player);
+            bool otherKingIsGone = copy.KingIsGone(Utilities.GetOpponentOf(player));
+            if (ownKingIsGone)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected virtual bool WouldBeSuicideOrInvalidSelfMoveInCheck(Move move, Player player)
