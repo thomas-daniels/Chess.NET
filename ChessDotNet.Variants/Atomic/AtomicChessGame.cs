@@ -21,6 +21,8 @@ namespace ChessDotNet.Variants.Atomic
             {
                 File f = move.NewPosition.File + surroundingSquaresDistance[0];
                 Rank r = move.NewPosition.Rank + surroundingSquaresDistance[1];
+                if (f < 0 || (int)f >= BoardWidth || r < 0 || (int)r >= BoardHeight)
+                    continue;
                 if (!(GetPieceAt(f, r) is Pawn))
                 {
                     SetPieceAt(f, r, null);
