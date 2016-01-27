@@ -41,7 +41,7 @@ namespace ChessDotNet.Variants.Atomic
             return base.CalculateStatus(playerToValidate, validateHasAnyValidMoves);
         }
 
-        protected override bool IsValidMove(Move move, bool validateCheck)
+        protected override bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
             Utilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
