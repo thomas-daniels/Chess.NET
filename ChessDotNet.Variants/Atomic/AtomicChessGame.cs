@@ -31,22 +31,74 @@ namespace ChessDotNet.Variants.Atomic
 
         protected override GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
         {
-            bool kingFound = false;
-            for (int x = 0; x < BoardWidth; x++)
-            {
-                for (int y = 0; y < BoardHeight; y++)
-                {
-                    if (Board[x][y] is King && Board[x][y].Owner == playerToValidate)
-                    {
-                        kingFound = true;
-                    }
-                }
-            }
-            if (!kingFound)
+            bool kingIsGone = KingIsGone(playerToValidate);
+            if (kingIsGone)
             {
                 return new GameStatus(GameEvent.VariantEnd, Utilities.GetOpponentOf(playerToValidate), "King exploded");
             }
             return base.CalculateStatus(playerToValidate, validateHasAnyValidMoves);
+        }
+
+        protected override bool IsValidMove(Move move, bool validateCheck)
+        {
+            Utilities.ThrowIfNull(move, "move");
+            if (move.OriginalPosition.Equals(move.NewPosition))
+                return false;
+            Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+            if (move.Player != WhoseTurn) return false;
+            if (piece.Owner != move.Player) return false;
+            Piece pieceAtDestination = GetPieceAt(move.NewPosition);
+            if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
+            {
+                return false;
+            }
+            if (!piece.IsValidMove(move, this))
+            {
+                return false;
+            }
+            if (validateCheck && WouldBeSuicideOrInvalidSelfMoveInCheck(move, move.Player))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected virtual bool KingIsGone(Player player)
+        {
+            for (int x = 0; x < BoardWidth; x++)
+            {
+                for (int y = 0; y < BoardHeight; y++)
+                {
+                    if (Board[x][y] is King && Board[x][y].Owner == player)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        protected virtual bool WouldBeSuicideOrInvalidSelfMoveInCheck(Move move, Player player)
+        {
+            Utilities.ThrowIfNull(move, "move");
+            AtomicChessGame copy = new AtomicChessGame(Board, player);
+            copy.ApplyMove(move, true);
+            bool ownKingIsGone = copy.KingIsGone(player);
+            bool otherKingIsGone = copy.KingIsGone(Utilities.GetOpponentOf(player));
+            if (ownKingIsGone)
+            {
+                return true;
+            }
+            else if (otherKingIsGone)
+            {
+                return false;
+            }
+            else
+            {
+                GameStatus status = copy.CalculateStatus(player, false);
+                return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
+            }
         }
     }
 }
