@@ -97,5 +97,25 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(GameEvent.Checkmate, status.Event);
             Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
         }
+
+        [Test]
+        public void TestStalemate()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, qw, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, kw }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.Black);
+            GameStatus status = game.Status;
+            Assert.AreEqual(GameEvent.Stalemate, status.Event);
+            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+        }
     }
 }
