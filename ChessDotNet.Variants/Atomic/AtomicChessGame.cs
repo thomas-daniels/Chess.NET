@@ -50,7 +50,7 @@ namespace ChessDotNet.Variants.Atomic
             if (careAboutWhoseTurnItIs && move.Player != WhoseTurn) return false;
             if (piece.Owner != move.Player) return false;
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
-            if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
+            if (pieceAtDestination != null && (pieceAtDestination.Owner == move.Player || piece is King))
             {
                 return false;
             }
