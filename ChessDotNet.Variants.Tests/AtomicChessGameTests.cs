@@ -173,5 +173,24 @@ namespace ChessDotNet.Variants.Tests
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
             Assert.True(game.IsValidMove(new Move("G4", "G7", Player.White)));
         }
+
+        [Test]
+        public void TestNotInCheckWhenAdjacent()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { pw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, qw, o },
+                new[] { o, o, o, o, o, o, kb, kw }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.Black);
+            GameStatus status = game.Status;
+            Assert.AreEqual(status.Event, GameEvent.None);
+        }
     }
 }
