@@ -91,7 +91,6 @@ namespace ChessDotNet.Variants.Atomic
             AtomicChessGame copy = new AtomicChessGame(Board, player);
             copy.ApplyMove(move, true);
             bool ownKingIsGone = copy.KingIsGone(player);
-            bool otherKingIsGone = copy.KingIsGone(Utilities.GetOpponentOf(player));
             if (ownKingIsGone)
             {
                 return true;
