@@ -250,16 +250,22 @@ namespace ChessDotNet
         public bool IsValidMove(Move move)
         {
             Utilities.ThrowIfNull(move, "move");
-            return IsValidMove(move, true);
+            return IsValidMove(move, true, true);
         }
 
-        protected virtual bool IsValidMove(Move move, bool validateCheck)
+        protected bool IsValidMove(Move move, bool validateCheck)
+        {
+            Utilities.ThrowIfNull(move, "move");
+            return IsValidMove(move, validateCheck, true);
+        }
+
+        protected virtual bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
             Utilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
-            if (move.Player != WhoseTurn) return false;
+            if (careAboutWhoseTurnItIs && move.Player != WhoseTurn) return false;
             if (piece.Owner != move.Player) return false;
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
             if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
@@ -301,13 +307,7 @@ namespace ChessDotNet
             return castle;
         }
 
-        public MoveType ApplyMove(Move move, bool alreadyValidated)
-        {
-            Utilities.ThrowIfNull(move, "move");
-            return ApplyMove(move, alreadyValidated, true);
-        }
-
-        protected virtual MoveType ApplyMove(Move move, bool alreadyValidated, bool validateHasAnyValidMoves)
+        public virtual MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             Utilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
@@ -438,57 +438,44 @@ namespace ChessDotNet
                     if (curr is King && curr.Owner == player)
                     {
                         kingPos = new Position((File)j, (Rank)i);
+                        break;
                     }
+                }
+                if (kingPos != new Position(File.None, Rank.None))
+                {
+                    break;
                 }
             }
 
             if (kingPos.File == File.None)
                 return false;
 
-            return CanAnyPieceMoveTo(kingPos, false);
-        }
-
-        public virtual bool CanAnyPieceMoveTo(Position to, bool takeWhoseTurnInAccount)
-        {
-            List<Position> piecePositions = new List<Position>();
-
             for (int i = 0; i < Board.Length; i++)
             {
                 for (int j = 0; j < Board[i].Length; j++)
                 {
                     Piece curr = Board[i][j];
-                    if (curr != null)
+                    if (curr == null) continue;
+                    Player p = curr.Owner;
+                    Move move = new Move(new Position((File)j, (Rank)i), kingPos, p);
+                    List<Move> moves = new List<Move>();
+                    if (curr is Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
                     {
-                        if (takeWhoseTurnInAccount && WhoseTurn != curr.Owner) continue;
-                        piecePositions.Add(new Position((File)j, (Rank)i));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
                     }
-                }
-            }
-
-            ChessGame copyWhite = new ChessGame(Board, Player.White);
-            ChessGame copyBlack = new ChessGame(Board, Player.Black);
-            for (int i = 0; i < piecePositions.Count; i++)
-            {
-                Piece cp = GetPieceAt(piecePositions[i]);
-                Player player = cp.Owner;
-                Move move = new Move(piecePositions[i], to, player);
-                List<Move> moves = new List<Move>();
-                if (cp is Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
-                {
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
-                }
-                else
-                {
-                    moves.Add(move);
-                }
-                foreach (Move m in moves)
-                {
-                    if ((player == Player.White ? copyWhite : copyBlack).IsValidMove(m, false))
+                    else
                     {
-                        return true;
+                        moves.Add(move);
+                    }
+                    foreach (Move m in moves)
+                    {
+                        if (IsValidMove(m, false, false))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -499,7 +486,7 @@ namespace ChessDotNet
         {
             Utilities.ThrowIfNull(move, "move");
             ChessGame copy = new ChessGame(Board, player);
-            copy.ApplyMove(move, true, false);
+            copy.ApplyMove(move, true);
             GameStatus status = copy.CalculateStatus(player, false);
             return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
         }
