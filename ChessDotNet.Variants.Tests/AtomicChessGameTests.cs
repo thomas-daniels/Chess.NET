@@ -155,5 +155,23 @@ namespace ChessDotNet.Variants.Tests
             AtomicChessGame game = new AtomicChessGame(board, Player.Black);
             Assert.True(game.IsValidMove(new Move("F1", "G1", Player.Black)));
         }
+
+        [Test]
+        public void TestExplosionWhenInCheck()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, o, o, kb, o },
+                new[] { o, o, o, o, o, o, pb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, qw, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rb, o, o, o, kw, o, o, o }
+            };
+            AtomicChessGame game = new AtomicChessGame(board, Player.White);
+            Assert.True(game.IsValidMove(new Move("G4", "G7", Player.White)));
+        }
     }
 }
