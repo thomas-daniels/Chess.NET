@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ChessDotNet.Pieces;
+using System.Text;
 
 namespace ChessDotNet
 {
@@ -18,6 +19,28 @@ namespace ChessDotNet
         string _drawReason = null;
         Player _resigned = Player.None;
 
+        protected virtual Dictionary<char, Piece> FenMappings
+        {
+            get
+            {
+                return new Dictionary<char, Piece>()
+                {
+                    { 'K', new King(Player.White) },
+                    { 'k', new King(Player.Black) },
+                    { 'Q', new Queen(Player.White) },
+                    { 'q', new Queen(Player.Black) },
+                    { 'R', new Rook(Player.White) },
+                    { 'r', new Rook(Player.Black) },
+                    { 'B', new Bishop(Player.White) },
+                    { 'b', new Bishop(Player.Black) },
+                    { 'N', new Knight(Player.White) },
+                    { 'n', new Knight(Player.Black) },
+                    { 'P', new Pawn(Player.White) },
+                    { 'p', new Pawn(Player.Black) },
+                };
+            }
+        }
+
         public GameStatus Status
         {
             get
@@ -30,6 +53,24 @@ namespace ChessDotNet
         {
             get;
             private set;
+        }
+
+        int _halfMoveClock = 0;
+        public int HalfMoveClock
+        {
+            get
+            {
+                return _halfMoveClock;
+            }
+        }
+
+        int _fullMoveNumber = 1;
+        public int FullMoveNumber
+        {
+            get
+            {
+                return _fullMoveNumber;
+            }
         }
 
         public ReadOnlyCollection<Piece> PiecesOnBoard
@@ -62,7 +103,7 @@ namespace ChessDotNet
             return CloneBoard(Board);
         }
 
-        List<DetailedMove> _moves;
+        List<DetailedMove> _moves = new List<DetailedMove>();
         public ReadOnlyCollection<DetailedMove> Moves
         {
             get
@@ -177,6 +218,18 @@ namespace ChessDotNet
             }
         }
 
+        public ChessGame(string fen)
+        {
+            GameCreationData data = FenStringToGameCreationData(fen);
+            UseGameCreationData(data);
+        }
+
+        public ChessGame(GameCreationData data)
+        {
+            UseGameCreationData(data);
+        }
+
+        [Obsolete("This constructor is obsolete, use ChessGame(GameCreationData) instead.")]
         public ChessGame(Piece[][] board, Player whoseTurn)
         {
             Board = CloneBoard(board);
@@ -200,6 +253,232 @@ namespace ChessDotNet
                 _blackRookAMoved = true;
             if (!(h8 is Rook) || h8.Owner != Player.Black)
                 _blackRookHMoved = true;
+        }
+
+        protected virtual void UseGameCreationData(GameCreationData data)
+        {
+            Board = CloneBoard(data.Board);
+            WhoseTurn = data.WhoseTurn;
+            Piece e1 = GetPieceAt(File.E, Rank.One);
+            Piece e8 = GetPieceAt(File.E, Rank.Eight);
+            Piece a1 = GetPieceAt(File.A, Rank.One);
+            Piece h1 = GetPieceAt(File.H, Rank.One);
+            Piece a8 = GetPieceAt(File.A, Rank.Eight);
+            Piece h8 = GetPieceAt(File.H, Rank.Eight);
+            if (!(e1 is King) || e1.Owner != Player.White)
+                _whiteKingMoved = true;
+            if (!(e8 is King) || e8.Owner != Player.Black)
+                _blackKingMoved = true;
+            if (!(a1 is Rook) || a1.Owner != Player.White || !data.CanWhiteCastleQueenSide)
+                _whiteRookAMoved = true;
+            if (!(h1 is Rook) || h1.Owner != Player.White || !data.CanWhiteCastleKingSide)
+                _whiteRookHMoved = true;
+            if (!(a8 is Rook) || a8.Owner != Player.Black || !data.CanBlackCastleQueenSide)
+                _blackRookAMoved = true;
+            if (!(h8 is Rook) || h8.Owner != Player.Black || !data.CanBlackCastleKingSide)
+                _blackRookHMoved = true;
+
+            if (data.EnPassant != null)
+            {
+                DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? Rank.Seven : Rank.Two),
+                                                                    new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? Rank.Five : Rank.Four),
+                                                                    Utilities.GetOpponentOf(data.WhoseTurn)),
+                                          new Pawn(Utilities.GetOpponentOf(data.WhoseTurn)),
+                                          false,
+                                          CastlingType.None);
+                _moves.Add(latestMove);
+            }
+
+            _halfMoveClock = data.HalfMoveClock;
+            _fullMoveNumber = data.FullMoveNumber;
+        }
+
+        public virtual string GetFen()
+        {
+            StringBuilder fenBuilder = new StringBuilder();
+            Piece[][] board = GetBoard();
+            for (int i = 0; i < board.Length; i++)
+            {
+                Piece[] row = board[i];
+                int empty = 0;
+                foreach (Piece piece in row)
+                {
+                    char pieceChar = piece == null ? '\0' : piece.GetFenCharacter();
+                    if (pieceChar == '\0')
+                    {
+                        empty++;
+                        continue;
+                    }
+                    if (empty != 0)
+                    {
+                        fenBuilder.Append(empty);
+                        empty = 0;
+                    }
+                    fenBuilder.Append(pieceChar);
+                }
+                if (empty != 0)
+                {
+                    fenBuilder.Append(empty);
+                }
+                if (i != board.Length - 1)
+                {
+                    fenBuilder.Append('/');
+                }
+            }
+
+            fenBuilder.Append(' ');
+
+            fenBuilder.Append(WhoseTurn == Player.White ? 'w' : 'b');
+
+            fenBuilder.Append(' ');
+
+            bool hasAnyCastlingOptions = false;
+            if (!WhiteKingMoved)
+            {
+                if (!WhiteRookHMoved)
+                {
+                    fenBuilder.Append('K');
+                    hasAnyCastlingOptions = true;
+                }
+                if (!WhiteRookAMoved)
+                {
+                    fenBuilder.Append('Q');
+                    hasAnyCastlingOptions = true;
+                }
+            }
+            if (!BlackKingMoved)
+            {
+                if (!BlackRookHMoved)
+                {
+                    fenBuilder.Append('k');
+                    hasAnyCastlingOptions = true;
+                }
+                if (!BlackRookAMoved)
+                {
+                    fenBuilder.Append('q');
+                    hasAnyCastlingOptions = true;
+                }
+            }
+            if (!hasAnyCastlingOptions)
+            {
+                fenBuilder.Append('-');
+            }
+
+            fenBuilder.Append(' ');
+
+            DetailedMove last;
+            if (Moves.Count > 0 && (last = Moves[Moves.Count - 1]).Piece is Pawn && Math.Abs(last.OriginalPosition.Rank - last.NewPosition.Rank) == 2)
+            {
+                fenBuilder.Append(last.NewPosition.File.ToString().ToLowerInvariant());
+                fenBuilder.Append(last.Player == Player.White ? 3 : 6);
+            }
+            else
+            {
+                fenBuilder.Append("-");
+            }
+
+            fenBuilder.Append(' ');
+
+            fenBuilder.Append(_halfMoveClock);
+
+            fenBuilder.Append(' ');
+
+            fenBuilder.Append(_fullMoveNumber);
+
+            return fenBuilder.ToString();
+        }
+
+        protected virtual GameCreationData FenStringToGameCreationData(string fen)
+        {
+            Dictionary<char, Piece> fenMappings = FenMappings;
+            string[] parts = fen.Split(' ');
+            if (parts.Length != 6) throw new ArgumentException("The FEN string does not have 6 parts.");
+            Piece[][] board = new Piece[8][];
+            string[] rows = parts[0].Split('/');
+            if (rows.Length != 8) throw new ArgumentException("The board in the FEN string does not have 8 rows.");
+            GameCreationData data = new GameCreationData();
+            for (int i = 0; i < 8; i++)
+            {
+                string row = rows[i];
+                Piece[] currentRow = new Piece[8] { null, null, null, null, null, null, null, null };
+                int j = 0;
+                foreach (char c in row)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        j += (int)char.GetNumericValue(c);
+                        continue;
+                    }
+                    if (!fenMappings.ContainsKey(c)) throw new ArgumentException("The FEN string contains an unknown piece.");
+                    currentRow[j] = fenMappings[c];
+                    j++;
+                }
+                if (j != 8)
+                {
+                    throw new ArgumentException("Not enough pieces provided for a row in the FEN string.");
+                }
+                board[i] = currentRow;
+            }
+            data.Board = board;
+
+            if (parts[1] == "w")
+            {
+                data.WhoseTurn = Player.White;
+            }
+            else if (parts[1] == "b")
+            {
+                data.WhoseTurn = Player.Black;
+            }
+            else
+            {
+                throw new ArgumentException("Expected `w` or `b` for the active player in the FEN string.");
+            }
+
+            if (parts[2].Contains('K')) data.CanWhiteCastleKingSide = true;
+            else data.CanWhiteCastleKingSide = false;
+
+            if (parts[2].Contains('Q')) data.CanWhiteCastleQueenSide = true;
+            else data.CanWhiteCastleQueenSide = false;
+
+            if (parts[2].Contains('k')) data.CanBlackCastleKingSide = true;
+            else data.CanBlackCastleKingSide = false;
+
+            if (parts[2].Contains('q')) data.CanBlackCastleQueenSide = true;
+            else data.CanBlackCastleQueenSide = false;
+
+            if (parts[3] == "-") data.EnPassant = null;
+            else
+            {
+                Position ep = new Position(parts[3]);
+                if ((data.WhoseTurn == Player.White && (ep.Rank != Rank.Six || !(data.Board[(int)Rank.Five][(int)ep.File] is Pawn))) ||
+                    (data.WhoseTurn == Player.Black && (ep.Rank != Rank.Three || !(data.Board[(int)Rank.Four][(int)ep.File] is Pawn))))
+                {
+                    throw new ArgumentException("Invalid en passant field in FEN.");
+                }
+                data.EnPassant = ep;
+            }
+
+            int halfmoveClock;
+            if (int.TryParse(parts[4], out halfmoveClock))
+            {
+                data.HalfMoveClock = halfmoveClock;
+            }
+            else
+            {
+                throw new ArgumentException("Halfmove clock in FEN is invalid.");
+            }
+
+            int fullMoveNumber;
+            if (int.TryParse(parts[5], out fullMoveNumber))
+            {
+                data.FullMoveNumber = fullMoveNumber;
+            }
+            else
+            {
+                throw new ArgumentException("Fullmove number in FEN is invalid.");
+            }
+
+            return data;
         }
 
         protected virtual GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
@@ -320,6 +599,7 @@ namespace ChessDotNet
             CastlingType castle = CastlingType.None;
             if (movingPiece is Pawn)
             {
+                _halfMoveClock = 0;
                 PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
                 if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition) == null)
                 { // en passant
@@ -365,6 +645,15 @@ namespace ChessDotNet
             if (isCapture)
             {
                 type |= MoveType.Capture;
+                _halfMoveClock = 0;
+            }
+            if (!isCapture && !(movingPiece is Pawn))
+            {
+                _halfMoveClock++;
+            }
+            if (move.Player == Player.Black)
+            {
+                _fullMoveNumber++;
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
@@ -485,7 +774,24 @@ namespace ChessDotNet
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             Utilities.ThrowIfNull(move, "move");
-            ChessGame copy = new ChessGame(Board, player);
+            GameCreationData gcd = new GameCreationData();
+            gcd.Board = Board;
+            gcd.CanWhiteCastleKingSide = !_whiteRookHMoved && !_whiteKingMoved;
+            gcd.CanWhiteCastleQueenSide = !_whiteRookAMoved && !_whiteKingMoved;
+            gcd.CanBlackCastleKingSide = !_blackRookHMoved && !_blackKingMoved;
+            gcd.CanBlackCastleQueenSide = !_blackRookAMoved && !_blackKingMoved;
+            gcd.EnPassant = null;
+            if (_moves.Count > 0)
+            {
+                DetailedMove last = _moves.Last();
+                if (last.Piece is Pawn && new PositionDistance(last.OriginalPosition, last.NewPosition).DistanceY == 2)
+                {
+                    gcd.EnPassant = new Position(last.NewPosition.File, last.Player == Player.White ? Rank.Three : Rank.Six);
+                }
+            }
+            gcd.HalfMoveClock = _halfMoveClock;
+            gcd.FullMoveNumber = _fullMoveNumber;
+            ChessGame copy = new ChessGame(gcd);
             copy.ApplyMove(move, true);
             GameStatus status = copy.CalculateStatus(player, false);
             return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;

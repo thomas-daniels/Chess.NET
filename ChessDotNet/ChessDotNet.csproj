@@ -46,7 +46,7 @@
     <Compile Include="CastlingType.cs" />
     <Compile Include="ChessGame.cs" />
     <Compile Include="DetailedMove.cs" />
-    <Compile Include="FenConvert.cs" />
+    <Compile Include="GameCreationData.cs" />
     <Compile Include="GameEvent.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="Move.cs" />
