@@ -9,9 +9,10 @@ It contains the following features:
  - Move validation (including castling and en passant).
  - Check validation.
  - Checkmate and stalemate validation.
+ - FEN string parsing and game-to-FEN conversion.
+ - Support of the Atomic chess variant - http://lichess.org/variant/atomic
 
 Planned features:
 
- - FEN string parsing
  - Draw on threefold repetition
  - Draw on insufficient mating material
