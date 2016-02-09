@@ -6,6 +6,7 @@ namespace ChessDotNet.Variants.Atomic
     public class AtomicChessGame : ChessGame
     {
         public AtomicChessGame() : base() { }
+        public AtomicChessGame(Piece[][] board, Player whoseTurn) : base(board, whoseTurn) { }
         public AtomicChessGame(GameCreationData data) : base(data) { }
         public AtomicChessGame(string fen) : base(fen) { }
         public AtomicChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
