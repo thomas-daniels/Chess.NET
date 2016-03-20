@@ -51,49 +51,49 @@ namespace ChessDotNet.Pieces
             if (!HasCastlingAbility) return false;
             if (Owner == Player.White)
             {
-                if (origin.File != File.E || origin.Rank != Rank.One)
+                if (origin.File != File.E || origin.Rank != 1)
                     return false;
                 if (game.WhiteKingMoved || (game.Status.Event == GameEvent.Check && game.Status.PlayerWhoCausedEvent == Player.Black))
                     return false;
                 if (destination.File == File.C)
                 {
-                    if (game.WhiteRookAMoved || game.GetPieceAt(File.D, Rank.One) != null
-                        || game.GetPieceAt(File.C, Rank.One) != null
-                        || game.GetPieceAt(File.B, Rank.One) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.D, Rank.One), Player.White), Player.White)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White), Player.White))
+                    if (game.WhiteRookAMoved || game.GetPieceAt(File.D, 1) != null
+                        || game.GetPieceAt(File.C, 1) != null
+                        || game.GetPieceAt(File.B, 1) != null
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.D, 1), Player.White), Player.White)
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.C, 1), Player.White), Player.White))
                         return false;
                 }
                 else
                 {
-                    if (game.WhiteRookHMoved || game.GetPieceAt(File.F, Rank.One) != null
-                        || game.GetPieceAt(File.G, Rank.One) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.F, Rank.One), Player.White), Player.White)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White), Player.White))
+                    if (game.WhiteRookHMoved || game.GetPieceAt(File.F, 1) != null
+                        || game.GetPieceAt(File.G, 1) != null
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.F, 1), Player.White), Player.White)
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White), Player.White))
                         return false;
                 }
             }
             else
             {
-                if (origin.File != File.E || origin.Rank != Rank.Eight)
+                if (origin.File != File.E || origin.Rank != 8)
                     return false;
                 if (game.BlackKingMoved || (game.Status.Event == GameEvent.Check && game.Status.PlayerWhoCausedEvent == Player.White))
                     return false;
                 if (destination.File == File.C)
                 {
-                    if (game.BlackRookAMoved || game.GetPieceAt(File.D, Rank.Eight) != null
-                        || game.GetPieceAt(File.C, Rank.Eight) != null
-                        || game.GetPieceAt(File.B, Rank.Eight) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.D, Rank.Eight), Player.Black), Player.Black)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.C, Rank.Eight), Player.Black), Player.Black))
+                    if (game.BlackRookAMoved || game.GetPieceAt(File.D, 8) != null
+                        || game.GetPieceAt(File.C, 8) != null
+                        || game.GetPieceAt(File.B, 8) != null
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.D, 8), Player.Black), Player.Black)
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.C, 8), Player.Black), Player.Black))
                         return false;
                 }
                 else
                 {
-                    if (game.BlackRookHMoved || game.GetPieceAt(File.F, Rank.Eight) != null
-                        || game.GetPieceAt(File.G, Rank.Eight) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.F, Rank.Eight), Player.Black), Player.Black)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, Rank.Eight), new Position(File.G, Rank.Eight), Player.Black), Player.Black))
+                    if (game.BlackRookHMoved || game.GetPieceAt(File.F, 8) != null
+                        || game.GetPieceAt(File.G, 8) != null
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.F, 8), Player.Black), Player.Black)
+                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black), Player.Black))
                         return false;
                 }
             }
@@ -112,7 +112,7 @@ namespace ChessDotNet.Pieces
             foreach (int[] dir in directions)
             {
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
-                    || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                    || from.Rank + dir[1] < 1 || from.Rank + dir[1] > l0)
                     continue;
                 Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
                 if (game.IsValidMove(move))

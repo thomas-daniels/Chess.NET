@@ -235,12 +235,12 @@ namespace ChessDotNet
             Board = CloneBoard(board);
             _moves = new List<DetailedMove>();
             WhoseTurn = whoseTurn;
-            Piece e1 = GetPieceAt(File.E, Rank.One);
-            Piece e8 = GetPieceAt(File.E, Rank.Eight);
-            Piece a1 = GetPieceAt(File.A, Rank.One);
-            Piece h1 = GetPieceAt(File.H, Rank.One);
-            Piece a8 = GetPieceAt(File.A, Rank.Eight);
-            Piece h8 = GetPieceAt(File.H, Rank.Eight);
+            Piece e1 = GetPieceAt(File.E, 1);
+            Piece e8 = GetPieceAt(File.E, 8);
+            Piece a1 = GetPieceAt(File.A, 1);
+            Piece h1 = GetPieceAt(File.H, 1);
+            Piece a8 = GetPieceAt(File.A, 8);
+            Piece h8 = GetPieceAt(File.H, 8);
             if (!(e1 is King) || e1.Owner != Player.White)
                 _whiteKingMoved = true;
             if (!(e8 is King) || e8.Owner != Player.Black)
@@ -259,12 +259,12 @@ namespace ChessDotNet
         {
             Board = CloneBoard(data.Board);
             WhoseTurn = data.WhoseTurn;
-            Piece e1 = GetPieceAt(File.E, Rank.One);
-            Piece e8 = GetPieceAt(File.E, Rank.Eight);
-            Piece a1 = GetPieceAt(File.A, Rank.One);
-            Piece h1 = GetPieceAt(File.H, Rank.One);
-            Piece a8 = GetPieceAt(File.A, Rank.Eight);
-            Piece h8 = GetPieceAt(File.H, Rank.Eight);
+            Piece e1 = GetPieceAt(File.E, 1);
+            Piece e8 = GetPieceAt(File.E, 8);
+            Piece a1 = GetPieceAt(File.A, 1);
+            Piece h1 = GetPieceAt(File.H, 1);
+            Piece a8 = GetPieceAt(File.A, 8);
+            Piece h8 = GetPieceAt(File.H, 8);
             if (!(e1 is King) || e1.Owner != Player.White)
                 _whiteKingMoved = true;
             if (!(e8 is King) || e8.Owner != Player.Black)
@@ -280,8 +280,8 @@ namespace ChessDotNet
 
             if (data.EnPassant != null)
             {
-                DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? Rank.Seven : Rank.Two),
-                                                                    new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? Rank.Five : Rank.Four),
+                DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
+                                                                    new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
                                                                     Utilities.GetOpponentOf(data.WhoseTurn)),
                                           new Pawn(Utilities.GetOpponentOf(data.WhoseTurn)),
                                           false,
@@ -450,8 +450,8 @@ namespace ChessDotNet
             else
             {
                 Position ep = new Position(parts[3]);
-                if ((data.WhoseTurn == Player.White && (ep.Rank != Rank.Six || !(data.Board[(int)Rank.Five][(int)ep.File] is Pawn))) ||
-                    (data.WhoseTurn == Player.Black && (ep.Rank != Rank.Three || !(data.Board[(int)Rank.Four][(int)ep.File] is Pawn))))
+                if ((data.WhoseTurn == Player.White && (ep.Rank != 6 || !(data.Board[3][(int)ep.File] is Pawn))) ||
+                    (data.WhoseTurn == Player.Black && (ep.Rank != 3 || !(data.Board[4][(int)ep.File] is Pawn))))
                 {
                     throw new ArgumentException("Invalid en passant field in FEN.");
                 }
@@ -516,14 +516,14 @@ namespace ChessDotNet
             return GetPieceAt(position.File, position.Rank);
         }
 
-        public Piece GetPieceAt(File file, Rank rank)
+        public Piece GetPieceAt(File file, int rank)
         {
-            return Board[(int)rank][(int)file];
+            return Board[8 - rank][(int)file];
         }
 
-        protected virtual void SetPieceAt(File file, Rank rank, Piece piece)
+        protected virtual void SetPieceAt(File file, int rank, Piece piece)
         {
-            Board[(int)rank][(int)file] = piece;
+            Board[8 - rank][(int)file] = piece;
         }
 
         public bool IsValidMove(Move move)
@@ -566,7 +566,7 @@ namespace ChessDotNet
         protected virtual CastlingType ApplyCastle(Move move)
         {
             CastlingType castle;
-            Rank rank = move.Player == Player.White ? Rank.One : Rank.Eight;
+            int rank = move.Player == Player.White ? 1 : 8;
             File rookFile;
             File newRookFile;
             if (move.NewPosition.File == File.C)
@@ -606,7 +606,7 @@ namespace ChessDotNet
                     isCapture = true;
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, null);
                 }
-                if (move.NewPosition.Rank == (move.Player == Player.White ? Rank.Eight : Rank.One))
+                if (move.NewPosition.Rank == (move.Player == Player.White ? 8 : 1))
                 {
                     newPiece = move.Promotion;
                     type |= MoveType.Promotion;
@@ -629,16 +629,16 @@ namespace ChessDotNet
             {
                 if (move.Player == Player.White)
                 {
-                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.One)
+                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == 1)
                         _whiteRookAMoved = true;
-                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.One)
+                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == 1)
                         _whiteRookHMoved = true;
                 }
                 else
                 {
-                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == Rank.Eight)
+                    if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == 8)
                         _blackRookAMoved = true;
-                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == Rank.Eight)
+                    else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == 8)
                         _blackRookHMoved = true;
                 }
             }
@@ -685,13 +685,14 @@ namespace ChessDotNet
         {
             if (player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             List<Move> validMoves = new List<Move>();
-            for (int x = 0; x < Board.Length; x++)
+            for (int r = 1; r <= Board.Length; r++)
             {
-                for (int y = 0; y < Board[x].Length; y++)
+                for (int f = 0; f < Board[8 - r].Length; f++)
                 {
-                    if (Board[x][y] != null && Board[x][y].Owner == player)
+                    Piece p = GetPieceAt((File)f, r);
+                    if (p != null && p.Owner == player)
                     {
-                        validMoves.AddRange(GetValidMoves(new Position((File)y, (Rank)x), returnIfAny));
+                        validMoves.AddRange(GetValidMoves(new Position((File)f, r), returnIfAny));
                         if (returnIfAny && validMoves.Count > 0)
                         {
                             return new ReadOnlyCollection<Move>(validMoves);
@@ -717,20 +718,20 @@ namespace ChessDotNet
 
         protected virtual bool IsInCheck(Player player)
         {
-            Position kingPos = new Position(File.None, Rank.None);
+            Position kingPos = new Position(File.None, -1);
 
-            for (int i = 0; i < Board.Length; i++)
+            for (int r = 1; r <= Board.Length; r++)
             {
-                for (int j = 0; j < Board[i].Length; j++)
+                for (int f = 0; f < Board[8 - r].Length; f++)
                 {
-                    Piece curr = Board[i][j];
+                    Piece curr = GetPieceAt((File)f, r);
                     if (curr is King && curr.Owner == player)
                     {
-                        kingPos = new Position((File)j, (Rank)i);
+                        kingPos = new Position((File)f, r);
                         break;
                     }
                 }
-                if (kingPos != new Position(File.None, Rank.None))
+                if (kingPos != new Position(File.None, -1))
                 {
                     break;
                 }
@@ -739,16 +740,16 @@ namespace ChessDotNet
             if (kingPos.File == File.None)
                 return false;
 
-            for (int i = 0; i < Board.Length; i++)
+            for (int r = 1; r <= Board.Length; r++)
             {
-                for (int j = 0; j < Board[i].Length; j++)
+                for (int f = 0; f < Board[8 - r].Length; f++)
                 {
-                    Piece curr = Board[i][j];
+                    Piece curr = GetPieceAt((File)f, r);
                     if (curr == null) continue;
                     Player p = curr.Owner;
-                    Move move = new Move(new Position((File)j, (Rank)i), kingPos, p);
+                    Move move = new Move(new Position((File)f, r), kingPos, p);
                     List<Move> moves = new List<Move>();
-                    if (curr is Pawn && ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black)))
+                    if (curr is Pawn && ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black)))
                     {
                         moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
                         moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
@@ -786,7 +787,7 @@ namespace ChessDotNet
                 DetailedMove last = _moves.Last();
                 if (last.Piece is Pawn && new PositionDistance(last.OriginalPosition, last.NewPosition).DistanceY == 2)
                 {
-                    gcd.EnPassant = new Position(last.NewPosition.File, last.Player == Player.White ? Rank.Three : Rank.Six);
+                    gcd.EnPassant = new Position(last.NewPosition.File, last.Player == Player.White ? 3 : 6);
                 }
             }
             gcd.HalfMoveClock = _halfMoveClock;

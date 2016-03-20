@@ -10,10 +10,10 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestEquality()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.H, Rank.Five);
-            Position position3 = new Position(File.G, Rank.Four);
-            Position position4 = new Position(File.H, Rank.Five);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.H, 5);
+            Position position3 = new Position(File.G, 4);
+            Position position4 = new Position(File.H, 5);
             Move move1 = new Move(position1, position2, Player.White);
             Move move2 = new Move(position3, position4, Player.White);
             Move move3 = null;
@@ -32,10 +32,10 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentPlayer()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.H, Rank.Five);
-            Position position3 = new Position(File.G, Rank.Four);
-            Position position4 = new Position(File.H, Rank.Five);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.H, 5);
+            Position position3 = new Position(File.G, 4);
+            Position position4 = new Position(File.H, 5);
             Move move1 = new Move(position1, position2, Player.White);
             Move move2 = new Move(position3, position4, Player.Black);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
@@ -51,10 +51,10 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentFile()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.H, Rank.Five);
-            Position position3 = new Position(File.F, Rank.Four);
-            Position position4 = new Position(File.H, Rank.Five);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.H, 5);
+            Position position3 = new Position(File.F, 4);
+            Position position4 = new Position(File.H, 5);
             Move move1 = new Move(position1, position2, Player.Black);
             Move move2 = new Move(position3, position4, Player.Black);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
@@ -70,10 +70,10 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentRank()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.H, Rank.Five);
-            Position position3 = new Position(File.F, Rank.Four);
-            Position position4 = new Position(File.H, Rank.Six);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.H, 5);
+            Position position3 = new Position(File.F, 4);
+            Position position4 = new Position(File.H, 6);
             Move move1 = new Move(position1, position2, Player.Black);
             Move move2 = new Move(position3, position4, Player.Black);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
@@ -89,10 +89,10 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentRankAndFile()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.H, Rank.Five);
-            Position position3 = new Position(File.A, Rank.One);
-            Position position4 = new Position(File.B, Rank.Two);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.H, 5);
+            Position position3 = new Position(File.A, 1);
+            Position position4 = new Position(File.B, 2);
             Move move1 = new Move(position1, position2, Player.White);
             Move move2 = new Move(position3, position4, Player.White);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
@@ -108,8 +108,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentPromotion()
         {
-            Position position1 = new Position(File.A, Rank.Seven);
-            Position position2 = new Position(File.A, Rank.Eight);
+            Position position1 = new Position(File.A, 7);
+            Position position2 = new Position(File.A, 8);
             Move move1 = new Move(position1, position2, Player.White, new Queen(Player.White));
             Move move2 = new Move(position1, position2, Player.White, new Knight(Player.White));
             Assert.AreNotEqual(move1, move2, "move1 and move2 should not be equal");
@@ -125,8 +125,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_OneIsNull()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.G, Rank.Eight);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.G, 8);
             Move move1 = new Move(position1, position2, Player.Black);
             Move move2 = null;
             Assert.False(move1 == move2, "move1 == move2 should be false");
@@ -138,8 +138,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentType()
         {
-            Position position1 = new Position(File.G, Rank.Four);
-            Position position2 = new Position(File.G, Rank.Eight);
+            Position position1 = new Position(File.G, 4);
+            Position position2 = new Position(File.G, 8);
             Move move1 = new Move(position1, position2, Player.Black);
             Assert.False(move1.Equals(position1), "move1.Equals(position1) should be false");
         }

@@ -16,19 +16,6 @@ namespace ChessDotNet
         None = -1
     }
 
-    public enum Rank
-    {
-        One = 7,
-        Two = 6,
-        Three = 5,
-        Four = 4,
-        Five = 3,
-        Six = 2,
-        Seven = 1,
-        Eight = 0,
-        None = -1
-    }
-
     public class Position
     {
         File _file;
@@ -40,8 +27,8 @@ namespace ChessDotNet
             }
         }
 
-        Rank _rank;
-        public Rank Rank
+        int _rank;
+        public int Rank
         {
             get
             {
@@ -49,7 +36,7 @@ namespace ChessDotNet
             }
         }
 
-        public Position(File file, Rank rank)
+        public Position(File file, int rank)
         {
             _file = file;
             _rank = rank;
@@ -99,34 +86,16 @@ namespace ChessDotNet
                     throw new ArgumentException("First char of `pos` not in range A-F.");
             }
 
-            switch (rank)
+            if (int.TryParse(rank.ToString(), out _rank))
             {
-                case '1':
-                    _rank = Rank.One;
-                    break;
-                case '2':
-                    _rank = Rank.Two;
-                    break;
-                case '3':
-                    _rank = Rank.Three;
-                    break;
-                case '4':
-                    _rank = Rank.Four;
-                    break;
-                case '5':
-                    _rank = Rank.Five;
-                    break;
-                case '6':
-                    _rank = Rank.Six;
-                    break;
-                case '7':
-                    _rank = Rank.Seven;
-                    break;
-                case '8':
-                    _rank = Rank.Eight;
-                    break;
-                default:
+                if (_rank < 1 || _rank > 8)
+                {
                     throw new ArgumentException("Second char of `pos` not in range 1-8.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Second char of `pos` not in range 1-8.");
             }
         }
 
@@ -165,7 +134,7 @@ namespace ChessDotNet
 
         public override string ToString()
         {
-            return File.ToString() + (8 - (int)Rank).ToString(CultureInfo.InvariantCulture);
+            return File.ToString() + Rank.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

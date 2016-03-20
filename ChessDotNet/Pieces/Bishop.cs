@@ -31,13 +31,13 @@ namespace ChessDotNet.Pieces
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if (posDelta.DistanceX != posDelta.DistanceY)
                 return false;
-            bool increasingRank = (int)destination.Rank > (int)origin.Rank;
+            bool increasingRank = destination.Rank > origin.Rank;
             bool increasingFile = (int)destination.File > (int)origin.File;
-            for (int f = (int)origin.File + (increasingFile ? 1 : -1), r = (int)origin.Rank + (increasingRank ? 1 : -1);
+            for (int f = (int)origin.File + (increasingFile ? 1 : -1), r = origin.Rank + (increasingRank ? 1 : -1);
                  increasingFile ? f < (int)destination.File : f > (int)destination.File;
                  f += increasingFile ? 1 : -1, r += increasingRank ? 1 : -1)
             {
-                if (game.GetPieceAt((File)f, (Rank)r) != null)
+                if (game.GetPieceAt((File)f, r) != null)
                 {
                     return false;
                 }
@@ -55,7 +55,7 @@ namespace ChessDotNet.Pieces
             {
                 if (i == 0)
                     continue;
-                if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0
+                if (from.Rank + i > 0 && from.Rank + i <= l0
                     && (int)from.File + i > -1 && (int)from.File + i < l1)
                 {
                     Move move = new Move(from, new Position(from.File + i, from.Rank + i), piece.Owner);
@@ -66,7 +66,7 @@ namespace ChessDotNet.Pieces
                             return new ReadOnlyCollection<Move>(validMoves);
                     }
                 }
-                if ((int)from.Rank - i > -1 && (int)from.Rank - i < l0
+                if (from.Rank - i > 0 && from.Rank - i <= l0
                     && (int)from.File + i > -1 && (int)from.File + i < l1)
                 {
                     Move move = new Move(from, new Position(from.File + i, from.Rank - i), piece.Owner);

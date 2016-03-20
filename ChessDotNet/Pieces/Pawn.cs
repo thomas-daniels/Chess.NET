@@ -35,27 +35,27 @@ namespace ChessDotNet.Pieces
                 return false;
             if (Owner == Player.White)
             {
-                if ((int)origin.Rank < (int)destination.Rank)
+                if (origin.Rank > destination.Rank)
                     return false;
-                if (destination.Rank == Rank.Eight && promotion == null)
+                if (destination.Rank == 8 && promotion == null)
                     return false;
             }
             if (Owner == Player.Black)
             {
-                if ((int)origin.Rank > (int)destination.Rank)
+                if (origin.Rank < destination.Rank)
                     return false;
-                if (destination.Rank == Rank.One && promotion == null)
+                if (destination.Rank == 1 && promotion == null)
                     return false;
             }
             bool checkEnPassant = false;
             if (posDelta.DistanceY == 2)
             {
-                if ((origin.Rank != Rank.Two && Owner == Player.White)
-                    || (origin.Rank != Rank.Seven && Owner == Player.Black))
+                if ((origin.Rank != 2 && Owner == Player.White)
+                    || (origin.Rank != 7 && Owner == Player.Black))
                     return false;
-                if (origin.Rank == Rank.Two && game.GetPieceAt(origin.File, Rank.Three) != null)
+                if (origin.Rank == 2 && game.GetPieceAt(origin.File, 3) != null)
                     return false;
-                if (origin.Rank == Rank.Seven && game.GetPieceAt(origin.File, Rank.Six) != null)
+                if (origin.Rank == 7 && game.GetPieceAt(origin.File, 6) != null)
                     return false;
             }
             Piece pieceAtDestination = game.GetPieceAt(destination);
@@ -78,8 +78,8 @@ namespace ChessDotNet.Pieces
                 {
                     return false;
                 }
-                if ((origin.Rank != Rank.Five && Owner == Player.White)
-                    || (origin.Rank != Rank.Four && Owner == Player.Black))
+                if ((origin.Rank != 5 && Owner == Player.White)
+                    || (origin.Rank != 4 && Owner == Player.Black))
                     return false;
                 Move latestMove = _moves[_moves.Count - 1];
                 if (latestMove.Player != Utilities.GetOpponentOf(Owner))
@@ -90,12 +90,12 @@ namespace ChessDotNet.Pieces
                     return false;
                 if (Owner == Player.White)
                 {
-                    if (latestMove.OriginalPosition.Rank != Rank.Seven || latestMove.NewPosition.Rank != Rank.Five)
+                    if (latestMove.OriginalPosition.Rank != 7 || latestMove.NewPosition.Rank != 5)
                         return false;
                 }
                 else // (m.Player == Players.Black)
                 {
-                    if (latestMove.OriginalPosition.Rank != Rank.Two || latestMove.NewPosition.Rank != Rank.Four)
+                    if (latestMove.OriginalPosition.Rank != 2 || latestMove.NewPosition.Rank != 4)
                         return false;
                 }
                 if (destination.File != latestMove.NewPosition.File)
@@ -112,7 +112,7 @@ namespace ChessDotNet.Pieces
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
             int[][] directions;
-            if (piece.Owner == Player.Black)
+            if (piece.Owner == Player.White)
             {
                 directions = new int[][] { new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 1, 1 }, new int[] { -1, 1 } };
             }
@@ -123,11 +123,11 @@ namespace ChessDotNet.Pieces
             foreach (int[] dir in directions)
             {
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
-                    || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                    || from.Rank + dir[1] < 1 || from.Rank + dir[1] > l0)
                     continue;
                 Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
                 List<Move> moves = new List<Move>();
-                if ((move.NewPosition.Rank == Rank.Eight && move.Player == Player.White) || (move.NewPosition.Rank == Rank.One && move.Player == Player.Black))
+                if ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black))
                 {
                     moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
                     moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));

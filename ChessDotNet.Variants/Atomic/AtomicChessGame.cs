@@ -22,8 +22,8 @@ namespace ChessDotNet.Variants.Atomic
             foreach (int[] surroundingSquaresDistance in surroundingSquares)
             {
                 File f = move.NewPosition.File + surroundingSquaresDistance[0];
-                Rank r = move.NewPosition.Rank + surroundingSquaresDistance[1];
-                if (f < 0 || (int)f >= BoardWidth || r < 0 || (int)r >= BoardHeight)
+                int r = move.NewPosition.Rank + surroundingSquaresDistance[1];
+                if (f < 0 || (int)f >= BoardWidth || r < 1 || r > BoardHeight)
                     continue;
                 if (!(GetPieceAt(f, r) is Pawn))
                 {
@@ -74,11 +74,12 @@ namespace ChessDotNet.Variants.Atomic
 
         protected virtual bool KingIsGone(Player player)
         {
-            for (int x = 0; x < BoardWidth; x++)
+            for (int f = 0; f < BoardWidth; f++)
             {
-                for (int y = 0; y < BoardHeight; y++)
+                for (int r = 1; r <= BoardHeight; r++)
                 {
-                    if (Board[x][y] is King && Board[x][y].Owner == player)
+                    Piece p = GetPieceAt((File)f, r);
+                    if (p is King && p.Owner == player)
                     {
                         return false;
                     }

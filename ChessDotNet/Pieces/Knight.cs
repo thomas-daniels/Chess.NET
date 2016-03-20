@@ -45,7 +45,7 @@ namespace ChessDotNet.Pieces
             foreach (int[] dir in directions)
             {
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
-                    || (int)from.Rank + dir[1] < 0 || (int)from.Rank + dir[1] >= l0)
+                    || from.Rank + dir[1] < 1 || from.Rank + dir[1] > l0)
                     continue;
                 Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
                 if (game.IsValidMove(move))

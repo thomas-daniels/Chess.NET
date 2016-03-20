@@ -10,8 +10,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestEquality()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
             DetailedMove move3 = null;
             DetailedMove move4 = null;
             Assert.AreEqual(move1, move2, "move1 and move2 should be equal");
@@ -28,8 +28,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentPlayer()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.Black, null, new Pawn(Player.Black), false, CastlingType.None);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.Black, null, new Pawn(Player.Black), false, CastlingType.None);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");
@@ -43,8 +43,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentPiece()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Queen(Player.White), false, CastlingType.None);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Queen(Player.White), false, CastlingType.None);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");
@@ -58,8 +58,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentPromotion()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Queen(Player.White), false, CastlingType.None);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Pawn(Player.White), false, CastlingType.None);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Queen(Player.White), false, CastlingType.None);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");
@@ -73,8 +73,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentIsCapture()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Queen(Player.White), true, CastlingType.None);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.Two), new Position(File.E, Rank.Four), Player.White, null, new Queen(Player.White), false, CastlingType.None);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Queen(Player.White), true, CastlingType.None);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 2), new Position(File.E, 4), Player.White, null, new Queen(Player.White), false, CastlingType.None);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");
@@ -88,8 +88,8 @@ namespace ChessDotNet.Tests
         [Test]
         public static void TestInequality_DifferentCastlingType()
         {
-            DetailedMove move1 = new DetailedMove(new Position(File.E, Rank.One), new Position(File.C, Rank.One), Player.White, null, new King(Player.White), true, CastlingType.QueenSide);
-            DetailedMove move2 = new DetailedMove(new Position(File.E, Rank.One), new Position(File.G, Rank.One), Player.White, null, new King(Player.White), false, CastlingType.KingSide);
+            DetailedMove move1 = new DetailedMove(new Position(File.E, 1), new Position(File.C, 1), Player.White, null, new King(Player.White), true, CastlingType.QueenSide);
+            DetailedMove move2 = new DetailedMove(new Position(File.E, 1), new Position(File.G, 1), Player.White, null, new King(Player.White), false, CastlingType.KingSide);
             Assert.AreNotEqual(move1, move2, "move1 and move2 are equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");

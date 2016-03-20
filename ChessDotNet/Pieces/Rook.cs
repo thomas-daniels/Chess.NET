@@ -31,16 +31,16 @@ namespace ChessDotNet.Pieces
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if (posDelta.DistanceX != 0 && posDelta.DistanceY != 0)
                 return false;
-            bool increasingRank = (int)destination.Rank > (int)origin.Rank;
+            bool increasingRank = destination.Rank > origin.Rank;
             bool increasingFile = (int)destination.File > (int)origin.File;
             if (posDelta.DistanceX == 0)
             {
                 int f = (int)origin.File;
-                for (int r = (int)origin.Rank + (increasingRank ? 1 : -1);
-                    increasingRank ? r < (int)destination.Rank : r > (int)destination.Rank;
+                for (int r = origin.Rank + (increasingRank ? 1 : -1);
+                    increasingRank ? r < destination.Rank : r > destination.Rank;
                     r += increasingRank ? 1 : -1)
                 {
-                    if (game.GetPieceAt((File)f, (Rank)r) != null)
+                    if (game.GetPieceAt((File)f, r) != null)
                     {
                         return false;
                     }
@@ -48,12 +48,12 @@ namespace ChessDotNet.Pieces
             }
             else // (posDelta.DeltaY == 0)
             {
-                int r = (int)origin.Rank;
+                int r = origin.Rank;
                 for (int f = (int)origin.File + (increasingFile ? 1 : -1);
                     increasingFile ? f < (int)destination.File : f > (int)destination.File;
                     f += increasingFile ? 1 : -1)
                 {
-                    if (game.GetPieceAt((File)f, (Rank)r) != null)
+                    if (game.GetPieceAt((File)f, r) != null)
                     {
                         return false;
                     }
@@ -73,7 +73,7 @@ namespace ChessDotNet.Pieces
             {
                 if (i == 0)
                     continue;
-                if ((int)from.Rank + i > -1 && (int)from.Rank + i < l0)
+                if (from.Rank + i > 0 && from.Rank + i <= l0)
                 {
                     Move move = new Move(from, new Position(from.File, from.Rank + i), piece.Owner);
                     if (game.IsValidMove(move))
