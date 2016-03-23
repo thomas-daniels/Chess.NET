@@ -49,6 +49,15 @@ namespace ChessDotNet
             }
         }
 
+        protected bool canClaimDraw = false;
+        public bool DrawCanBeClaimed
+        {
+            get
+            {
+                return canClaimDraw;
+            }
+        }
+
         public Player WhoseTurn
         {
             get;
