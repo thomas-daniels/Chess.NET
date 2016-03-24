@@ -11,6 +11,7 @@ It contains the following features:
  - Checkmate and stalemate validation.
  - FEN string parsing and game-to-FEN conversion.
  - Support of the Atomic chess variant - http://lichess.org/variant/atomic
+ - Support for claiming draw for the 50 move rule.
 
 Planned features:
 
