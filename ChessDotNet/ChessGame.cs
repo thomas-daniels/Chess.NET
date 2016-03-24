@@ -659,6 +659,14 @@ namespace ChessDotNet
             if (!isCapture && !(movingPiece is Pawn))
             {
                 _halfMoveClock++;
+                if (_halfMoveClock == 100)
+                {
+                    canClaimDraw = true;
+                }
+                else
+                {
+                    canClaimDraw = false;
+                }
             }
             if (move.Player == Player.Black)
             {
