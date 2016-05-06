@@ -16,7 +16,7 @@ namespace Samples
             Console.WriteLine("It's this color's turn: {0}", game.WhoseTurn);
 
             // This is how to find out which piece is at a certain position:
-            Piece pieceAtA1 = game.GetPieceAt(new Position("A1"));
+            Piece pieceAtA1 = game.GetPieceAt(new Position("A1")); // Or "a1", the casing doesn't matter
             /* There are other overloading options as well:
              * game.GetPieceAt(new Position(File.A, 1));
              * game.GetPieceAt(File.A, 1);
