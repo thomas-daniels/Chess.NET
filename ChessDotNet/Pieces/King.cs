@@ -108,7 +108,7 @@ namespace ChessDotNet.Pieces
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
             int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
-                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } };
+                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 }, new int[] { 2, 0 }, new int[] { -2, 0 } };
             foreach (int[] dir in directions)
             {
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
