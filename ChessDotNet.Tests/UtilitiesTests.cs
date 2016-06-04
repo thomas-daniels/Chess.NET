@@ -14,24 +14,24 @@ namespace ChessDotNet.Tests
             Assert.Throws<ArgumentNullException>(delegate ()
             {
                 object value = null;
-                Utilities.ThrowIfNull(value, "value");
+                ChessUtilities.ThrowIfNull(value, "value");
             });
 
             Assert.DoesNotThrow(delegate ()
             {
                 Piece piece = new Bishop(Player.White);
-                Utilities.ThrowIfNull(piece, "piece");
+                ChessUtilities.ThrowIfNull(piece, "piece");
             });
         }
 
         [Test]
         public static void TestGetOpponentOf()
         {
-            Assert.AreEqual(Player.Black, Utilities.GetOpponentOf(Player.White));
-            Assert.AreEqual(Player.White, Utilities.GetOpponentOf(Player.Black));
+            Assert.AreEqual(Player.Black, ChessUtilities.GetOpponentOf(Player.White));
+            Assert.AreEqual(Player.White, ChessUtilities.GetOpponentOf(Player.Black));
             Assert.Throws<ArgumentException>(delegate ()
             {
-                Utilities.GetOpponentOf(Player.None);
+                ChessUtilities.GetOpponentOf(Player.None);
             });
         }
     }

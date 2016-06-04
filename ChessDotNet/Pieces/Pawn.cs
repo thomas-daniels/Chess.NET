@@ -23,8 +23,8 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(move, "move");
-            Utilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(game, "game");
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
@@ -82,7 +82,7 @@ namespace ChessDotNet.Pieces
                     || (origin.Rank != 4 && Owner == Player.Black))
                     return false;
                 Move latestMove = _moves[_moves.Count - 1];
-                if (latestMove.Player != Utilities.GetOpponentOf(Owner))
+                if (latestMove.Player != ChessUtilities.GetOpponentOf(Owner))
                     return false;
                 if (game.GetPieceAt(latestMove.NewPosition).Owner == Owner)
                     return false;
@@ -106,7 +106,7 @@ namespace ChessDotNet.Pieces
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
             int l0 = game.BoardHeight;

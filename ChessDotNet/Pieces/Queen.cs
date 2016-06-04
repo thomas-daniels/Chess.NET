@@ -23,14 +23,14 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(move, "move");
-            Utilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(game, "game");
             return new Bishop(Owner).IsValidMove(move, game) || new Rook(Owner).IsValidMove(move, game);
         }
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             ReadOnlyCollection<Move> horizontalVerticalMoves = new Rook(Owner).GetValidMoves(from, returnIfAny, game);
             if (returnIfAny && horizontalVerticalMoves.Count > 0)
                 return horizontalVerticalMoves;

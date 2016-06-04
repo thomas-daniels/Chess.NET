@@ -38,14 +38,14 @@ namespace ChessDotNet.Variants.Atomic
             bool kingIsGone = KingIsGone(playerToValidate);
             if (kingIsGone)
             {
-                return new GameStatus(GameEvent.VariantEnd, Utilities.GetOpponentOf(playerToValidate), "King exploded");
+                return new GameStatus(GameEvent.VariantEnd, ChessUtilities.GetOpponentOf(playerToValidate), "King exploded");
             }
             return base.CalculateStatus(playerToValidate, validateHasAnyValidMoves);
         }
 
         protected override bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -90,7 +90,7 @@ namespace ChessDotNet.Variants.Atomic
 
         protected virtual bool WouldBeSuicide(Move move, Player player)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             AtomicChessGame copy = new AtomicChessGame(Board, player);
             copy.ApplyMove(move, true);
             bool ownKingIsGone = copy.KingIsGone(player);
@@ -106,11 +106,11 @@ namespace ChessDotNet.Variants.Atomic
 
         protected virtual bool WouldBeSuicideOrInvalidSelfMoveInCheck(Move move, Player player)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             AtomicChessGame copy = new AtomicChessGame(Board, player);
             copy.ApplyMove(move, true);
             bool ownKingIsGone = copy.KingIsGone(player);
-            bool otherKingIsGone = copy.KingIsGone(Utilities.GetOpponentOf(player));
+            bool otherKingIsGone = copy.KingIsGone(ChessUtilities.GetOpponentOf(player));
             if (ownKingIsGone)
             {
                 return true;

@@ -32,7 +32,7 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
             PositionDistance distance = new PositionDistance(origin, destination);
@@ -102,7 +102,7 @@ namespace ChessDotNet.Pieces
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
             int l0 = game.BoardHeight;

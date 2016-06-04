@@ -171,7 +171,7 @@ namespace ChessDotNet
 
         protected static Piece[][] CloneBoard(Piece[][] originalBoard)
         {
-            Utilities.ThrowIfNull(originalBoard, "originalBoard");
+            ChessUtilities.ThrowIfNull(originalBoard, "originalBoard");
             Piece[][] newBoard = new Piece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
             {
@@ -291,8 +291,8 @@ namespace ChessDotNet
             {
                 DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
                                                                     new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
-                                                                    Utilities.GetOpponentOf(data.WhoseTurn)),
-                                          new Pawn(Utilities.GetOpponentOf(data.WhoseTurn)),
+                                                                    ChessUtilities.GetOpponentOf(data.WhoseTurn)),
+                                          new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                                           false,
                                           CastlingType.None);
                 _moves.Add(latestMove);
@@ -500,7 +500,7 @@ namespace ChessDotNet
             {
                 return new GameStatus(GameEvent.Resign, _resigned, _resigned.ToString() + " resigned");
             }
-            Player other = Utilities.GetOpponentOf(playerToValidate);
+            Player other = ChessUtilities.GetOpponentOf(playerToValidate);
             if (IsInCheck(playerToValidate))
             {
                 if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
@@ -521,7 +521,7 @@ namespace ChessDotNet
 
         public Piece GetPieceAt(Position position)
         {
-            Utilities.ThrowIfNull(position, "position");
+            ChessUtilities.ThrowIfNull(position, "position");
             return GetPieceAt(position.File, position.Rank);
         }
 
@@ -537,19 +537,19 @@ namespace ChessDotNet
 
         public bool IsValidMove(Move move)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             return IsValidMove(move, true, true);
         }
 
         protected bool IsValidMove(Move move, bool validateCheck)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             return IsValidMove(move, validateCheck, true);
         }
 
         protected virtual bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -597,7 +597,7 @@ namespace ChessDotNet
 
         public virtual MoveType ApplyMove(Move move, bool alreadyValidated)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             if (!alreadyValidated && !IsValidMove(move))
                 return MoveType.Invalid;
             MoveType type = MoveType.Move;
@@ -674,20 +674,20 @@ namespace ChessDotNet
             }
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
             SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
-            WhoseTurn = Utilities.GetOpponentOf(move.Player);
+            WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
             _moves.Add(new DetailedMove(move, movingPiece, isCapture, castle));
             return type;
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Position from)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             return GetValidMoves(from, false);
         }
 
         protected virtual ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             Piece piece = GetPieceAt(from);
             if (piece == null || piece.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             return piece.GetValidMoves(from, returnIfAny, this);
@@ -722,7 +722,7 @@ namespace ChessDotNet
 
         public virtual bool HasAnyValidMoves(Position from)
         {
-            Utilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, "from");
             ReadOnlyCollection<Move> validMoves = GetValidMoves(from, true);
             return validMoves.Count > 0;
         }
@@ -791,7 +791,7 @@ namespace ChessDotNet
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
-            Utilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, "move");
             GameCreationData gcd = new GameCreationData();
             gcd.Board = Board;
             gcd.CanWhiteCastleKingSide = !_whiteRookHMoved && !_whiteKingMoved;

@@ -23,8 +23,8 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            Utilities.ThrowIfNull(move, "move");
-            Utilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(game, "game");
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
