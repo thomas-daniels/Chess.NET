@@ -2,7 +2,7 @@
 
 namespace ChessDotNet
 {
-    public static class Utilities
+    public static class ChessUtilities
     {
         public static void ThrowIfNull(object value, string parameterName)
         {
