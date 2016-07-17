@@ -1,5 +1,6 @@
 dependencies:
   post:
+    - sudo add-apt-repository universe
     - sudo apt-get update
     - sudo apt-get install mono-xbuild mono-mcs nuget
     - nuget install NUnit.ConsoleRunner
