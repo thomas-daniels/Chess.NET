@@ -49,6 +49,7 @@
     <Compile Include="ChessPieceTests.cs" />
     <Compile Include="FenConvertTests.cs" />
     <Compile Include="MoveTests.cs" />
+    <Compile Include="PgnReaderTests.cs" />
     <Compile Include="PositionDistanceTests.cs" />
     <Compile Include="PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

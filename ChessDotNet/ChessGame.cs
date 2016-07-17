@@ -41,6 +41,31 @@ namespace ChessDotNet
             }
         }
 
+        public virtual Piece MapPgnCharToPiece(char c, Player owner)
+        {
+            switch (c)
+            {
+                case 'K':
+                    return new King(owner);
+                case 'Q':
+                    return new Queen(owner);
+                case 'R':
+                    return new Rook(owner);
+                case 'B':
+                    return new Bishop(owner);
+                case 'N':
+                    return new Knight(owner);
+                case 'P':
+                    return new Pawn(owner);
+                default:
+                    if (!char.IsLower(c))
+                    {
+                        throw new PgnException("Unrecognized piece type: " + c.ToString());
+                    }
+                    return new Pawn(owner);
+            }
+        }
+
         public GameStatus Status
         {
             get
