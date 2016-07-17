@@ -4,4 +4,3 @@ obj/
 TestResult.xml
 Samples/*
 !Samples/*.cs
-NUnit.ConsoleRunner.3.4.1/
