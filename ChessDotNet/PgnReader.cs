@@ -21,68 +21,103 @@ namespace ChessDotNet
 
         public void ReadPgnFromString(string pgn)
         {
+            int t;
             IEnumerable<string> moves = pgn.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                                           .Where(x => !((x.Length == 1 && char.IsDigit(x[0])) || x[0] == '$'));
+                                           .Where(x => !(int.TryParse(x, out t) || x[0] == '$'));
             TGame game = new TGame();
             int ply = 0;
             foreach (string _ in moves)
             {
-                string move = _.TrimEnd('#', '?', '!', '+').Trim();
                 ply++;
                 Player player = ply % 2 == 0 ? Player.Black : Player.White;
-                Piece piece = game.MapPgnCharToPiece(move[0], player);
+                string move = _.TrimEnd('#', '?', '!', '+').Trim();
+
+                Position origin = null;
+                Position destination = null;
+                Piece piece = null;
+                Piece promotion = null;
+
+                if (move.Length > 2)
+                {
+                    string possiblePromotionPiece = move.Substring(move.Length - 2).ToUpperInvariant();
+                    if (possiblePromotionPiece[0] == '=')
+                    {
+                        promotion = game.MapPgnCharToPiece(possiblePromotionPiece[1], player);
+                        move = move.Remove(move.Length - 2, 2);
+                    }
+                }
+
+                if (move.ToUpperInvariant() == "O-O")
+                {
+                    int r = player == Player.White ? 1 : 8;
+                    origin = new Position(File.E, r);
+                    destination = new Position(File.G, r);
+                    piece = new King(player);
+                }
+                else if (move.ToUpperInvariant() == "O-O-O")
+                {
+                    int r = player == Player.White ? 1 : 8;
+                    origin = new Position(File.E, r);
+                    destination = new Position(File.C, r);
+                    piece = new King(player);                
+                }
+
+                if (piece == null)
+                {
+                    piece = game.MapPgnCharToPiece(move[0], player);
+                }
                 if (!(piece is Pawn))
                 {
                     move = move.Remove(0, 1);
                 }
 
-                if (move[0] == 'x')
-                {
-                    move = move.Remove(0, 1);
-                }
-                else if (move.Length == 4 && move[1] == 'x')
-                {
-                    move = move.Remove(1, 1);
-                }
-
-                Position destination;
                 int rankRestriction = -1;
                 File fileRestriction = File.None;
-                Position origin = null;
-
-                if (move.Length == 2)
+                if (destination == null)
                 {
-                    destination = new Position(move);
-                }
-                else if (move.Length == 3)
-                {
-                    if (char.IsDigit(move[0]))
+                    if (move[0] == 'x')
                     {
-                        rankRestriction = int.Parse(move[0].ToString());
+                        move = move.Remove(0, 1);
+                    }
+                    else if (move.Length == 4 && move[1] == 'x')
+                    {
+                        move = move.Remove(1, 1);
+                    }
+
+                    if (move.Length == 2)
+                    {
+                        destination = new Position(move);
+                    }
+                    else if (move.Length == 3)
+                    {
+                        if (char.IsDigit(move[0]))
+                        {
+                            rankRestriction = int.Parse(move[0].ToString());
+                        }
+                        else
+                        {
+                            bool recognized = Enum.TryParse<File>(move[0].ToString(), true, out fileRestriction);
+                            if (!recognized)
+                            {
+                                throw new PgnException("Invalid PGN: unrecognized origin file.");
+                            }
+                        }
+                        destination = new Position(move.Remove(0, 1));
+                    }
+                    else if (move.Length == 4)
+                    {
+                        origin = new Position(move.Substring(0, 2));
+                        destination = new Position(move.Substring(2, 2));
                     }
                     else
                     {
-                        bool recognized = Enum.TryParse<File>(move[0].ToString(), true, out fileRestriction);
-                        if (!recognized)
-                        {
-                            throw new PgnException("Invalid PGN: unrecognized origin file.");
-                        }
+                        throw new PgnException("Invalid PGN.");
                     }
-                    destination = new Position(move.Remove(0, 1));
-                }
-                else if (move.Length == 4)
-                {
-                    origin = new Position(move.Substring(0, 2));
-                    destination = new Position(move.Substring(2, 2));
-                }
-                else
-                {
-                    throw new PgnException("Invalid PGN.");
                 }
 
                 if (origin != null)
                 {
-                    Move m = new Move(origin, destination, player);
+                    Move m = new Move(origin, destination, player, promotion);
                     if (game.IsValidMove(m))
                     {
                         game.ApplyMove(m, true);
@@ -103,7 +138,7 @@ namespace ChessDotNet
                         {
                             if (fileRestriction != File.None && f != (int)fileRestriction) continue;
                             if (board[r][f] != piece) continue;
-                            Move m = new Move(new Position((File)f, 8 - r), destination, player);
+                            Move m = new Move(new Position((File)f, 8 - r), destination, player, promotion);
                             if (game.IsValidMove(m))
                             {
                                 validMoves.Add(m);
