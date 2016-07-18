@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ChessDotNet.Pieces
 {
@@ -21,6 +22,14 @@ namespace ChessDotNet.Pieces
             return Owner == Player.White ? 'P' : 'p';
         }
 
+        protected virtual char[] ValidPromotionPieces
+        {
+            get
+            {
+                return new char[] { 'Q', 'q', 'R', 'r', 'B', 'b', 'N', 'n' };
+            }
+        }
+
         public override bool IsValidMove(Move move, ChessGame game)
         {
             ChessUtilities.ThrowIfNull(move, "move");
@@ -37,15 +46,29 @@ namespace ChessDotNet.Pieces
             {
                 if (origin.Rank > destination.Rank)
                     return false;
-                if (destination.Rank == 8 && promotion == null)
-                    return false;
+                if (destination.Rank == 8)
+                {
+                    if (promotion == null)
+                        return false;
+                    if (promotion.Owner != Player.White)
+                        return false;
+                    if (!ValidPromotionPieces.Contains(promotion.GetFenCharacter()))
+                        return false;
+                }
             }
             if (Owner == Player.Black)
             {
                 if (origin.Rank < destination.Rank)
                     return false;
-                if (destination.Rank == 1 && promotion == null)
-                    return false;
+                if (destination.Rank == 1)
+                {
+                    if (promotion == null)
+                        return false;
+                    if (promotion.Owner != Player.Black)
+                        return false;
+                    if (!ValidPromotionPieces.Contains(promotion.GetFenCharacter()))
+                        return false;
+                }
             }
             bool checkEnPassant = false;
             if (posDelta.DistanceY == 2)
