@@ -20,7 +20,8 @@ namespace ChessDotNet.Tests
                 { "1. Nf3 a6 2. Nc3 h6 3. Nd5 a5 4. Ne5 a4 5. Nd3 f5 6. N5f4", "rnbqkbnr/1pppp1p1/7p/5p2/p4N2/3N4/PPPPPPPP/R1BQKB1R b KQkq - 1 6" },
                 { "1. Nf3 a6 2. Nc3 h6 3. Nd5 a5 4. Ne5 a4 5. Nd3 f5 6. e3 f4 7. N3xf4", "rnbqkbnr/1pppp1p1/7p/3N4/p4N2/4P3/PPPP1PPP/R1BQKB1R b KQkq - 0 7" },
                 { "1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bc4 Bc5 5. O-O O-O 6. d3 h6 7. h3 Bb4 8. a3 Bxc3 9. bxc3 d5 10. exd5 Nxd5 11. Bxd5 Qxd5", "r1b2rk1/ppp2pp1/2n4p/3qp3/8/P1PP1N1P/2P2PP1/R1BQ1RK1 w - - 0 12" },
-                { "1. h4 a6 2. h5 a5 3. h6 a4 4. hxg7 a3 5. gxh8=Q", "rnbqkbnQ/1ppppp1p/8/8/8/p7/PPPPPPP1/RNBQKBNR b KQq - 0 5" }
+                { "1. h4 a6 2. h5 a5 3. h6 a4 4. hxg7 a3 5. gxh8=Q", "rnbqkbnQ/1ppppp1p/8/8/8/p7/PPPPPPP1/RNBQKBNR b KQq - 0 5" },
+                { "1. h4?!", "rnbqkbnr/pppppppp/8/8/7P/8/PPPPPPP1/RNBQKBNR b KQkq h3 0 1" }
             };
             foreach (KeyValuePair<string, string> testValue in testValues)
             {
