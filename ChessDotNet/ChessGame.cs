@@ -680,6 +680,14 @@ namespace ChessDotNet
             {
                 type |= MoveType.Capture;
                 _halfMoveClock = 0;
+                if (move.NewPosition.File == File.A && move.NewPosition.Rank == 1)
+                    _whiteRookAMoved = true;
+                else if (move.NewPosition.File == File.H && move.NewPosition.Rank == 1)
+                    _whiteRookHMoved = true;
+                else if (move.NewPosition.File == File.A && move.NewPosition.Rank == 8)
+                    _blackRookAMoved = true;
+                else if (move.NewPosition.File == File.H && move.NewPosition.Rank == 8)
+                    _blackRookHMoved = true;
             }
             if (!isCapture && !(movingPiece is Pawn))
             {
