@@ -2712,6 +2712,9 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.White);
 
             Assert.True(cb.IsInCheck(Player.White));
+
+            cb.ApplyMove(new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White), true);
+            Assert.False(cb.IsInCheck(Player.White));
         }
 
         [Test]
@@ -2788,6 +2791,10 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
 
             Assert.True(cb.IsInCheck(Player.Black));
+
+            cb.ApplyMove(new Move(new Position(File.B, 7), new Position(File.A, 7), Player.Black), true);
+
+            Assert.False(cb.IsInCheck(Player.Black));
         }
 
         [Test]
