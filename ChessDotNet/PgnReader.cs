@@ -47,14 +47,14 @@ namespace ChessDotNet
                     }
                 }
 
-                if (new string[] { "O-O", "O-O+", "O-O#" }.Contains(move.ToUpperInvariant()))
+                if (move.ToUpperInvariant() == "O-O")
                 {
                     int r = player == Player.White ? 1 : 8;
                     origin = new Position(File.E, r);
                     destination = new Position(File.G, r);
                     piece = new King(player);
                 }
-                else if (new string[] { "O-O-O", "O-O-O+", "O-O-O#" }.Contains(move.ToUpperInvariant()))
+                else if (move.ToUpperInvariant() == "O-O-O")
                 {
                     int r = player == Player.White ? 1 : 8;
                     origin = new Position(File.E, r);
