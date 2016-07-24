@@ -27,6 +27,14 @@ namespace ChessDotNet
             }
         }
 
+        public string DrawReason
+        {
+            get
+            {
+                return _drawReason;
+            }
+        }
+
         public Player Resigned
         {
             get
