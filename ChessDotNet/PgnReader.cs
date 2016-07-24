@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ChessDotNet
 {
@@ -21,8 +22,9 @@ namespace ChessDotNet
 
         public void ReadPgnFromString(string pgn)
         {
+            string pgnWithoutComments = Regex.Replace(pgn, @"\{[^}]*\}", "");
             int t;
-            IEnumerable<string> moves = pgn.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+            IEnumerable<string> moves = pgnWithoutComments.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                                            .Where(x => !(int.TryParse(x, out t) || x[0] == '$'));
             TGame game = new TGame();
             int ply = 0;

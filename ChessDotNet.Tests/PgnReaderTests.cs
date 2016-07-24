@@ -15,7 +15,7 @@ namespace ChessDotNet.Tests
                 { "1. e4 d5 2. exd5", "rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2" },
                 { "1. Nf3 a5 2. Nc3 h5 3. Nd5 b5 4. Nf4 g6 5. Nd4 d6 6. e3 e6 7. Nfe2", "rnbqkbnr/2p2p2/3pp1p1/pp5p/3N4/4P3/PPPPNPPP/R1BQKB1R b KQkq - 1 7" },
                 { "1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7#", "r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4" },
-                { "1.e2e4! $0", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" },
+                { "1.e2e4! $0 { This is a comment. } {}", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1" },
                 { "1. Nf3 a6 2. Nc3 h6 3. Nd5 a5 4. Nf4 h5 5. Nd4 b6 6. e3 e6 7. Ndxe6", "rnbqkbnr/2pp1pp1/1p2N3/p6p/5N2/4P3/PPPP1PPP/R1BQKB1R b KQkq - 0 7" },
                 { "1. Nf3 a6 2. Nc3 h6 3. Nd5 a5 4. Ne5 a4 5. Nd3 f5 6. N5f4", "rnbqkbnr/1pppp1p1/7p/5p2/p4N2/3N4/PPPPPPPP/R1BQKB1R b KQkq - 1 6" },
                 { "1. Nf3 a6 2. Nc3 h6 3. Nd5 a5 4. Ne5 a4 5. Nd3 f5 6. e3 f4 7. N3xf4", "rnbqkbnr/1pppp1p1/7p/3N4/p4N2/4P3/PPPP1PPP/R1BQKB1R b KQkq - 0 7" },
