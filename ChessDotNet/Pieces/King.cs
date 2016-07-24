@@ -53,7 +53,7 @@ namespace ChessDotNet.Pieces
             {
                 if (origin.File != File.E || origin.Rank != 1)
                     return false;
-                if (game.WhiteKingMoved || (game.Status.Event == GameEvent.Check && game.Status.PlayerWhoCausedEvent == Player.Black))
+                if (game.WhiteKingMoved || game.IsInCheck(Player.White))
                     return false;
                 if (destination.File == File.C)
                 {
@@ -77,7 +77,7 @@ namespace ChessDotNet.Pieces
             {
                 if (origin.File != File.E || origin.Rank != 8)
                     return false;
-                if (game.BlackKingMoved || (game.Status.Event == GameEvent.Check && game.Status.PlayerWhoCausedEvent == Player.White))
+                if (game.BlackKingMoved || game.IsInCheck(Player.Black))
                     return false;
                 if (destination.File == File.C)
                 {

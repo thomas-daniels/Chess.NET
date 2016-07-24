@@ -2711,9 +2711,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
-            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
-            Assert.AreEqual(Player.Black, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("White is in check", cb.Status.EventExplanation);
+            Assert.True(cb.IsInCheck(Player.White));
         }
 
         [Test]
@@ -2732,9 +2730,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
-            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
-            Assert.AreEqual(Player.Black, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("White is in check", cb.Status.EventExplanation);
+            Assert.True(cb.IsInCheck(Player.White));
         }
 
         [Test]
@@ -2753,7 +2749,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+            Assert.False(cb.IsInCheck(Player.White));
         }
 
         [Test]
@@ -2772,7 +2768,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+            Assert.False(cb.IsInCheck(Player.White));
         }
 
         [Test]
@@ -2791,9 +2787,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
-            Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("Black is in check", cb.Status.EventExplanation);
+            Assert.True(cb.IsInCheck(Player.Black));
         }
 
         [Test]
@@ -2812,9 +2806,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.AreEqual(GameEvent.Check, cb.Status.Event);
-            Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("Black is in check", cb.Status.EventExplanation);
+            Assert.True(cb.IsInCheck(Player.Black));
         }
 
         [Test]
@@ -2833,7 +2825,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+            Assert.False(cb.IsInCheck(Player.Black));
         }
 
         [Test]
@@ -2852,7 +2844,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
+            Assert.False(cb.IsInCheck(Player.Black));
         }
 
         [Test]
@@ -2867,9 +2859,7 @@ namespace ChessDotNet.Tests
             cb.ApplyMove(new Move("H7", "H6", Player.Black), true);
             Assert.AreNotEqual(cb.ApplyMove(new Move("F3", "F7", Player.White), false), MoveType.Invalid);
 
-            Assert.AreEqual(GameEvent.Checkmate, cb.Status.Event);
-            Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("Black is checkmated", cb.Status.EventExplanation);
+            Assert.True(cb.IsCheckmated(Player.Black));
         }
 
         [Test]
@@ -2888,9 +2878,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
 
-            Assert.AreEqual(GameEvent.Stalemate, cb.Status.Event);
-            Assert.AreEqual(Player.White, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("Stalemate", cb.Status.EventExplanation);
+            Assert.True(cb.IsStalemated(Player.Black));
         }
 
         [Test]
@@ -2909,9 +2897,7 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
-            Assert.AreEqual(Player.None, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("No special event", cb.Status.EventExplanation);
+            Assert.False(cb.IsStalemated(Player.Black));
         }
 
         [Test]
@@ -2932,9 +2918,7 @@ namespace ChessDotNet.Tests
 
             Assert.AreNotEqual(cb.ApplyMove(new Move("A7", "A8", Player.Black), false), MoveType.Invalid);
 
-            Assert.AreEqual(GameEvent.None, cb.Status.Event);
-            Assert.AreEqual(Player.None, cb.Status.PlayerWhoCausedEvent);
-            Assert.AreEqual("No special event", cb.Status.EventExplanation);
+            Assert.False(cb.IsStalemated(Player.Black));
         }
 
         [Test]

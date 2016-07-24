@@ -19,6 +19,22 @@ namespace ChessDotNet
         string _drawReason = null;
         Player _resigned = Player.None;
 
+        public bool Drawn
+        {
+            get
+            {
+                return _drawn;
+            }
+        }
+
+        public Player Resigned
+        {
+            get
+            {
+                return _resigned;
+            }
+        }
+
         protected virtual Dictionary<char, Piece> FenMappings
         {
             get
@@ -63,14 +79,6 @@ namespace ChessDotNet
                         throw new PgnException("Unrecognized piece type: " + c.ToString());
                     }
                     return new Pawn(owner);
-            }
-        }
-
-        public GameStatus Status
-        {
-            get
-            {
-                return CalculateStatus(WhoseTurn, true);
             }
         }
 
@@ -515,35 +523,6 @@ namespace ChessDotNet
             return data;
         }
 
-        protected virtual GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
-        {
-            if (_drawn)
-            {
-                return new GameStatus(GameEvent.Draw, Player.None, _drawReason);
-            }
-            if (_resigned != Player.None)
-            {
-                return new GameStatus(GameEvent.Resign, _resigned, _resigned.ToString() + " resigned");
-            }
-            Player other = ChessUtilities.GetOpponentOf(playerToValidate);
-            if (IsInCheck(playerToValidate))
-            {
-                if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
-                {
-                    return new GameStatus(GameEvent.Checkmate, other, playerToValidate.ToString() + " is checkmated");
-                }
-                else
-                {
-                    return new GameStatus(GameEvent.Check, other, playerToValidate.ToString() + " is in check");
-                }
-            }
-            else if (validateHasAnyValidMoves && !HasAnyValidMoves(playerToValidate))
-            {
-                return new GameStatus(GameEvent.Stalemate, other, "Stalemate");
-            }
-            return new GameStatus(GameEvent.None, Player.None, "No special event");
-        }
-
         public Piece GetPieceAt(Position position)
         {
             ChessUtilities.ThrowIfNull(position, "position");
@@ -766,8 +745,20 @@ namespace ChessDotNet
             return validMoves.Count > 0;
         }
 
-        protected virtual bool IsInCheck(Player player)
+        protected Cache<bool> inCheckCacheWhite = new Cache<bool>(false, -1);
+        protected Cache<bool> inCheckCacheBlack = new Cache<bool>(false, -1);
+        public virtual bool IsInCheck(Player player)
         {
+            if (player == Player.None)
+            {
+                throw new ArgumentException("IsInCheck: Player.None is an invalid argument.");
+            }
+            Cache<bool> cache = player == Player.White ? inCheckCacheWhite : inCheckCacheBlack;
+            if (cache.CachedAt == Moves.Count)
+            {
+                return cache.Value;
+            }
+
             Position kingPos = new Position(File.None, -1);
 
             for (int r = 1; r <= Board.Length; r++)
@@ -788,7 +779,7 @@ namespace ChessDotNet
             }
 
             if (kingPos.File == File.None)
-                return false;
+                return cache.UpdateCache(false, Moves.Count);
 
             for (int r = 1; r <= Board.Length; r++)
             {
@@ -814,12 +805,38 @@ namespace ChessDotNet
                     {
                         if (IsValidMove(m, false, false))
                         {
-                            return true;
+                            return cache.UpdateCache(true, Moves.Count);
                         }
                     }
                 }
             }
-            return false;
+            return cache.UpdateCache(false, Moves.Count);
+        }
+
+        protected Cache<bool> checkmatedCacheWhite = new Cache<bool>(false, -1);
+        protected Cache<bool> checkmatedCacheBlack = new Cache<bool>(false, -1);
+        public virtual bool IsCheckmated(Player player)
+        {
+            Cache<bool> cache = player == Player.White ? checkmatedCacheWhite : checkmatedCacheBlack;
+            if (cache.CachedAt == Moves.Count)
+            {
+                return cache.Value;
+            }
+
+            return cache.UpdateCache(IsInCheck(player) && !HasAnyValidMoves(player), Moves.Count);
+        }
+
+        protected Cache<bool> stalematedCacheWhite = new Cache<bool>(false, -1);
+        protected Cache<bool> stalematedCacheBlack = new Cache<bool>(false, -1);
+        public virtual bool IsStalemated(Player player)
+        {
+            Cache<bool> cache = player == Player.White ? stalematedCacheWhite : stalematedCacheBlack;
+            if (cache.CachedAt == Moves.Count)
+            {
+                return cache.Value;
+            }
+
+            return cache.UpdateCache(WhoseTurn == player && !IsInCheck(player) && !HasAnyValidMoves(player), Moves.Count);
         }
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
@@ -844,8 +861,7 @@ namespace ChessDotNet
             gcd.FullMoveNumber = _fullMoveNumber;
             ChessGame copy = new ChessGame(gcd);
             copy.ApplyMove(move, true);
-            GameStatus status = copy.CalculateStatus(player, false);
-            return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
+            return copy.IsInCheck(player);
         }
 
         public void Draw(string reason)

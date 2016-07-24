@@ -33,16 +33,6 @@ namespace ChessDotNet.Variants.Atomic
             return type;
         }
 
-        protected override GameStatus CalculateStatus(Player playerToValidate, bool validateHasAnyValidMoves)
-        {
-            bool kingIsGone = KingIsGone(playerToValidate);
-            if (kingIsGone)
-            {
-                return new GameStatus(GameEvent.VariantEnd, ChessUtilities.GetOpponentOf(playerToValidate), "King exploded");
-            }
-            return base.CalculateStatus(playerToValidate, validateHasAnyValidMoves);
-        }
-
         protected override bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
             ChessUtilities.ThrowIfNull(move, "move");
@@ -72,8 +62,16 @@ namespace ChessDotNet.Variants.Atomic
             return true;
         }
 
-        protected virtual bool KingIsGone(Player player)
+        Cache<bool> kingIsGoneCacheWhite = new Cache<bool>(false, -1);
+        Cache<bool> kingIsGoneCacheBlack = new Cache<bool>(false, -1);
+        public virtual bool KingIsGone(Player player)
         {
+            Cache<bool> cache = player == Player.White ? kingIsGoneCacheWhite : kingIsGoneCacheBlack;
+            if (cache.CachedAt == Moves.Count)
+            {
+                return cache.Value;
+            }
+
             for (int f = 0; f < BoardWidth; f++)
             {
                 for (int r = 1; r <= BoardHeight; r++)
@@ -81,11 +79,11 @@ namespace ChessDotNet.Variants.Atomic
                     Piece p = GetPieceAt((File)f, r);
                     if (p is King && p.Owner == player)
                     {
-                        return false;
+                        return cache.UpdateCache(false, Moves.Count);
                     }
                 }
             }
-            return true;
+            return cache.UpdateCache(true, Moves.Count);
         }
 
         protected virtual bool WouldBeSuicide(Move move, Player player)
@@ -121,8 +119,7 @@ namespace ChessDotNet.Variants.Atomic
             }
             else
             {
-                GameStatus status = copy.CalculateStatus(player, false);
-                return status.Event == GameEvent.Check && status.PlayerWhoCausedEvent != player;
+                return copy.IsInCheck(player);
             }
         }
     }

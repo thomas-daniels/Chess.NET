@@ -71,10 +71,7 @@ namespace ChessDotNet.Variants.Tests
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
             game.ApplyMove(new Move("F3", "F7", Player.White), true);
-            GameStatus status = game.Status;
-            Assert.AreEqual(GameEvent.VariantEnd, status.Event);
-            Assert.AreEqual("King exploded", status.EventExplanation);
-            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+            Assert.True(game.KingIsGone(Player.Black));
         }
 
         [Test]
@@ -93,9 +90,7 @@ namespace ChessDotNet.Variants.Tests
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
             game.ApplyMove(new Move("H7", "B7", Player.White), true);
-            GameStatus status = game.Status;
-            Assert.AreEqual(GameEvent.Checkmate, status.Event);
-            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+            Assert.True(game.IsCheckmated(Player.Black));
         }
 
         [Test]
@@ -113,9 +108,7 @@ namespace ChessDotNet.Variants.Tests
                 new[] { o, o, o, o, o, o, o, kw }
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.Black);
-            GameStatus status = game.Status;
-            Assert.AreEqual(GameEvent.Stalemate, status.Event);
-            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+            Assert.True(game.IsStalemated(Player.Black));
         }
 
         [Test]
@@ -133,9 +126,7 @@ namespace ChessDotNet.Variants.Tests
                 new[] { o, o, o, o, o, o, kb, kw }
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.Black);
-            GameStatus status = game.Status;
-            Assert.AreEqual(GameEvent.Stalemate, status.Event);
-            Assert.AreEqual(Player.White, status.PlayerWhoCausedEvent);
+            Assert.True(game.IsStalemated(Player.Black));
         }
 
         [Test]
@@ -189,8 +180,7 @@ namespace ChessDotNet.Variants.Tests
                 new[] { o, o, o, o, o, o, kb, kw }
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.Black);
-            GameStatus status = game.Status;
-            Assert.AreEqual(status.Event, GameEvent.None);
+            Assert.False(game.IsInCheck(Player.Black));
         }
     }
 }
