@@ -107,9 +107,9 @@ namespace ChessDotNet.Pieces
                 Move latestMove = _moves[_moves.Count - 1];
                 if (latestMove.Player != ChessUtilities.GetOpponentOf(Owner))
                     return false;
-                if (game.GetPieceAt(latestMove.NewPosition).Owner == Owner)
-                    return false;
                 if (!(game.GetPieceAt(latestMove.NewPosition) is Pawn))
+                    return false;
+                if (game.GetPieceAt(latestMove.NewPosition).Owner == Owner)
                     return false;
                 if (Owner == Player.White)
                 {
