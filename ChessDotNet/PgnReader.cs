@@ -26,7 +26,7 @@ namespace ChessDotNet
             int t;
             List<string> moves = pgnWithoutComments.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                                            .Where(x => !(int.TryParse(x, out t) || x[0] == '$')).ToList();
-            if (moves[moves.Count - 1] == "*")
+            if (new string[] { "*", "1-0", "0-1", "1/2-1/2" }.Contains(moves[moves.Count - 1]))
             {
                 moves.RemoveAt(moves.Count - 1);
             }
