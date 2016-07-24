@@ -934,6 +934,25 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestInvalidMoveWhiteKing_KingsideCastling_Checkmated()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, rb, rb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, pw, o, o, o, o },
+                new[] { o, o, o, rw, kw, o, o, rw }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            Move castling = new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White);
+            Assert.False(cb.IsValidMove(castling), "castling move should be invalid; king is checkmated");
+        }
+
+        [Test]
         public static void TestValidMoveBlackPawn()
         {
             ChessGame cb = new ChessGame();
