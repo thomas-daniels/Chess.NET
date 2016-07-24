@@ -24,8 +24,12 @@ namespace ChessDotNet
         {
             string pgnWithoutComments = Regex.Replace(pgn, @"\{[^}]*\}", "");
             int t;
-            IEnumerable<string> moves = pgnWithoutComments.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                                           .Where(x => !(int.TryParse(x, out t) || x[0] == '$'));
+            List<string> moves = pgnWithoutComments.Split(new char[] { '.', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                                           .Where(x => !(int.TryParse(x, out t) || x[0] == '$')).ToList();
+            if (moves[moves.Count - 1] == "*")
+            {
+                moves.RemoveAt(moves.Count - 1);
+            }
             TGame game = new TGame();
             int ply = 0;
             foreach (string _ in moves)
