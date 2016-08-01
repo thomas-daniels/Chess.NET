@@ -90,12 +90,12 @@ namespace ChessDotNet
             }
         }
 
-        protected bool canClaimDraw = false;
-        public bool DrawCanBeClaimed
+        protected bool fiftyMoves = false;
+        public virtual bool DrawCanBeClaimed
         {
             get
             {
-                return canClaimDraw;
+                return fiftyMoves && !IsCheckmated(WhoseTurn) && !IsStalemated(WhoseTurn);
             }
         }
 
@@ -681,11 +681,11 @@ namespace ChessDotNet
                 _halfMoveClock++;
                 if (_halfMoveClock == 100)
                 {
-                    canClaimDraw = true;
+                    fiftyMoves = true;
                 }
                 else
                 {
-                    canClaimDraw = false;
+                    fiftyMoves = false;
                 }
             }
             if (move.Player == Player.Black)

@@ -11,6 +11,14 @@ namespace ChessDotNet.Variants.Atomic
         public AtomicChessGame(string fen) : base(fen) { }
         public AtomicChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
 
+        public override bool DrawCanBeClaimed
+        {
+            get
+            {
+                return base.DrawCanBeClaimed && !KingIsGone(WhoseTurn);
+            }
+        }
+
         public override MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             MoveType type = base.ApplyMove(move, alreadyValidated);
