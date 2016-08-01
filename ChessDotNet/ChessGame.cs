@@ -679,7 +679,7 @@ namespace ChessDotNet
             if (!isCapture && !(movingPiece is Pawn))
             {
                 _halfMoveClock++;
-                if (_halfMoveClock == 100)
+                if (_halfMoveClock >= 100)
                 {
                     fiftyMoves = true;
                 }
