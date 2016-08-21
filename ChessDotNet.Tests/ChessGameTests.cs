@@ -2867,6 +2867,7 @@ namespace ChessDotNet.Tests
             Assert.AreNotEqual(cb.ApplyMove(new Move("F3", "F7", Player.White), false), MoveType.Invalid);
 
             Assert.True(cb.IsCheckmated(Player.Black));
+            Assert.True(cb.IsWinner(Player.White));
         }
 
         [Test]

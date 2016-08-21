@@ -847,6 +847,11 @@ namespace ChessDotNet
             return cache.UpdateCache(WhoseTurn == player && !IsInCheck(player) && !HasAnyValidMoves(player), Moves.Count);
         }
 
+        public virtual bool IsWinner(Player player)
+        {
+            return IsCheckmated(ChessUtilities.GetOpponentOf(player));
+        }
+
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             ChessUtilities.ThrowIfNull(move, "move");

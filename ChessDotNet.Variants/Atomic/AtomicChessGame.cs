@@ -94,6 +94,11 @@ namespace ChessDotNet.Variants.Atomic
             return cache.UpdateCache(true, Moves.Count);
         }
 
+        public override bool IsWinner(Player player)
+        {
+            return IsCheckmated(ChessUtilities.GetOpponentOf(player)) || KingIsGone(ChessUtilities.GetOpponentOf(player));
+        }
+
         protected virtual bool WouldBeSuicide(Move move, Player player)
         {
             ChessUtilities.ThrowIfNull(move, "move");

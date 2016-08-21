@@ -72,6 +72,7 @@ namespace ChessDotNet.Variants.Tests
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
             game.ApplyMove(new Move("F3", "F7", Player.White), true);
             Assert.True(game.KingIsGone(Player.Black));
+            Assert.True(game.IsWinner(Player.White));
         }
 
         [Test]
@@ -91,6 +92,7 @@ namespace ChessDotNet.Variants.Tests
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
             game.ApplyMove(new Move("H7", "B7", Player.White), true);
             Assert.True(game.IsCheckmated(Player.Black));
+            Assert.True(game.IsWinner(Player.White));
         }
 
         [Test]
