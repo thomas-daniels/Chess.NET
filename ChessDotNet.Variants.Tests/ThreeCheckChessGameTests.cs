@@ -29,7 +29,7 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(2, game.ChecksByWhite);
             game.ApplyMove(new Move("E8", "E7", Player.Black), true);
             game.ApplyMove(new Move("G8", "E8", Player.White), true);
-            Assert.AreEqual(3, game.ChecksByBlack);
+            Assert.AreEqual(3, game.ChecksByWhite);
             Assert.True(game.IsWinner(Player.White));
         }
 
