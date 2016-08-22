@@ -55,5 +55,17 @@
             get;
             set;
         }
+
+        public int ThreeCheck_BlackInCheck
+        {
+            get;
+            set;
+        }
+
+        public int ThreeCheck_WhiteInCheck
+        {
+            get;
+            set;
+        }
     }
 }

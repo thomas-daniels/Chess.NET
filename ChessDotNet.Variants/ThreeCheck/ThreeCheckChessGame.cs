@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ChessDotNet.Variants.ThreeCheck
 {
@@ -16,25 +18,45 @@ namespace ChessDotNet.Variants.ThreeCheck
             protected set;
         }
 
+        protected override int[] AllowedFenPartsLength
+        {
+            get
+            {
+                return new int[2] { 6, 7 };
+            }
+        }
+
         public ThreeCheckChessGame() : base() { }
         public ThreeCheckChessGame(Piece[][] board, Player whoseTurn) : base(board, whoseTurn) { }
         public ThreeCheckChessGame(GameCreationData data) : base(data) { }
-        public ThreeCheckChessGame(string fen) : base(fen)
-        {
-            if (WhoseTurn == Player.White && IsInCheck(Player.White))
-            {
-                WhiteInCheck = 1;
-            }
-            if (WhoseTurn == Player.Black && IsInCheck(Player.Black))
-            {
-                BlackInCheck = 1;
-            }
-        }
+        public ThreeCheckChessGame(string fen) : base(fen) {}
         public ThreeCheckChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
-        public ThreeCheckChessGame(string fen, int whiteInCheck, int blackInCheck) : this(fen)
+
+        protected override GameCreationData FenStringToGameCreationData(string fen)
         {
-            WhiteInCheck = whiteInCheck;
-            BlackInCheck = blackInCheck;
+            GameCreationData gcd = base.FenStringToGameCreationData(fen);
+
+            string[] parts = fen.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 7)
+            {
+                Regex re = new Regex(@"^\+(\d)\+(\d)$");
+                Match m = re.Match(parts[6]);
+                if (!m.Success)
+                {
+                    throw new ArgumentException("Invalid FEN: invalid check counter.");
+                }
+                gcd.ThreeCheck_BlackInCheck = int.Parse(m.Groups[1].Value);
+                gcd.ThreeCheck_WhiteInCheck = int.Parse(m.Groups[2].Value);
+            }
+
+            return gcd;
+        }
+
+        protected override void UseGameCreationData(GameCreationData data)
+        {
+            base.UseGameCreationData(data);
+            WhiteInCheck = data.ThreeCheck_WhiteInCheck;
+            BlackInCheck = data.ThreeCheck_BlackInCheck;
         }
 
         public override MoveType ApplyMove(Move move, bool alreadyValidated)
