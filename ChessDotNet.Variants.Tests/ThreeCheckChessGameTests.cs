@@ -11,7 +11,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestRecordedChecks()
         {
             ThreeCheckChessGame game = new ThreeCheckChessGame();
-            game.ApplyMove(new Move("E3", "E4", Player.White), true);
+            game.ApplyMove(new Move("E2", "E4", Player.White), true);
             game.ApplyMove(new Move("E7", "E5", Player.Black), true);
             game.ApplyMove(new Move("D1", "H5", Player.White), true);
             game.ApplyMove(new Move("G7", "G6", Player.Black), true);
