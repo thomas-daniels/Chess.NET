@@ -38,6 +38,7 @@
     <Compile Include="Atomic\AtomicChessGame.cs" />
     <Compile Include="KingOfTheHill\KingOfTheHillChessGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreeCheck\ThreeCheckChessGame.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

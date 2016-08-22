@@ -43,6 +43,14 @@ namespace ChessDotNet
             }
         }
 
+        protected virtual int[] AllowedFenPartsLength
+        {
+            get
+            {
+                return new int[1] { 6 };
+            }
+        }
+
         protected virtual Dictionary<char, Piece> FenMappings
         {
             get
@@ -441,8 +449,8 @@ namespace ChessDotNet
         protected virtual GameCreationData FenStringToGameCreationData(string fen)
         {
             Dictionary<char, Piece> fenMappings = FenMappings;
-            string[] parts = fen.Split(' ');
-            if (parts.Length != 6) throw new ArgumentException("The FEN string does not have 6 parts.");
+            string[] parts = fen.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (!AllowedFenPartsLength.Contains(parts.Length)) throw new ArgumentException("The FEN string has too much, or too few, parts.");
             Piece[][] board = new Piece[8][];
             string[] rows = parts[0].Split('/');
             if (rows.Length != 8) throw new ArgumentException("The board in the FEN string does not have 8 rows.");
