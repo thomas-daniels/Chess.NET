@@ -42,6 +42,7 @@
     <Compile Include="AtomicChessGameTests.cs" />
     <Compile Include="KothChessGameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreeCheckChessGameTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessDotNet.Variants\ChessDotNet.Variants.csproj">
