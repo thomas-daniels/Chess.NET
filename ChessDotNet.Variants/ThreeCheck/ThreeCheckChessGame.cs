@@ -62,6 +62,10 @@ namespace ChessDotNet.Variants.ThreeCheck
         public override MoveType ApplyMove(Move move, bool alreadyValidated)
         {
             MoveType ret = base.ApplyMove(move, alreadyValidated);
+            if (ret == MoveType.Invalid)
+            {
+                return ret;
+            }
 
             if (WhoseTurn == Player.White && IsInCheck(Player.White))
             {
