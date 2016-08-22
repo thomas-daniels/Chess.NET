@@ -40,5 +40,13 @@ namespace ChessDotNet.Variants.Tests
             reader.ReadPgnFromString("1.e4 e5 2.Qh5 g6 3.Qxe5+ Qe7 4.Qxh8 Qxe4+ 5.Be2 Bg7 6.Qxg8+ Ke7 7.Qe8+");
             Assert.True(reader.Game.IsWinner(Player.White));
         }
+
+        [Test]
+        public static void TestFenCheckCounter()
+        {
+            ThreeCheckChessGame game = new ThreeCheckChessGame("rnb1kbnQ/pppp1p1p/6p1/8/8/8/PPPPqPPP/RNB1K1NR w KQq - 0 6 +1+2");
+            Assert.AreEqual(1, game.ChecksByWhite);
+            Assert.AreEqual(2, game.ChecksByBlack);
+        }
     }
 }
