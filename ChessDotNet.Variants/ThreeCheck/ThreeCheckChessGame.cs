@@ -6,13 +6,13 @@ namespace ChessDotNet.Variants.ThreeCheck
 {
     public class ThreeCheckChessGame : ChessGame
     {
-        public int WhiteInCheck
+        public int ChecksByWhite
         {
             get;
             protected set;
         }
 
-        public int BlackInCheck
+        public int ChecksByBlack
         {
             get;
             protected set;
@@ -45,8 +45,8 @@ namespace ChessDotNet.Variants.ThreeCheck
                 {
                     throw new ArgumentException("Invalid FEN: invalid check counter.");
                 }
-                gcd.ThreeCheck_BlackInCheck = int.Parse(m.Groups[1].Value);
-                gcd.ThreeCheck_WhiteInCheck = int.Parse(m.Groups[2].Value);
+                gcd.ThreeCheck_ChecksByWhite = int.Parse(m.Groups[1].Value);
+                gcd.ThreeCheck_ChecksByBlack = int.Parse(m.Groups[2].Value);
             }
 
             return gcd;
@@ -55,8 +55,8 @@ namespace ChessDotNet.Variants.ThreeCheck
         protected override void UseGameCreationData(GameCreationData data)
         {
             base.UseGameCreationData(data);
-            WhiteInCheck = data.ThreeCheck_WhiteInCheck;
-            BlackInCheck = data.ThreeCheck_BlackInCheck;
+            ChecksByWhite = data.ThreeCheck_ChecksByWhite;
+            ChecksByBlack = data.ThreeCheck_ChecksByBlack;
         }
 
         public override MoveType ApplyMove(Move move, bool alreadyValidated)
@@ -65,11 +65,11 @@ namespace ChessDotNet.Variants.ThreeCheck
 
             if (WhoseTurn == Player.White && IsInCheck(Player.White))
             {
-                WhiteInCheck++;
+                ChecksByBlack++;
             }
             if (WhoseTurn == Player.Black && IsInCheck(Player.Black))
             {
-                BlackInCheck++;
+                ChecksByWhite++;
             }
 
             return ret;
@@ -77,8 +77,8 @@ namespace ChessDotNet.Variants.ThreeCheck
 
         public override bool IsWinner(Player player)
         {
-            int opponentChecked = player == Player.White ? BlackInCheck : WhiteInCheck;
-            return opponentChecked >= 3 || IsCheckmated(ChessUtilities.GetOpponentOf(player));
+            int checks = player == Player.White ? ChecksByWhite : ChecksByBlack;
+            return checks >= 3 || IsCheckmated(ChessUtilities.GetOpponentOf(player));
         }
     }
 }

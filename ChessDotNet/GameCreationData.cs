@@ -56,13 +56,13 @@
             set;
         }
 
-        public int ThreeCheck_BlackInCheck
+        public int ThreeCheck_ChecksByWhite
         {
             get;
             set;
         }
 
-        public int ThreeCheck_WhiteInCheck
+        public int ThreeCheck_ChecksByBlack
         {
             get;
             set;
