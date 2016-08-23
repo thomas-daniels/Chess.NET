@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Pieces
@@ -62,7 +63,7 @@ namespace ChessDotNet.Pieces
             return true;
         }
 
-        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
+        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator)
         {
             ChessUtilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -76,7 +77,7 @@ namespace ChessDotNet.Pieces
                 if (from.Rank + i > 0 && from.Rank + i <= l0)
                 {
                     Move move = new Move(from, new Position(from.File, from.Rank + i), piece.Owner);
-                    if (game.IsValidMove(move))
+                    if (gameMoveValidator(move))
                     {
                         validMoves.Add(move);
                         if (returnIfAny)
@@ -86,7 +87,7 @@ namespace ChessDotNet.Pieces
                 if ((int)from.File + i > -1 && (int)from.File + i < l1)
                 {
                     Move move = new Move(from, new Position(from.File + i, from.Rank), piece.Owner);
-                    if (game.IsValidMove(move))
+                    if (gameMoveValidator(move))
                     {
                         validMoves.Add(move);
                         if (returnIfAny)

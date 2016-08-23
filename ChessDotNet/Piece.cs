@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace ChessDotNet
 {
@@ -46,6 +47,6 @@ namespace ChessDotNet
 
         public abstract char GetFenCharacter();
         public abstract bool IsValidMove(Move move, ChessGame game);
-        public abstract ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game);
+        public abstract ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator);
     }
 }
