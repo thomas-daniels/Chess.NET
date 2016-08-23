@@ -105,5 +105,12 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(5, game.GetValidMoves(Player.White).Count);
             Assert.True(game.IsValidMove(new Move("H7", "H8", Player.White, new AntichessKing(Player.White))));
         }
+
+        [Test]
+        public static void TestNotStalemated()
+        {
+            AntichessGame game = new AntichessGame("8/7P/6n1/8/8/8/8/8 w - - 0 1");
+            Assert.False(game.IsStalemated(Player.White));
+        }
     }
 }
