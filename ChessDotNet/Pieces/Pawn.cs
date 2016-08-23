@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -127,7 +128,7 @@ namespace ChessDotNet.Pieces
             return true;
         }
 
-        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game)
+        public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator)
         {
             ChessUtilities.ThrowIfNull(from, "from");
             List<Move> validMoves = new List<Move>();
@@ -152,10 +153,11 @@ namespace ChessDotNet.Pieces
                 List<Move> moves = new List<Move>();
                 if ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black))
                 {
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Knight(move.Player)));
-                    moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
+                    foreach (char pieceChar in ValidPromotionPieces.Where(x => char.IsUpper(x)))
+                    {
+                        Piece promotionPiece = game.MapPgnCharToPiece(pieceChar, move.Player);
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, promotionPiece));
+                    }
                 }
                 else
                 {
@@ -163,7 +165,7 @@ namespace ChessDotNet.Pieces
                 }
                 foreach (Move m in moves)
                 {
-                    if (game.IsValidMove(m))
+                    if (gameMoveValidator(m))
                     {
                         validMoves.Add(m);
                         if (returnIfAny)

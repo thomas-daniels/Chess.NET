@@ -51,25 +51,26 @@ namespace ChessDotNet
             }
         }
 
+        private Dictionary<char, Piece> fenMappings = new Dictionary<char, Piece>()
+        {
+            { 'K', new King(Player.White) },
+            { 'k', new King(Player.Black) },
+            { 'Q', new Queen(Player.White) },
+            { 'q', new Queen(Player.Black) },
+            { 'R', new Rook(Player.White) },
+            { 'r', new Rook(Player.Black) },
+            { 'B', new Bishop(Player.White) },
+            { 'b', new Bishop(Player.Black) },
+            { 'N', new Knight(Player.White) },
+            { 'n', new Knight(Player.Black) },
+            { 'P', new Pawn(Player.White) },
+            { 'p', new Pawn(Player.Black) },
+        };
         protected virtual Dictionary<char, Piece> FenMappings
         {
             get
             {
-                return new Dictionary<char, Piece>()
-                {
-                    { 'K', new King(Player.White) },
-                    { 'k', new King(Player.Black) },
-                    { 'Q', new Queen(Player.White) },
-                    { 'q', new Queen(Player.Black) },
-                    { 'R', new Rook(Player.White) },
-                    { 'r', new Rook(Player.Black) },
-                    { 'B', new Bishop(Player.White) },
-                    { 'b', new Bishop(Player.Black) },
-                    { 'N', new Knight(Player.White) },
-                    { 'n', new Knight(Player.Black) },
-                    { 'P', new Pawn(Player.White) },
-                    { 'p', new Pawn(Player.Black) },
-                };
+                return fenMappings;
             }
         }
 
@@ -78,23 +79,23 @@ namespace ChessDotNet
             switch (c)
             {
                 case 'K':
-                    return new King(owner);
+                    return owner == Player.White ? FenMappings['K'] : FenMappings['k'];
                 case 'Q':
-                    return new Queen(owner);
+                    return owner == Player.White ? FenMappings['Q'] : FenMappings['q'];
                 case 'R':
-                    return new Rook(owner);
+                    return owner == Player.White ? FenMappings['R'] : FenMappings['r'];
                 case 'B':
-                    return new Bishop(owner);
+                    return owner == Player.White ? FenMappings['B'] : FenMappings['b'];
                 case 'N':
-                    return new Knight(owner);
+                    return owner == Player.White ? FenMappings['N'] : FenMappings['n'];
                 case 'P':
-                    return new Pawn(owner);
+                    return owner == Player.White ? FenMappings['P'] : FenMappings['p'];
                 default:
                     if (!char.IsLower(c))
                     {
                         throw new PgnException("Unrecognized piece type: " + c.ToString());
                     }
-                    return new Pawn(owner);
+                    return owner == Player.White ? FenMappings['P'] : FenMappings['p'];
             }
         }
 
@@ -218,6 +219,14 @@ namespace ChessDotNet
             }
         }
 
+        protected virtual bool CastlingCanBeLegal
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         protected static Piece[][] CloneBoard(Piece[][] originalBoard)
         {
             ChessUtilities.ThrowIfNull(originalBoard, "originalBoard");
@@ -235,18 +244,18 @@ namespace ChessDotNet
             WhoseTurn = Player.White;
             _moves = new List<DetailedMove>();
             Board = new Piece[8][];
-            Piece kw = new King(Player.White);
-            Piece kb = new King(Player.Black);
-            Piece qw = new Queen(Player.White);
-            Piece qb = new Queen(Player.Black);
-            Piece rw = new Rook(Player.White);
-            Piece rb = new Rook(Player.Black);
-            Piece nw = new Knight(Player.White);
-            Piece nb = new Knight(Player.Black);
-            Piece bw = new Bishop(Player.White);
-            Piece bb = new Bishop(Player.Black);
-            Piece pw = new Pawn(Player.White);
-            Piece pb = new Pawn(Player.Black);
+            Piece kw = FenMappings['K'];
+            Piece kb = FenMappings['k'];
+            Piece qw = FenMappings['Q'];
+            Piece qb = FenMappings['q'];
+            Piece rw = FenMappings['R'];
+            Piece rb = FenMappings['r'];
+            Piece nw = FenMappings['N'];
+            Piece nb = FenMappings['n'];
+            Piece bw = FenMappings['B'];
+            Piece bb = FenMappings['b'];
+            Piece pw = FenMappings['P'];
+            Piece pb = FenMappings['p'];
             Piece o = null;
             Board = new Piece[8][]
             {
@@ -391,30 +400,33 @@ namespace ChessDotNet
             fenBuilder.Append(' ');
 
             bool hasAnyCastlingOptions = false;
-            if (!WhiteKingMoved)
+            if (CastlingCanBeLegal)
             {
-                if (!WhiteRookHMoved)
+                if (!WhiteKingMoved)
                 {
-                    fenBuilder.Append('K');
-                    hasAnyCastlingOptions = true;
+                    if (!WhiteRookHMoved)
+                    {
+                        fenBuilder.Append('K');
+                        hasAnyCastlingOptions = true;
+                    }
+                    if (!WhiteRookAMoved)
+                    {
+                        fenBuilder.Append('Q');
+                        hasAnyCastlingOptions = true;
+                    }
                 }
-                if (!WhiteRookAMoved)
+                if (!BlackKingMoved)
                 {
-                    fenBuilder.Append('Q');
-                    hasAnyCastlingOptions = true;
-                }
-            }
-            if (!BlackKingMoved)
-            {
-                if (!BlackRookHMoved)
-                {
-                    fenBuilder.Append('k');
-                    hasAnyCastlingOptions = true;
-                }
-                if (!BlackRookAMoved)
-                {
-                    fenBuilder.Append('q');
-                    hasAnyCastlingOptions = true;
+                    if (!BlackRookHMoved)
+                    {
+                        fenBuilder.Append('k');
+                        hasAnyCastlingOptions = true;
+                    }
+                    if (!BlackRookAMoved)
+                    {
+                        fenBuilder.Append('q');
+                        hasAnyCastlingOptions = true;
+                    }
                 }
             }
             if (!hasAnyCastlingOptions)
@@ -648,7 +660,7 @@ namespace ChessDotNet
                 else
                     _blackKingMoved = true;
 
-                if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2)
+                if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2 && CastlingCanBeLegal)
                 {
                     castle = ApplyCastle(move);
                     type |= MoveType.Castling;
@@ -718,7 +730,7 @@ namespace ChessDotNet
             ChessUtilities.ThrowIfNull(from, "from");
             Piece piece = GetPieceAt(from);
             if (piece == null || piece.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
-            return piece.GetValidMoves(from, returnIfAny, this);
+            return piece.GetValidMoves(from, returnIfAny, this, IsValidMove);
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Player player)

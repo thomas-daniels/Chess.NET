@@ -35,6 +35,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Antichess\AntichessGame.cs" />
+    <Compile Include="Antichess\Pieces\AntichessKing.cs" />
+    <Compile Include="Antichess\Pieces\AntichessPawn.cs" />
     <Compile Include="Atomic\AtomicChessGame.cs" />
     <Compile Include="KingOfTheHill\KingOfTheHillChessGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
