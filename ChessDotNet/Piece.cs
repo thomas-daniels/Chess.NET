@@ -8,7 +8,7 @@ namespace ChessDotNet
         public abstract Player Owner
         {
             get;
-            set;
+            protected set;
         }
 
         public override bool Equals(object obj)

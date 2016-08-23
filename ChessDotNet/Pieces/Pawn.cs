@@ -10,7 +10,7 @@ namespace ChessDotNet.Pieces
         public override Player Owner
         {
             get;
-            set;
+            protected set;
         }
 
         public Pawn(Player owner)
