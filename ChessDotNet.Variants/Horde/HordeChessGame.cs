@@ -31,6 +31,8 @@ namespace ChessDotNet.Variants.Horde
                 new[] { pw, pw, pw, pw, pw, pw, pw, pw },
                 new[] { pw, pw, pw, pw, pw, pw, pw, pw }
             };
+            CanBlackCastleKingSide = CanBlackCastleQueenSide = CastlingCanBeLegal;
+            CanWhiteCastleKingSide = CanWhiteCastleQueenSide = false;
         }
 
         private Dictionary<char, Piece> fenMappings = new Dictionary<char, Piece>()
