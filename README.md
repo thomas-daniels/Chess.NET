@@ -14,6 +14,7 @@ It contains the following features:
  - Support of the King of the Hill chess variant - https://en.lichess.org/variant/kingOfTheHill
  - Support of the Three-check chess variant - https://en.lichess.org/variant/threeCheck
  - Support of the Antichess variant - https://en.lichess.org/variant/antichess
+ - Support of the Horde variant - https://en.lichess.org/variant/horde
  - Support for claiming draw for the 50 move rule.
 
 Planned features:
