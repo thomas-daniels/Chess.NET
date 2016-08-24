@@ -175,12 +175,10 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(0, game.HalfMoveClock);
             Assert.AreEqual(1, game.FullMoveNumber);
             Assert.AreEqual(Player.White, game.WhoseTurn);
-            Assert.False(game.BlackKingMoved);
-            Assert.False(game.BlackRookAMoved);
-            Assert.False(game.BlackRookHMoved);
-            Assert.False(game.WhiteKingMoved);
-            Assert.False(game.WhiteRookAMoved);
-            Assert.False(game.WhiteRookHMoved);
+            Assert.True(game.CanBlackCastleKingSide);
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.True(game.CanWhiteCastleKingSide);
+            Assert.True(game.CanWhiteCastleQueenSide);
         }
 
         [Test]
@@ -246,7 +244,7 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(expected, game.GetBoard());
             Assert.AreEqual(2, game.HalfMoveClock);
             Assert.AreEqual(3, game.FullMoveNumber);
-            Assert.True(game.BlackRookHMoved);
+            Assert.False(game.CanBlackCastleKingSide);
         }
 
         [Test]
@@ -268,12 +266,10 @@ namespace ChessDotNet.Tests
             Assert.AreEqual(16, game.HalfMoveClock);
             Assert.AreEqual(9, game.FullMoveNumber);
             Assert.AreEqual(Player.White, game.WhoseTurn);
-            Assert.False(game.BlackKingMoved);
-            Assert.True(game.BlackRookAMoved);
-            Assert.True(game.BlackRookHMoved);
-            Assert.False(game.WhiteKingMoved);
-            Assert.True(game.WhiteRookAMoved);
-            Assert.True(game.WhiteRookHMoved);
+            Assert.False(game.CanBlackCastleKingSide);
+            Assert.False(game.CanBlackCastleQueenSide);
+            Assert.False(game.CanWhiteCastleKingSide);
+            Assert.False(game.CanWhiteCastleQueenSide);
         }
 
         [Test]

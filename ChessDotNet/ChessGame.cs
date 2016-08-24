@@ -9,12 +9,6 @@ namespace ChessDotNet
 {
     public class ChessGame
     {
-        bool _whiteRookAMoved = false;
-        bool _whiteRookHMoved = false;
-        bool _whiteKingMoved = false;
-        bool _blackRookAMoved = false;
-        bool _blackRookHMoved = false;
-        bool _blackKingMoved = false;
         bool _drawn = false;
         string _drawReason = null;
         Player _resigned = Player.None;
@@ -111,7 +105,7 @@ namespace ChessDotNet
         public Player WhoseTurn
         {
             get;
-            private set;
+            protected set;
         }
 
         int _halfMoveClock = 0;
@@ -169,54 +163,34 @@ namespace ChessDotNet
             {
                 return new ReadOnlyCollection<DetailedMove>(_moves);
             }
-        }
-
-        public bool BlackKingMoved
-        {
-            get
+            protected set
             {
-                return _blackKingMoved;
+                _moves = value.ToList();
             }
         }
 
-        public bool BlackRookAMoved
+        public bool CanBlackCastleKingSide
         {
-            get
-            {
-                return _blackRookAMoved;
-            }
+            get;
+            protected set;
         }
 
-        public bool BlackRookHMoved
+        public bool CanBlackCastleQueenSide
         {
-            get
-            {
-                return _blackRookHMoved;
-            }
+            get;
+            protected set;
         }
 
-        public bool WhiteKingMoved
+        public bool CanWhiteCastleKingSide
         {
-            get
-            {
-                return _whiteKingMoved;
-            }
+            get;
+            protected set;
         }
 
-        public bool WhiteRookAMoved
+        public bool CanWhiteCastleQueenSide
         {
-            get
-            {
-                return _whiteRookAMoved;
-            }
-        }
-
-        public bool WhiteRookHMoved
-        {
-            get
-            {
-                return _whiteRookHMoved;
-            }
+            get;
+            protected set;
         }
 
         protected virtual bool CastlingCanBeLegal
@@ -268,6 +242,7 @@ namespace ChessDotNet
                 new[] { pw, pw, pw, pw, pw, pw, pw, pw },
                 new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
+            CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
         }
 
         public ChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this()
@@ -308,18 +283,22 @@ namespace ChessDotNet
             Piece h1 = GetPieceAt(File.H, 1);
             Piece a8 = GetPieceAt(File.A, 8);
             Piece h8 = GetPieceAt(File.H, 8);
-            if (!(e1 is King) || e1.Owner != Player.White)
-                _whiteKingMoved = true;
-            if (!(e8 is King) || e8.Owner != Player.Black)
-                _blackKingMoved = true;
-            if (!(a1 is Rook) || a1.Owner != Player.White)
-                _whiteRookAMoved = true;
-            if (!(h1 is Rook) || h1.Owner != Player.White)
-                _whiteRookHMoved = true;
-            if (!(a8 is Rook) || a8.Owner != Player.Black)
-                _blackRookAMoved = true;
-            if (!(h8 is Rook) || h8.Owner != Player.Black)
-                _blackRookHMoved = true;
+            CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
+            if (CastlingCanBeLegal)
+            {
+                if (!(e1 is King) || e1.Owner != Player.White)
+                    CanWhiteCastleKingSide = CanWhiteCastleQueenSide = false;
+                if (!(e8 is King) || e8.Owner != Player.Black)
+                    CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
+                if (!(a1 is Rook) || a1.Owner != Player.White)
+                    CanWhiteCastleQueenSide = false;
+                if (!(h1 is Rook) || h1.Owner != Player.White)
+                    CanWhiteCastleKingSide = false;
+                if (!(a8 is Rook) || a8.Owner != Player.Black)
+                    CanBlackCastleQueenSide = false;
+                if (!(h8 is Rook) || h8.Owner != Player.Black)
+                    CanBlackCastleKingSide = false;
+            }
         }
 
         protected virtual void UseGameCreationData(GameCreationData data)
@@ -332,18 +311,22 @@ namespace ChessDotNet
             Piece h1 = GetPieceAt(File.H, 1);
             Piece a8 = GetPieceAt(File.A, 8);
             Piece h8 = GetPieceAt(File.H, 8);
-            if (!(e1 is King) || e1.Owner != Player.White)
-                _whiteKingMoved = true;
-            if (!(e8 is King) || e8.Owner != Player.Black)
-                _blackKingMoved = true;
-            if (!(a1 is Rook) || a1.Owner != Player.White || !data.CanWhiteCastleQueenSide)
-                _whiteRookAMoved = true;
-            if (!(h1 is Rook) || h1.Owner != Player.White || !data.CanWhiteCastleKingSide)
-                _whiteRookHMoved = true;
-            if (!(a8 is Rook) || a8.Owner != Player.Black || !data.CanBlackCastleQueenSide)
-                _blackRookAMoved = true;
-            if (!(h8 is Rook) || h8.Owner != Player.Black || !data.CanBlackCastleKingSide)
-                _blackRookHMoved = true;
+            CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
+            if (CastlingCanBeLegal)
+            {
+                if (!(e1 is King) || e1.Owner != Player.White)
+                    CanWhiteCastleKingSide = CanWhiteCastleQueenSide = false;
+                if (!(e8 is King) || e8.Owner != Player.Black)
+                    CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
+                if (!(a1 is Rook) || a1.Owner != Player.White || !data.CanWhiteCastleQueenSide)
+                    CanWhiteCastleQueenSide = false;
+                if (!(h1 is Rook) || h1.Owner != Player.White || !data.CanWhiteCastleKingSide)
+                    CanWhiteCastleKingSide = false;
+                if (!(a8 is Rook) || a8.Owner != Player.Black || !data.CanBlackCastleQueenSide)
+                    CanBlackCastleQueenSide = false;
+                if (!(h8 is Rook) || h8.Owner != Player.Black || !data.CanBlackCastleKingSide)
+                    CanBlackCastleKingSide = false;
+            }
 
             if (data.EnPassant != null)
             {
@@ -400,34 +383,29 @@ namespace ChessDotNet
             fenBuilder.Append(' ');
 
             bool hasAnyCastlingOptions = false;
-            if (CastlingCanBeLegal)
+
+
+            if (CanWhiteCastleKingSide)
             {
-                if (!WhiteKingMoved)
-                {
-                    if (!WhiteRookHMoved)
-                    {
-                        fenBuilder.Append('K');
-                        hasAnyCastlingOptions = true;
-                    }
-                    if (!WhiteRookAMoved)
-                    {
-                        fenBuilder.Append('Q');
-                        hasAnyCastlingOptions = true;
-                    }
-                }
-                if (!BlackKingMoved)
-                {
-                    if (!BlackRookHMoved)
-                    {
-                        fenBuilder.Append('k');
-                        hasAnyCastlingOptions = true;
-                    }
-                    if (!BlackRookAMoved)
-                    {
-                        fenBuilder.Append('q');
-                        hasAnyCastlingOptions = true;
-                    }
-                }
+                fenBuilder.Append('K');
+                hasAnyCastlingOptions = true;
+            }
+            if (CanWhiteCastleQueenSide)
+            {
+                fenBuilder.Append('Q');
+                hasAnyCastlingOptions = true;
+            }
+
+
+            if (CanBlackCastleKingSide)
+            {
+                fenBuilder.Append('k');
+                hasAnyCastlingOptions = true;
+            }
+            if (CanBlackCastleQueenSide)
+            {
+                fenBuilder.Append('q');
+                hasAnyCastlingOptions = true;
             }
             if (!hasAnyCastlingOptions)
             {
@@ -656,9 +634,9 @@ namespace ChessDotNet
             else if (movingPiece is King)
             {
                 if (movingPiece.Owner == Player.White)
-                    _whiteKingMoved = true;
+                    CanWhiteCastleKingSide = CanWhiteCastleQueenSide = false;
                 else
-                    _blackKingMoved = true;
+                    CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
 
                 if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2 && CastlingCanBeLegal)
                 {
@@ -671,16 +649,16 @@ namespace ChessDotNet
                 if (move.Player == Player.White)
                 {
                     if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == 1)
-                        _whiteRookAMoved = true;
+                        CanWhiteCastleQueenSide = false;
                     else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == 1)
-                        _whiteRookHMoved = true;
+                        CanWhiteCastleKingSide = false;
                 }
                 else
                 {
                     if (move.OriginalPosition.File == File.A && move.OriginalPosition.Rank == 8)
-                        _blackRookAMoved = true;
+                        CanBlackCastleQueenSide = false;
                     else if (move.OriginalPosition.File == File.H && move.OriginalPosition.Rank == 8)
-                        _blackRookHMoved = true;
+                        CanBlackCastleKingSide = false;
                 }
             }
             if (isCapture)
@@ -688,13 +666,13 @@ namespace ChessDotNet
                 type |= MoveType.Capture;
                 _halfMoveClock = 0;
                 if (move.NewPosition.File == File.A && move.NewPosition.Rank == 1)
-                    _whiteRookAMoved = true;
+                    CanWhiteCastleQueenSide = false;
                 else if (move.NewPosition.File == File.H && move.NewPosition.Rank == 1)
-                    _whiteRookHMoved = true;
+                    CanWhiteCastleKingSide = false;
                 else if (move.NewPosition.File == File.A && move.NewPosition.Rank == 8)
-                    _blackRookAMoved = true;
+                    CanBlackCastleQueenSide = false;
                 else if (move.NewPosition.File == File.H && move.NewPosition.Rank == 8)
-                    _blackRookHMoved = true;
+                    CanBlackCastleKingSide = false;
             }
             if (!isCapture && !(movingPiece is Pawn))
             {
@@ -877,10 +855,10 @@ namespace ChessDotNet
             ChessUtilities.ThrowIfNull(move, "move");
             GameCreationData gcd = new GameCreationData();
             gcd.Board = Board;
-            gcd.CanWhiteCastleKingSide = !_whiteRookHMoved && !_whiteKingMoved;
-            gcd.CanWhiteCastleQueenSide = !_whiteRookAMoved && !_whiteKingMoved;
-            gcd.CanBlackCastleKingSide = !_blackRookHMoved && !_blackKingMoved;
-            gcd.CanBlackCastleQueenSide = !_blackRookAMoved && !_blackKingMoved;
+            gcd.CanWhiteCastleKingSide = CanWhiteCastleKingSide;
+            gcd.CanWhiteCastleQueenSide = CanWhiteCastleQueenSide;
+            gcd.CanBlackCastleKingSide = CanBlackCastleKingSide;
+            gcd.CanBlackCastleQueenSide = CanBlackCastleQueenSide;
             gcd.EnPassant = null;
             if (_moves.Count > 0)
             {
