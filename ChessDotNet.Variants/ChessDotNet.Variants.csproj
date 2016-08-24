@@ -39,6 +39,8 @@
     <Compile Include="Antichess\Pieces\AntichessKing.cs" />
     <Compile Include="Antichess\Pieces\AntichessPawn.cs" />
     <Compile Include="Atomic\AtomicChessGame.cs" />
+    <Compile Include="Horde\HordeChessGame.cs" />
+    <Compile Include="Horde\Pieces\HordePawn.cs" />
     <Compile Include="KingOfTheHill\KingOfTheHillChessGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreeCheck\ThreeCheckChessGame.cs" />

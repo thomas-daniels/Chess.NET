@@ -111,7 +111,7 @@ namespace ChessDotNet
         public Player WhoseTurn
         {
             get;
-            private set;
+            protected set;
         }
 
         int _halfMoveClock = 0;
@@ -168,6 +168,10 @@ namespace ChessDotNet
             get
             {
                 return new ReadOnlyCollection<DetailedMove>(_moves);
+            }
+            protected set
+            {
+                _moves = value.ToList();
             }
         }
 
