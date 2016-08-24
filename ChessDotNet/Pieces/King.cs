@@ -54,11 +54,11 @@ namespace ChessDotNet.Pieces
             {
                 if (origin.File != File.E || origin.Rank != 1)
                     return false;
-                if (game.WhiteKingMoved || game.IsInCheck(Player.White))
+                if (game.IsInCheck(Player.White))
                     return false;
                 if (destination.File == File.C)
                 {
-                    if (game.WhiteRookAMoved || game.GetPieceAt(File.D, 1) != null
+                    if (!game.CanWhiteCastleQueenSide || game.GetPieceAt(File.D, 1) != null
                         || game.GetPieceAt(File.C, 1) != null
                         || game.GetPieceAt(File.B, 1) != null
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.D, 1), Player.White), Player.White)
@@ -67,7 +67,7 @@ namespace ChessDotNet.Pieces
                 }
                 else
                 {
-                    if (game.WhiteRookHMoved || game.GetPieceAt(File.F, 1) != null
+                    if (!game.CanWhiteCastleKingSide || game.GetPieceAt(File.F, 1) != null
                         || game.GetPieceAt(File.G, 1) != null
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.F, 1), Player.White), Player.White)
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White), Player.White))
@@ -78,11 +78,11 @@ namespace ChessDotNet.Pieces
             {
                 if (origin.File != File.E || origin.Rank != 8)
                     return false;
-                if (game.BlackKingMoved || game.IsInCheck(Player.Black))
+                if (game.IsInCheck(Player.Black))
                     return false;
                 if (destination.File == File.C)
                 {
-                    if (game.BlackRookAMoved || game.GetPieceAt(File.D, 8) != null
+                    if (!game.CanBlackCastleQueenSide || game.GetPieceAt(File.D, 8) != null
                         || game.GetPieceAt(File.C, 8) != null
                         || game.GetPieceAt(File.B, 8) != null
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.D, 8), Player.Black), Player.Black)
@@ -91,7 +91,7 @@ namespace ChessDotNet.Pieces
                 }
                 else
                 {
-                    if (game.BlackRookHMoved || game.GetPieceAt(File.F, 8) != null
+                    if (!game.CanBlackCastleKingSide || game.GetPieceAt(File.F, 8) != null
                         || game.GetPieceAt(File.G, 8) != null
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.F, 8), Player.Black), Player.Black)
                         || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black), Player.Black))
