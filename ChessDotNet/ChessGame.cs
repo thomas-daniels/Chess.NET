@@ -13,7 +13,7 @@ namespace ChessDotNet
         string _drawReason = null;
         Player _resigned = Player.None;
 
-        public bool Drawn
+        public bool DrawClaimed
         {
             get
             {
@@ -852,7 +852,7 @@ namespace ChessDotNet
 
         public virtual bool IsDraw()
         {
-            return IsStalemated(Player.White) || IsStalemated(Player.Black) || Drawn;
+            return IsStalemated(Player.White) || IsStalemated(Player.Black) || DrawClaimed;
         }
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
