@@ -60,5 +60,13 @@ namespace ChessDotNet.Variants.Tests
             RacingKingsChessGame game = new RacingKingsChessGame("2k5/5K2/8/8/8/8/1rbnNBR1/qrbnNBRQ w - - 12 7");
             Assert.True(game.IsWinner(Player.Black));
         }
+
+        [Test]
+        public static void TestIsStalematedWhite()
+        {
+            RacingKingsChessGame game = new RacingKingsChessGame("4r3/6K1/8/1k3qb1/8/8/8/3n4 w - - 0 18");
+            Assert.True(game.IsStalemated(Player.White));
+            Assert.True(game.IsDraw());
+        }
     }
 }
