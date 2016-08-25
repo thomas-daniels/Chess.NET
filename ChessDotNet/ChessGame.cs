@@ -852,7 +852,7 @@ namespace ChessDotNet
 
         public virtual bool IsDraw()
         {
-            return IsStalemated(Player.White) || IsStalemated(Player.Black) || DrawClaimed;
+            return DrawClaimed || IsStalemated(Player.White) || IsStalemated(Player.Black);
         }
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
