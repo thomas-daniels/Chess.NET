@@ -144,5 +144,10 @@ namespace ChessDotNet.Variants.RacingKings
                 return true;
             }
         }
+
+        public override bool IsDraw()
+        {
+            return FindKing(Player.White).Rank == 8 && FindKing(Player.Black).Rank == 8 || base.IsDraw();
+        }
     }
 }
