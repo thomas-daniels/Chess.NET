@@ -850,6 +850,11 @@ namespace ChessDotNet
             return IsCheckmated(ChessUtilities.GetOpponentOf(player));
         }
 
+        public virtual bool IsDraw()
+        {
+            return IsStalemated(Player.White) || IsStalemated(Player.Black) || Drawn;
+        }
+
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             ChessUtilities.ThrowIfNull(move, "move");
