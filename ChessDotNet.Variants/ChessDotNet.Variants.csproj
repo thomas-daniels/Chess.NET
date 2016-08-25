@@ -43,6 +43,8 @@
     <Compile Include="Horde\Pieces\HordePawn.cs" />
     <Compile Include="KingOfTheHill\KingOfTheHillChessGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RacingKings\Pieces\RacingKingsKing.cs" />
+    <Compile Include="RacingKings\RacingKingsChessGame.cs" />
     <Compile Include="ThreeCheck\ThreeCheckChessGame.cs" />
   </ItemGroup>
   <ItemGroup />

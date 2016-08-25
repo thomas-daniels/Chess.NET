@@ -13,7 +13,7 @@ namespace ChessDotNet
         string _drawReason = null;
         Player _resigned = Player.None;
 
-        public bool Drawn
+        public bool DrawClaimed
         {
             get
             {
@@ -850,6 +850,11 @@ namespace ChessDotNet
             return IsCheckmated(ChessUtilities.GetOpponentOf(player));
         }
 
+        public virtual bool IsDraw()
+        {
+            return DrawClaimed || IsStalemated(Player.White) || IsStalemated(Player.Black);
+        }
+
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
             ChessUtilities.ThrowIfNull(move, "move");
@@ -875,7 +880,7 @@ namespace ChessDotNet
             return copy.IsInCheck(player);
         }
 
-        public void Draw(string reason)
+        public void ClaimDraw(string reason)
         {
             _drawn = true;
             _drawReason = reason;
