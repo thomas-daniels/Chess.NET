@@ -880,7 +880,7 @@ namespace ChessDotNet
             return copy.IsInCheck(player);
         }
 
-        public void Draw(string reason)
+        public void ClaimDraw(string reason)
         {
             _drawn = true;
             _drawReason = reason;
