@@ -97,5 +97,10 @@ namespace ChessDotNet.Variants.Antichess
         {
             return IsStalemated(player);
         }
+
+        public override bool IsDraw()
+        {
+            return DrawClaimed;
+        }
     }
 }
