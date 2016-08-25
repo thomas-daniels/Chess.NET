@@ -2887,6 +2887,7 @@ namespace ChessDotNet.Tests
             ChessGame cb = new ChessGame(board, Player.Black);
 
             Assert.True(cb.IsStalemated(Player.Black));
+            Assert.True(cb.IsDraw());
         }
 
         [Test]
