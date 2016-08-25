@@ -15,6 +15,7 @@ It contains the following features:
  - Support of the Three-check chess variant - https://en.lichess.org/variant/threeCheck
  - Support of the Antichess variant - https://en.lichess.org/variant/antichess
  - Support of the Horde variant - https://en.lichess.org/variant/horde
+ - Support of the Racing Kings variant - https://en.lichess.org/variant/racingKings
  - Support for claiming draw for the 50 move rule.
 
 Planned features:
