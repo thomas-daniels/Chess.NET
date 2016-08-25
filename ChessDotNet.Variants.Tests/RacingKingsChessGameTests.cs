@@ -51,6 +51,7 @@ namespace ChessDotNet.Variants.Tests
 
             game.ApplyMove(new Move("B7", "B8", Player.Black), true);
             Assert.False(game.IsWinner(Player.White));
+            Assert.True(game.IsDraw());
         }
 
         [Test]
