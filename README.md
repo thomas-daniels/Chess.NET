@@ -22,3 +22,14 @@ Planned features:
 
  - Draw on threefold repetition
  - Draw on insufficient mating material
+
+## .NET Core support
+
+Chess.NET supports .NET Core. The global.json and project.json files are provided so you can build it using the .NET Core CLI:
+
+    cd ChessDotNet
+    dotnet build -c Release
+    cd ..\ChessDotNet.Variants
+    dotnet build -c Release
+
+

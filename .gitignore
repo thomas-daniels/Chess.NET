@@ -4,3 +4,4 @@ obj/
 TestResult.xml
 Samples/*
 !Samples/*.cs
+project.lock.json
