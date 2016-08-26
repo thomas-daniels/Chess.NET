@@ -112,5 +112,13 @@ namespace ChessDotNet.Variants.Tests
             AntichessGame game = new AntichessGame("8/7P/6n1/8/8/8/8/8 w - - 0 1");
             Assert.False(game.IsStalemated(Player.White));
         }
+
+        [Test]
+        public static void TestEnPassant()
+        {
+            AntichessGame game = new AntichessGame("rnbqkbnr/p1ppp2p/1p6/5PN1/8/1P6/P1PPPP1P/RNBQKB1R b - - 0 5");
+            game.ApplyMove(new Move("E7", "E5", Player.Black), true);
+            Assert.True(game.IsValidMove(new Move("F5", "E6", Player.White)));
+        }
     }
 }

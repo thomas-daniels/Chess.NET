@@ -66,11 +66,16 @@ namespace ChessDotNet.Variants.Antichess
         protected override ReadOnlyCollection<Move> GetValidMoves(Player player, bool returnIfAny)
         {
             ReadOnlyCollection<Move> valid = base.GetValidMoves(player, returnIfAny);
-            if (valid.Any(x => GetPieceAt(x.NewPosition) != null))
+            if (valid.Any(x => IsCapture(x, GetPieceAt(x.OriginalPosition))))
             {
-                valid = new ReadOnlyCollection<Move>(valid.Where(x => GetPieceAt(x.NewPosition) != null).ToList());
+                valid = new ReadOnlyCollection<Move>(valid.Where(x => IsCapture(x, GetPieceAt(x.OriginalPosition))).ToList());
             }
             return valid;
+        }
+
+        protected virtual bool IsCapture(Move move, Piece piece)
+        {
+            return GetPieceAt(move.NewPosition) != null || (piece is Pawn && move.NewPosition.File != move.OriginalPosition.File);
         }
 
         protected override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
@@ -78,9 +83,9 @@ namespace ChessDotNet.Variants.Antichess
             Piece piece = GetPieceAt(from);
             if (piece == null || piece.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             ReadOnlyCollection<Move> valid = piece.GetValidMoves(from, returnIfAny, this, m => base.IsValidMove(m, true, true));
-            if (valid.Any(x => GetPieceAt(x.NewPosition) != null))
+            if (valid.Any(x => IsCapture(x, GetPieceAt(x.OriginalPosition))))
             {
-                valid = new ReadOnlyCollection<Move>(valid.Where(x => GetPieceAt(x.NewPosition) != null).ToList());
+                valid = new ReadOnlyCollection<Move>(valid.Where(x => IsCapture(x, GetPieceAt(x.OriginalPosition))).ToList());
             }
             return valid;
 
