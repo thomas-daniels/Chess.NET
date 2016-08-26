@@ -5,3 +5,4 @@ TestResult.xml
 Samples/*
 !Samples/*.cs
 project.lock.json
+*.nuget.targets
