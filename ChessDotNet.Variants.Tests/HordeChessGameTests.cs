@@ -119,11 +119,19 @@ namespace ChessDotNet.Variants.Tests
         }
 
         [Test]
-        public static void TestFenEnPassantField()
+        public static void TestFenEnPassantField1()
         {
             HordeChessGame game = new HordeChessGame("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPP3PP/PPP3P1/PPPPPPPP w kq - 0 16");
             game.ApplyMove(new Move("D1", "D3", Player.White), true);
             Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPPP2PP/PPP3P1/PPP1PPPP b kq - 0 16", game.GetFen());
+        }
+
+        [Test]
+        public static void TestFenEnPassantField2()
+        {
+            HordeChessGame game = new HordeChessGame("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPP3PP/PPPP2P1/PPP1PPPP w kq - 0 16");
+            game.ApplyMove(new Move("D2", "D4", Player.White), true);
+            Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPPPbPPP/PPP3PP/PPP3P1/PPP1PPPP b kq d3 0 16", game.GetFen());
         }
     }
 }
