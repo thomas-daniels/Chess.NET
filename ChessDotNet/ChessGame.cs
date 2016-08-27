@@ -415,7 +415,8 @@ namespace ChessDotNet
             fenBuilder.Append(' ');
 
             DetailedMove last;
-            if (Moves.Count > 0 && (last = Moves[Moves.Count - 1]).Piece is Pawn && Math.Abs(last.OriginalPosition.Rank - last.NewPosition.Rank) == 2)
+            if (Moves.Count > 0 && (last = Moves[Moves.Count - 1]).Piece is Pawn && Math.Abs(last.OriginalPosition.Rank - last.NewPosition.Rank) == 2
+                && last.OriginalPosition.Rank == (last.Player == Player.White ? 2 : 7))
             {
                 fenBuilder.Append(last.NewPosition.File.ToString().ToLowerInvariant());
                 fenBuilder.Append(last.Player == Player.White ? 3 : 6);

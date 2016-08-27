@@ -117,5 +117,13 @@ namespace ChessDotNet.Variants.Tests
             HordeChessGame game = new HordeChessGame("8/3k4/5p2/5r1q/8/8/5P2/8 w - - 0 52");
             Assert.False(game.IsHordeDestroyed());
         }
+
+        [Test]
+        public static void TestFenEnPassantField()
+        {
+            HordeChessGame game = new HordeChessGame("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPP3PP/PPP3P1/PPPPPPPP w kq - 0 16");
+            game.ApplyMove(new Move("D1", "D3", Player.White), true);
+            Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPPP2PP/PPP3P1/PPP1PPPP b kq - 0 16", game.GetFen());
+        }
     }
 }
