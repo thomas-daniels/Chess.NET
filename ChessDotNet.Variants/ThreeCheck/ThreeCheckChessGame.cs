@@ -52,6 +52,11 @@ namespace ChessDotNet.Variants.ThreeCheck
             return gcd;
         }
 
+        public override string GetFen()
+        {
+            return string.Format("{0} +{1}+{2}", base.GetFen(), ChecksByWhite, ChecksByBlack);
+        }
+
         protected override void UseGameCreationData(GameCreationData data)
         {
             base.UseGameCreationData(data);

@@ -48,5 +48,13 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(1, game.ChecksByWhite);
             Assert.AreEqual(2, game.ChecksByBlack);
         }
+
+        [Test]
+        public static void TestFenGeneration()
+        {
+            ThreeCheckChessGame game = new ThreeCheckChessGame("rnb1kb1Q/pppp1p1p/5np1/8/8/8/PPPPKPPP/RNB3NR w q - 1 7 +1+2");
+            game.ApplyMove(new Move("H8", "F8", Player.White), true);
+            Assert.AreEqual("rnb1kQ2/pppp1p1p/5np1/8/8/8/PPPPKPPP/RNB3NR b q - 0 7 +2+2", game.GetFen());
+        }
     }
 }
