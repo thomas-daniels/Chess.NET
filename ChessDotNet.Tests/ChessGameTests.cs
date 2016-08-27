@@ -1849,25 +1849,6 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
-        public static void TestInvalidMoveWhitePawnPromotion_InvalidColor()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { pw, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, kw, o, kb, o, o },
-                new[] { o, o, o, o, o, o, o, o }
-            };
-            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, 'B');
-            ChessGame cb = new ChessGame(board, Player.White);
-            Assert.False(cb.IsValidMove(move), "move should be invalid");
-        }
-
-        [Test]
         public static void TestInvalidMoveBlackPawnPromotion_NoPieceSpecified()
         {
             Piece[][] board = new Piece[8][]
@@ -1900,26 +1881,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, pb, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'B');
-            ChessGame cb = new ChessGame(board, Player.Black);
-            Assert.False(cb.IsValidMove(move), "move should be invalid");
-        }
-
-        [Test]
-        public static void TestInvalidMoveBlackPawnPromotion_InvalidColor()
-        {
-            Piece[][] board = new Piece[8][]
-            {
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, o, o, o, o, o },
-                new[] { o, o, o, kw, o, kb, pb, o },
-                new[] { o, o, o, o, o, o, o, o }
-            };
-            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'B');
+            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'P');
             ChessGame cb = new ChessGame(board, Player.Black);
             Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
@@ -2957,9 +2919,9 @@ namespace ChessDotNet.Tests
             game = new ChessGame(board, Player.White);
             type = game.ApplyMove(new Move("E1", "G1", Player.White), true);
             Assert.AreEqual(type, MoveType.Move | MoveType.Castling);
-            type = game.ApplyMove(new Move("A2", "A1", Player.Black), true);
+            type = game.ApplyMove(new Move("A2", "A1", Player.Black, 'Q'), true);
             Assert.AreEqual(type, MoveType.Move | MoveType.Promotion);
-            type = game.ApplyMove(new Move("B7", "A8", Player.White), true);
+            type = game.ApplyMove(new Move("B7", "A8", Player.White, 'Q'), true);
             Assert.AreEqual(type, MoveType.Move | MoveType.Capture | MoveType.Promotion);
         }
     }
