@@ -628,7 +628,7 @@ namespace ChessDotNet
                 }
                 if (move.NewPosition.Rank == (move.Player == Player.White ? 8 : 1))
                 {
-                    newPiece = move.Promotion;
+                    newPiece = MapPgnCharToPiece(move.Promotion.Value, move.Player);
                     type |= MoveType.Promotion;
                 }
             }
@@ -799,10 +799,11 @@ namespace ChessDotNet
                     List<Move> moves = new List<Move>();
                     if (curr is Pawn && ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black)))
                     {
-                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Queen(move.Player)));
-                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Rook(move.Player)));
-                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
-                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, new Bishop(move.Player)));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'Q'));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'R'));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'B'));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'N'));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'K'));
                     }
                     else
                     {

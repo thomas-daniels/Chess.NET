@@ -103,7 +103,7 @@ namespace ChessDotNet.Variants.Tests
         {
             AntichessGame game = new AntichessGame("8/7P/6n1/8/8/8/8/8 w - - 0 1");
             Assert.AreEqual(5, game.GetValidMoves(Player.White).Count);
-            Assert.True(game.IsValidMove(new Move("H7", "H8", Player.White, new AntichessKing(Player.White))));
+            Assert.True(game.IsValidMove(new Move("H7", "H8", Player.White, 'K')));
         }
 
         [Test]

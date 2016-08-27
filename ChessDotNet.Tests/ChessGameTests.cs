@@ -1760,7 +1760,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, new Queen(Player.White));
+            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, 'Q');
             ChessGame cb = new ChessGame(board, Player.White);
             Assert.AreNotEqual(cb.ApplyMove(move, false), MoveType.Invalid, "move should be valid");
 
@@ -1792,7 +1792,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, pb, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, new Queen(Player.Black));
+            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'Q');
             ChessGame cb = new ChessGame(board, Player.Black);
             Assert.AreNotEqual(cb.ApplyMove(move, false), MoveType.Invalid, "move should be valid");
 
@@ -1843,7 +1843,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, new King(Player.White));
+            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, 'K');
             ChessGame cb = new ChessGame(board, Player.White);
             Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
@@ -1862,7 +1862,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, o, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, new Bishop(Player.Black));
+            Move move = new Move(new Position(File.A, 7), new Position(File.A, 8), Player.White, 'B');
             ChessGame cb = new ChessGame(board, Player.White);
             Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
@@ -1900,7 +1900,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, pb, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, new Pawn(Player.Black));
+            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'B');
             ChessGame cb = new ChessGame(board, Player.Black);
             Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
@@ -1919,7 +1919,7 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, kw, o, kb, pb, o },
                 new[] { o, o, o, o, o, o, o, o }
             };
-            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, new Knight(Player.White));
+            Move move = new Move(new Position(File.G, 2), new Position(File.G, 1), Player.Black, 'B');
             ChessGame cb = new ChessGame(board, Player.Black);
             Assert.False(cb.IsValidMove(move), "move should be invalid");
         }
@@ -2416,10 +2416,10 @@ namespace ChessDotNet.Tests
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, 7));
             List<Move> expected = new List<Move>()
             {
-                new Move("H7", "H8", Player.White, new Queen(Player.White)),
-                new Move("H7", "H8", Player.White, new Rook(Player.White)),
-                new Move("H7", "H8", Player.White, new Bishop(Player.White)),
-                new Move("H7", "H8", Player.White, new Knight(Player.White))
+                new Move("H7", "H8", Player.White, 'Q'),
+                new Move("H7", "H8", Player.White, 'r'),
+                new Move("H7", "H8", Player.White, 'B'),
+                new Move("H7", "H8", Player.White, 'n')
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
@@ -2682,10 +2682,10 @@ namespace ChessDotNet.Tests
             ReadOnlyCollection<Move> actual = cb.GetValidMoves(new Position(File.H, 2));
             List<Move> expected = new List<Move>()
             {
-                new Move("H2", "H1", Player.Black, new Queen(Player.Black)),
-                new Move("H2", "H1", Player.Black, new Rook(Player.Black)),
-                new Move("H2", "H1", Player.Black, new Knight(Player.Black)),
-                new Move("H2", "H1", Player.Black, new Bishop(Player.Black))
+                new Move("H2", "H1", Player.Black, 'q'),
+                new Move("H2", "H1", Player.Black, 'R'),
+                new Move("H2", "H1", Player.Black, 'N'),
+                new Move("H2", "H1", Player.Black, 'b')
             };
 
             Assert.AreEqual(expected.Count, actual.Count);

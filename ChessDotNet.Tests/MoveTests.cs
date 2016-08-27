@@ -110,8 +110,8 @@ namespace ChessDotNet.Tests
         {
             Position position1 = new Position(File.A, 7);
             Position position2 = new Position(File.A, 8);
-            Move move1 = new Move(position1, position2, Player.White, new Queen(Player.White));
-            Move move2 = new Move(position1, position2, Player.White, new Knight(Player.White));
+            Move move1 = new Move(position1, position2, Player.White, 'Q');
+            Move move2 = new Move(position1, position2, Player.White, 'N');
             Assert.AreNotEqual(move1, move2, "move1 and move2 should not be equal");
             Assert.False(move1.Equals(move2), "move1.Equals(move2) should be false");
             Assert.False(move2.Equals(move1), "move2.Equals(move1) should be false");

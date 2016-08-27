@@ -38,7 +38,11 @@ namespace ChessDotNet.Pieces
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
-            Piece promotion = move.Promotion;
+            Piece promotion = null;
+            if (move.Promotion.HasValue && ValidPromotionPieces.Contains(move.Promotion.Value))
+            {
+                promotion = game.MapPgnCharToPiece(char.ToUpper(move.Promotion.Value), move.Player);
+            }
             PositionDistance posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
@@ -155,8 +159,7 @@ namespace ChessDotNet.Pieces
                 {
                     foreach (char pieceChar in ValidPromotionPieces.Where(x => char.IsUpper(x)))
                     {
-                        Piece promotionPiece = game.MapPgnCharToPiece(pieceChar, move.Player);
-                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, promotionPiece));
+                        moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, pieceChar));
                     }
                 }
                 else

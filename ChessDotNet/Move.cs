@@ -20,7 +20,7 @@
             private set;
         }
 
-        public Piece Promotion
+        public char? Promotion
         {
             get;
             private set;
@@ -34,20 +34,34 @@
             : this(originalPosition, newPosition, player, null)
         { }
 
-        public Move(Position originalPosition, Position newPosition, Player player, Piece promotion)
+        public Move(Position originalPosition, Position newPosition, Player player, char? promotion)
         {
             OriginalPosition = originalPosition;
             NewPosition = newPosition;
             Player = player;
-            Promotion = promotion;
+            if (promotion.HasValue)
+            {
+                Promotion = char.ToUpper(promotion.Value);
+            }
+            else
+            {
+                Promotion = null;
+            }
         }
 
-        public Move(string originalPosition, string newPosition, Player player, Piece promotion)
+        public Move(string originalPosition, string newPosition, Player player, char? promotion)
         {
             OriginalPosition = new Position(originalPosition);
             NewPosition = new Position(newPosition);
             Player = player;
-            Promotion = promotion;
+            if (promotion.HasValue)
+            {
+                Promotion = char.ToUpper(promotion.Value);
+            }
+            else
+            {
+                Promotion = null;
+            }
         }
 
         public override bool Equals(object obj)

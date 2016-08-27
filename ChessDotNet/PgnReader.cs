@@ -41,14 +41,14 @@ namespace ChessDotNet
                 Position origin = null;
                 Position destination = null;
                 Piece piece = null;
-                Piece promotion = null;
+                char? promotion = null;
 
                 if (move.Length > 2)
                 {
                     string possiblePromotionPiece = move.Substring(move.Length - 2).ToUpperInvariant();
                     if (possiblePromotionPiece[0] == '=')
                     {
-                        promotion = game.MapPgnCharToPiece(possiblePromotionPiece[1], player);
+                        promotion = possiblePromotionPiece[1];
                         move = move.Remove(move.Length - 2, 2);
                     }
                 }
