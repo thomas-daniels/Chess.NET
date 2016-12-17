@@ -38,6 +38,24 @@ namespace ChessDotNet.Variants.Atomic
                     SetPieceAt(f, r, null);
                 }
             }
+
+            if (CanBlackCastleKingSide && GetPieceAt(File.H, 8) == null)
+            {
+                CanBlackCastleKingSide = false;
+            }
+            if (CanBlackCastleQueenSide && GetPieceAt(File.A, 8) == null)
+            {
+                CanBlackCastleQueenSide = false;
+            }
+            if (CanWhiteCastleKingSide && GetPieceAt(File.H, 1) == null)
+            {
+                CanWhiteCastleKingSide = false;
+            }
+            if (CanWhiteCastleQueenSide && GetPieceAt(File.A, 1) == null)
+            {
+                CanWhiteCastleQueenSide = false;
+            }
+
             return type;
         }
 

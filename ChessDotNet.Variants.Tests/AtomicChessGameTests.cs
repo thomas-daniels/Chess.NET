@@ -184,5 +184,41 @@ namespace ChessDotNet.Variants.Tests
             AtomicChessGame game = new AtomicChessGame(board, Player.Black);
             Assert.False(game.IsInCheck(Player.Black));
         }
+
+        [Test]
+        public void TestFenCastlingFieldAfterRookExplosion_BlackKingside()
+        {
+            AtomicChessGame game = new AtomicChessGame("rnbqkbnr/ppp3pp/3pp3/5pN1/8/4P3/PPPP1PPP/RNBQKB1R w KQkq - 0 4");
+            game.ApplyMove(new Move("g5", "h7", Player.White), true);
+            Assert.False(game.CanBlackCastleKingSide);
+            Assert.AreEqual("rnbqkb2/ppp3p1/3pp3/5p2/8/4P3/PPPP1PPP/RNBQKB1R b KQq - 0 4", game.GetFen());
+        }
+
+        [Test]
+        public void TestFenCastlingFieldAfterRookExplosion_BlackQueenside()
+        {
+            AtomicChessGame game = new AtomicChessGame("rnbqkbnr/pp2pppp/8/1Npp4/8/8/PPPPPPPP/R1BQKBNR w KQkq - 0 3");
+            game.ApplyMove(new Move("b5", "a7", Player.White), true);
+            Assert.False(game.CanBlackCastleQueenSide);
+            Assert.AreEqual("2bqkbnr/1p2pppp/8/2pp4/8/8/PPPPPPPP/R1BQKBNR b KQk - 0 3", game.GetFen());
+        }
+
+        [Test]
+        public void TestFenCastlingFieldAfterRookExplosion_WhiteKingside()
+        {
+            AtomicChessGame game = new AtomicChessGame("rnbqkb1r/pppppppp/8/8/5Pn1/2P5/PPQPP1PP/RNB1KBNR b KQkq - 2 3");
+            game.ApplyMove(new Move("g4", "h2", Player.Black), true);
+            Assert.False(game.CanWhiteCastleKingSide);
+            Assert.AreEqual("rnbqkb1r/pppppppp/8/8/5P2/2P5/PPQPP1P1/RNB1KB2 w Qkq - 0 4", game.GetFen());
+        }
+
+        [Test]
+        public void TestFenCastlingFieldAfterRookExplosion_WhiteQueenside()
+        {
+            AtomicChessGame game = new AtomicChessGame("r1bqkbnr/pppppppp/8/8/1nPP4/6P1/PP2PP1P/RNBQKBNR b KQkq - 0 3");
+            game.ApplyMove(new Move("b4", "a2", Player.Black), true);
+            Assert.False(game.CanWhiteCastleQueenSide);
+            Assert.AreEqual("r1bqkbnr/pppppppp/8/8/2PP4/6P1/1P2PP1P/2BQKBNR w Kkq - 0 4", game.GetFen());
+        }
     }
 }
