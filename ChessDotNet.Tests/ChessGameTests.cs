@@ -2924,5 +2924,41 @@ namespace ChessDotNet.Tests
             type = game.ApplyMove(new Move("B7", "A8", Player.White, 'Q'), true);
             Assert.AreEqual(type, MoveType.Move | MoveType.Capture | MoveType.Promotion);
         }
+
+        [Test]
+        public static void TestFenCastlingFieldAfterRookCapture_BlackKingside()
+        {
+            ChessGame game = new ChessGame("rnbqkbnr/p1pppp1p/1p4p1/8/8/1P6/PBPPPPPP/RN1QKBNR w KQkq - 0 3");
+            game.ApplyMove(new Move("b2", "h8", Player.White), true);
+            Assert.False(game.CanBlackCastleKingSide);
+            Assert.AreEqual("rnbqkbnB/p1pppp1p/1p4p1/8/8/1P6/P1PPPPPP/RN1QKBNR b KQq - 0 3", game.GetFen());
+        }
+
+        [Test]
+        public static void TestFenCastlingFieldAfterRookCapture_BlackQueenside()
+        {
+            ChessGame game = new ChessGame("rnbqkbnr/p1pppp1p/1p4p1/8/8/6P1/PPPPPPBP/RNBQK1NR w KQkq - 0 3");
+            game.ApplyMove(new Move("g2", "a8", Player.White), true);
+            Assert.False(game.CanBlackCastleQueenSide);
+            Assert.AreEqual("Bnbqkbnr/p1pppp1p/1p4p1/8/8/6P1/PPPPPP1P/RNBQK1NR b KQk - 0 3", game.GetFen());
+        }
+
+        [Test]
+        public static void TestFenCastlingFieldAfterRookCapture_WhiteKingside()
+        {
+            ChessGame game = new ChessGame("rn1qkbnr/pbpppppp/1p6/8/1P6/6P1/P1PPPP1P/RNBQKBNR b KQkq - 0 3");
+            game.ApplyMove(new Move("b7", "h1", Player.Black), true);
+            Assert.False(game.CanWhiteCastleKingSide);
+            Assert.AreEqual("rn1qkbnr/p1pppppp/1p6/8/1P6/6P1/P1PPPP1P/RNBQKBNb w Qkq - 0 4", game.GetFen());
+        }
+
+        [Test]
+        public static void TestFenCastlingFieldAfterRookCapture_WhiteQueenside()
+        {
+            ChessGame game = new ChessGame("rnbqk1nr/ppppppbp/6p1/8/6P1/1P6/P1PPPP1P/RNBQKBNR b KQkq - 0 3");
+            game.ApplyMove(new Move("g7", "a1", Player.Black), true);
+            Assert.False(game.CanWhiteCastleQueenSide);
+            Assert.AreEqual("rnbqk1nr/pppppp1p/6p1/8/6P1/1P6/P1PPPP1P/bNBQKBNR w Kkq - 0 4", game.GetFen());
+        }
     }
 }
