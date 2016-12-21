@@ -47,8 +47,6 @@
     <Compile Include="ChessGame.cs" />
     <Compile Include="DetailedMove.cs" />
     <Compile Include="GameCreationData.cs" />
-    <Compile Include="GameEvent.cs" />
-    <Compile Include="GameStatus.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MoveType.cs" />
