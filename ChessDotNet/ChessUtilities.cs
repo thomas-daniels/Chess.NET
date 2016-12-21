@@ -161,5 +161,113 @@ namespace ChessDotNet
             string startingPos = Chess960StartingArray(n);
             return string.Format("{0}/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1", startingPos.ToLower());
         }
+
+        // https://github.com/ProgramFOX/Chess.NET/wiki/Algorithm-for-RacingKings1440-positions
+        private static string[] RK1440WhiteStartingArray(int n)
+        {
+            string[][] setup = new string[][] { new string[4], new string[4] };
+
+            int n2 = n / 4;
+            int k = n % 4;
+
+            switch (k)
+            {
+                case 0:
+                    setup[0][3] = "K";
+                    break;
+                case 1:
+                    setup[1][3] = "K";
+                    break;
+                case 2:
+                    setup[1][2] = "K";
+                    break;
+                case 3:
+                    setup[0][2] = "K";
+                    break;
+            }
+
+            int n3 = n2 / 3;
+            int b1 = n2 % 3;
+
+            int[][] possibleB1Squares = k % 2 == 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
+                                                   : new int[][] { new int[] { 0, 0 }, new int[] { 0, 2 }, new int[] { 1, 3 }, new int[] { 1, 1 } };
+            int counter = 0;
+            for (int i = 0; i < possibleB1Squares.Length; i++)
+            {
+                int[] curr = possibleB1Squares[i];
+                if (setup[curr[0]][curr[1]] == null)
+                {
+                    if (counter == b1)
+                    {
+                        setup[curr[0]][curr[1]] = "B";
+                        break;
+                    }
+                    counter++;
+                }
+            }
+
+            int n4 = n3 / 4;
+            int b2 = n3 % 4;
+            int[][] possibleB2Squares = k % 2 != 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
+                                                   : new int[][] { new int[] { 0, 0 }, new int[] { 0, 2 }, new int[] { 1, 3 }, new int[] { 1, 1 } };
+            int[] chosenB2Square = possibleB2Squares[b2];
+            setup[chosenB2Square[0]][chosenB2Square[1]] = "B";
+
+            int n5 = n4 / 5;
+            int q = n4 % 5;
+            int[][] possibleQNRSquares = new int[][] { new int[] { 0, 0 }, new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 0, 3 }, new int[] { 1, 3 }, new int[] { 1, 2 }, new int[] { 1, 1 }, new int[] { 1, 0 } };
+            counter = 0;
+            for (int i = 0; i < possibleQNRSquares.Length; i++)
+            {
+                int[] curr = possibleQNRSquares[i];
+                if (setup[curr[0]][curr[1]] == null)
+                {
+                    if (counter == q)
+                    {
+                        setup[curr[0]][curr[1]] = "Q";
+                        break;
+                    }
+                    counter++;
+                }
+            }
+
+            string[] remainingConfiguration = new string[][]
+            {
+                new string[] { "N", "N", "R", "R" },
+                new string[] { "N", "R", "N", "R" },
+                new string[] { "N", "R", "R", "N" },
+                new string[] { "R", "N", "N", "R" },
+                new string[] { "R", "N", "R", "N" },
+                new string[] { "R", "R", "N", "N" }
+            }[n5];
+            counter = 0;
+            for (int i = 0; i < possibleQNRSquares.Length; i++)
+            {
+                int[] curr = possibleQNRSquares[i];
+                if (setup[curr[0]][curr[1]] == null)
+                {
+                    setup[curr[0]][curr[1]] = remainingConfiguration[counter];
+                    counter++;
+                }
+            }
+
+            return setup.Select(x => string.Join("", x)).ToArray();
+        }
+
+        public static string FenForRacingKings1440Symmetrical(int n)
+        {
+            string[] whiteRows = RK1440WhiteStartingArray(n);
+            string[] blackRows = new string[] { string.Concat(whiteRows[0].ToLowerInvariant().Reverse()), string.Concat(whiteRows[1].ToLowerInvariant().Reverse()) };
+            return string.Format("8/8/8/8/8/8/{0}{1}/{2}{3} w - - 0 1", blackRows[0], whiteRows[0], blackRows[1], whiteRows[1]);
+        }
+
+        public static string FenForRacingKings1440Asymmetrical(int nWhite, int nBlack)
+        {
+            string[] whiteRows = RK1440WhiteStartingArray(nWhite);
+
+            string[] whiteRowsForBlack = RK1440WhiteStartingArray(nBlack);
+            string[] blackRows = new string[] { string.Concat(whiteRowsForBlack[0].ToLowerInvariant().Reverse()), string.Concat(whiteRowsForBlack[1].ToLowerInvariant().Reverse()) };
+            return string.Format("8/8/8/8/8/8/{0}{1}/{2}{3} w - - 0 1", blackRows[0], whiteRows[0], blackRows[1], whiteRows[1]);
+        }
     }
 }
