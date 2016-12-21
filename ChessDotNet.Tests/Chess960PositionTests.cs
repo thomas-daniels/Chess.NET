@@ -985,5 +985,11 @@ namespace ChessDotNet.Tests
         {
             Assert.AreEqual("bnqnrbkr/pppppppp/8/8/8/8/PPPPPPPP/QNBBNRKR w KQkq - 0 1", ChessUtilities.FenForChess960Asymmetrical(5, 18));
         }
+
+        [Test]
+        public static void TestHorde()
+        {
+            Assert.AreEqual("rbbqnknr/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1", ChessUtilities.FenForHorde960(500));
+        }
     }
 }

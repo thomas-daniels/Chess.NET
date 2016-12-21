@@ -150,5 +150,16 @@ namespace ChessDotNet
             string startingPosBlack = Chess960StartingArray(nBlack).ToLower();
             return string.Format("{0}/pppppppp/8/8/8/8/PPPPPPPP/{1} w KQkq - 0 1", startingPosBlack, startingPosWhite);
         }
+
+        public static string FenForHorde960(int n)
+        {
+            if (n < 0 || n > 959)
+            {
+                throw new ArgumentException("'n' must be greater than or equal to 0, and smaller than or equal to 959.");
+            }
+
+            string startingPos = Chess960StartingArray(n);
+            return string.Format("{0}/pppppppp/8/1PP2PP1/PPPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 1", startingPos.ToLower());
+        }
     }
 }
