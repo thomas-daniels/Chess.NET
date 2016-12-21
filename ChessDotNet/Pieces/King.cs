@@ -37,14 +37,50 @@ namespace ChessDotNet.Pieces
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
             PositionDistance distance = new PositionDistance(origin, destination);
-            if ((distance.DistanceX != 1 || distance.DistanceY != 1)
-                        && (distance.DistanceX != 0 || distance.DistanceY != 1)
-                        && (distance.DistanceX != 1 || distance.DistanceY != 0)
-                        && (distance.DistanceX != 2 || distance.DistanceY != 0))
-                return false;
-            if (distance.DistanceX != 2)
+            if (((distance.DistanceX == 1 && distance.DistanceY == 1)
+                || (distance.DistanceX == 0 && distance.DistanceY == 1)
+                || (distance.DistanceX == 1 && distance.DistanceY == 0)) &&
+                (game.GetPieceAt(destination) == null || game.GetPieceAt(destination).Owner == ChessUtilities.GetOpponentOf(move.Player)))
+            {
                 return true;
-            return CanCastle(origin, destination, game);
+            }
+
+            if (distance.DistanceX == 2)
+            {
+                if (move.Player == Player.White)
+                {
+                    if (origin.Rank != 1 || destination.Rank != 1) return false;
+                    if (game.InitialWhiteKingFile == File.E && game.InitialWhiteRookFileKingsideCastling == File.H && destination.File == File.G)
+                    {
+                        return CanCastle(origin, new Position(File.H, 1), game);
+                    }
+                    if (game.InitialWhiteKingFile == File.E && game.InitialWhiteRookFileQueensideCastling == File.A && destination.File == File.C)
+                    {
+                        return CanCastle(origin, new Position(File.A, 1), game);
+                    }
+                }
+                else
+                {
+                    if (origin.Rank != 8 || destination.Rank != 8) return false;
+                    if (game.InitialBlackKingFile == File.E && game.InitialBlackRookFileKingsideCastling == File.H && destination.File == File.G)
+                    {
+                        return CanCastle(origin, new Position(File.H, 8), game);
+                    }
+                    if (game.InitialBlackKingFile == File.E && game.InitialBlackRookFileQueensideCastling == File.A && destination.File == File.C)
+                    {
+                        return CanCastle(origin, new Position(File.A, 8), game);
+                    }
+                }
+            }
+
+            if (game.GetPieceAt(destination) is Rook)
+            {
+                return CanCastle(origin, destination, game);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected virtual bool CanCastle(Position origin, Position destination, ChessGame game)
@@ -52,50 +88,92 @@ namespace ChessDotNet.Pieces
             if (!HasCastlingAbility) return false;
             if (Owner == Player.White)
             {
-                if (origin.File != File.E || origin.Rank != 1)
-                    return false;
-                if (game.IsInCheck(Player.White))
-                    return false;
-                if (destination.File == File.C)
+                if (origin.Rank != 1 || destination.Rank != 1) return false;
+
+                if (destination.File == game.InitialWhiteRookFileKingsideCastling)
                 {
-                    if (!game.CanWhiteCastleQueenSide || game.GetPieceAt(File.D, 1) != null
-                        || game.GetPieceAt(File.C, 1) != null
-                        || game.GetPieceAt(File.B, 1) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.D, 1), Player.White), Player.White)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.C, 1), Player.White), Player.White))
-                        return false;
+                    if (!game.CanWhiteCastleKingSide) return false;
+                }
+                else if (destination.File == game.InitialWhiteRookFileQueensideCastling)
+                {
+                    if (!game.CanWhiteCastleQueenSide) return false;
                 }
                 else
                 {
-                    if (!game.CanWhiteCastleKingSide || game.GetPieceAt(File.F, 1) != null
-                        || game.GetPieceAt(File.G, 1) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.F, 1), Player.White), Player.White)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White), Player.White))
+                    return false;
+                }
+
+                if (game.IsInCheck(Player.White))
+                {
+                    return false;
+                }
+
+                File[] betweenKingAndFinal = ChessUtilities.FilesBetween(origin.File, destination.File == game.InitialWhiteRookFileKingsideCastling ? File.G : File.C, false, true);
+                foreach (File f in betweenKingAndFinal)
+                {
+                    if (f != destination.File && game.GetPieceAt(f, 1) != null && !(game.GetPieceAt(f, 1) is King))
+                    {
                         return false;
+                    }
+                    if (game.WouldBeInCheckAfter(new Move(origin, new Position(f, 1), Player.White), Player.White))
+                    {
+                        return false;
+                    }
+                }
+
+                File[] betweenRookAndFinal = ChessUtilities.FilesBetween(destination.File, destination.File == game.InitialWhiteRookFileKingsideCastling ? File.F : File.D, false, true);
+                foreach (File f in betweenRookAndFinal)
+                {
+                    Piece p = game.GetPieceAt(f, 1);
+                    if (p != null && !(p is King))
+                    {
+                        return false;
+                    }
                 }
             }
             else
             {
-                if (origin.File != File.E || origin.Rank != 8)
-                    return false;
-                if (game.IsInCheck(Player.Black))
-                    return false;
-                if (destination.File == File.C)
+                if (origin.Rank != 8 || destination.Rank != 8) return false;
+
+                if (destination.File == game.InitialBlackRookFileKingsideCastling)
                 {
-                    if (!game.CanBlackCastleQueenSide || game.GetPieceAt(File.D, 8) != null
-                        || game.GetPieceAt(File.C, 8) != null
-                        || game.GetPieceAt(File.B, 8) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.D, 8), Player.Black), Player.Black)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.C, 8), Player.Black), Player.Black))
-                        return false;
+                    if (!game.CanBlackCastleKingSide) return false;
+                }
+                else if (destination.File == game.InitialBlackRookFileQueensideCastling)
+                {
+                    if (!game.CanBlackCastleQueenSide) return false;
                 }
                 else
                 {
-                    if (!game.CanBlackCastleKingSide || game.GetPieceAt(File.F, 8) != null
-                        || game.GetPieceAt(File.G, 8) != null
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.F, 8), Player.Black), Player.Black)
-                        || game.WouldBeInCheckAfter(new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black), Player.Black))
+                    return false;
+                }
+
+                if (game.IsInCheck(Player.Black))
+                {
+                    return false;
+                }
+
+                File[] betweenKingAndFinal = ChessUtilities.FilesBetween(origin.File, destination.File == game.InitialBlackRookFileKingsideCastling ? File.G : File.C, false, true);
+                foreach (File f in betweenKingAndFinal)
+                {
+                    if (f != destination.File && game.GetPieceAt(f, 8) != null && !(game.GetPieceAt(f, 8) is King))
+                    {
                         return false;
+                    }
+                    if (game.WouldBeInCheckAfter(new Move(origin, new Position(f, 8), Player.Black), Player.Black))
+                    {
+                        return false;
+                    }
+                }
+
+                File[] betweenRookAndFinal = ChessUtilities.FilesBetween(destination.File, destination.File == game.InitialBlackRookFileKingsideCastling ? File.F : File.D, false, true);
+                foreach (File f in betweenRookAndFinal)
+                {
+                    Piece p = game.GetPieceAt(f, 8);
+                    if (p != null && !(p is King))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -108,8 +186,47 @@ namespace ChessDotNet.Pieces
             Piece piece = game.GetPieceAt(from);
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
-            int[][] directions = new int[][] { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
-                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 }, new int[] { 2, 0 }, new int[] { -2, 0 } };
+            List<int[]> directions = new List<int[]>() { new int[] { 0, 1 }, new int[] { 1, 0 }, new int[] { 0, -1 }, new int[] { -1, 0 },
+                        new int[] { 1, 1 }, new int[] { 1, -1 }, new int[] { -1, 1 }, new int[] { -1, -1 } };
+            if (piece.Owner == Player.White && game.InitialWhiteKingFile == File.E && from.File == game.InitialWhiteKingFile && from.Rank == 1)
+            {
+                if (game.InitialWhiteRookFileKingsideCastling == File.H) directions.Add(new int[] { 2, 0 });
+                if (game.InitialWhiteRookFileQueensideCastling == File.A) directions.Add(new int[] { -2, 0 });
+            }
+            if (piece.Owner == Player.Black && game.InitialBlackKingFile == File.E && from.File == game.InitialBlackKingFile && from.Rank == 8)
+            {
+                if (game.InitialBlackRookFileKingsideCastling == File.H) directions.Add(new int[] { 2, 0 });
+                if (game.InitialBlackRookFileQueensideCastling == File.A) directions.Add(new int[] { -2, 0 });
+            }
+            if ((piece.Owner == Player.White ? game.InitialWhiteKingFile : game.InitialBlackKingFile) == from.File && from.Rank == (piece.Owner == Player.White ? 1 : 8))
+            {
+                if (piece.Owner == Player.White)
+                {
+                    int d1 = game.InitialWhiteRookFileKingsideCastling - from.File;
+                    int d2 = game.InitialWhiteRookFileQueensideCastling - from.File;
+                    if (Math.Abs(d1) != 1)
+                    {
+                        directions.Add(new int[] { d1, 0 });
+                    }
+                    if (Math.Abs(d2) != 1)
+                    {
+                        directions.Add(new int[] { d2, 0 });
+                    }
+                }
+                else
+                {
+                    int d1 = game.InitialBlackRookFileKingsideCastling - from.File;
+                    int d2 = game.InitialBlackRookFileQueensideCastling - from.File;
+                    if (Math.Abs(d1) != 1)
+                    {
+                        directions.Add(new int[] { d1, 0 });
+                    }
+                    if (Math.Abs(d2) != 1)
+                    {
+                        directions.Add(new int[] { d2, 0 });
+                    }
+                }
+            }
             foreach (int[] dir in directions)
             {
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1

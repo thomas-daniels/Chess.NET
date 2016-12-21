@@ -45,6 +45,13 @@ namespace ChessDotNet
             }
         }
 
+        public File InitialWhiteRookFileKingsideCastling { get; protected set; }
+        public File InitialWhiteRookFileQueensideCastling { get; protected set; }
+        public File InitialBlackRookFileKingsideCastling { get; protected set; }
+        public File InitialBlackRookFileQueensideCastling { get; protected set; }
+        public File InitialWhiteKingFile { get; protected set; }
+        public File InitialBlackKingFile { get; protected set; }
+
         private Dictionary<char, Piece> fenMappings = new Dictionary<char, Piece>()
         {
             { 'K', new King(Player.White) },
@@ -243,6 +250,9 @@ namespace ChessDotNet
                 new[] { rw, nw, bw, qw, kw, bw, nw, rw }
             };
             CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
+            InitialBlackRookFileKingsideCastling = InitialWhiteRookFileKingsideCastling = File.H;
+            InitialBlackRookFileQueensideCastling = InitialWhiteRookFileQueensideCastling = File.A;
+            InitialBlackKingFile = InitialWhiteKingFile = File.E;
         }
 
         public ChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this()
@@ -284,6 +294,9 @@ namespace ChessDotNet
             Piece a8 = GetPieceAt(File.A, 8);
             Piece h8 = GetPieceAt(File.H, 8);
             CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
+            InitialBlackRookFileKingsideCastling = InitialWhiteRookFileKingsideCastling = File.H;
+            InitialBlackRookFileQueensideCastling = InitialWhiteRookFileQueensideCastling = File.A;
+            InitialBlackKingFile = InitialWhiteKingFile = File.E;
             if (CastlingCanBeLegal)
             {
                 if (!(e1 is King) || e1.Owner != Player.White)
@@ -305,28 +318,29 @@ namespace ChessDotNet
         {
             Board = CloneBoard(data.Board);
             WhoseTurn = data.WhoseTurn;
-            Piece e1 = GetPieceAt(File.E, 1);
-            Piece e8 = GetPieceAt(File.E, 8);
-            Piece a1 = GetPieceAt(File.A, 1);
-            Piece h1 = GetPieceAt(File.H, 1);
-            Piece a8 = GetPieceAt(File.A, 8);
-            Piece h8 = GetPieceAt(File.H, 8);
+
+            Piece[] eighthRank = Board[0];
+            Piece[] firstRank = Board[7];
+
             CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
+            InitialWhiteKingFile = (File)Array.IndexOf(firstRank, new King(Player.White));
+            InitialBlackKingFile = (File)Array.IndexOf(eighthRank, new King(Player.Black));
             if (CastlingCanBeLegal)
             {
-                if (!(e1 is King) || e1.Owner != Player.White)
-                    CanWhiteCastleKingSide = CanWhiteCastleQueenSide = false;
-                if (!(e8 is King) || e8.Owner != Player.Black)
-                    CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
-                if (!(a1 is Rook) || a1.Owner != Player.White || !data.CanWhiteCastleQueenSide)
-                    CanWhiteCastleQueenSide = false;
-                if (!(h1 is Rook) || h1.Owner != Player.White || !data.CanWhiteCastleKingSide)
-                    CanWhiteCastleKingSide = false;
-                if (!(a8 is Rook) || a8.Owner != Player.Black || !data.CanBlackCastleQueenSide)
-                    CanBlackCastleQueenSide = false;
-                if (!(h8 is Rook) || h8.Owner != Player.Black || !data.CanBlackCastleKingSide)
-                    CanBlackCastleKingSide = false;
+                CanBlackCastleKingSide = data.CanBlackCastleKingSide;
+                CanBlackCastleQueenSide = data.CanBlackCastleQueenSide;
+                CanWhiteCastleKingSide = data.CanWhiteCastleKingSide;
+                CanWhiteCastleQueenSide = data.CanWhiteCastleQueenSide;
             }
+            InitialBlackRookFileQueensideCastling = CanBlackCastleQueenSide ? (File)Array.IndexOf(eighthRank, new Rook(Player.Black)) : File.None;
+            InitialBlackRookFileKingsideCastling = CanBlackCastleKingSide ? (File)Array.LastIndexOf(eighthRank, new Rook(Player.Black)) : File.None;
+            InitialWhiteRookFileQueensideCastling = CanWhiteCastleQueenSide ? (File)Array.IndexOf(firstRank, new Rook(Player.White)) : File.None;
+            InitialWhiteRookFileKingsideCastling = CanWhiteCastleKingSide ? (File)Array.LastIndexOf(firstRank, new Rook(Player.White)) : File.None;
+
+            if (InitialBlackRookFileQueensideCastling == File.None) CanBlackCastleQueenSide = false;
+            if (InitialBlackRookFileKingsideCastling == File.None) CanBlackCastleKingSide = false;
+            if (InitialWhiteRookFileKingsideCastling == File.None) CanWhiteCastleKingSide = false;
+            if (InitialWhiteRookFileQueensideCastling == File.None) CanWhiteCastleQueenSide = false;
 
             if (data.EnPassant != null)
             {
@@ -567,7 +581,8 @@ namespace ChessDotNet
             if (careAboutWhoseTurnItIs && move.Player != WhoseTurn) return false;
             if (piece == null || piece.Owner != move.Player) return false;
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
-            if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player)
+            bool isCastle = pieceAtDestination is Rook && piece is King && pieceAtDestination.Owner == piece.Owner;
+            if (pieceAtDestination != null && pieceAtDestination.Owner == move.Player && !isCastle)
             {
                 return false;
             }
@@ -575,9 +590,12 @@ namespace ChessDotNet
             {
                 return false;
             }
-            if (validateCheck && WouldBeInCheckAfter(move, move.Player))
+            if (validateCheck)
             {
-                return false;
+                if (!isCastle && WouldBeInCheckAfter(move, move.Player))
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -587,22 +605,48 @@ namespace ChessDotNet
         {
             CastlingType castle;
             int rank = move.Player == Player.White ? 1 : 8;
-            File rookFile;
+            File rookFile = move.NewPosition.File;
+            if (move.Player == Player.White)
+            {
+                if (rookFile == File.C && GetPieceAt(File.C, rank) == null && InitialWhiteKingFile == File.E)
+                {
+                    rookFile = File.A;
+                }
+                else if (rookFile == File.G && GetPieceAt(File.G, rank) == null && InitialWhiteKingFile == File.E)
+                {
+                    rookFile = File.H;
+                }
+            }
+            else
+            {
+                if (rookFile == File.C && GetPieceAt(File.C, rank) == null && InitialBlackKingFile == File.E)
+                {
+                    rookFile = File.A;
+                }
+                else if (rookFile == File.G && GetPieceAt(File.G, rank) == null && InitialBlackKingFile == File.E)
+                {
+                    rookFile = File.H;
+                }
+            }
+
             File newRookFile;
-            if (move.NewPosition.File == File.C)
+            File newKingFile;
+            if (rookFile == (move.Player == Player.White ? InitialWhiteRookFileQueensideCastling : InitialBlackRookFileQueensideCastling))
             {
                 castle = CastlingType.QueenSide;
-                rookFile = File.A;
                 newRookFile = File.D;
+                newKingFile = File.C;
             }
             else
             {
                 castle = CastlingType.KingSide;
-                rookFile = File.H;
                 newRookFile = File.F;
+                newKingFile = File.G;
             }
-            SetPieceAt(newRookFile, rank, new Rook(move.Player));
             SetPieceAt(rookFile, rank, null);
+            SetPieceAt(move.OriginalPosition.File, rank, null);
+            SetPieceAt(newRookFile, rank, new Rook(move.Player));
+            SetPieceAt(newKingFile, rank, new King(move.Player));
             return castle;
         }
 
@@ -639,10 +683,15 @@ namespace ChessDotNet
                 else
                     CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
 
-                if (new PositionDistance(move.OriginalPosition, move.NewPosition).DistanceX == 2 && CastlingCanBeLegal)
+                if (CastlingCanBeLegal &&
+                    (GetPieceAt(move.NewPosition) is Rook ||
+                        ((move.NewPosition.File == File.C || move.NewPosition.File == File.G) &&
+                        (move.Player == Player.White ? InitialWhiteKingFile : InitialBlackKingFile) == File.E
+                        && move.OriginalPosition.File == File.E)))
                 {
                     castle = ApplyCastle(move);
                     type |= MoveType.Castling;
+                    isCapture = false;
                 }
             }
             else if (movingPiece is Rook)
@@ -691,8 +740,11 @@ namespace ChessDotNet
             {
                 _fullMoveNumber++;
             }
-            SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
-            SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
+            if (castle == CastlingType.None)
+            {
+                SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, newPiece);
+                SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
+            }
             WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
             _moves.Add(new DetailedMove(move, movingPiece, isCapture, castle));
             return type;

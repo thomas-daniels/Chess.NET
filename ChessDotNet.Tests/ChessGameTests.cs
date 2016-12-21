@@ -591,6 +591,32 @@ namespace ChessDotNet.Tests
             Move move1 = new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White);
 
             Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E1", "G1", Player.White), cb.GetValidMoves(Player.White));
+            Assert.Contains(new Move("E1", "G1", Player.White), cb.GetValidMoves(new Position("E1")));
+        }
+
+        [Test]
+        public static void TestValidMoveWhiteKing_KingsideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            Move move1 = new Move(new Position(File.E, 1), new Position(File.H, 1), Player.White);
+
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E1", "H1", Player.White), cb.GetValidMoves(Player.White));
+            Assert.Contains(new Move("E1", "H1", Player.White), cb.GetValidMoves(new Position("E1")));
         }
 
         [Test]
@@ -611,6 +637,33 @@ namespace ChessDotNet.Tests
             Move move1 = new Move(new Position(File.E, 1), new Position(File.C, 1), Player.White);
 
             Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E1", "C1", Player.White), cb.GetValidMoves(Player.White));
+            Assert.Contains(new Move("E1", "C1", Player.White), cb.GetValidMoves(new Position("E1")));
+        }
+
+
+        [Test]
+        public static void TestValidMoveWhiteKing_QueensideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, kb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, rw }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            Move move1 = new Move(new Position(File.E, 1), new Position(File.A, 1), Player.White);
+
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E1", "A1", Player.White), cb.GetValidMoves(Player.White));
+            Assert.Contains(new Move("E1", "A1", Player.White), cb.GetValidMoves(new Position("E1")));
         }
 
         [Test]
@@ -629,6 +682,26 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.White);
             Move move1 = new Move(new Position(File.E, 1), new Position(File.G, 1), Player.White);
+
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
+        }
+
+        [Test]
+        public static void TestInvalidMoveWhiteKing_KingsideCastling_WouldPassThroughCheck2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, kb, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, rb, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
+            };
+            ChessGame cb = new ChessGame(board, Player.White);
+            Move move1 = new Move(new Position(File.E, 1), new Position(File.H, 1), Player.White);
 
             Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
@@ -1254,6 +1327,32 @@ namespace ChessDotNet.Tests
             Move move1 = new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black);
 
             Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E8", "G8", Player.Black), cb.GetValidMoves(Player.Black));
+            Assert.Contains(new Move("E8", "G8", Player.Black), cb.GetValidMoves(new Position("E8")));
+        }
+
+        [Test]
+        public static void TestValidMoveBlackKing_KingsideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            Move move1 = new Move(new Position(File.E, 8), new Position(File.H, 8), Player.Black);
+
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E8", "H8", Player.Black), cb.GetValidMoves(Player.Black));
+            Assert.Contains(new Move("E8", "H8", Player.Black), cb.GetValidMoves(new Position("E8")));
         }
 
         [Test]
@@ -1274,6 +1373,32 @@ namespace ChessDotNet.Tests
             Move move1 = new Move(new Position(File.E, 8), new Position(File.C, 8), Player.Black);
 
             Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E8", "C8", Player.Black), cb.GetValidMoves(Player.Black));
+            Assert.Contains(new Move("E8", "C8", Player.Black), cb.GetValidMoves(new Position("E8")));
+        }
+
+        [Test]
+        public static void TestValidMoveBlackKing_QueensideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            Move move1 = new Move(new Position(File.E, 8), new Position(File.A, 8), Player.Black);
+
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+
+            Assert.Contains(new Move("E8", "A8", Player.Black), cb.GetValidMoves(Player.Black));
+            Assert.Contains(new Move("E8", "A8", Player.Black), cb.GetValidMoves(new Position("E8")));
         }
 
         [Test]
@@ -1292,6 +1417,26 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black);
+
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
+        }
+
+        [Test]
+        public static void TestInvalidMoveBlackKing_KingsideCastling_WouldPassThroughCheck2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, rw, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            Move move1 = new Move(new Position(File.E, 8), new Position(File.H, 8), Player.Black);
 
             Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
         }
@@ -1317,6 +1462,26 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestInvalidMoveBlackKing_QueensideCastling_WouldPassThroughCheck2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, rw, kw, o, o, o }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            Move move1 = new Move(new Position(File.E, 8), new Position(File.A, 8), Player.Black);
+
+            Assert.False(cb.IsValidMove(move1), "move1 should be invalid");
+        }
+
+        [Test]
         public static void TestValidMoveBlackKing_KingsideCastling_WouldNotPassThroughCheck()
         {
             Piece[][] board = new Piece[8][]
@@ -1332,6 +1497,26 @@ namespace ChessDotNet.Tests
             };
             ChessGame cb = new ChessGame(board, Player.Black);
             Move move1 = new Move(new Position(File.E, 8), new Position(File.G, 8), Player.Black);
+
+            Assert.True(cb.IsValidMove(move1), "move1 should be valid");
+        }
+
+        [Test]
+        public static void TestValidMoveBlackKing_KingsideCastling_WouldNotPassThroughCheck2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
+            };
+            ChessGame cb = new ChessGame(board, Player.Black);
+            Move move1 = new Move(new Position(File.E, 8), new Position(File.H, 8), Player.Black);
 
             Assert.True(cb.IsValidMove(move1), "move1 should be valid");
         }
@@ -1953,6 +2138,39 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestApplyMoveWhiteKing_KingsideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, rw }
+            };
+            Move move = new Move(new Position(File.E, 1), new Position(File.H, 1), Player.White);
+            ChessGame cb = new ChessGame(board, Player.White);
+            cb.ApplyMove(move, true);
+
+            Piece[][] expected = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, rw, kw, o }
+            };
+
+            Assert.AreEqual(expected, cb.GetBoard());
+        }
+
+        [Test]
         public static void TestApplyMoveWhiteKing_QueensideCastling()
         {
             Piece[][] board = new Piece[8][]
@@ -1967,6 +2185,40 @@ namespace ChessDotNet.Tests
                 new[] { rw, o, o, o, kw, o, o, o }
             };
             Move move = new Move(new Position(File.E, 1), new Position(File.C, 1), Player.White);
+            ChessGame cb = new ChessGame(board, Player.White);
+            cb.ApplyMove(move, true);
+
+            Piece[][] expected = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, kw, rw, o, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.GetBoard());
+        }
+
+
+        [Test]
+        public static void TestApplyMoveWhiteKing_QueensideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { rw, o, o, o, kw, o, o, o }
+            };
+            Move move = new Move(new Position(File.E, 1), new Position(File.A, 1), Player.White);
             ChessGame cb = new ChessGame(board, Player.White);
             cb.ApplyMove(move, true);
 
@@ -2019,6 +2271,39 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestApplyMoveBlackKing_KingsideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { o, o, o, o, kb, o, o, rb },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+            Move move = new Move(new Position(File.E, 8), new Position(File.H, 8), Player.Black);
+            ChessGame cb = new ChessGame(board, Player.Black);
+            cb.ApplyMove(move, true);
+
+            Piece[][] expected = new Piece[8][]
+            {
+                new[] { o, o, o, o, o, rb, kb, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.GetBoard());
+        }
+
+        [Test]
         public static void TestApplyMoveBlackKing_QueensideCastling()
         {
             Piece[][] board = new Piece[8][]
@@ -2033,6 +2318,40 @@ namespace ChessDotNet.Tests
                 new[] { o, o, o, o, kw, o, o, o }
             };
             Move move = new Move(new Position(File.E, 8), new Position(File.C, 8), Player.Black);
+            ChessGame cb = new ChessGame(board, Player.Black);
+            cb.ApplyMove(move, true);
+
+            Piece[][] expected = new Piece[8][]
+            {
+                new[] { o, o, kb, rb, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+
+            Assert.AreEqual(expected, cb.GetBoard());
+        }
+
+
+        [Test]
+        public static void TestApplyMoveBlackKing_QueensideCastling2()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { rb, o, o, o, kb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, kw, o, o, o }
+            };
+            Move move = new Move(new Position(File.E, 8), new Position(File.A, 8), Player.Black);
             ChessGame cb = new ChessGame(board, Player.Black);
             cb.ApplyMove(move, true);
 
