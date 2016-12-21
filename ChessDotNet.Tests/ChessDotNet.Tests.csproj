@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chess960CastlingTests.cs" />
+    <Compile Include="Chess960PositionTests.cs" />
     <Compile Include="ChessGameTests.cs" />
     <Compile Include="ChessPieceTests.cs" />
     <Compile Include="FenConvertTests.cs" />
