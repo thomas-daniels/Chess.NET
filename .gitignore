@@ -7,3 +7,4 @@ Samples/*
 project.lock.json
 *.nuget.targets
 *.csproj.user
+nuget/
