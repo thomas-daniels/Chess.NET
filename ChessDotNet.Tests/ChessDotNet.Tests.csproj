@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ChessDotNetTestsKey.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
