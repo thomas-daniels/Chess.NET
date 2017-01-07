@@ -1,5 +1,3 @@
-[![CircleCI build status](https://circleci.com/gh/ProgramFOX/Chess.NET.svg?style=shield)](https://circleci.com/gh/ProgramFOX/Chess.NET)
-
 Chess.NET
 =
 Chess.NET is a chess library for .NET, written in C#.
