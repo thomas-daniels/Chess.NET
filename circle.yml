@@ -4,8 +4,8 @@ dependencies:
     - sudo apt-get install mono-xbuild mono-mcs
 test:
   override:
-    - xbuild /p:Configuration=Release /p:TargetFrameworkVersion=v4.5 ChessDotNet.sln
-    - xbuild /p:Configuration=Debug /p:TargetFrameworkVersion=v4.5 ChessDotNet.sln
+    - xbuild /p:Configuration=Release /p:TargetFrameworkVersion=v4.6 ChessDotNet.sln
+    - xbuild /p:Configuration=Debug /p:TargetFrameworkVersion=v4.6 ChessDotNet.sln
     - mono packages/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe ChessDotNet.Tests/bin/Release/ChessDotNet.Tests.dll
     - mono packages/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe ChessDotNet.Tests/bin/Debug/ChessDotNet.Tests.dll
     - mono packages/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe ChessDotNet.Variants.Tests/bin/Release/ChessDotNet.Variants.Tests.dll

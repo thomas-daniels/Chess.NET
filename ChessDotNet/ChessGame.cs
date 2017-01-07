@@ -497,16 +497,16 @@ namespace ChessDotNet
                 throw new ArgumentException("Expected `w` or `b` for the active player in the FEN string.");
             }
 
-            if (parts[2].Contains('K')) data.CanWhiteCastleKingSide = true;
+            if (parts[2].Contains("K")) data.CanWhiteCastleKingSide = true;
             else data.CanWhiteCastleKingSide = false;
 
-            if (parts[2].Contains('Q')) data.CanWhiteCastleQueenSide = true;
+            if (parts[2].Contains("Q")) data.CanWhiteCastleQueenSide = true;
             else data.CanWhiteCastleQueenSide = false;
 
-            if (parts[2].Contains('k')) data.CanBlackCastleKingSide = true;
+            if (parts[2].Contains("k")) data.CanBlackCastleKingSide = true;
             else data.CanBlackCastleKingSide = false;
 
-            if (parts[2].Contains('q')) data.CanBlackCastleQueenSide = true;
+            if (parts[2].Contains("q")) data.CanBlackCastleQueenSide = true;
             else data.CanBlackCastleQueenSide = false;
 
             if (parts[3] == "-") data.EnPassant = null;

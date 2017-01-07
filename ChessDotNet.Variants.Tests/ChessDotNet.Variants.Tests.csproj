@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessDotNet.Variants.Tests</RootNamespace>
     <AssemblyName>ChessDotNet.Variants.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,18 +55,18 @@
     <Compile Include="ThreeCheckChessGameTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ChessDotNetVariantTestsKey.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ChessDotNet.Variants\ChessDotNet.Variants.csproj">
-      <Project>{bd136017-2e1f-48f4-b072-958f9ba853c7}</Project>
+      <Project>{12306bf4-cad8-4838-8f88-fb1ea95bdb61}</Project>
       <Name>ChessDotNet.Variants</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
-      <Project>{f089f32e-0218-4f80-a65d-484f6eb806bd}</Project>
+      <Project>{be2e6962-a2b9-4c04-9b93-011f51617166}</Project>
       <Name>ChessDotNet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChessDotNetVariantTestsKey.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

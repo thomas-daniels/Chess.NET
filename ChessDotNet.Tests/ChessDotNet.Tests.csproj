@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChessDotNet.Tests</RootNamespace>
     <AssemblyName>ChessDotNet.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,14 +60,14 @@
     <Compile Include="UtilitiesTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
-      <Project>{f089f32e-0218-4f80-a65d-484f6eb806bd}</Project>
-      <Name>ChessDotNet</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ChessDotNetTestsKey.snk" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
+      <Project>{be2e6962-a2b9-4c04-9b93-011f51617166}</Project>
+      <Name>ChessDotNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
