@@ -63,5 +63,14 @@ namespace ChessDotNet.Variants.Tests
             Assert.True(game.IsStalemated(Player.White));
             Assert.True(game.IsDraw());
         }
+
+        [Test]
+        public static void TestIsNotWinner()
+        {
+            RacingKingsChessGame game = new RacingKingsChessGame("4K3/2k5/8/8/8/8/1rbnNBR1/qrbnNBRQ b - - 11 6");
+            game.ApplyMove(new Move("C7", "C8", Player.Black), true);
+            Assert.False(game.IsWinner(Player.Black));
+            Assert.False(game.IsWinner(Player.White));
+        }
     }
 }

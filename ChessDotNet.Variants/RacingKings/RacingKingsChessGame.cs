@@ -121,13 +121,13 @@ namespace ChessDotNet.Variants.RacingKings
 
             if (player == Player.Black)
             {
-                return true;
+                return !IsDraw();
             }
             else if (WhoseTurn == Player.White)
             {
                 if (FindKing(Player.Black).Rank != 8)
                 {
-                    return true;
+                    return !IsDraw();
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace ChessDotNet.Variants.RacingKings
                 {
                     return false;
                 }
-                return true;
+                return !IsDraw();
             }
         }
 
