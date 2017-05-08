@@ -39,19 +39,19 @@ namespace ChessDotNet.Variants.Atomic
                 }
             }
 
-            if (CanBlackCastleKingSide && GetPieceAt(File.H, 8) == null)
+            if (CanBlackCastleKingSide && GetPieceAt(InitialBlackRookFileKingsideCastling, 8) == null)
             {
                 CanBlackCastleKingSide = false;
             }
-            if (CanBlackCastleQueenSide && GetPieceAt(File.A, 8) == null)
+            if (CanBlackCastleQueenSide && GetPieceAt(InitialBlackRookFileQueensideCastling, 8) == null)
             {
                 CanBlackCastleQueenSide = false;
             }
-            if (CanWhiteCastleKingSide && GetPieceAt(File.H, 1) == null)
+            if (CanWhiteCastleKingSide && GetPieceAt(InitialWhiteRookFileKingsideCastling, 1) == null)
             {
                 CanWhiteCastleKingSide = false;
             }
-            if (CanWhiteCastleQueenSide && GetPieceAt(File.A, 1) == null)
+            if (CanWhiteCastleQueenSide && GetPieceAt(InitialWhiteRookFileQueensideCastling, 1) == null)
             {
                 CanWhiteCastleQueenSide = false;
             }
@@ -68,9 +68,23 @@ namespace ChessDotNet.Variants.Atomic
             if (careAboutWhoseTurnItIs && move.Player != WhoseTurn) return false;
             if (piece.Owner != move.Player) return false;
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
-            if (pieceAtDestination != null && (pieceAtDestination.Owner == move.Player || piece is King))
+            if (pieceAtDestination != null)
             {
-                return false;
+                if (piece is King)
+                {
+                    if (pieceAtDestination is Rook)
+                    {
+                        if (pieceAtDestination.Owner != move.Player) return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (pieceAtDestination.Owner == move.Player)
+                {
+                    return false;
+                }
             }
             if (!piece.IsValidMove(move, this))
             {

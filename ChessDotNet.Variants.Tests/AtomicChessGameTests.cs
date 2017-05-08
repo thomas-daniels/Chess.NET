@@ -220,5 +220,32 @@ namespace ChessDotNet.Variants.Tests
             Assert.False(game.CanWhiteCastleQueenSide);
             Assert.AreEqual("r1bqkbnr/pppppppp/8/8/2PP4/6P1/1P2PP1P/2BQKBNR w Kkq - 0 4", game.GetFen());
         }
+
+        [Test]
+        public void Test960Castling()
+        {
+            AtomicChessGame game = new AtomicChessGame("rqknrnbb/pppppppp/8/8/8/8/PPPPPPPP/RQKNRNBB w KQkq - 0 1");
+            string[] moves = { "g2g3", "d8c6", "h2h3", "f8e6", "f2f3", "f7f6", "a2a3", "g8f7", "b2b3", "g7g6", "c2c3", "h8g7", "e2e3", "b7b6", "d2d3", "b8b7", "c3c4" };
+            foreach (string m in moves)
+            {
+                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+            }
+
+            Assert.True(game.IsValidMove(new Move("C8", "E8", Player.Black)));
+            Assert.True(game.IsValidMove(new Move("C8", "A8", Player.Black)));
+        }
+
+        [Test]
+        public void TestInvalidMove_CapturingOwn()
+        {
+            AtomicChessGame game = new AtomicChessGame("rqknrnbb/pppppppp/8/8/8/8/PPPPPPPP/RQKNRNBB w KQkq - 0 1");
+            string[] moves = { "g2g3", "d8c6", "h2h3", "f8e6", "f2f3", "f7f6", "a2a3", "g8f7", "b2b3", "g7g6", "c2c3", "h8g7", "e2e3", "b7b6", "d2d3", "b8b7", "c3c4" };
+            foreach (string m in moves)
+            {
+                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+            }
+
+            Assert.False(game.IsValidMove(new Move("C8", "C7", Player.Black)));
+        }
     }
 }
