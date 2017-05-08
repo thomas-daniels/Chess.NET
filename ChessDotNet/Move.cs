@@ -5,26 +5,28 @@
         public Position OriginalPosition
         {
             get;
-            private set;
+            protected set;
         }
 
         public Position NewPosition
         {
             get;
-            private set;
+            protected set;
         }
 
         public Player Player
         {
             get;
-            private set;
+            protected set;
         }
 
         public char? Promotion
         {
             get;
-            private set;
+            protected set;
         }
+
+        protected Move() { }
 
         public Move(Position originalPosition, Position newPosition, Player player)
             : this(originalPosition, newPosition, player, null)

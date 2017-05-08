@@ -100,12 +100,17 @@ namespace ChessDotNet
             }
         }
 
+        public virtual bool NeedsPgnMoveSpecialTreatment(string move, Player player) { return false; }
+        public virtual bool HandleSpecialPgnMove(string move, Player player) { return false;  } 
+
         protected bool fiftyMoves = false;
+        protected virtual bool FiftyMovesAndThisCanResultInDraw { get { return fiftyMoves; } }
+
         public virtual bool DrawCanBeClaimed
         {
             get
             {
-                return fiftyMoves && !IsCheckmated(WhoseTurn) && !IsStalemated(WhoseTurn);
+                return FiftyMovesAndThisCanResultInDraw && !IsCheckmated(WhoseTurn) && !IsStalemated(WhoseTurn);
             }
         }
 
@@ -115,21 +120,21 @@ namespace ChessDotNet
             protected set;
         }
 
-        int _halfMoveClock = 0;
+        protected int i_halfMoveClock = 0;
         public int HalfMoveClock
         {
             get
             {
-                return _halfMoveClock;
+                return i_halfMoveClock;
             }
         }
 
-        int _fullMoveNumber = 1;
+        protected int i_fullMoveNumber = 1;
         public int FullMoveNumber
         {
             get
             {
-                return _fullMoveNumber;
+                return i_fullMoveNumber;
             }
         }
 
@@ -353,8 +358,8 @@ namespace ChessDotNet
                 _moves.Add(latestMove);
             }
 
-            _halfMoveClock = data.HalfMoveClock;
-            _fullMoveNumber = data.FullMoveNumber;
+            i_halfMoveClock = data.HalfMoveClock;
+            i_fullMoveNumber = data.FullMoveNumber;
         }
 
         public virtual string GetFen()
@@ -442,14 +447,16 @@ namespace ChessDotNet
 
             fenBuilder.Append(' ');
 
-            fenBuilder.Append(_halfMoveClock);
+            fenBuilder.Append(i_halfMoveClock);
 
             fenBuilder.Append(' ');
 
-            fenBuilder.Append(_fullMoveNumber);
+            fenBuilder.Append(i_fullMoveNumber);
 
             return fenBuilder.ToString();
         }
+
+        protected virtual int[] ValidFenBoardRows { get { return new int[1] { 8 }; } }
 
         protected virtual GameCreationData FenStringToGameCreationData(string fen)
         {
@@ -458,31 +465,10 @@ namespace ChessDotNet
             if (!AllowedFenPartsLength.Contains(parts.Length)) throw new ArgumentException("The FEN string has too much, or too few, parts.");
             Piece[][] board = new Piece[8][];
             string[] rows = parts[0].Split('/');
-            if (rows.Length != 8) throw new ArgumentException("The board in the FEN string does not have 8 rows.");
+            if (!ValidFenBoardRows.Contains(rows.Length)) throw new ArgumentException("The board in the FEN string has an invalid number of rows.");
             GameCreationData data = new GameCreationData();
-            for (int i = 0; i < 8; i++)
-            {
-                string row = rows[i];
-                Piece[] currentRow = new Piece[8] { null, null, null, null, null, null, null, null };
-                int j = 0;
-                foreach (char c in row)
-                {
-                    if (char.IsDigit(c))
-                    {
-                        j += (int)char.GetNumericValue(c);
-                        continue;
-                    }
-                    if (!fenMappings.ContainsKey(c)) throw new ArgumentException("The FEN string contains an unknown piece.");
-                    currentRow[j] = fenMappings[c];
-                    j++;
-                }
-                if (j != 8)
-                {
-                    throw new ArgumentException("Not enough pieces provided for a row in the FEN string.");
-                }
-                board[i] = currentRow;
-            }
-            data.Board = board;
+
+            data.Board = InterpretBoardOfFen(parts[0]);
 
             if (parts[1] == "w")
             {
@@ -542,6 +528,35 @@ namespace ChessDotNet
             }
 
             return data;
+        }
+
+        protected virtual Piece[][] InterpretBoardOfFen(string board)
+        {
+            Piece[][] pieceArr = new Piece[8][];
+            string[] rows = board.Split('/');
+            for (int i = 0; i < 8; i++)
+            {
+                string row = rows[i];
+                Piece[] currentRow = new Piece[8] { null, null, null, null, null, null, null, null };
+                int j = 0;
+                foreach (char c in row)
+                {
+                    if (char.IsDigit(c))
+                    {
+                        j += (int)char.GetNumericValue(c);
+                        continue;
+                    }
+                    if (!FenMappings.ContainsKey(c)) throw new ArgumentException("The FEN string contains an unknown piece.");
+                    currentRow[j] = FenMappings[c];
+                    j++;
+                }
+                if (j != 8)
+                {
+                    throw new ArgumentException("Not enough pieces provided for a row in the FEN string.");
+                }
+                pieceArr[i] = currentRow;
+            }
+            return pieceArr;
         }
 
         public Piece GetPieceAt(Position position)
@@ -652,22 +667,31 @@ namespace ChessDotNet
 
         public virtual MoveType ApplyMove(Move move, bool alreadyValidated)
         {
+            Piece captured;
+            return ApplyMove(move, alreadyValidated, out captured);
+        }
+
+        public virtual MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured)
+        {
             ChessUtilities.ThrowIfNull(move, "move");
+            captured = null;
             if (!alreadyValidated && !IsValidMove(move))
                 return MoveType.Invalid;
             MoveType type = MoveType.Move;
             Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             Piece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
+            captured = capturedPiece;
             Piece newPiece = movingPiece;
             bool isCapture = capturedPiece != null;
             CastlingType castle = CastlingType.None;
             if (movingPiece is Pawn)
             {
-                _halfMoveClock = 0;
+                i_halfMoveClock = 0;
                 PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
                 if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition) == null)
                 { // en passant
                     isCapture = true;
+                    captured = GetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank);
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, null);
                 }
                 if (move.NewPosition.Rank == (move.Player == Player.White ? 8 : 1))
@@ -714,7 +738,7 @@ namespace ChessDotNet
             if (isCapture)
             {
                 type |= MoveType.Capture;
-                _halfMoveClock = 0;
+                i_halfMoveClock = 0;
                 if (move.NewPosition.File == File.A && move.NewPosition.Rank == 1)
                     CanWhiteCastleQueenSide = false;
                 else if (move.NewPosition.File == File.H && move.NewPosition.Rank == 1)
@@ -726,8 +750,8 @@ namespace ChessDotNet
             }
             if (!isCapture && !(movingPiece is Pawn))
             {
-                _halfMoveClock++;
-                if (_halfMoveClock >= 100)
+                i_halfMoveClock++;
+                if (i_halfMoveClock >= 100)
                 {
                     fiftyMoves = true;
                 }
@@ -738,7 +762,7 @@ namespace ChessDotNet
             }
             if (move.Player == Player.Black)
             {
-                _fullMoveNumber++;
+                i_fullMoveNumber++;
             }
             if (castle == CastlingType.None)
             {
@@ -746,8 +770,13 @@ namespace ChessDotNet
                 SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
             }
             WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
-            _moves.Add(new DetailedMove(move, movingPiece, isCapture, castle));
+            AddDetailedMove(new DetailedMove(move, movingPiece, isCapture, castle));
             return type;
+        }
+
+        protected virtual void AddDetailedMove(DetailedMove dm)
+        {
+            _moves.Add(dm);
         }
 
         public ReadOnlyCollection<Move> GetValidMoves(Position from)
@@ -927,8 +956,8 @@ namespace ChessDotNet
                     gcd.EnPassant = new Position(last.NewPosition.File, last.Player == Player.White ? 3 : 6);
                 }
             }
-            gcd.HalfMoveClock = _halfMoveClock;
-            gcd.FullMoveNumber = _fullMoveNumber;
+            gcd.HalfMoveClock = i_halfMoveClock;
+            gcd.FullMoveNumber = i_fullMoveNumber;
             ChessGame copy = new ChessGame(gcd);
             copy.ApplyMove(move, true);
             return copy.IsInCheck(player);

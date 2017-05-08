@@ -12,5 +12,10 @@ namespace ChessDotNet.Variants.Antichess.Pieces
             }
         }
         public AntichessPawn(Player owner) : base(owner) { }
+
+        public override Piece GetWithInvertedOwner()
+        {
+            return new AntichessPawn(ChessUtilities.GetOpponentOf(Owner));
+        }
     }
 }

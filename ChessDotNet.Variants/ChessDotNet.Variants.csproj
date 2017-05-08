@@ -51,6 +51,9 @@
     <Compile Include="Antichess\Pieces\AntichessKing.cs" />
     <Compile Include="Antichess\Pieces\AntichessPawn.cs" />
     <Compile Include="Atomic\AtomicChessGame.cs" />
+    <Compile Include="Crazyhouse\CrazyhouseChessGame.cs" />
+    <Compile Include="Crazyhouse\CrazyhouseDetailedMove.cs" />
+    <Compile Include="Crazyhouse\Drop.cs" />
     <Compile Include="Horde\HordeChessGame.cs" />
     <Compile Include="Horde\Pieces\HordePawn.cs" />
     <Compile Include="KingOfTheHill\KingOfTheHillChessGame.cs" />

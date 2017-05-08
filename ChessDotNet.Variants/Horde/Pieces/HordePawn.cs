@@ -14,6 +14,18 @@ namespace ChessDotNet.Variants.Horde.Pieces
             }
         }
 
+        public override Piece GetWithInvertedOwner()
+        {
+            if (this is HordePawn)
+            {
+                return new Pawn(Player.Black);
+            }
+            else
+            {
+                return new HordePawn();
+            }
+        }
+
         public override bool IsValidMove(Move move, ChessGame game)
         {
             bool validByStandardRules = base.IsValidMove(move, game);

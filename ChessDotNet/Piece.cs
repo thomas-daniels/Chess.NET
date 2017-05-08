@@ -11,6 +11,8 @@ namespace ChessDotNet
             protected set;
         }
 
+        public abstract Piece GetWithInvertedOwner();
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(this, obj))

@@ -26,6 +26,11 @@ namespace ChessDotNet.Pieces
             HasCastlingAbility = hasCastlingAbility;
         }
 
+        public override Piece GetWithInvertedOwner()
+        {
+            return new King(ChessUtilities.GetOpponentOf(Owner));
+        }
+
         public override char GetFenCharacter()
         {
             return Owner == Player.White ? 'K' : 'k';

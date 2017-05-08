@@ -43,6 +43,14 @@ namespace ChessDotNet
                 Piece piece = null;
                 char? promotion = null;
 
+                bool continueNormalExecution = true;
+                if (game.NeedsPgnMoveSpecialTreatment(move, player))
+                {
+                    continueNormalExecution = game.HandleSpecialPgnMove(move, player);
+                }
+
+                if (!continueNormalExecution) continue;
+
                 if (move.Length > 2)
                 {
                     string possiblePromotionPiece = move.Substring(move.Length - 2).ToUpperInvariant();

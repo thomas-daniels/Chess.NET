@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AntichessGameTests.cs" />
     <Compile Include="AtomicChessGameTests.cs" />
+    <Compile Include="CrazyhouseChessGameTests.cs" />
     <Compile Include="HordeChessGameTests.cs" />
     <Compile Include="KothChessGameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

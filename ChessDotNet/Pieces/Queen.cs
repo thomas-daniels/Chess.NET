@@ -17,6 +17,11 @@ namespace ChessDotNet.Pieces
             Owner = owner;
         }
 
+        public override Piece GetWithInvertedOwner()
+        {
+            return new Queen(ChessUtilities.GetOpponentOf(Owner));
+        }
+
         public override char GetFenCharacter()
         {
             return Owner == Player.White ? 'Q' : 'q';
