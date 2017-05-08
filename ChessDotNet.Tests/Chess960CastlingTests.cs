@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.ObjectModel;
 
 namespace ChessDotNet.Tests
 {
@@ -66,6 +67,16 @@ namespace ChessDotNet.Tests
 
             game.ApplyMove(new Move("E1", "C1", Player.White), true);
             Assert.AreEqual("bbrqknr1/pp1ppppp/6n1/2p5/4P3/5Q2/PPPP1PPP/BBKR1NRN b kq - 3 3", game.GetFen());
+        }
+
+        [Test]
+        public static void Test960Castling_GetValidMoves()
+        {
+            ChessGame game = new ChessGame("rk2rbbq/1p1pp3/p1pnnppp/8/8/3NNQPP/PPPPPPBB/RK2R3 w KQkq - 0 1");
+
+            ReadOnlyCollection<Move> validMoves = game.GetValidMoves(Player.White);
+            Assert.Contains(new Move("B1", "A1", Player.White), validMoves);
+            Assert.Contains(new Move("B1", "E1", Player.White), validMoves);
         }
     }
 }
