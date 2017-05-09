@@ -130,7 +130,7 @@ namespace ChessDotNet.Pieces
                 foreach (File f in betweenRookAndFinal)
                 {
                     Piece p = game.GetPieceAt(f, 1);
-                    if (p != null && !(p is King))
+                    if (f != destination.File && p != null && !(p is King))
                     {
                         return false;
                     }
@@ -175,7 +175,7 @@ namespace ChessDotNet.Pieces
                 foreach (File f in betweenRookAndFinal)
                 {
                     Piece p = game.GetPieceAt(f, 8);
-                    if (p != null && !(p is King))
+                    if (f != destination.File && p != null && !(p is King))
                     {
                         return false;
                     }

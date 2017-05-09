@@ -236,6 +236,20 @@ namespace ChessDotNet.Variants.Tests
         }
 
         [Test]
+        public void Test960Castling2()
+        {
+            AtomicChessGame game = new AtomicChessGame("bnrbkrnq/pppppppp/8/8/8/8/PPPPPPPP/BNRBKRNQ w KQkq - 0 1");
+            string[] moves = { "b2b3", "h7h6", "a1b2", "g7g6", "b1a3", "e7e6", "c2c3", "d7d6", "d1c2", "c7c6", "g1f3", "b7b6", "h2h3", "a7a6", "h1h2", "f7f6" };
+            foreach (string m in moves)
+            {
+                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+            }
+
+            Assert.True(game.IsValidMove(new Move("E1", "C1", Player.White)));
+            Assert.True(game.IsValidMove(new Move("E1", "F1", Player.White)));
+        }
+
+        [Test]
         public void TestInvalidMove_CapturingOwn()
         {
             AtomicChessGame game = new AtomicChessGame("rqknrnbb/pppppppp/8/8/8/8/PPPPPPPP/RQKNRNBB w KQkq - 0 1");
