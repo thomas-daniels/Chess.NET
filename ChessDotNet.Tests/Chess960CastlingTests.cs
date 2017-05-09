@@ -78,5 +78,13 @@ namespace ChessDotNet.Tests
             Assert.Contains(new Move("B1", "A1", Player.White), validMoves);
             Assert.Contains(new Move("B1", "E1", Player.White), validMoves);
         }
+
+        [Test]
+        public static void TestCastling_NoCastlingButCapture()
+        {
+            ChessGame game = new ChessGame("r2q3r/4bkpp/p3Rn2/1ppp4/3P4/2P5/PP1B1PPP/R2Q2K1 b - - 0 1");
+            game.ApplyMove(new Move("F7", "E6", Player.Black), true);
+            Assert.AreEqual("r2q3r/4b1pp/p3kn2/1ppp4/3P4/2P5/PP1B1PPP/R2Q2K1 w - - 0 2", game.GetFen());
+        }
     }
 }

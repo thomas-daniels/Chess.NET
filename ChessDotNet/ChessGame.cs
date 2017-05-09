@@ -708,7 +708,7 @@ namespace ChessDotNet
                     CanBlackCastleKingSide = CanBlackCastleQueenSide = false;
 
                 if (CastlingCanBeLegal &&
-                    (GetPieceAt(move.NewPosition) is Rook ||
+                    ((GetPieceAt(move.NewPosition) is Rook && GetPieceAt(move.NewPosition).Owner == move.Player) ||
                         ((move.NewPosition.File == File.C || move.NewPosition.File == File.G) &&
                         (move.Player == Player.White ? InitialWhiteKingFile : InitialBlackKingFile) == File.E
                         && move.OriginalPosition.File == File.E)))
