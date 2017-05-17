@@ -78,7 +78,7 @@ namespace ChessDotNet.Variants.Crazyhouse
             foreach (char pocketPiece in pocketInfo)
             {
                 Player owner = char.IsUpper(pocketPiece) ? Player.White : Player.Black;
-                (owner == Player.White ? whitePocket : blackPocket).Add(MapPgnCharToPiece(pocketPiece, owner));
+                (owner == Player.White ? whitePocket : blackPocket).Add(FenMappings[pocketPiece]);
             }
 
             return base.InterpretBoardOfFen(string.Join("/", rows.Take(8)));
