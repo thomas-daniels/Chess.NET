@@ -115,6 +115,8 @@ namespace ChessDotNet.Pieces
                     || (origin.Rank != 4 && Owner == Player.Black))
                     return false;
                 Move latestMove = _moves[_moves.Count - 1];
+                if (latestMove.NewPosition == null)
+                    return false;
                 if (latestMove.Player != ChessUtilities.GetOpponentOf(Owner))
                     return false;
                 if (!(game.GetPieceAt(latestMove.NewPosition) is Pawn))
