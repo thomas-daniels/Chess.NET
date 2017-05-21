@@ -11,7 +11,15 @@ namespace ChessDotNet
             protected set;
         }
 
+        public abstract bool IsPromotionResult
+        {
+            get;
+            protected set;
+        }
+
         public abstract Piece GetWithInvertedOwner();
+
+        public abstract Piece AsPromotion();
 
         public override bool Equals(object obj)
         {

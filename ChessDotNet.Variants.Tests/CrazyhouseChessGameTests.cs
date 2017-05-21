@@ -110,5 +110,16 @@ namespace ChessDotNet.Variants.Tests
             Assert.True(reader.Game.Moves[4] is CrazyhouseDetailedMove);
             Assert.AreEqual(new Drop(new Pawn(Player.White), new Position("H3"), Player.White), (reader.Game.Moves[4] as CrazyhouseDetailedMove).Drop);
         }
+
+        [Test]
+        public static void CapturePromotedPiece()
+        {
+            CrazyhouseChessGame game = new CrazyhouseChessGame("3r4/1P6/4k3/8/8/8/8/4K3 w - - 0 1");
+            game.ApplyMove(new Move("B7", "B8", Player.White, 'Q'), true);
+            game.ApplyMove(new Move("D8", "B8", Player.Black), true);
+            Assert.AreEqual(1, game.BlackPocket.Count);
+            Assert.AreEqual(0, game.WhitePocket.Count);
+            Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
+        }
     }
 }

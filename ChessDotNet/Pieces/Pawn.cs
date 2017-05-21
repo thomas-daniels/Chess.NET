@@ -13,11 +13,22 @@ namespace ChessDotNet.Pieces
             protected set;
         }
 
+        public override bool IsPromotionResult
+        {
+            get;
+            protected set;
+        }
+
         public Pawn(Player owner)
         {
             Owner = owner;
+            IsPromotionResult = false;
         }
 
+        public override Piece AsPromotion()
+        {
+            throw new InvalidOperationException("Pawns can't be the result of a promotion.");
+        }
         public override Piece GetWithInvertedOwner()
         {
             return new Pawn(ChessUtilities.GetOpponentOf(Owner));

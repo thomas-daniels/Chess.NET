@@ -696,7 +696,7 @@ namespace ChessDotNet
                 }
                 if (move.NewPosition.Rank == (move.Player == Player.White ? 8 : 1))
                 {
-                    newPiece = MapPgnCharToPiece(move.Promotion.Value, move.Player);
+                    newPiece = MapPgnCharToPiece(move.Promotion.Value, move.Player).AsPromotion();
                     type |= MoveType.Promotion;
                 }
             }

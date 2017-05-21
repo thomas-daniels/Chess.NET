@@ -18,12 +18,26 @@ namespace ChessDotNet.Pieces
             set;
         }
 
+        public override bool IsPromotionResult
+        {
+            get;
+            protected set;
+        }
+
         public King(Player owner) : this(owner, true) { }
 
         public King(Player owner, bool hasCastlingAbility)
         {
             Owner = owner;
             HasCastlingAbility = hasCastlingAbility;
+            IsPromotionResult = false;
+        }
+
+        public override Piece AsPromotion()
+        {
+            King copy = new King(Owner, HasCastlingAbility);
+            copy.IsPromotionResult = true;
+            return copy;
         }
 
         public override Piece GetWithInvertedOwner()

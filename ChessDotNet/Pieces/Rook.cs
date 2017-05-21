@@ -12,9 +12,23 @@ namespace ChessDotNet.Pieces
             protected set;
         }
 
+        public override bool IsPromotionResult
+        {
+            get;
+            protected set;
+        }
+
         public Rook(Player owner)
         {
             Owner = owner;
+            IsPromotionResult = false;
+        }
+
+        public override Piece AsPromotion()
+        {
+            Rook copy = new Rook(Owner);
+            copy.IsPromotionResult = true;
+            return copy;
         }
 
         public override Piece GetWithInvertedOwner()

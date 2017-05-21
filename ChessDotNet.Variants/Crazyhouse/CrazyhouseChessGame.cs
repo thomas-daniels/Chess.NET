@@ -205,14 +205,7 @@ namespace ChessDotNet.Variants.Crazyhouse
             MoveType ret = base.ApplyMove(move, alreadyValidated, out captured);
             if (ret.HasFlag(MoveType.Capture))
             {
-                if (move.Player == Player.White)
-                {
-                    whitePocket.Add(captured.GetWithInvertedOwner());
-                }
-                else
-                {
-                    blackPocket.Add(captured.GetWithInvertedOwner());
-                }
+                (move.Player == Player.White ? whitePocket : blackPocket).Add(!captured.IsPromotionResult ? captured.GetWithInvertedOwner() : new Pawn(ChessUtilities.GetOpponentOf(captured.Owner)));
             }
             return ret;
         }
