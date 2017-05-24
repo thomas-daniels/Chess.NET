@@ -121,5 +121,17 @@ namespace ChessDotNet.Variants.Tests
             Assert.AreEqual(0, game.WhitePocket.Count);
             Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
         }
+
+        [Test]
+        public static void TestFenTilde()
+        {
+            CrazyhouseChessGame game = new CrazyhouseChessGame("rnbqkb1r/pP3ppp/5n2/4p3/8/8/PPPP1PPP/RNBQKBNR/PPP w KQkq - 8 5");
+            game.ApplyMove(new Move("B7", "A8", Player.White, 'Q'), true);
+            Assert.AreEqual("Q~nbqkb1r/p4ppp/5n2/4p3/8/8/PPPP1PPP/RNBQKBNR/PPPR b KQk - 0 5", game.GetFen());
+
+            game = new CrazyhouseChessGame("Q~n1qkb1r/pb3ppp/5n2/4p3/8/2N5/PPPP1PPP/R1BQKBNR/RPPP b KQk - 11 6");
+            game.ApplyMove(new Move("B7", "A8", Player.Black), true);
+            Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
+        }
     }
 }

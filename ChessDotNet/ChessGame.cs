@@ -45,6 +45,14 @@ namespace ChessDotNet
             }
         }
 
+        protected virtual bool UseTildesInFenGeneration
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public File InitialWhiteRookFileKingsideCastling { get; protected set; }
         public File InitialWhiteRookFileQueensideCastling { get; protected set; }
         public File InitialBlackRookFileKingsideCastling { get; protected set; }
@@ -384,6 +392,10 @@ namespace ChessDotNet
                         empty = 0;
                     }
                     fenBuilder.Append(pieceChar);
+                    if (piece.IsPromotionResult && UseTildesInFenGeneration)
+                    {
+                        fenBuilder.Append('~');
+                    }
                 }
                 if (empty != 0)
                 {
@@ -544,6 +556,19 @@ namespace ChessDotNet
                     if (char.IsDigit(c))
                     {
                         j += (int)char.GetNumericValue(c);
+                        continue;
+                    }
+                    if (c == '~')
+                    {
+                        if (j == 0)
+                        {
+                            throw new ArgumentException("Error in FEN: misplaced '~'.");
+                        }
+                        if (currentRow[j - 1] == null)
+                        {
+                            throw new ArgumentException("Error in FEN: misplaced '~'.");
+                        }
+                        currentRow[j - 1] = currentRow[j - 1].AsPromotion();
                         continue;
                     }
                     if (!FenMappings.ContainsKey(c)) throw new ArgumentException("The FEN string contains an unknown piece.");

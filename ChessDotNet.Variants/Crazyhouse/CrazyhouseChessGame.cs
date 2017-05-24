@@ -27,6 +27,14 @@ namespace ChessDotNet.Variants.Crazyhouse
             }
         }
 
+        protected override bool UseTildesInFenGeneration
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public CrazyhouseChessGame() : base() { }
         public CrazyhouseChessGame(GameCreationData data) : base(data) { }
         public CrazyhouseChessGame(string fen) : base(fen) { }
