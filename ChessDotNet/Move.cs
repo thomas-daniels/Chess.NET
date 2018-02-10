@@ -5,25 +5,25 @@
         public Position OriginalPosition
         {
             get;
-            protected set;
+            set;
         }
 
         public Position NewPosition
         {
             get;
-            protected set;
+            set;
         }
 
         public Player Player
         {
             get;
-            protected set;
+            set;
         }
 
         public char? Promotion
         {
             get;
-            protected set;
+            set;
         }
 
         protected Move() { }
