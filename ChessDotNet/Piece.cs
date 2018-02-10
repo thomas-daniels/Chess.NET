@@ -8,13 +8,13 @@ namespace ChessDotNet
         public abstract Player Owner
         {
             get;
-            protected set;
+            set;
         }
 
         public abstract bool IsPromotionResult
         {
             get;
-            protected set;
+            set;
         }
 
         public abstract Piece GetWithInvertedOwner();

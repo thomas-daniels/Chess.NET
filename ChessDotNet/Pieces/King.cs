@@ -9,7 +9,7 @@ namespace ChessDotNet.Pieces
         public override Player Owner
         {
             get;
-            protected set;
+            set;
         }
 
         public bool HasCastlingAbility
@@ -21,8 +21,10 @@ namespace ChessDotNet.Pieces
         public override bool IsPromotionResult
         {
             get;
-            protected set;
+            set;
         }
+
+        public King() : this(Player.None) {}
 
         public King(Player owner) : this(owner, true) { }
 

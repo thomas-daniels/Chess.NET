@@ -355,19 +355,27 @@ namespace ChessDotNet
             if (InitialWhiteRookFileKingsideCastling == File.None) CanWhiteCastleKingSide = false;
             if (InitialWhiteRookFileQueensideCastling == File.None) CanWhiteCastleQueenSide = false;
 
-            if (data.EnPassant != null)
+            if (!data.Moves.Any() && data.EnPassant != null)
             {
                 DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
-                                                                    new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
-                                                                    ChessUtilities.GetOpponentOf(data.WhoseTurn)),
-                                          new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
-                                          false,
-                                          CastlingType.None);
+                        new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
+                        ChessUtilities.GetOpponentOf(data.WhoseTurn)),
+                    new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
+                    false,
+                    CastlingType.None);
                 _moves.Add(latestMove);
+            }
+            else
+            {
+                _moves = data.Moves.ToList();
             }
 
             i_halfMoveClock = data.HalfMoveClock;
             i_fullMoveNumber = data.FullMoveNumber;
+
+            _drawn = data.DrawClaimed;
+            _drawReason = data.DrawReason;
+            _resigned = data.Resigned;
         }
 
         public virtual string GetFen()
@@ -997,6 +1005,25 @@ namespace ChessDotNet
         public void Resign(Player player)
         {
             _resigned = player;
+        }
+
+        public GameCreationData GetGameCreationData()
+        {
+            return new GameCreationData
+            {
+                Board = Board,
+                CanBlackCastleKingSide = CanBlackCastleKingSide,
+                CanBlackCastleQueenSide = CanBlackCastleQueenSide,
+                CanWhiteCastleKingSide = CanWhiteCastleKingSide,
+                CanWhiteCastleQueenSide = CanWhiteCastleQueenSide,
+                Moves = Moves.Select(x => x).ToArray(),
+                FullMoveNumber = i_fullMoveNumber,
+                HalfMoveClock = i_halfMoveClock,
+                WhoseTurn = WhoseTurn,
+                DrawClaimed = DrawClaimed,
+                DrawReason = DrawReason,
+                Resigned = Resigned
+            };
         }
     }
 }

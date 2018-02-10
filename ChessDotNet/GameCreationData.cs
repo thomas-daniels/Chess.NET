@@ -8,6 +8,30 @@
             set;
         }
 
+        public DetailedMove[] Moves
+        {
+            get;
+            set;
+        } = new DetailedMove[] {};
+
+        public bool DrawClaimed
+        {
+            get;
+            set;
+        }
+
+        public string DrawReason
+        {
+            get;
+            set;
+        }
+
+        public Player Resigned
+        {
+            get;
+            set;
+        } = Player.None;
+
         public Player WhoseTurn
         {
             get;
