@@ -19,6 +19,10 @@ namespace ChessDotNet
             {
                 return _drawn;
             }
+            set
+            {
+                _drawn = value;
+            }
         }
 
         public string DrawReason
@@ -27,6 +31,10 @@ namespace ChessDotNet
             {
                 return _drawReason;
             }
+            set
+            {
+                _drawReason = value;
+            }
         }
 
         public Player Resigned
@@ -34,6 +42,10 @@ namespace ChessDotNet
             get
             {
                 return _resigned;
+            }
+            set
+            {
+                _resigned = value;
             }
         }
 
@@ -47,10 +59,8 @@ namespace ChessDotNet
 
         protected virtual bool UseTildesInFenGeneration
         {
-            get
-            {
-                return false;
-            }
+            get;
+            set;
         }
 
         public File InitialWhiteRookFileKingsideCastling { get; protected set; }
@@ -80,6 +90,10 @@ namespace ChessDotNet
             get
             {
                 return fenMappings;
+            }
+            set
+            {
+                fenMappings = value;
             }
         }
 
@@ -125,7 +139,7 @@ namespace ChessDotNet
         public Player WhoseTurn
         {
             get;
-            protected set;
+            set;
         }
 
         protected int i_halfMoveClock = 0;
@@ -135,6 +149,10 @@ namespace ChessDotNet
             {
                 return i_halfMoveClock;
             }
+            set
+            {
+                i_halfMoveClock = value;
+            }
         }
 
         protected int i_fullMoveNumber = 1;
@@ -143,6 +161,10 @@ namespace ChessDotNet
             get
             {
                 return i_fullMoveNumber;
+            }
+            set
+            {
+                i_fullMoveNumber = value;
             }
         }
 
@@ -170,7 +192,7 @@ namespace ChessDotNet
             }
         }
 
-        protected Piece[][] Board;
+        public Piece[][] Board {get; set;}
         public Piece[][] GetBoard()
         {
             return CloneBoard(Board);
@@ -183,7 +205,7 @@ namespace ChessDotNet
             {
                 return new ReadOnlyCollection<DetailedMove>(_moves);
             }
-            protected set
+            set
             {
                 _moves = value.ToList();
             }
@@ -192,34 +214,32 @@ namespace ChessDotNet
         public bool CanBlackCastleKingSide
         {
             get;
-            protected set;
+            set;
         }
 
         public bool CanBlackCastleQueenSide
         {
             get;
-            protected set;
+            set;
         }
 
         public bool CanWhiteCastleKingSide
         {
             get;
-            protected set;
+            set;
         }
 
         public bool CanWhiteCastleQueenSide
         {
             get;
-            protected set;
+            set;
         }
 
         protected virtual bool CastlingCanBeLegal
         {
-            get
-            {
-                return true;
-            }
-        }
+            get;
+            set;
+        } = true;
 
         protected static Piece[][] CloneBoard(Piece[][] originalBoard)
         {

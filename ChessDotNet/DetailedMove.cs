@@ -5,19 +5,19 @@
         public Piece Piece
         {
             get;
-            private set;
+            set;
         }
 
         public bool IsCapture
         {
             get;
-            private set;
+            set;
         }
 
         public CastlingType Castling
         {
             get;
-            private set;
+            set;
         }
 
         protected DetailedMove() { }
