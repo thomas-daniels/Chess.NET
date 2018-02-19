@@ -25,6 +25,10 @@ namespace ChessDotNet
             {
                 return _file;
             }
+            set
+            {
+                _file = value;
+            }
         }
 
         int _rank;
@@ -34,7 +38,12 @@ namespace ChessDotNet
             {
                 return _rank;
             }
+            set
+            {
+                _rank = value;
+            }
         }
+        public Position() {}
 
         public Position(File file, int rank)
         {

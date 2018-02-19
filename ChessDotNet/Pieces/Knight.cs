@@ -9,14 +9,16 @@ namespace ChessDotNet.Pieces
         public override Player Owner
         {
             get;
-            protected set;
+            set;
         }
 
         public override bool IsPromotionResult
         {
             get;
-            protected set;
+            set;
         }
+
+        public Knight() : this(Player.None) {}
 
         public Knight(Player owner)
         {

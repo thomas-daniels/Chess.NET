@@ -10,14 +10,16 @@ namespace ChessDotNet.Pieces
         public override Player Owner
         {
             get;
-            protected set;
+            set;
         }
 
         public override bool IsPromotionResult
         {
             get;
-            protected set;
+            set;
         }
+
+        public Pawn() : this(Player.None) {}
 
         public Pawn(Player owner)
         {
