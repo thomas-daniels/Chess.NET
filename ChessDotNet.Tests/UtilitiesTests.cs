@@ -49,8 +49,6 @@ namespace ChessDotNet.Tests
             CollectionAssert.AreEqual(new File[] { File.C, File.D }, ChessUtilities.FilesBetween(File.D, File.B, true, false));
 
             CollectionAssert.AreEqual(new File[] { }, ChessUtilities.FilesBetween(File.F, File.F, false, false));
-            CollectionAssert.AreEqual(new File[] { File.F }, ChessUtilities.FilesBetween(File.F, File.F, true, false));
-            CollectionAssert.AreEqual(new File[] { File.F }, ChessUtilities.FilesBetween(File.F, File.F, false, true));
             CollectionAssert.AreEqual(new File[] { File.F }, ChessUtilities.FilesBetween(File.F, File.F, true, true));
         }
     }

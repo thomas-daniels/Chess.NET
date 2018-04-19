@@ -132,7 +132,7 @@ namespace ChessDotNet.Pieces
                 File[] betweenKingAndFinal = ChessUtilities.FilesBetween(origin.File, destination.File == game.InitialWhiteRookFileKingsideCastling ? File.G : File.C, false, true);
                 foreach (File f in betweenKingAndFinal)
                 {
-                    if (f != destination.File && game.GetPieceAt(f, 1) != null && !(game.GetPieceAt(f, 1) is King))
+                    if (f != destination.File && game.GetPieceAt(f, 1) != null)
                     {
                         return false;
                     }
@@ -177,7 +177,7 @@ namespace ChessDotNet.Pieces
                 File[] betweenKingAndFinal = ChessUtilities.FilesBetween(origin.File, destination.File == game.InitialBlackRookFileKingsideCastling ? File.G : File.C, false, true);
                 foreach (File f in betweenKingAndFinal)
                 {
-                    if (f != destination.File && game.GetPieceAt(f, 8) != null && !(game.GetPieceAt(f, 8) is King))
+                    if (f != destination.File && game.GetPieceAt(f, 8) != null)
                     {
                         return false;
                     }

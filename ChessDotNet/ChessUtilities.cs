@@ -24,7 +24,7 @@ namespace ChessDotNet
         {
             if (file1 == file2)
             {
-                if (file1Inclusive || file2Inclusive) { return new File[] { file1 }; }
+                if (file1Inclusive && file2Inclusive) { return new File[] { file1 }; }
                 else { return new File[] { }; }
             }
             int min = Math.Min((int)file1, (int)file2);
