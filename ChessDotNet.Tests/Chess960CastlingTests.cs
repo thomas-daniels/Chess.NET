@@ -100,5 +100,18 @@ namespace ChessDotNet.Tests
             Assert.True(game.IsValidMove(new Move("E1", "C1", Player.White)));
             Assert.True(game.IsValidMove(new Move("E1", "F1", Player.White)));
         }
+
+        [Test]
+        public static void TestCastling_NoCastlingThroughCheck1()
+        {
+            ChessGame game = new ChessGame("1k2r2q/2p2pp1/2Bp3p/2bPp3/4P3/Pn3P2/1PPnNP1P/R2KRQ2 b k - 43 22");
+            Assert.False(game.IsValidMove(new Move("B8", "E8", Player.Black)));
+        }
+
+        public static void TestCastling_NoCastlingThroughCheck2()
+        {
+            ChessGame game = new ChessGame("1k2r2q/2p1Bpp1/3p3p/2bPp3/4P3/Pn3P2/1PPnNP1P/R2KRQ2 b k -");
+            Assert.False(game.IsValidMove(new Move("B8", "E8", Player.Black)));
+        }
     }
 }

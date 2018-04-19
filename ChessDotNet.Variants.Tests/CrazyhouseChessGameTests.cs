@@ -133,5 +133,12 @@ namespace ChessDotNet.Variants.Tests
             game.ApplyMove(new Move("B7", "A8", Player.Black), true);
             Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
         }
+
+        [Test]
+        public static void TestCannotCastleThroughCheck()
+        {
+            CrazyhouseChessGame game = new CrazyhouseChessGame("1k2r2q/2p2pp1/2Bp3p/2bPp3/4P3/Pn3P2/1PPnNP1P/R2KRQ2/RPbpbn b k - 43 22");
+            Assert.False(game.IsValidMove(new Move("B8", "E8", Player.Black)));
+        }
     }
 }

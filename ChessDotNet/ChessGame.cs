@@ -992,7 +992,9 @@ namespace ChessDotNet
             gcd.HalfMoveClock = i_halfMoveClock;
             gcd.FullMoveNumber = i_fullMoveNumber;
             ChessGame copy = new ChessGame(gcd);
-            copy.ApplyMove(move, true);
+            Piece p = copy.GetPieceAt(move.OriginalPosition);
+            copy.SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
+            copy.SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, p);
             return copy.IsInCheck(player);
         }
 
