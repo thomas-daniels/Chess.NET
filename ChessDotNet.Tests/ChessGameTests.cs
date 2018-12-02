@@ -3279,5 +3279,78 @@ namespace ChessDotNet.Tests
             Assert.False(game.CanWhiteCastleQueenSide);
             Assert.AreEqual("rnbqk1nr/pppppp1p/6p1/8/6P1/1P6/P1PPPP1P/bNBQKBNR w Kkq - 0 4", game.GetFen());
         }
+
+        [Test]
+        public static void TestPgnGeneration()
+        {
+            string pgn = "1. e4 c5 2. Bc4 e6 3. Nc3 d5 4. exd5 exd5 5. Bxd5 Nf6 6. Bb3 Be7 7. Nge2 O-O 8. O-O Nc6 9. a3 Bd6 10. d3 Bxh2+ 11. Kxh2 Ng4+ 12. Kg3 h5 13. f3 h4+ 14. Kf4 Qf6+ 15. Ke4 Qe5# 0-1";
+            PgnReader<ChessGame> reader = new PgnReader<ChessGame>();
+            reader.ReadPgnFromString(pgn);
+            Assert.AreEqual(pgn, reader.Game.GetPGN());
+        }
+
+        [Test]
+        public static void TestSanAmbiguity1()
+        {
+            ChessGame game = new ChessGame("k7/8/K7/8/8/Q7/8/QQ6 w - - 0 1");
+            game.ApplyMove(new Move("B1", "B2", Player.White), true);
+            Assert.AreEqual("Qbb2", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("k7/8/K7/8/8/Q7/8/QQ6 w - - 0 1");
+            game.ApplyMove(new Move("A1", "B2", Player.White), true);
+            Assert.AreEqual("Qa1b2", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("k7/8/K7/8/8/Q7/8/QQ6 w - - 0 1");
+            game.ApplyMove(new Move("A3", "B2", Player.White), true);
+            Assert.AreEqual("Q3b2", game.Moves[game.Moves.Count - 1].SAN);
+        }
+
+        [Test]
+        public static void TestSanAmbiguity2()
+        {
+            ChessGame game = new ChessGame("7k/8/4n2K/8/8/5n2/2n5/8 b - - 0 1");
+            game.ApplyMove(new Move("F3", "D4", Player.Black), true);
+            Assert.AreEqual("Nfd4", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("7k/8/4n2K/8/8/5n2/2n5/8 b - - 0 1");
+            game.ApplyMove(new Move("C2", "D4", Player.Black), true);
+            Assert.AreEqual("Ncd4", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("7k/8/4n2K/8/8/5n2/2n5/8 b - - 0 1");
+            game.ApplyMove(new Move("E6", "D4", Player.Black), true);
+            Assert.AreEqual("Ned4", game.Moves[game.Moves.Count - 1].SAN);
+        }
+
+        [Test]
+        public static void TestSanAmbiguity3()
+        {
+            ChessGame game = new ChessGame("k7/8/K7/Q7/8/3B4/8/3B4 w - - 0 1");
+            game.ApplyMove(new Move("D1", "E2", Player.White), true);
+            Assert.AreEqual("B1e2", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("k7/8/K7/Q7/8/3B4/8/3B4 w - - 0 1");
+            game.ApplyMove(new Move("D3", "E2", Player.White), true);
+            Assert.AreEqual("B3e2", game.Moves[game.Moves.Count - 1].SAN);
+        }
+
+        [Test]
+        public static void TestSanAmbiguity4()
+        {
+            ChessGame game = new ChessGame("k7/8/K7/8/8/8/8/R6R w - - 0 1");
+            game.ApplyMove(new Move("A1", "E1", Player.White), true);
+            Assert.AreEqual("Rae1", game.Moves[game.Moves.Count - 1].SAN);
+
+            game = new ChessGame("k7/8/K7/8/8/8/8/R6R w - - 0 1");
+            game.ApplyMove(new Move("H1", "E1", Player.White), true);
+            Assert.AreEqual("Rhe1", game.Moves[game.Moves.Count - 1].SAN);
+        }
+
+        [Test]
+        public static void TestSanPawnCapturePromotionCheckmate()
+        {
+            ChessGame game = new ChessGame("k1r5/3P4/K7/8/8/8/8/8 w - - 0 1");
+            game.ApplyMove(new Move("D7", "C8", Player.White, 'R'), true);
+            Assert.AreEqual("dxc8=R#", game.Moves[game.Moves.Count - 1].SAN);
+        }
     }
 }

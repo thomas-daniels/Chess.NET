@@ -140,5 +140,13 @@ namespace ChessDotNet.Variants.Tests
             CrazyhouseChessGame game = new CrazyhouseChessGame("1k2r2q/2p2pp1/2Bp3p/2bPp3/4P3/Pn3P2/1PPnNP1P/R2KRQ2/RPbpbn b k - 43 22");
             Assert.False(game.IsValidMove(new Move("B8", "E8", Player.Black)));
         }
+
+        [Test]
+        public static void TestGameToPgn()
+        {
+            PgnReader<CrazyhouseChessGame> reader = new PgnReader<CrazyhouseChessGame>();
+            reader.ReadPgnFromString("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6");
+            Assert.AreEqual("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6 *", reader.Game.GetPGN());
+        }
     }
 }

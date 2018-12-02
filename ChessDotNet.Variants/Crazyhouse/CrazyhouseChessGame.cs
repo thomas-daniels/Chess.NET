@@ -185,7 +185,7 @@ namespace ChessDotNet.Variants.Crazyhouse
         public virtual bool WouldBeInCheckAfter(Drop drop, Player player)
         {
             CrazyhouseChessGame copy = new CrazyhouseChessGame(GetFen());
-            copy.ApplyDrop(drop, true);
+            copy.SetPieceAt(drop.Destination.File, drop.Destination.Rank, drop.ToDrop);
             return copy.IsInCheck(player);
         }
 
@@ -204,7 +204,12 @@ namespace ChessDotNet.Variants.Crazyhouse
                 i_fullMoveNumber++;
             }
             WhoseTurn = ChessUtilities.GetOpponentOf(WhoseTurn);
-            AddDetailedMove(new CrazyhouseDetailedMove(drop));
+
+            string san = string.Format("{0}@{1}{2}",
+                drop.ToDrop is Pawn ? "" : char.ToUpperInvariant(drop.ToDrop.GetFenCharacter()).ToString(),
+                drop.Destination.ToString().ToLowerInvariant(),
+                IsCheckmated(WhoseTurn) ? "#" : (IsInCheck(WhoseTurn) ? "+" : ""));
+            AddDetailedMove(new CrazyhouseDetailedMove(drop, san));
             return true;
         }
 

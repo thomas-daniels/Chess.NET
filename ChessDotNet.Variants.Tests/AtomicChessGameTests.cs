@@ -261,5 +261,13 @@ namespace ChessDotNet.Variants.Tests
 
             Assert.False(game.IsValidMove(new Move("C8", "C7", Player.Black)));
         }
+
+        [Test]
+        public static void TestSanPawnCapturePromotionNoCheckmate()
+        {
+            ChessGame game = new ChessGame("k1r5/3P4/K7/8/8/8/8/8 w - - 0 1");
+            game.ApplyMove(new Move("D7", "C8", Player.White, 'R'), true);
+            Assert.AreEqual("dxc8=R", game.Moves[game.Moves.Count - 1].SAN);
+        }
     }
 }

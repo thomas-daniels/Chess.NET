@@ -357,12 +357,15 @@ namespace ChessDotNet
 
             if (!data.Moves.Any() && data.EnPassant != null)
             {
+                Position dest = new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4);
                 DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
-                        new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
+                        dest,
                         ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                     new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                     false,
-                    CastlingType.None);
+                    CastlingType.None,
+                    dest.ToString().ToLowerInvariant()
+                    );
                 _moves.Add(latestMove);
             }
             else
@@ -803,8 +806,124 @@ namespace ChessDotNet
                 SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
             }
             WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
-            AddDetailedMove(new DetailedMove(move, movingPiece, isCapture, castle));
+            AddDetailedMove(new DetailedMove(move, movingPiece, isCapture, castle, GetSanForMove(move, movingPiece, isCapture, castle)));
             return type;
+        }
+
+        protected virtual string GetSanForMove(Move move, Piece movingPiece, bool isCapture, CastlingType castle)
+        {
+            if (castle == CastlingType.KingSide) return "O-O";
+            if (castle == CastlingType.QueenSide) return "O-O-O";
+
+            List<Position> ambiguities = new List<Position>();
+            foreach (File f in Enum.GetValues(typeof(File)))
+            {
+                if (f == File.None) continue;
+                for (int r = 1; r <= 8; r++)
+                {
+                    Position pos = new Position(f, r);
+                    if (!move.NewPosition.Equals(pos))
+                    {
+                        Piece p = GetPieceAt(f, r);
+                        if (p != null && p.Equals(movingPiece) && p.IsValidMove(new Move(pos, move.NewPosition, move.Player), this))
+                        {
+                            ambiguities.Add(pos);
+                        }
+                    }
+                }
+            }
+            bool needsUnambigFile = false;
+            bool needsUnambigRank = false;
+            if (ambiguities.Count > 0)
+            {
+                foreach (Position amb in ambiguities)
+                {
+                    if (amb.Rank == move.OriginalPosition.Rank)
+                    {
+                        needsUnambigFile = true;
+                    }
+                    if (amb.File == move.OriginalPosition.File)
+                    {
+                        needsUnambigRank = true;
+                    }
+                }
+                if (!needsUnambigFile && !needsUnambigRank)
+                {
+                    needsUnambigFile = true;
+                }
+            }
+
+            StringBuilder sanBuilder = new StringBuilder();
+
+            if (!(movingPiece is Pawn))
+            {
+                sanBuilder.Append(char.ToUpperInvariant(movingPiece.GetFenCharacter()));
+            }
+            else if (isCapture)
+            {
+                sanBuilder.Append(move.OriginalPosition.File.ToString().ToLowerInvariant());
+            }
+            if (needsUnambigFile)
+            {
+                sanBuilder.Append(move.OriginalPosition.File.ToString().ToLowerInvariant());
+            }
+            if (needsUnambigRank)
+            {
+                sanBuilder.Append(move.OriginalPosition.Rank.ToString());
+            }
+            if (isCapture)
+            {
+                sanBuilder.Append("x");
+            }
+            sanBuilder.Append(move.NewPosition.ToString().ToLowerInvariant());
+            if (move.Promotion.HasValue)
+            {
+                sanBuilder.Append("=");
+                sanBuilder.Append(move.Promotion.Value);
+            }
+            if (IsCheckmated(WhoseTurn))
+            {
+                sanBuilder.Append("#");
+            }
+            else if (IsInCheck(WhoseTurn))
+            {
+                sanBuilder.Append("+");
+            }
+            return sanBuilder.ToString();
+        }
+
+        public virtual string GetPGN()
+        {
+            StringBuilder pgnBuilder = new StringBuilder();
+            int counter = 1;
+            foreach (DetailedMove dm in _moves)
+            {
+                counter++;
+                if (counter % 2 == 0)
+                {
+                    pgnBuilder.Append(counter / 2);
+                    pgnBuilder.Append(". ");
+                }
+                pgnBuilder.Append(dm.SAN);
+                pgnBuilder.Append(" ");
+            }
+            if (IsDraw())
+            {
+                pgnBuilder.Append("1/2-1/2");
+            }
+            else if (IsWinner(Player.White))
+            {
+                pgnBuilder.Append("1-0");
+            }
+            else if (IsWinner(Player.Black))
+            {
+                pgnBuilder.Append("0-1");
+            }
+            else
+            {
+                pgnBuilder.Append("*");
+            }
+            return pgnBuilder.ToString();
         }
 
         protected virtual void AddDetailedMove(DetailedMove dm)
