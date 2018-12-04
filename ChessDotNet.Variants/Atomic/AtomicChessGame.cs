@@ -118,6 +118,11 @@ namespace ChessDotNet.Variants.Atomic
             return true;
         }
 
+        public override bool IsDraw()
+        {
+            return !KingIsGone(Player.White) && !KingIsGone(Player.Black) && base.IsDraw();
+        }
+
         public override bool IsWinner(Player player)
         {
             return IsCheckmated(ChessUtilities.GetOpponentOf(player)) || KingIsGone(ChessUtilities.GetOpponentOf(player));

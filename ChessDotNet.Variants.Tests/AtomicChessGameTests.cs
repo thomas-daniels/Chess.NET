@@ -270,5 +270,16 @@ namespace ChessDotNet.Variants.Tests
             System.Console.WriteLine(game.GetFen());
             Assert.AreEqual("dxc8=R", game.Moves[game.Moves.Count - 1].SAN);
         }
+
+        [Test]
+        public static void TestPgnGameEndsInExplosion()
+        {
+            AtomicChessGame game = new AtomicChessGame();
+            game.MakeMove(new Move("E2", "E4", Player.White), true);
+            game.MakeMove(new Move("D7", "D5", Player.Black), true);
+            game.MakeMove(new Move("E4", "D5", Player.White), true);
+            game.MakeMove(new Move("D8", "D2", Player.Black), true);
+            Assert.AreEqual("1. e4 d5 2. exd5 Qxd2# 0-1", game.GetPGN());
+        }
     }
 }
