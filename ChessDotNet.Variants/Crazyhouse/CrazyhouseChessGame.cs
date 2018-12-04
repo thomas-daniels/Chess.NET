@@ -121,24 +121,12 @@ namespace ChessDotNet.Variants.Crazyhouse
 
         public override bool IsCheckmated(Player player)
         {
-            Cache<bool> cache = player == Player.White ? checkmatedCacheWhite : checkmatedCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
-            return cache.UpdateCache(IsInCheck(player) && !HasAnyValidDrops(player) && !HasAnyValidMoves(player), Moves.Count);
+            return IsInCheck(player) && !HasAnyValidDrops(player) && !HasAnyValidMoves(player);
         }
 
         public override bool IsStalemated(Player player)
         {
-            Cache<bool> cache = player == Player.White ? stalematedCacheWhite : stalematedCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
-            return cache.UpdateCache(WhoseTurn == player && !IsInCheck(player) && !HasAnyValidDrops(player) && !HasAnyValidMoves(player), Moves.Count);
+            return WhoseTurn == player && !IsInCheck(player) && !HasAnyValidDrops(player) && !HasAnyValidMoves(player);
         }
 
         protected virtual bool IsValidDrop(Drop drop, bool validateCheck, bool careAboutWhoseTurnItIs)
@@ -213,9 +201,9 @@ namespace ChessDotNet.Variants.Crazyhouse
             return true;
         }
 
-        public override MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured)
+        protected override MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured, out CastlingType castlingType)
         {
-            MoveType ret = base.ApplyMove(move, alreadyValidated, out captured);
+            MoveType ret = base.ApplyMove(move, alreadyValidated, out captured, out castlingType);
             if (ret.HasFlag(MoveType.Capture))
             {
                 (move.Player == Player.White ? whitePocket : blackPocket).Add(!captured.IsPromotionResult ? captured.GetWithInvertedOwner() : new Pawn(ChessUtilities.GetOpponentOf(captured.Owner)));

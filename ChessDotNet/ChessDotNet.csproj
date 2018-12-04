@@ -47,7 +47,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache.cs" />
     <Compile Include="CastlingType.cs" />
     <Compile Include="ChessGame.cs" />
     <Compile Include="ChessUtilities.cs" />

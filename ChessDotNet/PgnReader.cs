@@ -133,7 +133,7 @@ namespace ChessDotNet
                     Move m = new Move(origin, destination, player, promotion);
                     if (game.IsValidMove(m))
                     {
-                        game.ApplyMove(m, true);
+                        game.MakeMove(m, true);
                     }
                     else
                     {
@@ -160,7 +160,7 @@ namespace ChessDotNet
                     }
                     if (validMoves.Count == 0) throw new PgnException("Invalid PGN: contains invalid moves.");
                     if (validMoves.Count > 1) throw new PgnException("Invalid PGN: contains ambiguous moves.");
-                    game.ApplyMove(validMoves[0], true);
+                    game.MakeMove(validMoves[0], true);
                 }
             }
             Game = game;

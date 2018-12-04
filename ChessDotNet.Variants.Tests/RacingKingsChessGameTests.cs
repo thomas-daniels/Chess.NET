@@ -34,7 +34,7 @@ namespace ChessDotNet.Variants.Tests
             RacingKingsChessGame game = new RacingKingsChessGame("5K2/1k6/8/8/8/8/1rbnNBR1/qrbnNBRQ b - - 11 6");
             Assert.False(game.IsWinner(Player.White));
 
-            game.ApplyMove(new Move("B7", "C7", Player.Black), true);
+            game.MakeMove(new Move("B7", "C7", Player.Black), true);
             Assert.True(game.IsWinner(Player.White));
         }
 
@@ -44,7 +44,7 @@ namespace ChessDotNet.Variants.Tests
             RacingKingsChessGame game = new RacingKingsChessGame("5K2/1k6/8/8/8/8/1rbnNBR1/qrbnNBRQ b - - 11 6");
             Assert.False(game.IsWinner(Player.White));
 
-            game.ApplyMove(new Move("B7", "B8", Player.Black), true);
+            game.MakeMove(new Move("B7", "B8", Player.Black), true);
             Assert.False(game.IsWinner(Player.White));
             Assert.True(game.IsDraw());
         }
@@ -68,7 +68,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestIsNotWinner()
         {
             RacingKingsChessGame game = new RacingKingsChessGame("4K3/2k5/8/8/8/8/1rbnNBR1/qrbnNBRQ b - - 11 6");
-            game.ApplyMove(new Move("C7", "C8", Player.Black), true);
+            game.MakeMove(new Move("C7", "C8", Player.Black), true);
             Assert.False(game.IsWinner(Player.Black));
             Assert.False(game.IsWinner(Player.White));
         }
