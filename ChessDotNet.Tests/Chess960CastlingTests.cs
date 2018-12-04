@@ -16,7 +16,7 @@ namespace ChessDotNet.Tests
             Assert.Contains(new Move("F8", "H8", Player.Black), game.GetValidMoves(Player.Black));
             Assert.Contains(new Move("F8", "H8", Player.Black), game.GetValidMoves(new Position("F8")));
 
-            game.ApplyMove(new Move("F8", "H8", Player.Black), true);
+            game.MakeMove(new Move("F8", "H8", Player.Black), true);
             Assert.AreEqual("q1nbrrk1/pp2p1pp/2npbp2/8/4P3/1P3P2/P1PP1BPP/QNNBRRK1 w - - 4 7", game.GetFen());
         }
 
@@ -30,7 +30,7 @@ namespace ChessDotNet.Tests
             Assert.Contains(new Move("C8", "A8", Player.Black), game.GetValidMoves(Player.Black));
             Assert.Contains(new Move("C8", "A8", Player.Black), game.GetValidMoves(new Position("C8")));
 
-            game.ApplyMove(new Move("C8", "A8", Player.Black), true);
+            game.MakeMove(new Move("C8", "A8", Player.Black), true);
             Assert.AreEqual("2kr2br/pppp2pp/2n2p2/8/7N/8/PKP2PPP/3R2BR w - - 3 13", game.GetFen());
         }
 
@@ -51,7 +51,7 @@ namespace ChessDotNet.Tests
             Assert.Contains(new Move("F1", "G1", Player.White), game.GetValidMoves(Player.White));
             Assert.Contains(new Move("F1", "G1", Player.White), game.GetValidMoves(new Position("F1")));
 
-            game.ApplyMove(new Move("F1", "G1", Player.White), true);
+            game.MakeMove(new Move("F1", "G1", Player.White), true);
             Assert.AreEqual("qnbbrkr1/pppp1ppp/6n1/4p3/8/1P4N1/P1PPPPPP/QNBBRRK1 b kq - 2 3", game.GetFen());
         }
 
@@ -65,7 +65,7 @@ namespace ChessDotNet.Tests
             Assert.Contains(new Move("E1", "C1", Player.White), game.GetValidMoves(Player.White));
             Assert.Contains(new Move("E1", "C1", Player.White), game.GetValidMoves(new Position("E1")));
 
-            game.ApplyMove(new Move("E1", "C1", Player.White), true);
+            game.MakeMove(new Move("E1", "C1", Player.White), true);
             Assert.AreEqual("bbrqknr1/pp1ppppp/6n1/2p5/4P3/5Q2/PPPP1PPP/BBKR1NRN b kq - 3 3", game.GetFen());
         }
 
@@ -83,7 +83,7 @@ namespace ChessDotNet.Tests
         public static void TestCastling_NoCastlingButCapture()
         {
             ChessGame game = new ChessGame("r2q3r/4bkpp/p3Rn2/1ppp4/3P4/2P5/PP1B1PPP/R2Q2K1 b - - 0 1");
-            game.ApplyMove(new Move("F7", "E6", Player.Black), true);
+            game.MakeMove(new Move("F7", "E6", Player.Black), true);
             Assert.AreEqual("r2q3r/4b1pp/p3kn2/1ppp4/3P4/2P5/PP1B1PPP/R2Q2K1 w - - 0 2", game.GetFen());
         }
 
@@ -94,7 +94,7 @@ namespace ChessDotNet.Tests
             string[] moves = { "b2b3", "h7h6", "a1b2", "g7g6", "b1a3", "e7e6", "c2c3", "d7d6", "d1c2", "c7c6", "g1f3", "b7b6", "h2h3", "a7a6", "h1h2", "f7f6" };
             foreach (string m in moves)
             {
-                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+                game.MakeMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
             }
 
             Assert.True(game.IsValidMove(new Move("E1", "C1", Player.White)));

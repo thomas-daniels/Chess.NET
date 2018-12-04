@@ -61,7 +61,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestEnPassantCaptureWhite2()
         {
             HordeChessGame game = new HordeChessGame("rnbqkbnr/pppppppp/8/1PPP1PP1/PPP1PPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP b kq - 0 1");
-            Assert.AreNotEqual(MoveType.Invalid, game.ApplyMove(new Move("E7", "E5", Player.Black), false));
+            Assert.AreNotEqual(MoveType.Invalid, game.MakeMove(new Move("E7", "E5", Player.Black), false));
             Assert.True(game.IsValidMove(new Move("F5", "E6", Player.White)));
             Assert.True(game.IsValidMove(new Move("D5", "E6", Player.White)));
         }
@@ -70,7 +70,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestInvalidEnPassantCaptureBlack()
         {
             HordeChessGame game = new HordeChessGame("rnbq3r/pppp1kpp/5P1n/1P1P1P1P/P1P1PPP1/1PPPP1pP/PbPPP1PP/PPPPPPPP w - - 0 10");
-            game.ApplyMove(new Move("F1", "F3", Player.White), true);
+            game.MakeMove(new Move("F1", "F3", Player.White), true);
             Assert.False(game.IsValidMove(new Move("G3", "F2", Player.Black)));
         }
 
@@ -78,7 +78,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestValidEnPassantCaptureBlack()
         {
             HordeChessGame game = new HordeChessGame("rnbqk1nr/pppp1ppp/5P2/PP1PPPP1/P1P3pP/1P1PP1PP/P1PPPPPP/bPPPPPPP w kq - 0 9");
-            game.ApplyMove(new Move("F2", "F4", Player.White), true);
+            game.MakeMove(new Move("F2", "F4", Player.White), true);
             Assert.True(game.IsValidMove(new Move("G4", "F3", Player.Black)));
         }
 
@@ -122,7 +122,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestFenEnPassantField1()
         {
             HordeChessGame game = new HordeChessGame("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPP3PP/PPP3P1/PPPPPPPP w kq - 0 16");
-            game.ApplyMove(new Move("D1", "D3", Player.White), true);
+            game.MakeMove(new Move("D1", "D3", Player.White), true);
             Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPPP2PP/PPP3P1/PPP1PPPP b kq - 0 16", game.GetFen());
         }
 
@@ -130,7 +130,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestFenEnPassantField2()
         {
             HordeChessGame game = new HordeChessGame("rn1qkbnr/pp4p1/8/1PP1P3/PPP1bPPP/PPP3PP/PPPP2P1/PPP1PPPP w kq - 0 16");
-            game.ApplyMove(new Move("D2", "D4", Player.White), true);
+            game.MakeMove(new Move("D2", "D4", Player.White), true);
             Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPPPbPPP/PPP3PP/PPP3P1/PPP1PPPP b kq d3 0 16", game.GetFen());
         }
     }

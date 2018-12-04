@@ -56,7 +56,6 @@
     <Compile Include="PositionDistanceTests.cs" />
     <Compile Include="PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DetailedMoveTests.cs" />
     <Compile Include="UtilitiesTests.cs" />
   </ItemGroup>
   <ItemGroup>
