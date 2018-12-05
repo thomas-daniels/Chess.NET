@@ -896,6 +896,8 @@ namespace ChessDotNet
             else if (isCapture)
             {
                 sanBuilder.Append(move.OriginalPosition.File.ToString().ToLowerInvariant());
+                needsUnambigFile = false;
+                needsUnambigRank = false;
             }
             if (needsUnambigFile)
             {
