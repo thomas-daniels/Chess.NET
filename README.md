@@ -25,7 +25,7 @@ Planned features:
 
 Chess.NET is available on NuGet, compiled for .NET Standard 1.3.
 
-https://www.nuget.org/packages/ChessDotNet/
+https://www.nuget.org/packages/ChessDotNet/  
 https://www.nuget.org/packages/ChessDotNet.Variants/
 
 
