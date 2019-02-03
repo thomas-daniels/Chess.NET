@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessDotNet\ChessDotNet.csproj">
-      <Project>{be2e6962-a2b9-4c04-9b93-011f51617166}</Project>
+      <Project>{ba02dbd6-c9db-438d-b8d3-7d3a4f4cb702}</Project>
       <Name>ChessDotNet</Name>
     </ProjectReference>
   </ItemGroup>
