@@ -64,9 +64,9 @@ namespace ChessDotNet.Variants.ThreeCheck
             ChecksByBlack = data.ThreeCheck_ChecksByBlack;
         }
 
-        public override MoveType ApplyMove(Move move, bool alreadyValidated)
+        protected override MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured, out CastlingType castlingType)
         {
-            MoveType ret = base.ApplyMove(move, alreadyValidated);
+            MoveType ret = base.ApplyMove(move, alreadyValidated, out captured, out castlingType);
             if (ret == MoveType.Invalid)
             {
                 return ret;

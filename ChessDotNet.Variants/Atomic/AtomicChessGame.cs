@@ -19,9 +19,9 @@ namespace ChessDotNet.Variants.Atomic
             }
         }
 
-        public override MoveType ApplyMove(Move move, bool alreadyValidated)
+        protected override MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured, out CastlingType castlingType)
         {
-            MoveType type = base.ApplyMove(move, alreadyValidated);
+            MoveType type = base.ApplyMove(move, alreadyValidated, out captured, out castlingType);
             if (!type.HasFlag(MoveType.Capture))
                 return type;
             int[][] surroundingSquares = new int[][] { new int[] { 1, 0 }, new int[] { 1, 1 }, new int[] { 0, 1 }, new int[] { -1, -1 },
@@ -102,16 +102,8 @@ namespace ChessDotNet.Variants.Atomic
             return true;
         }
 
-        Cache<bool> kingIsGoneCacheWhite = new Cache<bool>(false, -1);
-        Cache<bool> kingIsGoneCacheBlack = new Cache<bool>(false, -1);
         public virtual bool KingIsGone(Player player)
         {
-            Cache<bool> cache = player == Player.White ? kingIsGoneCacheWhite : kingIsGoneCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
             for (int f = 0; f < BoardWidth; f++)
             {
                 for (int r = 1; r <= BoardHeight; r++)
@@ -119,11 +111,16 @@ namespace ChessDotNet.Variants.Atomic
                     Piece p = GetPieceAt((File)f, r);
                     if (p is King && p.Owner == player)
                     {
-                        return cache.UpdateCache(false, Moves.Count);
+                        return false;
                     }
                 }
             }
-            return cache.UpdateCache(true, Moves.Count);
+            return true;
+        }
+
+        public override bool IsDraw()
+        {
+            return !KingIsGone(Player.White) && !KingIsGone(Player.Black) && base.IsDraw();
         }
 
         public override bool IsWinner(Player player)

@@ -8,3 +8,4 @@ project.lock.json
 *.nuget.targets
 *.csproj.user
 nuget/
+packages/

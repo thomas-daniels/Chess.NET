@@ -31,7 +31,7 @@ namespace Samples
             Console.WriteLine("E2-E4 for white is valid: {0}", isValid);
 
             // Great, it's valid! So white wants to actually make that move.
-            MoveType type = game.ApplyMove(e2e4, true);
+            MoveType type = game.MakeMove(e2e4, true);
             // The first argument is the move, the second argument indicates whether it's already validated. Here it is, so pass 'true'. If it's not validated yet, ApplyMove will do it. **Only pass `true` if it's really validated! If you pass `true`, ApplyMove won't do ANY validity checks.**
             // The return type is the MoveType enum. It holds one, or a combination, of these values: Invalid, Move, Capture, Castling, Promotion
             // Each valid move will always carry the 'Move' value. If it's also something else, it will carry both values (e.g. if the move is a capture, `type` will have the value MoveType.Move | MoveType.Capture).
@@ -39,11 +39,9 @@ namespace Samples
             // e4 is just a normal move, so `type` will just be MoveType.Move.
             Console.WriteLine("Move type: {0}", type);
 
-            // When a move has been made, check the Status property. It will let you know if there is a special event: check, checkmate, stalemate ...
-            GameStatus status = game.Status;
-            Console.WriteLine("Special event? {0}", status.Event);
-            // Here it just returns 'None' because nothing special happened.
-            // GameStatus has two other properties: PlayerWhoCausedEvent (quite self-explanatory) and EventExplanation (used if Chess.NET needs to be more specific about an event, e.g. when it's a draw, explaining why).
+            // ChessGame provides methods to check whether a player is in check, checkmated... Here is an example:
+            Console.WriteLine("Black in check? {0}", game.IsInCheck(Player.Black));
+            // Here IsInCheck returns 'false' because black is not in check.
 
             // Now it's black's turn.
             Console.WriteLine("It's this color's turn: {0}", game.WhoseTurn);

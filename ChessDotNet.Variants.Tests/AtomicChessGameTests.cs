@@ -38,7 +38,7 @@ namespace ChessDotNet.Variants.Tests
             };
 
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
-            Assert.AreEqual(game.ApplyMove(new Move("G3", "E4", Player.White), true), MoveType.Move | MoveType.Capture);
+            Assert.AreEqual(game.MakeMove(new Move("G3", "E4", Player.White), true), MoveType.Move | MoveType.Capture);
 
             Piece[][] expected = new Piece[8][]
             {
@@ -70,7 +70,7 @@ namespace ChessDotNet.Variants.Tests
                 new[] { rw, nw, bw, o, kw, bw, nw, rw }
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
-            game.ApplyMove(new Move("F3", "F7", Player.White), true);
+            game.MakeMove(new Move("F3", "F7", Player.White), true);
             Assert.True(game.KingIsGone(Player.Black));
             Assert.True(game.IsWinner(Player.White));
         }
@@ -90,7 +90,7 @@ namespace ChessDotNet.Variants.Tests
                 new[] { o, o, o, o, kw, o, o, o }
             };
             AtomicChessGame game = new AtomicChessGame(board, Player.White);
-            game.ApplyMove(new Move("H7", "B7", Player.White), true);
+            game.MakeMove(new Move("H7", "B7", Player.White), true);
             Assert.True(game.IsCheckmated(Player.Black));
             Assert.True(game.IsWinner(Player.White));
         }
@@ -189,7 +189,7 @@ namespace ChessDotNet.Variants.Tests
         public void TestFenCastlingFieldAfterRookExplosion_BlackKingside()
         {
             AtomicChessGame game = new AtomicChessGame("rnbqkbnr/ppp3pp/3pp3/5pN1/8/4P3/PPPP1PPP/RNBQKB1R w KQkq - 0 4");
-            game.ApplyMove(new Move("g5", "h7", Player.White), true);
+            game.MakeMove(new Move("g5", "h7", Player.White), true);
             Assert.False(game.CanBlackCastleKingSide);
             Assert.AreEqual("rnbqkb2/ppp3p1/3pp3/5p2/8/4P3/PPPP1PPP/RNBQKB1R b KQq - 0 4", game.GetFen());
         }
@@ -198,7 +198,7 @@ namespace ChessDotNet.Variants.Tests
         public void TestFenCastlingFieldAfterRookExplosion_BlackQueenside()
         {
             AtomicChessGame game = new AtomicChessGame("rnbqkbnr/pp2pppp/8/1Npp4/8/8/PPPPPPPP/R1BQKBNR w KQkq - 0 3");
-            game.ApplyMove(new Move("b5", "a7", Player.White), true);
+            game.MakeMove(new Move("b5", "a7", Player.White), true);
             Assert.False(game.CanBlackCastleQueenSide);
             Assert.AreEqual("2bqkbnr/1p2pppp/8/2pp4/8/8/PPPPPPPP/R1BQKBNR b KQk - 0 3", game.GetFen());
         }
@@ -207,7 +207,7 @@ namespace ChessDotNet.Variants.Tests
         public void TestFenCastlingFieldAfterRookExplosion_WhiteKingside()
         {
             AtomicChessGame game = new AtomicChessGame("rnbqkb1r/pppppppp/8/8/5Pn1/2P5/PPQPP1PP/RNB1KBNR b KQkq - 2 3");
-            game.ApplyMove(new Move("g4", "h2", Player.Black), true);
+            game.MakeMove(new Move("g4", "h2", Player.Black), true);
             Assert.False(game.CanWhiteCastleKingSide);
             Assert.AreEqual("rnbqkb1r/pppppppp/8/8/5P2/2P5/PPQPP1P1/RNB1KB2 w Qkq - 0 4", game.GetFen());
         }
@@ -216,7 +216,7 @@ namespace ChessDotNet.Variants.Tests
         public void TestFenCastlingFieldAfterRookExplosion_WhiteQueenside()
         {
             AtomicChessGame game = new AtomicChessGame("r1bqkbnr/pppppppp/8/8/1nPP4/6P1/PP2PP1P/RNBQKBNR b KQkq - 0 3");
-            game.ApplyMove(new Move("b4", "a2", Player.Black), true);
+            game.MakeMove(new Move("b4", "a2", Player.Black), true);
             Assert.False(game.CanWhiteCastleQueenSide);
             Assert.AreEqual("r1bqkbnr/pppppppp/8/8/2PP4/6P1/1P2PP1P/2BQKBNR w Kkq - 0 4", game.GetFen());
         }
@@ -228,7 +228,7 @@ namespace ChessDotNet.Variants.Tests
             string[] moves = { "g2g3", "d8c6", "h2h3", "f8e6", "f2f3", "f7f6", "a2a3", "g8f7", "b2b3", "g7g6", "c2c3", "h8g7", "e2e3", "b7b6", "d2d3", "b8b7", "c3c4" };
             foreach (string m in moves)
             {
-                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+                game.MakeMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
             }
 
             Assert.True(game.IsValidMove(new Move("C8", "E8", Player.Black)));
@@ -242,7 +242,7 @@ namespace ChessDotNet.Variants.Tests
             string[] moves = { "b2b3", "h7h6", "a1b2", "g7g6", "b1a3", "e7e6", "c2c3", "d7d6", "d1c2", "c7c6", "g1f3", "b7b6", "h2h3", "a7a6", "h1h2", "f7f6" };
             foreach (string m in moves)
             {
-                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+                game.MakeMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
             }
 
             Assert.True(game.IsValidMove(new Move("E1", "C1", Player.White)));
@@ -256,10 +256,30 @@ namespace ChessDotNet.Variants.Tests
             string[] moves = { "g2g3", "d8c6", "h2h3", "f8e6", "f2f3", "f7f6", "a2a3", "g8f7", "b2b3", "g7g6", "c2c3", "h8g7", "e2e3", "b7b6", "d2d3", "b8b7", "c3c4" };
             foreach (string m in moves)
             {
-                game.ApplyMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
+                game.MakeMove(new Move(m.Substring(0, 2), m.Substring(2, 2), game.WhoseTurn), true);
             }
 
             Assert.False(game.IsValidMove(new Move("C8", "C7", Player.Black)));
+        }
+
+        [Test]
+        public static void TestSanPawnCapturePromotionNoCheckmate()
+        {
+            AtomicChessGame game = new AtomicChessGame("k1r5/3P4/K7/8/8/8/8/8 w - - 0 1");
+            game.MakeMove(new Move("D7", "C8", Player.White, 'R'), true);
+            System.Console.WriteLine(game.GetFen());
+            Assert.AreEqual("dxc8=R", game.Moves[game.Moves.Count - 1].SAN);
+        }
+
+        [Test]
+        public static void TestPgnGameEndsInExplosion()
+        {
+            AtomicChessGame game = new AtomicChessGame();
+            game.MakeMove(new Move("E2", "E4", Player.White), true);
+            game.MakeMove(new Move("D7", "D5", Player.Black), true);
+            game.MakeMove(new Move("E4", "D5", Player.White), true);
+            game.MakeMove(new Move("D8", "D2", Player.Black), true);
+            Assert.AreEqual("1. e4 d5 2. exd5 Qxd2# 0-1", game.GetPGN());
         }
     }
 }

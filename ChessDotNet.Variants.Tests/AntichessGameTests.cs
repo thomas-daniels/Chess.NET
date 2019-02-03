@@ -65,7 +65,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestFenGeneration()
         {
             AntichessGame game = new AntichessGame();
-            game.ApplyMove(new Move("E2", "E3", Player.White), true);
+            game.MakeMove(new Move("E2", "E3", Player.White), true);
             Assert.AreEqual("rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b - - 0 1", game.GetFen());
         }
 
@@ -89,12 +89,12 @@ namespace ChessDotNet.Variants.Tests
         public static void TestNoCastling()
         {
             AntichessGame game = new AntichessGame();
-            game.ApplyMove(new Move("E2", "E3", Player.White), true);
-            game.ApplyMove(new Move("E7", "E6", Player.Black), true);
-            game.ApplyMove(new Move("G1", "F3", Player.White), true);
-            game.ApplyMove(new Move("G8", "F6", Player.Black), true);
-            game.ApplyMove(new Move("F1", "E2", Player.White), true);
-            game.ApplyMove(new Move("F8", "E7", Player.Black), true);
+            game.MakeMove(new Move("E2", "E3", Player.White), true);
+            game.MakeMove(new Move("E7", "E6", Player.Black), true);
+            game.MakeMove(new Move("G1", "F3", Player.White), true);
+            game.MakeMove(new Move("G8", "F6", Player.Black), true);
+            game.MakeMove(new Move("F1", "E2", Player.White), true);
+            game.MakeMove(new Move("F8", "E7", Player.Black), true);
             Assert.False(game.IsValidMove(new Move("E1", "G1", Player.White)));
         }
 
@@ -117,7 +117,7 @@ namespace ChessDotNet.Variants.Tests
         public static void TestEnPassant()
         {
             AntichessGame game = new AntichessGame("rnbqkbnr/p1ppp2p/1p6/5PN1/8/1P6/P1PPPP1P/RNBQKB1R b - - 0 5");
-            game.ApplyMove(new Move("E7", "E5", Player.Black), true);
+            game.MakeMove(new Move("E7", "E5", Player.Black), true);
             Assert.True(game.IsValidMove(new Move("F5", "E6", Player.White)));
         }
     }

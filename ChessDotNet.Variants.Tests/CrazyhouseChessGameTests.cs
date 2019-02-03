@@ -82,16 +82,16 @@ namespace ChessDotNet.Variants.Tests
         }
 
         [Test]
-        public static void TestApplyMove_AddToPocketIfCapture_AndFenGeneration_AndApplyDrop()
+        public static void TestMakeMove_AddToPocketIfCapture_AndFenGeneration_AndApplyDrop()
         {
             CrazyhouseChessGame game = new CrazyhouseChessGame();
-            game.ApplyMove(new Move("E2", "E4", Player.White), true);
-            game.ApplyMove(new Move("D7", "D5", Player.Black), true);
-            game.ApplyMove(new Move("E4", "D5", Player.White), true);
+            game.MakeMove(new Move("E2", "E4", Player.White), true);
+            game.MakeMove(new Move("D7", "D5", Player.Black), true);
+            game.MakeMove(new Move("E4", "D5", Player.White), true);
             Assert.AreEqual(new Pawn(Player.White), game.WhitePocket[0]);
             Assert.AreEqual("rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR/P b KQkq - 0 2", game.GetFen());
 
-            game.ApplyMove(new Move("A7", "A5", Player.Black), true);
+            game.MakeMove(new Move("A7", "A5", Player.Black), true);
             Assert.True(game.ApplyDrop(new Drop(new Pawn(Player.White), new Position("H3"), Player.White), false));
             Assert.AreEqual("rnbqkbnr/1pp1pppp/8/p2P4/8/7P/PPPP1PPP/RNBQKBNR b KQkq - 1 3", game.GetFen());
             Assert.AreEqual(0, game.WhitePocket.Count);
@@ -115,8 +115,8 @@ namespace ChessDotNet.Variants.Tests
         public static void CapturePromotedPiece()
         {
             CrazyhouseChessGame game = new CrazyhouseChessGame("3r4/1P6/4k3/8/8/8/8/4K3 w - - 0 1");
-            game.ApplyMove(new Move("B7", "B8", Player.White, 'Q'), true);
-            game.ApplyMove(new Move("D8", "B8", Player.Black), true);
+            game.MakeMove(new Move("B7", "B8", Player.White, 'Q'), true);
+            game.MakeMove(new Move("D8", "B8", Player.Black), true);
             Assert.AreEqual(1, game.BlackPocket.Count);
             Assert.AreEqual(0, game.WhitePocket.Count);
             Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
@@ -126,11 +126,11 @@ namespace ChessDotNet.Variants.Tests
         public static void TestFenTilde()
         {
             CrazyhouseChessGame game = new CrazyhouseChessGame("rnbqkb1r/pP3ppp/5n2/4p3/8/8/PPPP1PPP/RNBQKBNR/PPP w KQkq - 8 5");
-            game.ApplyMove(new Move("B7", "A8", Player.White, 'Q'), true);
+            game.MakeMove(new Move("B7", "A8", Player.White, 'Q'), true);
             Assert.AreEqual("Q~nbqkb1r/p4ppp/5n2/4p3/8/8/PPPP1PPP/RNBQKBNR/PPPR b KQk - 0 5", game.GetFen());
 
             game = new CrazyhouseChessGame("Q~n1qkb1r/pb3ppp/5n2/4p3/8/2N5/PPPP1PPP/R1BQKBNR/RPPP b KQk - 11 6");
-            game.ApplyMove(new Move("B7", "A8", Player.Black), true);
+            game.MakeMove(new Move("B7", "A8", Player.Black), true);
             Assert.AreEqual('p', game.BlackPocket[0].GetFenCharacter());
         }
 
@@ -139,6 +139,14 @@ namespace ChessDotNet.Variants.Tests
         {
             CrazyhouseChessGame game = new CrazyhouseChessGame("1k2r2q/2p2pp1/2Bp3p/2bPp3/4P3/Pn3P2/1PPnNP1P/R2KRQ2/RPbpbn b k - 43 22");
             Assert.False(game.IsValidMove(new Move("B8", "E8", Player.Black)));
+        }
+
+        [Test]
+        public static void TestGameToPgn()
+        {
+            PgnReader<CrazyhouseChessGame> reader = new PgnReader<CrazyhouseChessGame>();
+            reader.ReadPgnFromString("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6");
+            Assert.AreEqual("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6 *", reader.Game.GetPGN());
         }
     }
 }

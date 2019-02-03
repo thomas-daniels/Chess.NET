@@ -357,12 +357,15 @@ namespace ChessDotNet
 
             if (!data.Moves.Any() && data.EnPassant != null)
             {
+                Position dest = new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4);
                 DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
-                        new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4),
+                        dest,
                         ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                     new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                     false,
-                    CastlingType.None);
+                    CastlingType.None,
+                    dest.ToString().ToLowerInvariant()
+                    );
                 _moves.Add(latestMove);
             }
             else
@@ -698,18 +701,43 @@ namespace ChessDotNet
             return castle;
         }
 
-        public virtual MoveType ApplyMove(Move move, bool alreadyValidated)
+        public virtual MoveType MakeMove(Move move, bool alreadyValidated)
         {
             Piece captured;
-            return ApplyMove(move, alreadyValidated, out captured);
+            return MakeMove(move, alreadyValidated, out captured);
         }
 
-        public virtual MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured)
+        public virtual MoveType MakeMove(Move move, bool alreadyValidated, out Piece captured)
+        {
+            Piece movingPiece = GetPieceAt(move.OriginalPosition);
+            List<Position> ambiguities = GetAmbiguities(move, movingPiece);
+            CastlingType castle;
+            MoveType mt = ApplyMove(move, alreadyValidated, out captured, out castle);
+            if (mt == MoveType.Invalid)
+            {
+                return mt;
+            }
+            AddDetailedMove(new DetailedMove(move, movingPiece, captured != null, castle, null)); // needed so caches work well in GetSanForMove
+            _moves[_moves.Count - 1].SAN = GetSanForMove(move, movingPiece, captured != null, castle, ambiguities);
+            return mt;
+        }
+
+        protected MoveType ApplyMove(Move move, bool alreadyValidated)
+        {
+            Piece captured;
+            CastlingType castleType;
+            return ApplyMove(move, alreadyValidated, out captured, out castleType);
+        }
+
+        protected virtual MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured, out CastlingType castleType)
         {
             ChessUtilities.ThrowIfNull(move, "move");
             captured = null;
             if (!alreadyValidated && !IsValidMove(move))
+            {
+                castleType = CastlingType.None;
                 return MoveType.Invalid;
+            }
             MoveType type = MoveType.Move;
             Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             Piece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
@@ -803,8 +831,135 @@ namespace ChessDotNet
                 SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
             }
             WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
-            AddDetailedMove(new DetailedMove(move, movingPiece, isCapture, castle));
+            castleType = castle;
             return type;
+        }
+
+        protected virtual List<Position> GetAmbiguities(Move move, Piece movingPiece)
+        {
+            if (movingPiece == null)
+            {
+                return new List<Position>();
+            }
+            List<Position> ambiguities = new List<Position>();
+            foreach (File f in Enum.GetValues(typeof(File)))
+            {
+                if (f == File.None) continue;
+                for (int r = 1; r <= 8; r++)
+                {
+                    Position pos = new Position(f, r);
+                    if (!move.OriginalPosition.Equals(pos))
+                    {
+                        Piece p = GetPieceAt(f, r);
+                        if (p != null && p.Equals(movingPiece) && p.IsValidMove(new Move(pos, move.NewPosition, move.Player), this))
+                        {
+                            ambiguities.Add(pos);
+                        }
+                    }
+                }
+            }
+            return ambiguities;
+        }
+
+        protected virtual string GetSanForMove(Move move, Piece movingPiece, bool isCapture, CastlingType castle, List<Position> ambiguities)
+        {
+            if (castle == CastlingType.KingSide) return "O-O";
+            if (castle == CastlingType.QueenSide) return "O-O-O";
+
+            bool needsUnambigFile = false;
+            bool needsUnambigRank = false;
+            if (ambiguities.Count > 0)
+            {
+                foreach (Position amb in ambiguities)
+                {
+                    if (amb.Rank == move.OriginalPosition.Rank)
+                    {
+                        needsUnambigFile = true;
+                    }
+                    if (amb.File == move.OriginalPosition.File)
+                    {
+                        needsUnambigRank = true;
+                    }
+                }
+                if (!needsUnambigFile && !needsUnambigRank)
+                {
+                    needsUnambigFile = true;
+                }
+            }
+
+            StringBuilder sanBuilder = new StringBuilder();
+
+            if (!(movingPiece is Pawn))
+            {
+                sanBuilder.Append(char.ToUpperInvariant(movingPiece.GetFenCharacter()));
+            }
+            else if (isCapture)
+            {
+                sanBuilder.Append(move.OriginalPosition.File.ToString().ToLowerInvariant());
+                needsUnambigFile = false;
+                needsUnambigRank = false;
+            }
+            if (needsUnambigFile)
+            {
+                sanBuilder.Append(move.OriginalPosition.File.ToString().ToLowerInvariant());
+            }
+            if (needsUnambigRank)
+            {
+                sanBuilder.Append(move.OriginalPosition.Rank.ToString());
+            }
+            if (isCapture)
+            {
+                sanBuilder.Append("x");
+            }
+            sanBuilder.Append(move.NewPosition.ToString().ToLowerInvariant());
+            if (move.Promotion.HasValue)
+            {
+                sanBuilder.Append("=");
+                sanBuilder.Append(move.Promotion.Value);
+            }
+            if (IsWinner(ChessUtilities.GetOpponentOf(WhoseTurn)))
+            {
+                sanBuilder.Append("#");
+            }
+            else if (IsInCheck(WhoseTurn))
+            {
+                sanBuilder.Append("+");
+            }
+            return sanBuilder.ToString();
+        }
+
+        public virtual string GetPGN()
+        {
+            StringBuilder pgnBuilder = new StringBuilder();
+            int counter = 1;
+            foreach (DetailedMove dm in _moves)
+            {
+                counter++;
+                if (counter % 2 == 0)
+                {
+                    pgnBuilder.Append(counter / 2);
+                    pgnBuilder.Append(". ");
+                }
+                pgnBuilder.Append(dm.SAN);
+                pgnBuilder.Append(" ");
+            }
+            if (IsDraw())
+            {
+                pgnBuilder.Append("1/2-1/2");
+            }
+            else if (IsWinner(Player.White))
+            {
+                pgnBuilder.Append("1-0");
+            }
+            else if (IsWinner(Player.Black))
+            {
+                pgnBuilder.Append("0-1");
+            }
+            else
+            {
+                pgnBuilder.Append("*");
+            }
+            return pgnBuilder.ToString();
         }
 
         protected virtual void AddDetailedMove(DetailedMove dm)
@@ -866,18 +1021,11 @@ namespace ChessDotNet
             return validMoves.Count > 0;
         }
 
-        protected Cache<bool> inCheckCacheWhite = new Cache<bool>(false, -1);
-        protected Cache<bool> inCheckCacheBlack = new Cache<bool>(false, -1);
         public virtual bool IsInCheck(Player player)
         {
             if (player == Player.None)
             {
                 throw new ArgumentException("IsInCheck: Player.None is an invalid argument.");
-            }
-            Cache<bool> cache = player == Player.White ? inCheckCacheWhite : inCheckCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
             }
 
             Position kingPos = new Position(File.None, -1);
@@ -900,7 +1048,7 @@ namespace ChessDotNet
             }
 
             if (kingPos.File == File.None)
-                return cache.UpdateCache(false, Moves.Count);
+                return false;
 
             for (int r = 1; r <= Board.Length; r++)
             {
@@ -927,38 +1075,22 @@ namespace ChessDotNet
                     {
                         if (IsValidMove(m, false, false))
                         {
-                            return cache.UpdateCache(true, Moves.Count);
+                            return true;
                         }
                     }
                 }
             }
-            return cache.UpdateCache(false, Moves.Count);
+            return false;
         }
 
-        protected Cache<bool> checkmatedCacheWhite = new Cache<bool>(false, -1);
-        protected Cache<bool> checkmatedCacheBlack = new Cache<bool>(false, -1);
         public virtual bool IsCheckmated(Player player)
         {
-            Cache<bool> cache = player == Player.White ? checkmatedCacheWhite : checkmatedCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
-            return cache.UpdateCache(IsInCheck(player) && !HasAnyValidMoves(player), Moves.Count);
+            return IsInCheck(player) && !HasAnyValidMoves(player);
         }
 
-        protected Cache<bool> stalematedCacheWhite = new Cache<bool>(false, -1);
-        protected Cache<bool> stalematedCacheBlack = new Cache<bool>(false, -1);
         public virtual bool IsStalemated(Player player)
         {
-            Cache<bool> cache = player == Player.White ? stalematedCacheWhite : stalematedCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
-            return cache.UpdateCache(WhoseTurn == player && !IsInCheck(player) && !HasAnyValidMoves(player), Moves.Count);
+            return WhoseTurn == player && !IsInCheck(player) && !HasAnyValidMoves(player);
         }
 
         public virtual bool IsWinner(Player player)

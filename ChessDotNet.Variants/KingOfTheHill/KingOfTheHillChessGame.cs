@@ -26,26 +26,18 @@ namespace ChessDotNet.Variants.KingOfTheHill
         public KingOfTheHillChessGame(string fen) : base(fen) { }
         public KingOfTheHillChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
 
-        Cache<bool> kingInCenterCacheWhite = new Cache<bool>(false, -1);
-        Cache<bool> kingInCenterCacheBlack = new Cache<bool>(false, -1);
         public bool IsKingInCenter(Player player)
         {
-            Cache<bool> cache = player == Player.White ? kingInCenterCacheWhite : kingInCenterCacheBlack;
-            if (cache.CachedAt == Moves.Count)
-            {
-                return cache.Value;
-            }
-
             foreach (Position pos in center)
             {
                 Piece p = GetPieceAt(pos);
                 if (p is King && p.Owner == player)
                 {
-                    return cache.UpdateCache(true, Moves.Count);
+                    return true;
                 }
             }
 
-            return cache.UpdateCache(false, Moves.Count);
+            return false;
         }
 
         public override bool IsWinner(Player player)
