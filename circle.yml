@@ -16,5 +16,6 @@ test:
   pre:
     - dotnet --version
     - dotnet build ./ChessDotNet.sln
+  override:
     - dotnet test ./ChessDotNet.Tests/ChessDotNet.Tests.csproj
     - dotnet test ./ChessDotNet.Variants.Tests/ChessDotNet.Variants.Tests.csproj
