@@ -3360,5 +3360,128 @@ namespace ChessDotNet.Tests
             cg.MakeMove(new Move("H2", "H4", Player.White), true);
             Assert.IsTrue(cg.IsValidMove(new Move("G4", "H3", Player.Black)));
         }
+
+        [Test]
+        public static void TestUndoOnNewGame()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R w - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            Assert.False(game.Undo());
+        }
+
+        [Test]
+        public static void TestUndoLastWhiteMove()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R w - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            game.MakeMove(new Move("a1", "h8", Player.White), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(initialBoard, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoLastBlackMove()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R b - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            game.MakeMove(new Move("d6", "d7", Player.Black), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(initialBoard, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoQueenSideCastles()
+        {
+            const string pgn = "1. d4 d5 2. Be3 Be6 3. Nc3 Nc6 4. Qd3 Qd6 5. O-O-O O-O-O";
+            var reader = new PgnReader<ChessGame>();
+            reader.ReadPgnFromString(pgn);
+            var game = reader.Game;
+
+            game.Undo();
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.True(game.CanBlackCastleKingSide);
+            game.Undo();
+            Assert.True(game.CanWhiteCastleQueenSide);
+            Assert.True(game.CanWhiteCastleKingSide);
+        }
+
+        [Test]
+        public static void TestUndoQueenSideCastlesWithKingSideInactive()
+        {
+            const string pgn = "1. d4 d5 2. Be3 Be6 3. Nc3 Nc6 4. Qd3 Qd6 5. h3 h6 6. Rh2 Rh7 7. Rh1 Rh8 8. O-O-O O-O-O";
+            var reader = new PgnReader<ChessGame>();
+            reader.ReadPgnFromString(pgn);
+            var game = reader.Game;
+
+            game.Undo();
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.False(game.CanBlackCastleKingSide);
+            game.Undo();
+            Assert.True(game.CanWhiteCastleQueenSide);
+            Assert.False(game.CanWhiteCastleKingSide);
+        }
+
+        [Test]
+        public static void TestUndoKingSideCastles()
+        {
+            const string pgn = "1. d4 d5 2. Be3 Be6 3. Nc3 Nc6 4. Qd3 Qd6 5. O-O-O O-O-O";
+            var reader = new PgnReader<ChessGame>();
+            reader.ReadPgnFromString(pgn);
+            var game = reader.Game;
+
+            game.Undo();
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.True(game.CanBlackCastleKingSide);
+            game.Undo();
+            Assert.True(game.CanWhiteCastleQueenSide);
+            Assert.True(game.CanWhiteCastleKingSide);
+        }
+
+        [Test]
+        public static void TestUndoKingSideCastlesWithQueenSideInactive()
+        {
+            const string pgn = "1. e4 e5 2. Bc4 Bc5 3. Nf3 Nf6 4. a3 a6 5. Ra2 Ra7 6. Ra1 Ra8 7. O-O O-O";
+            var reader = new PgnReader<ChessGame>();
+            reader.ReadPgnFromString(pgn);
+            var game = reader.Game;
+
+            game.Undo();
+            Assert.False(game.CanBlackCastleQueenSide);
+            Assert.True(game.CanBlackCastleKingSide);
+            game.Undo();
+            Assert.False(game.CanWhiteCastleQueenSide);
+            Assert.True(game.CanWhiteCastleKingSide);
+        }
+
+        [Test]
+        public static void TestUndoZeroMove()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R w - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            Assert.AreEqual(0, game.Undo(0));
+            Assert.AreEqual(initialBoard, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoOneMove()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R w - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            game.MakeMove(new Move("a1", "h8", Player.White), true);
+            Assert.AreEqual(1, game.Undo(1));
+            Assert.AreEqual(initialBoard, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoUpToThreeMoves()
+        {
+            const string initialBoard = "8/8/3k4/8/8/4K3/8/Q6R w - - 0 1";
+            ChessGame game = new ChessGame(initialBoard);
+            game.MakeMove(new Move("a1", "h8", Player.White), true);
+            game.MakeMove(new Move("d6", "d7", Player.Black), true);
+            Assert.AreEqual(2, game.Undo(3));
+            Assert.AreEqual(initialBoard, game.GetFen());
+        }
+
     }
 }

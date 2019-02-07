@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ChessDotNet.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ChessDotNet.Pieces;
 using System.Text;
 
 namespace ChessDotNet
@@ -109,7 +109,7 @@ namespace ChessDotNet
         }
 
         public virtual bool NeedsPgnMoveSpecialTreatment(string move, Player player) { return false; }
-        public virtual bool HandleSpecialPgnMove(string move, Player player) { return false;  } 
+        public virtual bool HandleSpecialPgnMove(string move, Player player) { return false; }
 
         protected bool fiftyMoves = false;
         protected virtual bool FiftyMovesAndThisCanResultInDraw { get { return fiftyMoves; } }
@@ -833,6 +833,104 @@ namespace ChessDotNet
             WhoseTurn = ChessUtilities.GetOpponentOf(move.Player);
             castleType = castle;
             return type;
+        }
+
+        public virtual bool Undo()
+        {
+            if (_moves.Count == 0)
+                return false;
+
+            var lastMove = _moves.Last();
+
+            var movedPiece = GetPieceAt(lastMove.NewPosition);
+            SetPieceAt(lastMove.NewPosition.File, lastMove.NewPosition.Rank, null);
+            SetPieceAt(lastMove.OriginalPosition.File, lastMove.OriginalPosition.Rank, movedPiece);
+
+            if (lastMove.Castling != CastlingType.None)
+            {
+                var anyRookMoves = _moves
+                    .Where(m => m.Player == lastMove.Player)
+                    .Where(m => char.ToUpper(m.Piece.GetFenCharacter()) == 'R')
+                    .Any();
+                UndoCastle(lastMove, anyRookMoves);
+            }
+
+            WhoseTurn = lastMove.Player;
+            i_halfMoveClock--;
+            if (lastMove.Player == Player.Black) i_fullMoveNumber--;
+
+            _moves.Remove(lastMove);
+
+            return true;
+        }
+
+        private void UndoCastle(DetailedMove move, bool anyRookMoves)
+        {
+            int rookRank = 0;
+            File originalRookFile;
+            File newRookFile;
+            if (move.Player == Player.White)
+            {
+                rookRank = 1;
+                //if (move.Os)
+                if (!anyRookMoves)
+                {
+                    CanWhiteCastleKingSide = true;
+                    CanWhiteCastleQueenSide = true;
+                }
+                else
+                {
+                    if (move.Castling == CastlingType.KingSide)
+                        CanWhiteCastleKingSide = true;
+                    else
+                        CanWhiteCastleQueenSide = true;
+                }
+            }
+            else
+            {
+                rookRank = 8;
+                if (!anyRookMoves)
+                {
+                    CanBlackCastleKingSide = true;
+                    CanBlackCastleQueenSide = true;
+                }
+                else
+                {
+                    if (move.Castling == CastlingType.KingSide)
+                        CanBlackCastleKingSide = true;
+                    else
+                        CanBlackCastleQueenSide = true;
+                }
+            }
+
+            if (move.Castling == CastlingType.KingSide)
+            {
+                newRookFile = File.F;
+                originalRookFile = File.H;
+            }
+            else
+            {
+                newRookFile = File.D;
+                originalRookFile = File.A;
+            }
+
+            var rook = GetPieceAt(newRookFile, rookRank);
+            SetPieceAt(newRookFile, rookRank, null);
+            SetPieceAt(originalRookFile, rookRank, rook);
+        }
+
+        public int Undo(int count)
+        {
+            int i = 0;
+            for (; i < count; i++)
+            {
+                if (!Undo())
+                {
+                    break;
+                }
+            }
+
+            return i;
         }
 
         protected virtual List<Position> GetAmbiguities(Move move, Piece movingPiece)
