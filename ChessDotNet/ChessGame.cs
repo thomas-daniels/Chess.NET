@@ -1118,20 +1118,19 @@ namespace ChessDotNet
             gcd.CanBlackCastleKingSide = CanBlackCastleKingSide;
             gcd.CanBlackCastleQueenSide = CanBlackCastleQueenSide;
             gcd.EnPassant = null;
-            if (_moves.Count > 0)
-            {
-                DetailedMove last = _moves.Last();
-                if (last.Piece is Pawn && new PositionDistance(last.OriginalPosition, last.NewPosition).DistanceY == 2)
-                {
-                    gcd.EnPassant = new Position(last.NewPosition.File, last.Player == Player.White ? 3 : 6);
-                }
-            }
             gcd.HalfMoveClock = i_halfMoveClock;
             gcd.FullMoveNumber = i_fullMoveNumber;
             ChessGame copy = new ChessGame(gcd);
-            Piece p = copy.GetPieceAt(move.OriginalPosition);
-            copy.SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
-            copy.SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, p);
+            if (GetPieceAt(move.OriginalPosition) is Pawn)
+            {
+                copy.ApplyMove(move, true);
+            }
+            else
+            {
+                Piece p = copy.GetPieceAt(move.OriginalPosition);
+                copy.SetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank, null);
+                copy.SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, p);
+            }
             return copy.IsInCheck(player);
         }
 

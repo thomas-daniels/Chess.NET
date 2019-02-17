@@ -3352,5 +3352,13 @@ namespace ChessDotNet.Tests
             game.MakeMove(new Move("D7", "C8", Player.White, 'R'), true);
             Assert.AreEqual("dxc8=R#", game.Moves[game.Moves.Count - 1].SAN);
         }
+
+        [Test]
+        public static void TestIsValidMoveEnPassantAfterCheck()
+        {
+            ChessGame cg = new ChessGame("2r5/p1pn1p2/1p6/5nkp/5Np1/4P1P1/PB3P1P/6K1 w - - 2 32");
+            cg.MakeMove(new Move("H2", "H4", Player.White), true);
+            Assert.IsTrue(cg.IsValidMove(new Move("G4", "H3", Player.Black)));
+        }
     }
 }
