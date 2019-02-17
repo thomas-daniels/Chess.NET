@@ -3542,7 +3542,5 @@ namespace ChessDotNet.Tests
             Assert.False(game.CanWhiteCastleQueenSide);
             Assert.True(game.CanWhiteCastleKingSide);
         }
-
-
     }
 }
