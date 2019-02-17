@@ -193,10 +193,12 @@ namespace ChessDotNet.Variants.Crazyhouse
             }
             WhoseTurn = ChessUtilities.GetOpponentOf(WhoseTurn);
 
+            AddDetailedMove(new CrazyhouseDetailedMove(drop, "")); // placeholder without SAN for IsCheckmated/IsInCheck
             string san = string.Format("{0}@{1}{2}",
                 drop.ToDrop is Pawn ? "" : char.ToUpperInvariant(drop.ToDrop.GetFenCharacter()).ToString(),
                 drop.Destination.ToString().ToLowerInvariant(),
                 IsCheckmated(WhoseTurn) ? "#" : (IsInCheck(WhoseTurn) ? "+" : ""));
+            RemoveLastDetailedMove();
             AddDetailedMove(new CrazyhouseDetailedMove(drop, san));
             return true;
         }

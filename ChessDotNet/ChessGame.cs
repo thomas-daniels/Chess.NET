@@ -962,6 +962,11 @@ namespace ChessDotNet
             return pgnBuilder.ToString();
         }
 
+        protected void RemoveLastDetailedMove()
+        {
+            _moves.RemoveAt(_moves.Count - 1);
+        }
+
         protected virtual void AddDetailedMove(DetailedMove dm)
         {
             _moves.Add(dm);
