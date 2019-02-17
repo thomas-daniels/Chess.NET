@@ -712,12 +712,13 @@ namespace ChessDotNet
             Piece movingPiece = GetPieceAt(move.OriginalPosition);
             List<Position> ambiguities = GetAmbiguities(move, movingPiece);
             CastlingType castle;
+            int lastHalfMoveClock = i_halfMoveClock;
             MoveType mt = ApplyMove(move, alreadyValidated, out captured, out castle);
             if (mt == MoveType.Invalid)
             {
                 return mt;
             }
-            AddDetailedMove(new DetailedMove(move, movingPiece, captured != null, castle, null)); // needed so caches work well in GetSanForMove
+            AddDetailedMove(new DetailedMove(move, movingPiece, captured, castle, null, lastHalfMoveClock, (mt & MoveType.EnPassant) == MoveType.EnPassant)); // needed so caches work well in GetSanForMove
             _moves[_moves.Count - 1].SAN = GetSanForMove(move, movingPiece, captured != null, castle, ambiguities);
             return mt;
         }
@@ -750,7 +751,8 @@ namespace ChessDotNet
                 i_halfMoveClock = 0;
                 PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
                 if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition) == null)
-                { // en passant
+                {
+                    type |= MoveType.EnPassant;
                     isCapture = true;
                     captured = GetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank);
                     SetPieceAt(move.NewPosition.File, move.OriginalPosition.Rank, null);
@@ -842,9 +844,23 @@ namespace ChessDotNet
 
             var lastMove = _moves.Last();
 
-            var movedPiece = GetPieceAt(lastMove.NewPosition);
+            var movedPiece = lastMove.Piece;
             SetPieceAt(lastMove.NewPosition.File, lastMove.NewPosition.Rank, null);
             SetPieceAt(lastMove.OriginalPosition.File, lastMove.OriginalPosition.Rank, movedPiece);
+
+            if (lastMove.IsCapture)
+            {
+                int rank = lastMove.NewPosition.Rank;
+                if (lastMove.EnPassant)
+                {
+                    if (lastMove.Player == Player.White)
+                        rank--;
+                    else if (lastMove.Player == Player.Black)
+                        rank++;
+                }
+
+                SetPieceAt(lastMove.NewPosition.File, rank, lastMove.CapturedPiece);
+            }
 
             if (lastMove.Castling != CastlingType.None)
             {
@@ -856,7 +872,7 @@ namespace ChessDotNet
             }
 
             WhoseTurn = lastMove.Player;
-            i_halfMoveClock--;
+            i_halfMoveClock = lastMove.LastHalfMoveClock.Value;
             if (lastMove.Player == Player.Black) i_fullMoveNumber--;
 
             _moves.Remove(lastMove);
