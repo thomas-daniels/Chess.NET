@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ChessDotNet.Pieces;
 
 namespace ChessDotNet.Variants.Atomic
@@ -163,6 +164,11 @@ namespace ChessDotNet.Variants.Atomic
             {
                 return copy.IsInCheck(player);
             }
+        }
+
+        public override bool Undo()
+        {
+            throw new NotImplementedException("Undo not yet implemented for atomic.");
         }
     }
 }

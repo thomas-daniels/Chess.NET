@@ -279,5 +279,10 @@ namespace ChessDotNet.Variants.Crazyhouse
             }
             return valid;
         }
+
+        public override bool Undo()
+        {
+            throw new NotImplementedException("Undo not yet implemented for crazyhouse.");
+        }
     }
 }
