@@ -120,5 +120,79 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("E7", "E5", Player.Black), true);
             Assert.True(game.IsValidMove(new Move("F5", "E6", Player.White)));
         }
+
+        [Test]
+        public static void TestUndoMove()
+        {
+            AntichessGame game = new AntichessGame();
+            string initialFen = game.GetFen();
+            game.MakeMove(new Move("E2", "E3", Player.White), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(initialFen, game.GetFen());
+            Assert.AreEqual(0, game.Moves.Count);
+            Assert.AreEqual(Player.White, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoCapture()
+        {
+            AntichessGame game = new AntichessGame();
+            game.MakeMove(new Move("E2", "E3", Player.White), true);
+            game.MakeMove(new Move("B7", "B5", Player.Black), true);
+            string expected = game.GetFen();
+            game.MakeMove(new Move("F1", "B5", Player.White), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(expected, game.GetFen());
+            Assert.AreEqual(2, game.Moves.Count);
+            Assert.AreEqual(Player.White, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoPromotion()
+        {
+            string fen = "8/5P2/2b5/8/8/8/5b2/8 w - - 0 39";
+            AntichessGame game = new AntichessGame(fen);
+            game.MakeMove(new Move("F7", "F8", Player.White, 'K'), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(fen, game.GetFen());
+            Assert.AreEqual(Player.White, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoCapturePromotion()
+        {
+            string fen = "rnbqkb1r/pppp1ppp/7n/8/8/7P/PPPPPp2/RNB1QBNR b - - 1 6";
+            AntichessGame game = new AntichessGame(fen);
+            game.MakeMove(new Move("F2", "E1", Player.Black, 'R'), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(fen, game.GetFen());
+            Assert.AreEqual(Player.Black, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoEnPassant()
+        {
+            string fen = "rnbqkb1r/pppp1ppp/7n/8/5pP1/7P/PPPPP3/RNBQKBNR b - g3 0 4";
+            AntichessGame game = new AntichessGame(fen);
+            game.MakeMove(new Move("F4", "G3", Player.Black), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(fen, game.GetFen());
+            Assert.AreEqual(Player.Black, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoMultiple()
+        {
+            string fen = "rnbqkb1r/pppp1ppp/7n/8/5pP1/7P/PPPPP3/RNBQKBNR b - g3 0 4";
+            AntichessGame game = new AntichessGame(fen);
+            game.MakeMove(new Move("F4", "G3", Player.Black), true);
+            game.MakeMove(new Move("E1", "F2", Player.White), true);
+            game.MakeMove(new Move("G3", "F2", Player.Black), true);
+            game.MakeMove(new Move("D1", "E1", Player.White), true);
+            game.MakeMove(new Move("F2", "E1", Player.White, 'N'), true);
+            Assert.AreEqual(5, game.Undo(5));
+            Assert.AreEqual(fen, game.GetFen());
+            Assert.AreEqual(Player.Black, game.WhoseTurn);
+        }
     }
 }
