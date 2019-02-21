@@ -26,9 +26,28 @@
             set;
         }
 
+        public Piece CapturedPiece
+        {
+            get;
+            set;
+        }
+
+        public int? LastHalfMoveClock
+        {
+            get;
+            set;
+        }
+
+        public bool EnPassant
+        {
+            get;
+            set;
+        }
+
+
         protected DetailedMove() { }
 
-        public DetailedMove(Position originalPosition, Position newPosition, Player player, char? promotion, Piece piece, bool isCapture, CastlingType castling, string san) : 
+        public DetailedMove(Position originalPosition, Position newPosition, Player player, char? promotion, Piece piece, bool isCapture, CastlingType castling, string san) :
             base(originalPosition, newPosition, player, promotion)
         {
             Piece = piece;
@@ -37,8 +56,21 @@
             SAN = san;
         }
 
+        public DetailedMove(Position originalPosition, Position newPosition, Player player, char? promotion, Piece piece, bool isCapture, CastlingType castling, string san, Piece captured, int? lastHalfMoveClock, bool enPassant)
+            : this(originalPosition, newPosition, player, promotion, piece, isCapture, castling, san)
+        {
+            CapturedPiece = captured;
+            LastHalfMoveClock = lastHalfMoveClock;
+            EnPassant = enPassant;
+        }
+
         public DetailedMove(Move move, Piece piece, bool isCapture, CastlingType castling, string san)
             : this(move.OriginalPosition, move.NewPosition, move.Player, move.Promotion, piece, isCapture, castling, san)
+        {
+        }
+
+        public DetailedMove(Move move, Piece piece, Piece capturedPiece, CastlingType castling, string san, int halfMoveClock, bool enPassant)
+            : this(move.OriginalPosition, move.NewPosition, move.Player, move.Promotion, piece, capturedPiece != null, castling, san, capturedPiece, halfMoveClock, enPassant)
         {
         }
     }
