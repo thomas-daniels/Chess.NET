@@ -133,5 +133,59 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("D2", "D4", Player.White), true);
             Assert.AreEqual("rn1qkbnr/pp4p1/8/1PP1P3/PPPPbPPP/PPP3PP/PPP3P1/PPP1PPPP b kq d3 0 16", game.GetFen());
         }
+
+        [Test]
+        public static void TestUndoMoveWhite()
+        {
+            HordeChessGame game = new HordeChessGame();
+            string initial = game.GetFen();
+            game.MakeMove(new Move("A4", "A5", Player.White), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(initial, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoMoveBlack()
+        {
+            string fen = "rnbqkbnr/pppppppp/8/PPP2PP1/1PPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP b kq - 0 1";
+            HordeChessGame game = new HordeChessGame(fen);
+            game.MakeMove(new Move("B8", "C6", Player.Black), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(fen, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoQueensideCastling()
+        {
+            string fen = "r3kbnr/pqpppppp/b1p5/P1P1PPP1/1PPPPPPP/PPPPPPPP/PPPPPPPP/PPPP1PPP b kq - 0 6";
+            HordeChessGame game = new HordeChessGame(fen);
+            game.MakeMove(new Move("E8", "C8", Player.Black), true);
+            Assert.True(game.Undo());
+            Assert.True(game.CanBlackCastleKingSide);
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.AreEqual(fen, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoKingsideCastling()
+        {
+            string fen = "rnbqk2r/ppppppbp/5p2/PPPP1P2/1PPPPPPP/PPP1PPPP/PPPPPPPP/PPPPPPPP b kq - 0 4";
+            HordeChessGame game = new HordeChessGame(fen);
+            game.MakeMove(new Move("E8", "G8", Player.Black), true);
+            Assert.True(game.Undo());
+            Assert.True(game.CanBlackCastleKingSide);
+            Assert.True(game.CanBlackCastleQueenSide);
+            Assert.AreEqual(fen, game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoPromotion()
+        {
+            string fen = "rnbqkbnr/P1p1pppp/8/1PPp1PP1/1PPPPPPP/PPPPPPPP/PPPPPPPP/PPPPPPPP w kq - 0 4";
+            HordeChessGame game = new HordeChessGame(fen);
+            game.MakeMove(new Move("A7", "B8", Player.White, 'Q'), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(fen, game.GetFen());
+        }
     }
 }

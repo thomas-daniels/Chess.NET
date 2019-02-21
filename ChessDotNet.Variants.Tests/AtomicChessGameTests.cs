@@ -4,6 +4,7 @@ namespace ChessDotNet.Variants.Tests
 {
     using Pieces;
     using Atomic;
+    using System;
 
     [TestFixture]
     public class AtomicChessGameTests
@@ -280,6 +281,15 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("E4", "D5", Player.White), true);
             game.MakeMove(new Move("D8", "D2", Player.Black), true);
             Assert.AreEqual("1. e4 d5 2. exd5 Qxd2# 0-1", game.GetPGN());
+        }
+
+        [Test]
+        public static void TestUndoNYI()
+        {
+            string fen = "rnbqk1nr/ppp2ppp/8/2bpp3/3PP3/N7/PPP2PPP/R1BQKBNR w KQkq - 2 4";
+            AtomicChessGame game = new AtomicChessGame(fen);
+            game.MakeMove(new Move("E4", "D5", Player.White), true);
+            Assert.Throws<NotImplementedException>(() => game.Undo());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ChessDotNet.Pieces;
 using ChessDotNet.Variants.Crazyhouse;
 using NUnit.Framework;
+using System;
 
 namespace ChessDotNet.Variants.Tests
 {
@@ -147,6 +148,15 @@ namespace ChessDotNet.Variants.Tests
             PgnReader<CrazyhouseChessGame> reader = new PgnReader<CrazyhouseChessGame>();
             reader.ReadPgnFromString("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6");
             Assert.AreEqual("1. e4 d5 2. exd5 a5 3. @h3 Qxd5 4. Nc3 Qxg2 5. Bxg2 Nc6 6. Bxc6+ bxc6 7. Q@e4 B@e6 *", reader.Game.GetPGN());
+        }
+
+        [Test]
+        public static void TestUndoNYI()
+        {
+            string fen = "rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR/ w KQkq - 2 2";
+            CrazyhouseChessGame game = new CrazyhouseChessGame(fen);
+            game.MakeMove(new Move("E4", "D5", Player.White), true);
+            Assert.Throws<NotImplementedException>(() => game.Undo());
         }
     }
 }

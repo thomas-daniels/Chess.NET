@@ -2,6 +2,7 @@
 
 namespace ChessDotNet.Variants.Tests
 {
+    using System;
     using ThreeCheck;
 
     [TestFixture]
@@ -55,6 +56,23 @@ namespace ChessDotNet.Variants.Tests
             ThreeCheckChessGame game = new ThreeCheckChessGame("rnb1kb1Q/pppp1p1p/5np1/8/8/8/PPPPKPPP/RNB3NR w q - 1 7 +1+2");
             game.MakeMove(new Move("H8", "F8", Player.White), true);
             Assert.AreEqual("rnb1kQ2/pppp1p1p/5np1/8/8/8/PPPPKPPP/RNB3NR b q - 0 7 +2+2", game.GetFen());
+        }
+
+        [Test]
+        public static void TestUndoChecks()
+        {
+            ThreeCheckChessGame game = new ThreeCheckChessGame();
+            string initial = game.GetFen();
+            game.MakeMove(new Move("E2", "E4", Player.White), true);
+            game.MakeMove(new Move("D7", "D5", Player.Black), true);
+            game.MakeMove(new Move("F1", "B5", Player.White), true);
+            /*
+            Assert.AreEqual(1, game.ChecksByWhite);
+            Assert.True(game.Undo());
+            Assert.AreEqual(0, game.ChecksByWhite);
+            game.Undo(2);
+            Assert.AreEqual(initial, game.GetFen());*/
+            Assert.Throws<NotImplementedException>(() => game.Undo());
         }
     }
 }

@@ -89,5 +89,10 @@ namespace ChessDotNet.Variants.ThreeCheck
             int checks = player == Player.White ? ChecksByWhite : ChecksByBlack;
             return checks >= 3 || IsCheckmated(ChessUtilities.GetOpponentOf(player));
         }
+
+        public override bool Undo()
+        {
+            throw new NotImplementedException("Undo not implemented yet for three-checks.");
+        }
     }
 }

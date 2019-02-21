@@ -72,5 +72,30 @@ namespace ChessDotNet.Variants.Tests
             Assert.False(game.IsWinner(Player.Black));
             Assert.False(game.IsWinner(Player.White));
         }
+
+        [Test]
+        public static void TestUndoMove()
+        {
+            RacingKingsChessGame game = new RacingKingsChessGame();
+            string initial = game.GetFen();
+            game.MakeMove(new Move("F2", "D4", Player.White), true);
+            Assert.True(game.Undo());
+            Assert.AreEqual(initial, game.GetFen());
+            Assert.AreEqual(Player.White, game.WhoseTurn);
+        }
+
+        [Test]
+        public static void TestUndoMultiple()
+        {
+            RacingKingsChessGame game = new RacingKingsChessGame();
+            string initial = game.GetFen();
+            game.MakeMove(new Move("F2", "D4", Player.White), true);
+            game.MakeMove(new Move("A2", "B3", Player.Black), true);
+            game.MakeMove(new Move("D4", "B2", Player.White), true);
+            game.MakeMove(new Move("D1", "B2", Player.Black), true);
+            Assert.AreEqual(4, game.Undo(4));
+            Assert.AreEqual(initial, game.GetFen());
+            Assert.AreEqual(Player.White, game.WhoseTurn);
+        }
     }
 }
