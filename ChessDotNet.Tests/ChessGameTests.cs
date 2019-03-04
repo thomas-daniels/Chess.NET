@@ -3212,6 +3212,147 @@ namespace ChessDotNet.Tests
         }
 
         [Test]
+        public static void TestNonInsufficientMaterial()
+        {
+            var cb = new ChessGame();
+
+            Assert.False(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingVsKing()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.White });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingVsKingAndBishop()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, bb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingVsKingAndBishopFlipped()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, bw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingVsKingAndKnight()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, nb, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingVsKingAndKnightFlipped()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, nw, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingAndBishopVsKingAndBishopOnSameColor()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, o, o, o, o },
+                new[] { bb, o, o, o, o, o, o, o },
+                new[] { o, bw, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.True(cb.IsDraw());
+        }
+
+        [Test]
+        public static void TestInsufficientMaterialKingAndBishopVsKingAndBishopOnDifferentColor()
+        {
+            Piece[][] board = new Piece[8][]
+            {
+                new[] { kb, o, kw, o, o, o, o, o },
+                new[] { bb, o, o, o, o, o, o, o },
+                new[] { bw, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o },
+                new[] { o, o, o, o, o, o, o, o }
+            };
+            ChessGame cb = new ChessGame(new GameCreationData { Board = board, WhoseTurn = Player.None });
+
+            Assert.False(cb.IsDraw());
+        }
+
+        [Test]
         public static void TestMakeMove_ReturnedMoveType()
         {
             ChessGame game = new ChessGame();

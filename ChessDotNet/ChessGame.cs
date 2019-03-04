@@ -1212,6 +1212,58 @@ namespace ChessDotNet
             return WhoseTurn == player && !IsInCheck(player) && !HasAnyValidMoves(player);
         }
 
+        public virtual bool IsInsufficientMaterial()
+        {
+            var whitePieces = PiecesOnBoard.Where(p => p.Owner == Player.White);
+            var blackPieces = PiecesOnBoard.Where(p => p.Owner == Player.Black);
+
+            if (whitePieces.Count() > 2 || blackPieces.Count() > 2) return false;
+
+            var lastWhitePiece = whitePieces.FirstOrDefault(p => !(p is King));
+            var lastBlackPiece = blackPieces.FirstOrDefault(p => !(p is King));
+
+            if (lastWhitePiece == null && lastBlackPiece == null) return true;
+            if (lastWhitePiece == null && lastBlackPiece is Bishop) return true;
+            if (lastWhitePiece == null && lastBlackPiece is Knight) return true;
+            if (lastWhitePiece is Bishop && lastBlackPiece == null) return true;
+            if (lastWhitePiece is Knight && lastBlackPiece == null) return true;
+
+            if (lastWhitePiece is Bishop && lastBlackPiece is Bishop && OnSameSquareColor(lastWhitePiece, lastBlackPiece)) return true;
+
+            return false;
+        }
+
+        private bool OnSameSquareColor(Piece whitePiece, Piece blackPiece)
+        {
+            int? whitesSquareColor = null;
+            int? blacksSquareColor = null;
+
+            for (int x = 1; x <= 8; x++)
+            {
+                for (int y = 1; y <= 8; y++)
+                {
+                    var piece = Board[x - 1][y - 1];
+                    if (piece == null) continue;
+
+                    if (piece.Owner == Player.White)
+                    {
+                        if (piece.GetType() != whitePiece.GetType()) continue;
+
+                        whitesSquareColor = (x + y) % 2; // 0 means dark, 1 means light
+                    }
+
+                    if (piece.Owner == Player.Black)
+                    {
+                        if (piece.GetType() != blackPiece.GetType()) continue;
+
+                        blacksSquareColor = (x + y) % 2; // 0 means dark, 1 means light
+                    }
+                }
+            }
+
+            return whitesSquareColor == blacksSquareColor;
+        }
+
         public virtual bool IsWinner(Player player)
         {
             return IsCheckmated(ChessUtilities.GetOpponentOf(player));
@@ -1219,7 +1271,7 @@ namespace ChessDotNet
 
         public virtual bool IsDraw()
         {
-            return DrawClaimed || IsStalemated(Player.White) || IsStalemated(Player.Black);
+            return DrawClaimed || IsStalemated(Player.White) || IsStalemated(Player.Black) || IsInsufficientMaterial();
         }
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
