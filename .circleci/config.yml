@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build-and-test:
+    steps:
+      - checkout
+      - run: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+      - run: sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+      - run: sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+      - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F76221572C52609D
+      - run: sudo rm -f /etc/apt/sources.list.d/pdoes*
+      - run: sudo apt-get update
+      - run: sudo apt-get install dotnet-sdk-2.0.2
+      - run: mkdir ~/curl
+      - run: cd ~/curl && wget https://curl.haxx.se/download/curl-7.60.0.tar.bz2 --no-check-certificate && tar -xvjf curl-7.60.0.tar.bz2
+      - run: cd ~/curl/curl-7.60.0 && ./configure && make && sudo make install && sudo ldconfig
+      - run: dotnet restore
+      - run: dotnet build ./ChessDotNet.sln
+      - run: dotnet test ./ChessDotNet.Tests/ChessDotNet.Tests.csproj
+      - run: dotnet test ./ChessDotNet.Variants.Tests/ChessDotNet.Variants.Tests.csproj
+
