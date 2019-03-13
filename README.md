@@ -1,4 +1,4 @@
-Chess.NET
+Chess.NET [![](https://travis-ci.org/ProgramFOX/Chess.NET.svg?branch=master)](https://travis-ci.org/ProgramFOX/Chess.NET)
 =
 Chess.NET is a chess library for .NET, written in C#.
 
