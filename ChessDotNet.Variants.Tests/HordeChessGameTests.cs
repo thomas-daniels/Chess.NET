@@ -3,6 +3,7 @@
 namespace ChessDotNet.Variants.Tests
 {
     using Horde;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class HordeChessGameTests
@@ -186,6 +187,18 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("A7", "B8", Player.White, 'Q'), true);
             Assert.True(game.Undo());
             Assert.AreEqual(fen, game.GetFen());
+        }
+
+        [Test]
+        public static void TestConstructorWithMoves()
+        {
+            var move = new Move("h4", "h5", Player.White);
+            var moves = new List<Move>();
+            moves.Add(move);
+            
+            HordeChessGame game = new HordeChessGame(moves, true);
+            var p = game.GetPieceAt(File.H, 5);
+            Assert.IsNotNull(p);
         }
     }
 }
