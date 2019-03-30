@@ -292,7 +292,6 @@ namespace ChessDotNet.Variants.Tests
             Assert.Throws<NotImplementedException>(() => game.Undo());
         }
 
-
         [Test]
         public static void ValidateThatEmptyCannotMove()
         {
