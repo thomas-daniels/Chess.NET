@@ -291,5 +291,14 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("E4", "D5", Player.White), true);
             Assert.Throws<NotImplementedException>(() => game.Undo());
         }
+
+        [Test]
+        public static void ValidateThatEmptyCannotMove()
+        {
+            AtomicChessGame game = new AtomicChessGame();
+            var move = new Move("c3", "c4", Player.White);
+            var valid = game.IsValidMove(move);
+            Assert.IsFalse(valid);
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace ChessDotNet.Variants.Atomic
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
             if (careAboutWhoseTurnItIs && move.Player != WhoseTurn) return false;
-            if (piece.Owner != move.Player) return false;
+            if (piece == null || piece.Owner != move.Player) return false;
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
             if (pieceAtDestination != null)
             {

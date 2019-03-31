@@ -1,7 +1,9 @@
 ﻿using ChessDotNet.Pieces;
 using ChessDotNet.Variants.Horde.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ChessDotNet.Variants.Horde
 {
@@ -61,7 +63,19 @@ namespace ChessDotNet.Variants.Horde
         public HordeChessGame(Piece[][] board, Player whoseTurn) : base(board, whoseTurn) { }
         public HordeChessGame(GameCreationData data) : base(data) { }
         public HordeChessGame(string fen) : base(fen) { }
-        public HordeChessGame(IEnumerable<Move> moves, bool movesAreValidated) : base(moves, movesAreValidated) { }
+        public HordeChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this() {
+            if (moves == null)
+                throw new ArgumentNullException("moves");
+            if (moves.Count() == 0)
+                throw new ArgumentException("The Count of moves has to be greater than 0.");
+            foreach (Move m in moves)
+            {
+                if (ApplyMove(m, movesAreValidated) == MoveType.Invalid)
+                {
+                    throw new ArgumentException("Invalid move passed to ChessGame constructor.");
+                }
+            }
+        }
 
         public override bool IsInCheck(Player player)
         {
