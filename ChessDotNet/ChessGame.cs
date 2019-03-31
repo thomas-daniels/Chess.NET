@@ -272,8 +272,6 @@ namespace ChessDotNet
         {
             if (moves == null)
                 throw new ArgumentNullException("moves");
-            if (moves.Count() == 0)
-                throw new ArgumentException("The Count of moves has to be greater than 0.");
             foreach (Move m in moves)
             {
                 if (ApplyMove(m, movesAreValidated) == MoveType.Invalid)
