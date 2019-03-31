@@ -739,6 +739,12 @@ namespace ChessDotNet
             }
             MoveType type = MoveType.Move;
             Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
+
+            if (movingPiece == null)
+            {
+                throw new InvalidOperationException("Source piece does not exist.");
+            }
+ 
             Piece capturedPiece = GetPieceAt(move.NewPosition.File, move.NewPosition.Rank);
             captured = capturedPiece;
             Piece newPiece = movingPiece;

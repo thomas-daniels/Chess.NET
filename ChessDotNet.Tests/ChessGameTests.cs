@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 namespace ChessDotNet.Tests
 {
     using Pieces;
+    using System;
 
     [TestFixture]
     public static class ChessGameTests
@@ -3682,6 +3683,13 @@ namespace ChessDotNet.Tests
             game.Undo();
             Assert.False(game.CanWhiteCastleQueenSide);
             Assert.True(game.CanWhiteCastleKingSide);
+        }
+
+        [Test]
+        public static void ThrowIOEOnMoveWithNullSourcePiece()
+        {
+            ChessGame game = new ChessGame();
+            Assert.Throws<InvalidOperationException>(() => game.MakeMove(new Move("a3", "a4", Player.White), true));
         }
     }
 }
