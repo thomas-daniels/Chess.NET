@@ -2539,12 +2539,12 @@ namespace ChessDotNet.Tests
                 new Move("D4", "F6", Player.White),
                 new Move("D4", "G7", Player.White),
                 new Move("D4", "H8", Player.White),
-                new Move("D4", "G7", Player.White),
-                new Move("D4", "F6", Player.White),
-                new Move("D4", "E5", Player.White),
-                new Move("D4", "C3", Player.White),
-                new Move("D4", "B2", Player.White),
-                new Move("D4", "A1", Player.White)
+                new Move("D4", "C5", Player.White),
+                new Move("D4", "B6", Player.White),
+                new Move("D4", "A7", Player.White),
+                new Move("D4", "E3", Player.White),
+                new Move("D4", "F2", Player.White),
+                new Move("D4", "G1", Player.White)
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
@@ -2806,12 +2806,12 @@ namespace ChessDotNet.Tests
                 new Move("D4", "F6", Player.Black),
                 new Move("D4", "G7", Player.Black),
                 new Move("D4", "H8", Player.Black),
-                new Move("D4", "G7", Player.Black),
-                new Move("D4", "F6", Player.Black),
-                new Move("D4", "E5", Player.Black),
-                new Move("D4", "C3", Player.Black),
-                new Move("D4", "B2", Player.Black),
-                new Move("D4", "A1", Player.Black)
+                new Move("D4", "C5", Player.Black),
+                new Move("D4", "B6", Player.Black),
+                new Move("D4", "A7", Player.Black),
+                new Move("D4", "E3", Player.Black),
+                new Move("D4", "F2", Player.Black),
+                new Move("D4", "G1", Player.Black)
             };
 
             Assert.AreEqual(expected.Count, actual.Count);
