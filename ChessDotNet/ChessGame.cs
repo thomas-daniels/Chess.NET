@@ -1,4 +1,4 @@
-﻿using ChessDotNet.Pieces;
+using ChessDotNet.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -223,8 +223,8 @@ namespace ChessDotNet
 
         protected static Piece[][] CloneBoard(Piece[][] originalBoard)
         {
-            ChessUtilities.ThrowIfNull(originalBoard, "originalBoard");
-            Piece[][] newBoard = new Piece[originalBoard.Length][];
+            ChessUtilities.ThrowIfNull(originalBoard, nameof(originalBoard));
+            var newBoard = new Piece[originalBoard.Length][];
             for (int i = 0; i < originalBoard.Length; i++)
             {
                 newBoard[i] = new Piece[originalBoard[i].Length];
@@ -271,7 +271,7 @@ namespace ChessDotNet
         public ChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this()
         {
             if (moves == null)
-                throw new ArgumentNullException("moves");
+                throw new ArgumentNullException(nameof(moves));
             foreach (Move m in moves)
             {
                 if (ApplyMove(m, movesAreValidated) == MoveType.Invalid)
@@ -355,8 +355,8 @@ namespace ChessDotNet
 
             if (!data.Moves.Any() && data.EnPassant != null)
             {
-                Position dest = new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4);
-                DetailedMove latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
+                var dest = new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 5 : 4);
+                var latestMove = new DetailedMove(new Move(new Position(data.EnPassant.File, data.WhoseTurn == Player.White ? 7 : 2),
                         dest,
                         ChessUtilities.GetOpponentOf(data.WhoseTurn)),
                     new Pawn(ChessUtilities.GetOpponentOf(data.WhoseTurn)),
@@ -381,7 +381,7 @@ namespace ChessDotNet
 
         public virtual string GetFen()
         {
-            StringBuilder fenBuilder = new StringBuilder();
+            var fenBuilder = new StringBuilder();
             Piece[][] board = GetBoard();
             for (int i = 0; i < board.Length; i++)
             {
@@ -484,10 +484,10 @@ namespace ChessDotNet
             Dictionary<char, Piece> fenMappings = FenMappings;
             string[] parts = fen.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             if (!AllowedFenPartsLength.Contains(parts.Length)) throw new ArgumentException("The FEN string has too much, or too few, parts.");
-            Piece[][] board = new Piece[8][];
+            var board = new Piece[8][];
             string[] rows = parts[0].Split('/');
             if (!ValidFenBoardRows.Contains(rows.Length)) throw new ArgumentException("The board in the FEN string has an invalid number of rows.");
-            GameCreationData data = new GameCreationData();
+            var data = new GameCreationData();
 
             data.Board = InterpretBoardOfFen(parts[0]);
 
@@ -519,7 +519,7 @@ namespace ChessDotNet
             if (parts[3] == "-") data.EnPassant = null;
             else
             {
-                Position ep = new Position(parts[3]);
+                var ep = new Position(parts[3]);
                 if ((data.WhoseTurn == Player.White && (ep.Rank != 6 || !(data.Board[3][(int)ep.File] is Pawn))) ||
                     (data.WhoseTurn == Player.Black && (ep.Rank != 3 || !(data.Board[4][(int)ep.File] is Pawn))))
                 {
@@ -553,12 +553,12 @@ namespace ChessDotNet
 
         protected virtual Piece[][] InterpretBoardOfFen(string board)
         {
-            Piece[][] pieceArr = new Piece[8][];
+            var pieceArr = new Piece[8][];
             string[] rows = board.Split('/');
             for (int i = 0; i < 8; i++)
             {
                 string row = rows[i];
-                Piece[] currentRow = new Piece[8] { null, null, null, null, null, null, null, null };
+                var currentRow = new Piece[8] { null, null, null, null, null, null, null, null };
                 int j = 0;
                 foreach (char c in row)
                 {
@@ -595,7 +595,7 @@ namespace ChessDotNet
 
         public Piece GetPieceAt(Position position)
         {
-            ChessUtilities.ThrowIfNull(position, "position");
+            ChessUtilities.ThrowIfNull(position, nameof(position));
             return GetPieceAt(position.File, position.Rank);
         }
 
@@ -611,19 +611,19 @@ namespace ChessDotNet
 
         public bool IsValidMove(Move move)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
             return IsValidMove(move, true, true);
         }
 
         protected bool IsValidMove(Move move, bool validateCheck)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
             return IsValidMove(move, validateCheck, true);
         }
 
         protected virtual bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -730,14 +730,14 @@ namespace ChessDotNet
 
         protected virtual MoveType ApplyMove(Move move, bool alreadyValidated, out Piece captured, out CastlingType castleType)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
             captured = null;
             if (!alreadyValidated && !IsValidMove(move))
             {
                 castleType = CastlingType.None;
                 return MoveType.Invalid;
             }
-            MoveType type = MoveType.Move;
+            var type = MoveType.Move;
             Piece movingPiece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
 
             if (movingPiece == null)
@@ -749,11 +749,11 @@ namespace ChessDotNet
             captured = capturedPiece;
             Piece newPiece = movingPiece;
             bool isCapture = capturedPiece != null;
-            CastlingType castle = CastlingType.None;
+            var castle = CastlingType.None;
             if (movingPiece is Pawn)
             {
                 i_halfMoveClock = 0;
-                PositionDistance pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
+                var pd = new PositionDistance(move.OriginalPosition, move.NewPosition);
                 if (pd.DistanceX == 1 && pd.DistanceY == 1 && GetPieceAt(move.NewPosition) == null)
                 {
                     type |= MoveType.EnPassant;
@@ -959,13 +959,13 @@ namespace ChessDotNet
             {
                 return new List<Position>();
             }
-            List<Position> ambiguities = new List<Position>();
+            var ambiguities = new List<Position>();
             foreach (File f in Enum.GetValues(typeof(File)))
             {
                 if (f == File.None) continue;
                 for (int r = 1; r <= 8; r++)
                 {
-                    Position pos = new Position(f, r);
+                    var pos = new Position(f, r);
                     if (!move.OriginalPosition.Equals(pos))
                     {
                         Piece p = GetPieceAt(f, r);
@@ -1005,7 +1005,7 @@ namespace ChessDotNet
                 }
             }
 
-            StringBuilder sanBuilder = new StringBuilder();
+            var sanBuilder = new StringBuilder();
 
             if (!(movingPiece is Pawn))
             {
@@ -1048,7 +1048,7 @@ namespace ChessDotNet
 
         public virtual string GetPGN()
         {
-            StringBuilder pgnBuilder = new StringBuilder();
+            var pgnBuilder = new StringBuilder();
             int counter = 1;
             foreach (DetailedMove dm in _moves)
             {
@@ -1092,13 +1092,13 @@ namespace ChessDotNet
 
         public ReadOnlyCollection<Move> GetValidMoves(Position from)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, nameof(from));
             return GetValidMoves(from, false);
         }
 
         protected virtual ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, nameof(from));
             Piece piece = GetPieceAt(from);
             if (piece == null || piece.Owner != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
             return piece.GetValidMoves(from, returnIfAny, this, IsValidMove);
@@ -1112,7 +1112,7 @@ namespace ChessDotNet
         protected virtual ReadOnlyCollection<Move> GetValidMoves(Player player, bool returnIfAny)
         {
             if (player != WhoseTurn) return new ReadOnlyCollection<Move>(new List<Move>());
-            List<Move> validMoves = new List<Move>();
+            var validMoves = new List<Move>();
             for (int r = 1; r <= Board.Length; r++)
             {
                 for (int f = 0; f < Board[8 - r].Length; f++)
@@ -1133,7 +1133,7 @@ namespace ChessDotNet
 
         public virtual bool HasAnyValidMoves(Position from)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, nameof(from));
             ReadOnlyCollection<Move> validMoves = GetValidMoves(from, true);
             return validMoves.Count > 0;
         }
@@ -1151,7 +1151,7 @@ namespace ChessDotNet
                 throw new ArgumentException("IsInCheck: Player.None is an invalid argument.");
             }
 
-            Position kingPos = new Position(File.None, -1);
+            var kingPos = new Position(File.None, -1);
 
             for (int r = 1; r <= Board.Length; r++)
             {
@@ -1180,8 +1180,8 @@ namespace ChessDotNet
                     Piece curr = GetPieceAt((File)f, r);
                     if (curr == null) continue;
                     Player p = curr.Owner;
-                    Move move = new Move(new Position((File)f, r), kingPos, p);
-                    List<Move> moves = new List<Move>();
+                    var move = new Move(new Position((File)f, r), kingPos, p);
+                    var moves = new List<Move>();
                     if (curr is Pawn && ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black)))
                     {
                         moves.Add(new Move(move.OriginalPosition, move.NewPosition, move.Player, 'Q'));
@@ -1280,8 +1280,8 @@ namespace ChessDotNet
 
         public virtual bool WouldBeInCheckAfter(Move move, Player player)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            GameCreationData gcd = new GameCreationData();
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            var gcd = new GameCreationData();
             gcd.Board = Board;
             gcd.CanWhiteCastleKingSide = CanWhiteCastleKingSide;
             gcd.CanWhiteCastleQueenSide = CanWhiteCastleQueenSide;
@@ -1290,7 +1290,7 @@ namespace ChessDotNet
             gcd.EnPassant = null;
             gcd.HalfMoveClock = i_halfMoveClock;
             gcd.FullMoveNumber = i_fullMoveNumber;
-            ChessGame copy = new ChessGame(gcd);
+            var copy = new ChessGame(gcd);
             if (GetPieceAt(move.OriginalPosition) is Pawn)
             {
                 copy.ApplyMove(move, true);

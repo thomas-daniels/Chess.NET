@@ -25,7 +25,7 @@ namespace ChessDotNet.Variants.Atomic
             MoveType type = base.ApplyMove(move, alreadyValidated, out captured, out castlingType);
             if (!type.HasFlag(MoveType.Capture))
                 return type;
-            int[][] surroundingSquares = new int[][] { new int[] { 1, 0 }, new int[] { 1, 1 }, new int[] { 0, 1 }, new int[] { -1, -1 },
+            var surroundingSquares = new int[][] { new int[] { 1, 0 }, new int[] { 1, 1 }, new int[] { 0, 1 }, new int[] { -1, -1 },
                                                        new int[] { -1, 0 }, new int[] { 0, -1 }, new int[] { -1, 1 }, new int[] { 1, -1 } };
             SetPieceAt(move.NewPosition.File, move.NewPosition.Rank, null);
             foreach (int[] surroundingSquaresDistance in surroundingSquares)
@@ -62,7 +62,7 @@ namespace ChessDotNet.Variants.Atomic
 
         protected override bool IsValidMove(Move move, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
             if (move.OriginalPosition.Equals(move.NewPosition))
                 return false;
             Piece piece = GetPieceAt(move.OriginalPosition.File, move.OriginalPosition.Rank);
@@ -131,8 +131,8 @@ namespace ChessDotNet.Variants.Atomic
 
         protected virtual bool WouldBeSuicide(Move move, Player player)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            AtomicChessGame copy = new AtomicChessGame(Board, player);
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            var copy = new AtomicChessGame(Board, player);
             copy.ApplyMove(move, true);
             bool ownKingIsGone = copy.KingIsGone(player);
             if (ownKingIsGone)
@@ -147,8 +147,8 @@ namespace ChessDotNet.Variants.Atomic
 
         protected virtual bool WouldBeSuicideOrInvalidSelfMoveInCheck(Move move, Player player)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            AtomicChessGame copy = new AtomicChessGame(Board, player);
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            var copy = new AtomicChessGame(Board, player);
             copy.ApplyMove(move, true);
             bool ownKingIsGone = copy.KingIsGone(player);
             bool otherKingIsGone = copy.KingIsGone(ChessUtilities.GetOpponentOf(player));

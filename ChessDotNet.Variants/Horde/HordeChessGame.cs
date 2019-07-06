@@ -65,7 +65,7 @@ namespace ChessDotNet.Variants.Horde
         public HordeChessGame(string fen) : base(fen) { }
         public HordeChessGame(IEnumerable<Move> moves, bool movesAreValidated) : this() {
             if (moves == null)
-                throw new ArgumentNullException("moves");
+                throw new ArgumentNullException(nameof(moves));
             foreach (Move m in moves)
             {
                 if (ApplyMove(m, movesAreValidated) == MoveType.Invalid)

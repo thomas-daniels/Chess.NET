@@ -73,7 +73,7 @@
             if (ReferenceEquals(this, obj))
                 return true;
             Move move1 = this;
-            Move move2 = (Move)obj;
+            var move2 = (Move)obj;
             return move1.OriginalPosition.Equals(move2.OriginalPosition)
                 && move1.NewPosition.Equals(move2.NewPosition)
                 && move1.Player == move2.Player

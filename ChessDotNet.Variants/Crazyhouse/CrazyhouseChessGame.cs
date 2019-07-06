@@ -131,7 +131,7 @@ namespace ChessDotNet.Variants.Crazyhouse
 
         protected virtual bool IsValidDrop(Drop drop, bool validateCheck, bool careAboutWhoseTurnItIs)
         {
-            ChessUtilities.ThrowIfNull(drop, "drop");
+            ChessUtilities.ThrowIfNull(drop, nameof(drop));
             if (careAboutWhoseTurnItIs && drop.Player != WhoseTurn) return false;
             if (GetPieceAt(drop.Destination) != null) return false;
 
@@ -172,14 +172,14 @@ namespace ChessDotNet.Variants.Crazyhouse
 
         public virtual bool WouldBeInCheckAfter(Drop drop, Player player)
         {
-            CrazyhouseChessGame copy = new CrazyhouseChessGame(GetFen());
+            var copy = new CrazyhouseChessGame(GetFen());
             copy.SetPieceAt(drop.Destination.File, drop.Destination.Rank, drop.ToDrop);
             return copy.IsInCheck(player);
         }
 
         public virtual bool ApplyDrop(Drop drop, bool alreadyValidated)
         {
-            ChessUtilities.ThrowIfNull(drop, "drop");
+            ChessUtilities.ThrowIfNull(drop, nameof(drop));
             if (!alreadyValidated && !IsValidDrop(drop))
             {
                 return false;
@@ -235,16 +235,16 @@ namespace ChessDotNet.Variants.Crazyhouse
 
         protected virtual List<Drop> GetValidDrops(Player player, Position on, bool returnIfAny)
         {
-            ChessUtilities.ThrowIfNull(on, "on");
+            ChessUtilities.ThrowIfNull(on, nameof(on));
             if (GetPieceAt(on) != null || WhoseTurn != player) return new List<Drop>();
             if (WouldBeInCheckAfter(new Drop(new Queen(player), on, player), player)) return new List<Drop>();
 
             bool isValidForPawns = on.Rank != 1 && on.Rank != 8;
-            List<Drop> valid = new List<Drop>();
+            var valid = new List<Drop>();
             foreach (Piece p in (player == Player.White ? whitePocket : blackPocket))
             {
                 if (p is Pawn && !isValidForPawns) continue;
-                Drop d = new Drop(p, on, player);
+                var d = new Drop(p, on, player);
                 if (!valid.Contains(d))
                 {
                     valid.Add(d);
@@ -260,12 +260,12 @@ namespace ChessDotNet.Variants.Crazyhouse
         protected virtual List<Drop> GetValidDrops(Player player, bool returnIfAny)
         {
             if (player == Player.None) throw new ArgumentException("'player' must be White or Black.", "player");
-            List<Drop> valid = new List<Drop>();
+            var valid = new List<Drop>();
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 1; j < 9; j++)
                 {
-                    Position pos = new Position((File)i, j);
+                    var pos = new Position((File)i, j);
                     List<Drop> validOnPos = GetValidDrops(player, pos, returnIfAny);
                     if (validOnPos.Count != 0)
                     {

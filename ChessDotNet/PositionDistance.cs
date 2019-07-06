@@ -24,9 +24,9 @@ namespace ChessDotNet
         public PositionDistance(Position position1, Position position2)
         {
             if (position1 == null)
-                throw new ArgumentNullException("position1");
+                throw new ArgumentNullException(nameof(position1));
             if (position2 == null)
-                throw new ArgumentNullException("position2");
+                throw new ArgumentNullException(nameof(position2));
             _distanceX = Math.Abs((int)position1.File - (int)position2.File);
             _distanceY = Math.Abs((int)position1.Rank - (int)position2.Rank);
         }
@@ -35,7 +35,7 @@ namespace ChessDotNet
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            PositionDistance distance2 = (PositionDistance)obj;
+            var distance2 = (PositionDistance)obj;
             return DistanceX == distance2.DistanceX && DistanceY == distance2.DistanceY;
         }
 
