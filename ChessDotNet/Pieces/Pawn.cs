@@ -51,8 +51,8 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            ChessUtilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            ChessUtilities.ThrowIfNull(game, nameof(game));
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
@@ -61,7 +61,7 @@ namespace ChessDotNet.Pieces
             {
                 promotion = game.MapPgnCharToPiece(char.ToUpper(move.Promotion.Value), move.Player);
             }
-            PositionDistance posDelta = new PositionDistance(origin, destination);
+            var posDelta = new PositionDistance(origin, destination);
             if ((posDelta.DistanceX != 0 || posDelta.DistanceY != 1) && (posDelta.DistanceX != 1 || posDelta.DistanceY != 1)
                         && (posDelta.DistanceX != 0 || posDelta.DistanceY != 2))
                 return false;
@@ -154,8 +154,8 @@ namespace ChessDotNet.Pieces
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
-            List<Move> validMoves = new List<Move>();
+            ChessUtilities.ThrowIfNull(from, nameof(from));
+            var validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
@@ -173,8 +173,8 @@ namespace ChessDotNet.Pieces
                 if ((int)from.File + dir[0] < 0 || (int)from.File + dir[0] >= l1
                     || from.Rank + dir[1] < 1 || from.Rank + dir[1] > l0)
                     continue;
-                Move move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
-                List<Move> moves = new List<Move>();
+                var move = new Move(from, new Position(from.File + dir[0], from.Rank + dir[1]), piece.Owner);
+                var moves = new List<Move>();
                 if ((move.NewPosition.Rank == 8 && move.Player == Player.White) || (move.NewPosition.Rank == 1 && move.Player == Player.Black))
                 {
                     foreach (char pieceChar in ValidPromotionPieces.Where(x => char.IsUpper(x)))

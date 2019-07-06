@@ -28,7 +28,7 @@ namespace ChessDotNet.Pieces
 
         public override Piece AsPromotion()
         {
-            Queen copy = new Queen(Owner);
+            var copy = new Queen(Owner);
             copy.IsPromotionResult = true;
             return copy;
         }
@@ -45,14 +45,14 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            ChessUtilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            ChessUtilities.ThrowIfNull(game, nameof(game));
             return new Bishop(Owner).IsValidMove(move, game) || new Rook(Owner).IsValidMove(move, game);
         }
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
+            ChessUtilities.ThrowIfNull(from, nameof(from));
             ReadOnlyCollection<Move> horizontalVerticalMoves = new Rook(Owner).GetValidMoves(from, returnIfAny, game, gameMoveValidator);
             if (returnIfAny && horizontalVerticalMoves.Count > 0)
                 return horizontalVerticalMoves;

@@ -28,7 +28,7 @@ namespace ChessDotNet.Pieces
 
         public override Piece AsPromotion()
         {
-            Rook copy = new Rook(Owner);
+            var copy = new Rook(Owner);
             copy.IsPromotionResult = true;
             return copy;
         }
@@ -45,12 +45,12 @@ namespace ChessDotNet.Pieces
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
-            ChessUtilities.ThrowIfNull(move, "move");
-            ChessUtilities.ThrowIfNull(game, "game");
+            ChessUtilities.ThrowIfNull(move, nameof(move));
+            ChessUtilities.ThrowIfNull(game, nameof(game));
             Position origin = move.OriginalPosition;
             Position destination = move.NewPosition;
 
-            PositionDistance posDelta = new PositionDistance(origin, destination);
+            var posDelta = new PositionDistance(origin, destination);
             if (posDelta.DistanceX != 0 && posDelta.DistanceY != 0)
                 return false;
             bool increasingRank = destination.Rank > origin.Rank;
@@ -86,8 +86,8 @@ namespace ChessDotNet.Pieces
 
         public override ReadOnlyCollection<Move> GetValidMoves(Position from, bool returnIfAny, ChessGame game, Func<Move, bool> gameMoveValidator)
         {
-            ChessUtilities.ThrowIfNull(from, "from");
-            List<Move> validMoves = new List<Move>();
+            ChessUtilities.ThrowIfNull(from, nameof(from));
+            var validMoves = new List<Move>();
             Piece piece = game.GetPieceAt(from);
             int l0 = game.BoardHeight;
             int l1 = game.BoardWidth;
@@ -97,7 +97,7 @@ namespace ChessDotNet.Pieces
                     continue;
                 if (from.Rank + i > 0 && from.Rank + i <= l0)
                 {
-                    Move move = new Move(from, new Position(from.File, from.Rank + i), piece.Owner);
+                    var move = new Move(from, new Position(from.File, from.Rank + i), piece.Owner);
                     if (gameMoveValidator(move))
                     {
                         validMoves.Add(move);
@@ -107,7 +107,7 @@ namespace ChessDotNet.Pieces
                 }
                 if ((int)from.File + i > -1 && (int)from.File + i < l1)
                 {
-                    Move move = new Move(from, new Position(from.File + i, from.Rank), piece.Owner);
+                    var move = new Move(from, new Position(from.File + i, from.Rank), piece.Owner);
                     if (gameMoveValidator(move))
                     {
                         validMoves.Add(move);

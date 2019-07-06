@@ -29,7 +29,7 @@ namespace ChessDotNet
             {
                 moves.RemoveAt(moves.Count - 1);
             }
-            TGame game = new TGame();
+            var game = new TGame();
             int ply = 0;
             foreach (string _ in moves)
             {
@@ -130,7 +130,7 @@ namespace ChessDotNet
 
                 if (origin != null)
                 {
-                    Move m = new Move(origin, destination, player, promotion);
+                    var m = new Move(origin, destination, player, promotion);
                     if (game.IsValidMove(m))
                     {
                         game.MakeMove(m, true);
@@ -143,7 +143,7 @@ namespace ChessDotNet
                 else
                 {
                     Piece[][] board = game.GetBoard();
-                    List<Move> validMoves = new List<Move>();
+                    var validMoves = new List<Move>();
                     for (int r = 0; r < game.BoardHeight; r++)
                     {
                         if (rankRestriction != -1 && r != 8 - rankRestriction) continue;
@@ -151,7 +151,7 @@ namespace ChessDotNet
                         {
                             if (fileRestriction != File.None && f != (int)fileRestriction) continue;
                             if (board[r][f] != piece) continue;
-                            Move m = new Move(new Position((File)f, 8 - r), destination, player, promotion);
+                            var m = new Move(new Position((File)f, 8 - r), destination, player, promotion);
                             if (game.IsValidMove(m))
                             {
                                 validMoves.Add(m);

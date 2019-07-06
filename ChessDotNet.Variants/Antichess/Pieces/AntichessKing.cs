@@ -8,7 +8,7 @@ namespace ChessDotNet.Variants.Antichess.Pieces
 
         public override Piece AsPromotion()
         {
-            AntichessKing copy = new AntichessKing(Owner);
+            var copy = new AntichessKing(Owner);
             copy.IsPromotionResult = true;
             return copy;
         }

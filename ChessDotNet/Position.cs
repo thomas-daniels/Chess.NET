@@ -55,7 +55,7 @@ namespace ChessDotNet
         {
             if (position == null)
             {
-                throw new ArgumentNullException("position");
+                throw new ArgumentNullException(nameof(position));
             }
             if (position.Length != 2)
             {

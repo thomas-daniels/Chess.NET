@@ -41,13 +41,13 @@ namespace ChessDotNet
                 maxInc = file1Inclusive;
                 minInc = file2Inclusive;
             }
-            File[] files = new File[] { File.A, File.B, File.C, File.D, File.E, File.F, File.G, File.H };
+            var files = new File[] { File.A, File.B, File.C, File.D, File.E, File.F, File.G, File.H };
             return files.Skip(min + (minInc ? 0 : 1)).Take(max - min + (maxInc ? 1 : 0) - (minInc ? 0 : 1)).ToArray();
         }
 
         private static string Chess960StartingArray(int n)
         {
-            string[] fenParts = new string[8];
+            var fenParts = new string[8];
 
             int n2 = n / 4;
             int b1 = n % 4;
@@ -74,7 +74,7 @@ namespace ChessDotNet
                 }
             }
 
-            bool[] knightPositioning = new bool[][]
+            var knightPositioning = new bool[][]
             {
                 new bool[] { true, true, false, false, false },
                 new bool[] { true, false, true, false, false },
@@ -165,7 +165,7 @@ namespace ChessDotNet
         // https://github.com/ProgramFOX/Chess.NET/wiki/Algorithm-for-RacingKings1440-positions
         private static string[] RK1440WhiteStartingArray(int n)
         {
-            string[][] setup = new string[][] { new string[4], new string[4] };
+            var setup = new string[][] { new string[4], new string[4] };
 
             int n2 = n / 4;
             int k = n % 4;
@@ -189,7 +189,7 @@ namespace ChessDotNet
             int n3 = n2 / 3;
             int b1 = n2 % 3;
 
-            int[][] possibleB1Squares = k % 2 == 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
+            var possibleB1Squares = k % 2 == 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
                                                    : new int[][] { new int[] { 0, 0 }, new int[] { 0, 2 }, new int[] { 1, 3 }, new int[] { 1, 1 } };
             int counter = 0;
             for (int i = 0; i < possibleB1Squares.Length; i++)
@@ -208,14 +208,14 @@ namespace ChessDotNet
 
             int n4 = n3 / 4;
             int b2 = n3 % 4;
-            int[][] possibleB2Squares = k % 2 != 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
+            var possibleB2Squares = k % 2 != 0 ? new int[][] { new int[] { 0, 1 }, new int[] { 0, 3 }, new int[] { 1, 2 }, new int[] { 1, 0 } }
                                                    : new int[][] { new int[] { 0, 0 }, new int[] { 0, 2 }, new int[] { 1, 3 }, new int[] { 1, 1 } };
             int[] chosenB2Square = possibleB2Squares[b2];
             setup[chosenB2Square[0]][chosenB2Square[1]] = "B";
 
             int n5 = n4 / 5;
             int q = n4 % 5;
-            int[][] possibleQNRSquares = new int[][] { new int[] { 0, 0 }, new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 0, 3 }, new int[] { 1, 3 }, new int[] { 1, 2 }, new int[] { 1, 1 }, new int[] { 1, 0 } };
+            var possibleQNRSquares = new int[][] { new int[] { 0, 0 }, new int[] { 0, 1 }, new int[] { 0, 2 }, new int[] { 0, 3 }, new int[] { 1, 3 }, new int[] { 1, 2 }, new int[] { 1, 1 }, new int[] { 1, 0 } };
             counter = 0;
             for (int i = 0; i < possibleQNRSquares.Length; i++)
             {
@@ -266,7 +266,7 @@ namespace ChessDotNet
             string[] whiteRows = RK1440WhiteStartingArray(nWhite);
 
             string[] whiteRowsForBlack = RK1440WhiteStartingArray(nBlack);
-            string[] blackRows = new string[] { string.Concat(whiteRowsForBlack[0].ToLowerInvariant().Reverse()), string.Concat(whiteRowsForBlack[1].ToLowerInvariant().Reverse()) };
+            var blackRows = new string[] { string.Concat(whiteRowsForBlack[0].ToLowerInvariant().Reverse()), string.Concat(whiteRowsForBlack[1].ToLowerInvariant().Reverse()) };
             return string.Format("8/8/8/8/8/8/{0}{1}/{2}{3} w - - 0 1", blackRows[0], whiteRows[0], blackRows[1], whiteRows[1]);
         }
     }

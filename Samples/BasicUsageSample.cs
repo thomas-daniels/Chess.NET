@@ -10,7 +10,7 @@ namespace Samples
         static void Main(string[] args)
         {
             // Let's start by creating a chess game instance.
-            ChessGame game = new ChessGame();
+            var game = new ChessGame();
 
             // Now the game's board is in the start position and it's white's turn.
             Console.WriteLine("It's this color's turn: {0}", game.WhoseTurn);
@@ -26,7 +26,7 @@ namespace Samples
             // The Piece class is the abstract base class for pieces. All piece classes (e.g. Rook) derive from this class.
 
             // White has to make a turn. They want to move their E2 pawn to E4. Is that valid?
-            Move e2e4 = new Move("E2", "E4", Player.White);
+            var e2e4 = new Move("E2", "E4", Player.White);
             bool isValid = game.IsValidMove(e2e4);
             Console.WriteLine("E2-E4 for white is valid: {0}", isValid);
 

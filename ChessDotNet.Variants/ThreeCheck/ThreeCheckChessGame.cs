@@ -39,7 +39,7 @@ namespace ChessDotNet.Variants.ThreeCheck
             string[] parts = fen.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 7)
             {
-                Regex re = new Regex(@"^\+(\d)\+(\d)$");
+                var re = new Regex(@"^\+(\d)\+(\d)$");
                 Match m = re.Match(parts[6]);
                 if (!m.Success)
                 {
