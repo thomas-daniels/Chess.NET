@@ -1,3 +1,7 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+I don't intend to continue maintaining this project. See https://github.com/thomas-daniels/Chess.NET/issues/29#issuecomment-599210147 for the details.
+
 Chess.NET [![](https://travis-ci.org/ProgramFOX/Chess.NET.svg?branch=master)](https://travis-ci.org/ProgramFOX/Chess.NET)
 =
 Chess.NET is a chess library for .NET, written in C#.
