@@ -4,7 +4,7 @@ namespace ChessDotNet.Variants.Atomar.Pieces
 {
     public class AtomarKing : King
     {
-        public AtomarKing(Player owner) : base(owner, false) { }
+        public AtomarKing(Player owner) : base(owner, true) { }
 
         public override bool IsValidMove(Move move, ChessGame game)
         {
