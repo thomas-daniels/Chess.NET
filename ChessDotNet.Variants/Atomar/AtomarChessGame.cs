@@ -116,14 +116,7 @@ namespace ChessDotNet.Variants.Atomar
             Piece pieceAtDestination = GetPieceAt(move.NewPosition);
             if (pieceAtDestination != null)
             {
-                if (piece is King)
-                {
-                    if (pieceAtDestination is Rook)
-                    {
-                        if (pieceAtDestination.Owner != move.Player) return false;
-                    }
-                }
-                else if (pieceAtDestination.Owner == move.Player)
+                if (pieceAtDestination.Owner == move.Player && !(piece is King && pieceAtDestination is Rook))
                 {
                     return false;
                 }
@@ -213,6 +206,11 @@ namespace ChessDotNet.Variants.Atomar
         }
 
         public override bool IsInCheck(Player player)
+        {
+            return false;
+        }
+
+        public override bool WouldBeInCheckAfter(Move move, Player player)
         {
             return false;
         }

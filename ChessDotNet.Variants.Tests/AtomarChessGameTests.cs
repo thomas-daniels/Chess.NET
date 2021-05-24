@@ -174,16 +174,31 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("F8", "G7", Player.Black), true);
             Assert.True(game.IsValidMove(new Move("E1", "H1", Player.White)));
             var moves = game.GetValidMoves(Player.White);
-            bool ok = false;
+            int ok = 0;
             foreach (var move in moves)
             {
                 if (move.OriginalPosition.ToString() == "E1" && (move.NewPosition.ToString() == "G1" || move.NewPosition.ToString() == "H1"))
                 {
-                    ok = true;
-                    break;
+                    ok++;
                 }
             }
-            Assert.True(ok);
+            Assert.AreEqual(2, ok);
+        }
+
+        [Test]
+        public void TestCastling2()
+        {
+            AtomarChessGame game = new AtomarChessGame("3Rk2r/pp3ppp/n4n2/8/8/8/PPP2P1P/2K3NR b k - 0 1");
+            Assert.True(game.IsValidMove(new Move("E8", "G8", Player.Black)));
+            Assert.True(game.IsValidMove(new Move("E8", "H8", Player.Black)));
+        }
+
+        [Test]
+        public void TestKingCanTakeOtherRookButNotOwnPawn()
+        {
+            AtomarChessGame game = new AtomarChessGame("3Rk2r/pp3ppp/n4n2/8/8/8/PPP2P1P/2K3NR b k - 0 1");
+            Assert.True(game.IsValidMove(new Move("E8", "D8", Player.Black)));
+            Assert.False(game.IsValidMove(new Move("E8", "F7", Player.Black)));
         }
     }
 }
