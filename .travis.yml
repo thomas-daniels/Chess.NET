@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.1.502
+dotnet: 3.0
 solution: ChessDotNet.sln
 script:
   - dotnet test ./ChessDotNet.Tests/ChessDotNet.Tests.csproj
