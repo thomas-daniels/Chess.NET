@@ -161,5 +161,29 @@ namespace ChessDotNet.Variants.Tests
             game.MakeMove(new Move("H4", "D4", Player.White), true);
             Assert.AreEqual("nNn5/8/8/3k4/8/3K4/8/8", game.GetFen().Split(" ")[0]);
         }
+
+        [Test]
+        public void TestCastling()
+        {
+            AtomarChessGame game = new AtomarChessGame("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            game.MakeMove(new Move("G1", "F3", Player.White), true);
+            game.MakeMove(new Move("G8", "F6", Player.Black), true);
+            game.MakeMove(new Move("G2", "G3", Player.White), true);
+            game.MakeMove(new Move("G7", "G6", Player.Black), true);
+            game.MakeMove(new Move("F1", "G2", Player.White), true);
+            game.MakeMove(new Move("F8", "G7", Player.Black), true);
+            Assert.True(game.IsValidMove(new Move("E1", "H1", Player.White)));
+            var moves = game.GetValidMoves(Player.White);
+            bool ok = false;
+            foreach (var move in moves)
+            {
+                if (move.OriginalPosition.ToString() == "E1" && (move.NewPosition.ToString() == "G1" || move.NewPosition.ToString() == "H1"))
+                {
+                    ok = true;
+                    break;
+                }
+            }
+            Assert.True(ok);
+        }
     }
 }

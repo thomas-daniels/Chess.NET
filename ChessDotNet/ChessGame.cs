@@ -334,8 +334,8 @@ namespace ChessDotNet
             Piece[] firstRank = Board[7];
 
             CanBlackCastleKingSide = CanBlackCastleQueenSide = CanWhiteCastleKingSide = CanWhiteCastleQueenSide = CastlingCanBeLegal;
-            InitialWhiteKingFile = (File)Array.IndexOf(firstRank, new King(Player.White));
-            InitialBlackKingFile = (File)Array.IndexOf(eighthRank, new King(Player.Black));
+            InitialWhiteKingFile = (File)Array.IndexOf(firstRank, FenMappings['K']);
+            InitialBlackKingFile = (File)Array.IndexOf(eighthRank, FenMappings['k']);
             if (CastlingCanBeLegal)
             {
                 CanBlackCastleKingSide = data.CanBlackCastleKingSide;
