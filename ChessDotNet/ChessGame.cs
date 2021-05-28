@@ -343,10 +343,10 @@ namespace ChessDotNet
                 CanWhiteCastleKingSide = data.CanWhiteCastleKingSide;
                 CanWhiteCastleQueenSide = data.CanWhiteCastleQueenSide;
             }
-            InitialBlackRookFileQueensideCastling = CanBlackCastleQueenSide ? (File)Array.IndexOf(eighthRank, new Rook(Player.Black)) : File.None;
-            InitialBlackRookFileKingsideCastling = CanBlackCastleKingSide ? (File)Array.LastIndexOf(eighthRank, new Rook(Player.Black)) : File.None;
-            InitialWhiteRookFileQueensideCastling = CanWhiteCastleQueenSide ? (File)Array.IndexOf(firstRank, new Rook(Player.White)) : File.None;
-            InitialWhiteRookFileKingsideCastling = CanWhiteCastleKingSide ? (File)Array.LastIndexOf(firstRank, new Rook(Player.White)) : File.None;
+            InitialBlackRookFileQueensideCastling = CanBlackCastleQueenSide ? (File)Array.IndexOf(eighthRank, FenMappings['r']) : File.None;
+            InitialBlackRookFileKingsideCastling = CanBlackCastleKingSide ? (File)Array.LastIndexOf(eighthRank, FenMappings['r']) : File.None;
+            InitialWhiteRookFileQueensideCastling = CanWhiteCastleQueenSide ? (File)Array.IndexOf(firstRank, FenMappings['R']) : File.None;
+            InitialWhiteRookFileKingsideCastling = CanWhiteCastleKingSide ? (File)Array.LastIndexOf(firstRank, FenMappings['R']) : File.None;
 
             if (InitialBlackRookFileQueensideCastling == File.None) CanBlackCastleQueenSide = false;
             if (InitialBlackRookFileKingsideCastling == File.None) CanBlackCastleKingSide = false;
@@ -694,8 +694,8 @@ namespace ChessDotNet
             }
             SetPieceAt(rookFile, rank, null);
             SetPieceAt(move.OriginalPosition.File, rank, null);
-            SetPieceAt(newRookFile, rank, new Rook(move.Player));
-            SetPieceAt(newKingFile, rank, new King(move.Player));
+            SetPieceAt(newRookFile, rank, move.Player == Player.White ? FenMappings['R'] : FenMappings['r']);
+            SetPieceAt(newKingFile, rank, move.Player == Player.White ? FenMappings['K'] : FenMappings['k']);
             return castle;
         }
 
