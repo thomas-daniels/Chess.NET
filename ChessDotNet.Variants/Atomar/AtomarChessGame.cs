@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ChessDotNet.Pieces;
 using ChessDotNet.Variants.Atomar.Pieces;
 
@@ -213,6 +214,14 @@ namespace ChessDotNet.Variants.Atomar
         public override bool WouldBeInCheckAfter(Move move, Player player)
         {
             return false;
+        }
+
+        public override bool IsInsufficientMaterial()
+        {
+            var whitePieces = PiecesOnBoard.Where(p => p.Owner == Player.White).ToArray();
+            var blackPieces = PiecesOnBoard.Where(p => p.Owner == Player.Black).ToArray();
+
+            return whitePieces.Length == 1 && blackPieces.Length == 1 && whitePieces[0] is King && blackPieces[0] is King;
         }
     }
 }

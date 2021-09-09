@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ChessDotNet.Pieces;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ChessDotNet.Variants.ThreeCheck
@@ -93,6 +95,14 @@ namespace ChessDotNet.Variants.ThreeCheck
         public override bool Undo()
         {
             throw new NotImplementedException("Undo not implemented yet for three-checks.");
+        }
+
+        public override bool IsInsufficientMaterial()
+        {
+            var whitePieces = PiecesOnBoard.Where(p => p.Owner == Player.White).ToArray();
+            var blackPieces = PiecesOnBoard.Where(p => p.Owner == Player.Black).ToArray();
+
+            return whitePieces.Length == 1 && blackPieces.Length == 1 && whitePieces[0] is King && blackPieces[0] is King;
         }
     }
 }

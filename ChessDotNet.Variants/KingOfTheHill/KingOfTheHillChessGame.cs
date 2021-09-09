@@ -44,5 +44,10 @@ namespace ChessDotNet.Variants.KingOfTheHill
         {
             return IsKingInCenter(player) || IsCheckmated(ChessUtilities.GetOpponentOf(player));
         }
+
+        public override bool IsInsufficientMaterial()
+        {
+            return false;
+        }
     }
 }
