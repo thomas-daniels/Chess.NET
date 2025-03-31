@@ -149,5 +149,10 @@ namespace ChessDotNet.Variants.RacingKings
         {
             return FindKing(Player.White).Rank == 8 && FindKing(Player.Black).Rank == 8 || base.IsDraw();
         }
+
+        public override bool IsInsufficientMaterial()
+        {
+            return false;
+        }
     }
 }
